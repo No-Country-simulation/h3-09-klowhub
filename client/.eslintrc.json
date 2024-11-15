@@ -9,7 +9,6 @@
 		"next/typescript",
 		"eslint:recommended",
 		"plugin:@next/next/recommended",
-		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
@@ -17,17 +16,19 @@
 		"ecmaFeatures": {
 			"jsx": true
 		},
-		"ecmaVersion": 12,
-		"sourceType": "module"
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": "./tsconfig.json"
 	},
-	"plugins": ["react", "@typescript-eslint"],
+	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"quotes": ["error", "single"],
 		"semi": ["error", "never"],
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"no-tabs": "off",
 		"@typescript-eslint/no-unused-vars": "warn",
-		"@next/next/no-html-link-for-pages": "off"
+		"@next/next/no-html-link-for-pages": "off",
+		"react/react-in-jsx-scope": "off"
 	},
 	"settings": {
 		"react": {
