@@ -48,6 +48,10 @@ export default {
 					900: '#03183B',
 				},
 				card: '#1F2937',
+				category_tag: {
+					bg: '#F3E3FBBF',
+					text: '#812AAC',
+				},
 			},
 		},
 	},
