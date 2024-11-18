@@ -22,7 +22,11 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-		"quotes": ["error", "single"],
+		"quotes": [
+			"error",
+			"single",
+			{ "avoidEscape": true, "allowTemplateLiterals": true }
+		],
 		"semi": ["error", "never"],
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"no-tabs": "off",
