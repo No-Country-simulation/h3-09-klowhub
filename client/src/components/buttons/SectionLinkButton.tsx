@@ -37,7 +37,7 @@ export default function SectionLinkButton({ section }: SectionLinkButtonProps) {
 		<Link
 			href={sectionData(section).href}
 			className={clsx(
-				'flex h-24 w-[333.75px] items-center justify-center rounded-xl bg-section-button text-xl font-bold text-white',
+				'relative flex h-24 w-[333.75px] items-center justify-center rounded-xl bg-section-button text-xl font-bold text-white',
 				{
 					'bg-cover bg-left': section === 'learn',
 					'bg-contain': section === 'appstore',
@@ -46,7 +46,8 @@ export default function SectionLinkButton({ section }: SectionLinkButtonProps) {
 				}
 			)}
 		>
-			{sectionData(section).text}
+			<div className="absolute size-full rounded-xl bg-black opacity-40 hover:bg-white hover:opacity-20" />
+			<p className="pointer-events-none z-10">{sectionData(section).text}</p>
 		</Link>
 	)
 }
