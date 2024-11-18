@@ -27,7 +27,12 @@ interface Props {
 export function AppCourseCard({ variant = 'app' }: Props) {
 	return (
 		<Card
-			className={`relative ${variant === 'app' ? 'max-w-xs' : 'max-w-sm'} overflow-hidden border-none bg-card`}
+			theme={{
+				root: {
+					children: 'p-4 md:p-5 gap-3 flex flex-col'
+				}
+			}}
+			className={`relative min-w-[320px] ${variant === 'app' ? 'max-w-xs' : 'max-w-sm'} overflow-hidden border-none bg-card`}
 			renderImage={() => (
 				<picture className="relative aspect-video w-full">
 					<Image fill src={app.image} alt="app image" />
@@ -43,7 +48,7 @@ export function AppCourseCard({ variant = 'app' }: Props) {
 				className="absolute right-2 top-2 z-20"
 				fill={`${user.favorites.includes(app.id) ? '#fff' : 'transparent'}`}
 			/>
-			<h5 className="text-sm font-bold tracking-tight">{app.title}</h5>
+			<h5 className="text-sm font-bold">{app.title}</h5>
 			<p className="text-sm">{app.description}</p>
 			<p className="">{app.stack}</p>
 			<div className="flex flex-wrap gap-4">
