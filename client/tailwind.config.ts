@@ -10,6 +10,9 @@ export default {
 	],
 	theme: {
 		extend: {
+			backgroundImage: {
+				'section-button': "url('/img/section-button-bg.png')",
+			},
 			colors: {
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
