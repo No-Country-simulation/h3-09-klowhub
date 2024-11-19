@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { UserDto, UpdateUserDto } from './dto';
 import { catchError, firstValueFrom } from 'rxjs';
 
 @Controller('users')
@@ -21,11 +21,11 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly userClient: ClientProxy,
   ) {}
 
-  @Post()
-  createUser(@Body() createUserDto: CreateUserDto) {
+  @Post('create')
+  createUser(@Body() createUserDto: UserDto) {
     return this.userClient.send({ cmd: 'create_user' }, createUserDto);
   }
-  @Get()
+  @Get('findAll')
   findAllUsers(@Query() paginationDto: PaginationDto) {
     return this.userClient.send({ cmd: 'find_all_users' }, paginationDto);
   }

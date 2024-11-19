@@ -7,7 +7,7 @@ import {
   IsNumberString,
 } from 'class-validator';
 
-export class CreateUserDto {
+export class UserDto {
   @IsString()
   @IsNotEmpty()
   public name: string;
@@ -24,4 +24,15 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   public role: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public bio: string;
+
+  @IsNotEmpty()
+  public available: boolean;
+
+  @IsOptional()
+  @IsString()
+  public photo?: string;
 }
