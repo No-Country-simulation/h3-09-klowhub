@@ -1,11 +1,12 @@
 import ConsultantCard from '@/components/cards/ConsultantCard'
+import { Consultant } from '@/models/consultant.model'
 
 export default function Home() {
-	const consultant = {
+	const consultant: Consultant = {
 		id: '1',
 		name: 'Marcos Perez Donoso',
-		countryCode: 'AR',
-		technologies: ['React', 'NextJS', 'TypeScript', 'TailwindCSS'],
+		countryCode: 'bo',
+		technologies: ['appsheet'],
 		image: '/img/profile_test.jpeg',
 		sessions: 10,
 		reviews: 5,

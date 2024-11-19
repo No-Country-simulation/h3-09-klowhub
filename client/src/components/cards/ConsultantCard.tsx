@@ -1,22 +1,12 @@
 'use client'
+import { Consultant } from '@/models/consultant.model'
 import { EllipsisVertical, Heart, MonitorPlay } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import Button from '../buttons/Button'
 import CountryTag from '../buyerTags/CountryTag'
-
-interface Consultant {
-	id: string
-	name: string
-	countryCode: string
-	image?: string
-	technologies: string[]
-	sessions: number
-	reviews: number
-	languages: string[]
-	price: number
-}
+import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 
 interface ConsultantCardProps {
 	consultant: Consultant
@@ -37,19 +27,16 @@ export default function ConsultantCard({
 }: ConsultantCardProps) {
 	const [liked, setLiked] = useState(false)
 
-	const TechnologyTag = ({ technology }: { technology: string }) => {
-		return <span>{technology}</span>
-	}
-
 	const handleLike = () => {
 		// TODO: Lógica de Like a Consultor
 		console.log(`Like el ${!liked} a consultor con ID: ${id}`)
 
 		setLiked(!liked)
 	}
+
 	return (
 		<section className="flex h-[486px] w-[330px] flex-col rounded-lg bg-card">
-			<div className="relative flex h-[200px] w-full justify-center rounded-t-lg bg-white">
+			<div className="relative flex h-[200px] w-full justify-center rounded-t-lg bg-white/10">
 				<Image
 					src={image ?? '/svg/profile_pic_placeholder.svg'}
 					alt="profile_picture"
@@ -76,9 +63,11 @@ export default function ConsultantCard({
 					<EllipsisVertical role="button" />
 				</div>
 
-				<div className="flex items-center justify-between">
+				<div className="flex flex-wrap items-center justify-between gap-y-1">
 					{technologies.map((technology, idx) => {
-						return <TechnologyTag key={idx} technology={technology} />
+						return (
+							<TechnologyTag key={idx} technology={technology as Technology} />
+						)
 					})}
 				</div>
 
@@ -100,7 +89,7 @@ export default function ConsultantCard({
 
 				<p className="text-xl font-bold">{price}USD / Hora</p>
 
-				<Link href={`/consultantProfile/${id}`}>
+				<Link className="flex justify-center" href={`/consultantProfile/${id}`}>
 					<Button variant="tertiary">Ver detalles</Button>
 				</Link>
 			</div>
