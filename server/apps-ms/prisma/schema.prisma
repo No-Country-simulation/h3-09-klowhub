@@ -22,10 +22,11 @@ model App {
   id String @id @default(uuid())
   seller_id String
   title String
+  photo_url String
   description String
   price Float
-  deploy_url String
-  dowload_url String
+  deploy_url String?
+  download_url String?
   category String @default("APPLICATION")
   technologies String[]
   lenguage AppLenguage @default(SPANISH)
