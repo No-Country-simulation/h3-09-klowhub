@@ -1,51 +1,45 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Prisma, User } from '@prisma/client';
+import { Prisma, PrismaClient, User } from '@prisma/client';
+import { UserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
-export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
-
+export class UserService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('User service');
-
-  async user(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
-    this.logger.log('userById');
-    const user = await this.prisma.user.findUnique({
-      where: userWhereUniqueInput,
+  async onModuleInit() {
+    await this.$connect();
+    this.logger.log('onModuleInit');
+  }
+  async findOneUser(id: string) {
+    this.logger.log('find_one_user');
+    const user = await this.user.findUnique({
+      where: { id },
     });
     return user;
   }
   async getAllUsers() {
-    this.logger.log('getAllUsers');
-    const users = await this.prisma.user.findMany();
+    this.logger.log('find_all_users');
+    const users = await this.user.findMany();
     return users;
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    this.logger.log('createUser');
-    const createUser = await this.prisma.user.create({
-      data,
-    });
+  async createUser(data: UserDto) {
+    this.logger.log('create_user');
+    const createUser = await this.user.create({ data: data });
     return createUser;
   }
 
-  async updateUser(params: {
-    where: Prisma.UserWhereUniqueInput;
-    data: Prisma.UserUpdateInput;
-  }): Promise<User> {
-    this.logger.log('updateUser');
-    const updateUser = await this.prisma.user.update({
-      where: params.where,
-      data: params.data,
-    });
+  async updateUser(id: string, updateData: UpdateUserDto): Promise<User> {
+    this.logger.log('update_user');
+    const { id: _, ...Data } = updateData;
+    const updateUser = await this.user.update({ where: { id }, data: Data });
     return updateUser;
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    this.logger.log('deleteUser');
-    const deleteUser = await this.prisma.user.delete({
+    this.logger.log('delete_user');
+    const deleteUser = await this.user.delete({
       where,
     });
     return deleteUser;

@@ -10,18 +10,18 @@ import {
 export class UserDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  public name: string;
 
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  public email: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  public password: string;
 
   @IsString()
   @IsNotEmpty()
-  rol: string;
+  public role: string;
 }

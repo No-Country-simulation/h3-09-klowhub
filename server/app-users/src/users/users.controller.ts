@@ -9,46 +9,29 @@ import {
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { User as UserModel } from '@prisma/client';
-
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { UserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Get()
+  @MessagePattern({ cmd: 'find_all_users' })
   async getAllUsers() {
     return this.userService.getAllUsers();
   }
-
-  @Get(':id')
-  async getUser(@Param('id') id: string) {
-    return this.userService.user({ id: id });
+  @MessagePattern({ cmd: 'find_one_user' })
+  async getUser(@Payload('id') id: string) {
+    return this.userService.findOneUser(id);
   }
-
-  @Post()
-  async signupUser(
-    @Body()
-    userData: {
-      email: string;
-      name: string;
-      password: string;
-      role: string;
-    },
-  ): Promise<UserModel> {
+  @MessagePattern({ cmd: 'create_user' })
+  async signupUser(@Payload() userData: UserDto) {
     return this.userService.createUser(userData);
   }
-
-  @Put(':id')
-  async updateUser(
-    @Param('id') id: string,
-    @Body() userData: { email: string; name: string },
-  ): Promise<UserModel> {
-    return this.userService.updateUser({
-      where: { id: id },
-      data: userData,
-    });
+  @MessagePattern({ cmd: 'update_user' })
+  async updateUser(@Payload() updateData: UpdateUserDto): Promise<UserModel> {
+    return this.userService.updateUser(updateData.id, updateData);
   }
-
-  @Delete(':id')
+  @MessagePattern('delete_user')
   async deleteUser(@Param('id') id: string): Promise<UserModel> {
     return this.userService.deleteUser({ id: id });
   }

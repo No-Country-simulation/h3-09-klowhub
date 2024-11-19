@@ -1,3 +1,4 @@
+import flowbite from 'flowbite-react/tailwind'
 import type { Config } from 'tailwindcss'
 
 export default {
@@ -5,9 +6,13 @@ export default {
 		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
+		flowbite.content(),
 	],
 	theme: {
 		extend: {
+			backgroundImage: {
+				'section-button': "url('/img/section-button-bg.png')",
+			},
 			colors: {
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
@@ -47,8 +52,13 @@ export default {
 					800: '#073075',
 					900: '#03183B',
 				},
+				card: '#1F2937',
+				category_tag: {
+					bg: '#F3E3FBBF',
+					text: '#812AAC',
+				},
 			},
 		},
 	},
-	plugins: [],
+	plugins: [flowbite.plugin()],
 } satisfies Config
