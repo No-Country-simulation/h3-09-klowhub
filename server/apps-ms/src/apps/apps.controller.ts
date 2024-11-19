@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { AppsService } from './apps.service';
 import { CreateAppDto } from './dto/create-app.dto';
 import { UpdateAppDto } from './dto/update-app.dto';
@@ -32,5 +32,38 @@ export class AppsController {
   @MessagePattern('removeApp')
   remove(@Payload('id') id: string) {
     return this.appsService.remove(id);
+  }
+  @MessagePattern('uploadFile')
+  async uploadFile(
+    @Payload() file: { buffer:  { type: string, data: number[] }; originalname: string; mimetype: string },
+  ): Promise<{ url: string }> {
+    //console.log(' microservice:', file);
+    const fileBuffer: Buffer = Buffer.from(file.buffer.data);
+
+ 
+    if (!Buffer.isBuffer(fileBuffer)) {
+      throw new RpcException({
+        status: 400,
+        message: `${fileBuffer} is not a valid Buffer`,
+      });
+    }
+    const url = await this.appsService.uploadFile({
+      buffer: fileBuffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    });
+    return { url };
+  }
+
+  @MessagePattern('downloadFile')
+  async downloadFile(
+    @Payload('appId') appId: string, 
+  ): Promise<{ fileBuffer: Buffer; appId: string }> {
+    //console.log('downloadFile',appId);
+    const fileBuffer = await this.appsService.downloadFile(appId);
+    return {
+      fileBuffer,
+      appId,
+    };
   }
 }

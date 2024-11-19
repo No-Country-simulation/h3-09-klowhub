@@ -33,9 +33,14 @@ export class CreateAppDto {
   public price: number;
 
   @IsUrl()
+  public photo_url: string;
+  
+  @IsUrl()
+  @IsOptional()
   public deploy_url: string;
 
   @IsUrl()
+  @IsOptional()
   public dowload_url: string;
 
   @IsArray()
