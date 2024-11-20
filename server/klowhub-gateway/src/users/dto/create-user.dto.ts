@@ -23,14 +23,7 @@ export class UserDto {
 
   @IsString()
   @IsNotEmpty()
-  public role: string;
-
-  @IsString()
-  @IsNotEmpty()
   public bio: string;
-
-  @IsNotEmpty()
-  public available: boolean;
 
   @IsOptional()
   @IsString()

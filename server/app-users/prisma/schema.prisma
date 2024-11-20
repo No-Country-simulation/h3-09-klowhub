@@ -12,16 +12,21 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum Roles {
+  ADMIN
+  SELLER
+  BUYER
+}
 
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String
   password  String
-  role      String
+  role      Roles[] @default([BUYER])
   bio       String
   photo     String?
-  available Boolean @default(true)
+  available Boolean? @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

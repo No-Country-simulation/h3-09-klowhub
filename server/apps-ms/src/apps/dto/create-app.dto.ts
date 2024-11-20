@@ -10,18 +10,22 @@ import {
   IsUUID,
   Min,
   IsEnum,
+  IsNotEmpty,
 } from 'class-validator';
 import { AppLenguageEnum } from '../Enum/apps.enum';
 import { AppLenguage } from '@prisma/client';
 
 export class CreateAppDto {
   @IsUUID()
+  @IsNotEmpty()
   public seller_id: string;
 
   @IsString()
+  @IsNotEmpty()
   public title: string;
 
   @IsString()
+  @IsNotEmpty()
   public description: string;
 
   @IsNumber({
@@ -29,17 +33,25 @@ export class CreateAppDto {
   })
   @Min(0)
   @IsPositive()
+  @IsNotEmpty()
   @Type(() => Number)
   public price: number;
 
   @IsUrl()
+  @IsOptional()
+  public photo_url: string;
+  
+  @IsUrl()
+  @IsOptional()
   public deploy_url: string;
 
   @IsUrl()
+  @IsOptional()
   public dowload_url: string;
 
   @IsArray()
   @IsString({ each: true })
+  @IsNotEmpty()
   public technologies: string[];
 
   @IsEnum(AppLenguageEnum, {
