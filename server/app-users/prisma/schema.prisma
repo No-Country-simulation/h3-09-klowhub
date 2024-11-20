@@ -21,7 +21,7 @@ model User {
   role      String
   bio       String
   photo     String?
-  available Boolean
+  available Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

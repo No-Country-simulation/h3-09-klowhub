@@ -1,20 +1,14 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Controller, Param } from '@nestjs/common';
 import { UserService } from './users.service';
 import { User as UserModel } from '@prisma/client';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @MessagePattern({ cmd: 'find_all_users' })
   async getAllUsers() {
     return this.userService.getAllUsers();
