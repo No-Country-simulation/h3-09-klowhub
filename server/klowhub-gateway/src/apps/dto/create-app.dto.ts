@@ -11,7 +11,8 @@ import {
   Min,
   IsEnum,
 } from 'class-validator';
-import { AppLenguage, AppLenguageEnum } from '../Enum/apps.enum';
+import { Lenguage, LenguageEnum } from 'src/common/Enum';
+
 
 
 export class CreateAppDto {
@@ -47,8 +48,8 @@ export class CreateAppDto {
   @IsString({ each: true })
   public technologies: string[];
 
-  @IsEnum(AppLenguageEnum, {
-    message: `Possible values are ${AppLenguageEnum}`,
+  @IsEnum(LenguageEnum, {
+    message: `Possible values are ${LenguageEnum}`,
   })
-  public lenguage: AppLenguage;
+  public lenguage: Lenguage;
 }
