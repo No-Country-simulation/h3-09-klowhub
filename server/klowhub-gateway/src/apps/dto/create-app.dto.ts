@@ -12,7 +12,9 @@ import {
   IsEnum,
   IsNotEmpty,
 } from 'class-validator';
-import { AppLenguage, AppLenguageEnum } from '../Enum/apps.enum';
+import { Lenguage, LenguageEnum } from 'src/common/Enum';
+
+
 
 export class CreateAppDto {
   @IsUUID()
@@ -38,20 +40,24 @@ export class CreateAppDto {
 
   @IsUrl()
   @IsOptional()
+  public photo_url: string;
+  
+  @IsUrl()
+  @IsOptional()
   public deploy_url: string;
 
   @IsUrl()
   @IsOptional()
-  public dowload_url: string;
+  public download_url: string;
 
   @IsArray()
   @IsString({ each: true })
   @IsNotEmpty()
   public technologies: string[];
 
-  @IsEnum(AppLenguageEnum, {
-    message: `Possible values are ${AppLenguageEnum}`,
+  @IsEnum(LenguageEnum, {
+    message: `Possible values are ${LenguageEnum}`,
   })
-  public lenguage: AppLenguage;
+  public lenguage: Lenguage;
 }
 //
