@@ -6,6 +6,7 @@ import {
   Inject,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -30,8 +31,8 @@ export class UsersController {
     return this.userClient.send({ cmd: 'find_all_users' }, paginationDto);
   }
 
-  @Get(':id')
-  async findOneUser(@Param('id') id: number) {
+  @Get('user/:id')
+  async findOneUser(@Param('id') id: string) {
     try {
       const user = await firstValueFrom(
         this.userClient.send({ cmd: 'find_one_user' }, { id }),
@@ -42,9 +43,9 @@ export class UsersController {
     }
   }
 
-  @Patch(':id')
+  @Patch('patch/:id')
   async updateUser(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     try {
@@ -56,11 +57,26 @@ export class UsersController {
       throw new RpcException(error);
     }
   }
-  @Delete(':id')
-  removeUser(@Param('id', ParseIntPipe) id: number) {
+
+  @Delete('delete/:id')
+  removeUser(@Param('id', ParseUUIDPipe) id: string) {
+    if (!id) {
+      throw new RpcException('id is required');
+    }
+
+    console.log('Deleting user with ID:', id);
+
     return this.userClient.send({ cmd: 'delete_user' }, { id }).pipe(
       catchError((err) => {
-        throw new RpcException(err);
+        console.error('Error from microservice:', err);
+        const errorMessage =
+          typeof err === 'object' && err.message
+            ? err.message
+            : 'Unexpected error occurred';
+        throw new RpcException({
+          status: 400,
+          message: errorMessage,
+        });
       }),
     );
   }

@@ -12,6 +12,8 @@ import { User as UserModel } from '@prisma/client';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RpcException } from '@nestjs/microservices';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -31,8 +33,12 @@ export class UserController {
   async updateUser(@Payload() updateData: UpdateUserDto): Promise<UserModel> {
     return this.userService.updateUser(updateData.id, updateData);
   }
-  @MessagePattern('delete_user')
-  async deleteUser(@Param('id') id: string): Promise<UserModel> {
+  @MessagePattern({ cmd: 'delete_user' })
+  async deleteUser(@Payload('id') id: string): Promise<UserModel> {
+    if (!id) {
+      throw new RpcException('id is required');
+    }
+    console.log(id);
     return this.userService.deleteUser({ id: id });
   }
 }

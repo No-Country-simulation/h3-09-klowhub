@@ -2,6 +2,7 @@ import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Prisma, PrismaClient, User } from '@prisma/client';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RpcException } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -41,6 +42,10 @@ export class UserService extends PrismaClient implements OnModuleInit {
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
     this.logger.log('delete_user');
+    //agregar un patch y setear abailable a false
+    if (!where.id) {
+      throw new RpcException('id is required');
+    }
     const deleteUser = await this.user.delete({
       where,
     });

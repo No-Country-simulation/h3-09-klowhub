@@ -10,9 +10,13 @@ export class ExceptionFilter implements ExceptionFilter {
 
     const rpcError = exception.getError();
 
-    if(typeof rpcError === 'object' && "status" in rpcError && "message" in rpcError) {
-        const status = rpcError.status;
-        return response.status(status).json(rpcError);
+    if (
+      typeof rpcError === 'object' &&
+      'status' in rpcError &&
+      'message' in rpcError
+    ) {
+      const status = rpcError.status;
+      return response.status(status).json(rpcError);
     }
     console.log(rpcError);
     response.status(400).json({
