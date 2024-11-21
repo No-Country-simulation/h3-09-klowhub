@@ -16,7 +16,7 @@ export default function NavLinks() {
 				<Link
 					key={label}
 					href={href}
-					className="text-sm text-primary-a-200 p-2 hover:bg-gray-500 hover:rounded-lg hover:text-white"
+					className="text-[14px] font-semibold text-primary-b-200 p-2 hover:bg-gray-500 hover:rounded-lg hover:text-white"
 				>
 					{label}
 				</Link>
