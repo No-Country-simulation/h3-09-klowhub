@@ -1,14 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { UserModule } from './users/users.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { envs } from './config';
 import { Logger } from '@nestjs/common';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const logger = new Logger('Main-Apps');
-
+  const logger = new Logger('Main-Users');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
+    UserModule,
     {
       transport: Transport.TCP,
       options: {
@@ -17,6 +16,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
-  logger.log(`Main-Apps running on port ${envs.port}`);
+  logger.log(`Main-Users running on port ${envs.port}`);
 }
 bootstrap();

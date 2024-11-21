@@ -10,6 +10,7 @@ import {
   IsUUID,
   Min,
   IsEnum,
+  IsNotEmpty,
 } from 'class-validator';
 import { Lenguage, LenguageEnum } from 'src/common/Enum';
 
@@ -17,12 +18,15 @@ import { Lenguage, LenguageEnum } from 'src/common/Enum';
 
 export class CreateAppDto {
   @IsUUID()
+  @IsNotEmpty()
   public seller_id: string;
 
   @IsString()
+  @IsNotEmpty()
   public title: string;
 
   @IsString()
+  @IsNotEmpty()
   public description: string;
 
   @IsNumber({
@@ -30,10 +34,12 @@ export class CreateAppDto {
   })
   @Min(0)
   @IsPositive()
+  @IsNotEmpty()
   @Type(() => Number)
   public price: number;
 
   @IsUrl()
+  @IsOptional()
   public photo_url: string;
   
   @IsUrl()
@@ -42,10 +48,11 @@ export class CreateAppDto {
 
   @IsUrl()
   @IsOptional()
-  public dowload_url: string;
+  public download_url: string;
 
   @IsArray()
   @IsString({ each: true })
+  @IsNotEmpty()
   public technologies: string[];
 
   @IsEnum(LenguageEnum, {
@@ -53,3 +60,4 @@ export class CreateAppDto {
   })
   public lenguage: Lenguage;
 }
+//

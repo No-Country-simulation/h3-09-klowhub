@@ -6,13 +6,14 @@ import {
   Inject,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { CreateUserDto, UpdateUserDto } from './dto';
+import { UserDto, UpdateUserDto, LoginDto } from './dto';
 import { catchError, firstValueFrom } from 'rxjs';
 
 @Controller('users')
@@ -21,19 +22,25 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly userClient: ClientProxy,
   ) {}
 
-  @Post()
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return this.userClient.send('create_user', createUserDto);
+  @Post('login')
+  login(@Body() { email, password }: LoginDto) {
+    console.log('Logging in user with email:', email);
+    return this.userClient.send({ cmd: 'login' }, { email, password });
   }
-  @Get()
+  @Post('create')
+  createUser(@Body() createUserDto: UserDto) {
+    return this.userClient.send({ cmd: 'create_user' }, createUserDto);
+  }
+  @Get('findAll')
   findAllUsers(@Query() paginationDto: PaginationDto) {
-    return this.userClient.send('find_all_users', paginationDto);
+    return this.userClient.send({ cmd: 'find_all_users' }, paginationDto);
   }
-  @Get(':id')
-  async findOneUser(@Param('id') id: number) {
+
+  @Get('user/:id')
+  async findOneUser(@Param('id') id: string) {
     try {
       const user = await firstValueFrom(
-        this.userClient.send('find_one_user', { id }),
+        this.userClient.send({ cmd: 'find_one_user' }, { id }),
       );
       return user;
     } catch (error) {
@@ -41,25 +48,40 @@ export class UsersController {
     }
   }
 
-  @Patch(':id')
+  @Patch('patch/:id')
   async updateUser(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     try {
       const user = await firstValueFrom(
-        this.userClient.send('update_user', { id, ...updateUserDto }),
+        this.userClient.send({ cmd: 'update_user' }, { id, ...updateUserDto }),
       );
       return user;
     } catch (error) {
       throw new RpcException(error);
     }
   }
-  @Delete(':id')
-  removeUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userClient.send('delete_user', { id }).pipe(
+
+  @Delete('delete/:id')
+  removeUser(@Param('id', ParseUUIDPipe) id: string) {
+    if (!id) {
+      throw new RpcException('id is required');
+    }
+
+    console.log('Deleting user with ID:', id);
+
+    return this.userClient.send({ cmd: 'delete_user' }, { id }).pipe(
       catchError((err) => {
-        throw new RpcException(err);
+        console.error('Error from microservice:', err);
+        const errorMessage =
+          typeof err === 'object' && err.message
+            ? err.message
+            : 'Unexpected error occurred';
+        throw new RpcException({
+          status: 400,
+          message: errorMessage,
+        });
       }),
     );
   }

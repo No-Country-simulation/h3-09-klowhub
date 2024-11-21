@@ -3,8 +3,6 @@ import {
   IsNotEmpty,
   IsEmail,
   IsOptional,
-  IsDateString,
-  IsNumberString,
 } from 'class-validator';
 
 export class UserDto {

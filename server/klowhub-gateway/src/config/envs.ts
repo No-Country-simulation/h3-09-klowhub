@@ -6,10 +6,9 @@ interface EnvVars {
   PORT: number;
   USERS_MICROSERVICE_HOST: string;
   USERS_MICROSERVICE_PORT: number;
-  
+
   APPS_MICROSERVICE_HOST: string;
   APPS_MICROSERVICE_PORT: number;
-  
 }
 
 const envSchema = Joi.object({
@@ -34,5 +33,5 @@ export const envs = {
 
   appsMicroserviceHost: envVars.APPS_MICROSERVICE_HOST,
   appsMicroservicePort: envVars.APPS_MICROSERVICE_PORT,
-
 };
+//
