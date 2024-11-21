@@ -1,4 +1,3 @@
-import Footer from '@/components/layout/footer'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -17,10 +16,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="es">
-			<body className={` ${inter.className} antialiased`}>
-				<main className="min-h-screen px-14 py-10">{children}</main>
-				<Footer />
-			</body>
+			<body className={` ${inter.className} antialiased`}>{children}</body>
 		</html>
 	)
 }
