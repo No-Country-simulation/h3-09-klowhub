@@ -23,6 +23,7 @@ export default function RootLayout({
 				<main className="min-h-screen px-14 py-10">{children}</main>
 				<Footer />
 			</body>
+			<body className={` ${inter.className} antialiased`}>{children}</body>
 		</html>
 	)
 }
