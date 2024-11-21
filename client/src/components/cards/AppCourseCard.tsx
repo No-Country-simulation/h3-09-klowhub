@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
+import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
 
 const app = {
@@ -15,7 +16,7 @@ const app = {
 	rating: 3,
 	totalVotes: 26,
 	categories: ['Logística', 'Retail', 'Inventarios'],
-	stack: ['AppSheet'],
+	stack: ['appsheet'],
 	image: 'https://picsum.photos/200'
 }
 const user = {
@@ -50,10 +51,17 @@ export function AppCourseCard({ variant = 'app' }: Props) {
 			/>
 			<h5 className="text-sm font-bold">{app.title}</h5>
 			<p className="text-sm">{app.description}</p>
-			<p className="">{app.stack}</p>
 			<div className="flex flex-wrap gap-4">
 				{app.categories.map((category, i) => (
 					<CategoryTag key={i}>{category}</CategoryTag>
+				))}
+			</div>
+			<div className="flex gap-2">
+				{app.stack.map((technology, i) => (
+					<TechnologyTag
+						technology={technology as Technology}
+						key={'technology-' + i}
+					/>
 				))}
 			</div>
 			<RatingStars rating={app.rating} totalVotes={app.totalVotes} />

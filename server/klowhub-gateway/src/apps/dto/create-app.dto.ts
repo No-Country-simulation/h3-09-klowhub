@@ -10,18 +10,23 @@ import {
   IsUUID,
   Min,
   IsEnum,
+  IsNotEmpty,
 } from 'class-validator';
-import { AppLenguage, AppLenguageEnum } from '../Enum/apps.enum';
+import { Lenguage, LenguageEnum } from 'src/common/Enum';
+
 
 
 export class CreateAppDto {
   @IsUUID()
+  @IsNotEmpty()
   public seller_id: string;
 
   @IsString()
+  @IsNotEmpty()
   public title: string;
 
   @IsString()
+  @IsNotEmpty()
   public description: string;
 
   @IsNumber({
@@ -29,10 +34,12 @@ export class CreateAppDto {
   })
   @Min(0)
   @IsPositive()
+  @IsNotEmpty()
   @Type(() => Number)
   public price: number;
 
   @IsUrl()
+  @IsOptional()
   public photo_url: string;
   
   @IsUrl()
@@ -41,14 +48,16 @@ export class CreateAppDto {
 
   @IsUrl()
   @IsOptional()
-  public dowload_url: string;
+  public download_url: string;
 
   @IsArray()
   @IsString({ each: true })
+  @IsNotEmpty()
   public technologies: string[];
 
-  @IsEnum(AppLenguageEnum, {
-    message: `Possible values are ${AppLenguageEnum}`,
+  @IsEnum(LenguageEnum, {
+    message: `Possible values are ${LenguageEnum}`,
   })
-  public lenguage: AppLenguage;
+  public lenguage: Lenguage;
 }
+//

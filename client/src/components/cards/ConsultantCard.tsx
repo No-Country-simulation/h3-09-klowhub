@@ -43,7 +43,6 @@ export default function ConsultantCard({
 					height={200}
 					width={330}
 					className="h-[200px] w-auto rounded-t-lg"
-					priority
 				/>
 				<Heart
 					role="button"

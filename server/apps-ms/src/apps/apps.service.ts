@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
 import { storage } from 'src/config';
+import { FiltersDto } from './dto/filters.dto';
 
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
@@ -18,20 +19,43 @@ export class AppsService extends PrismaClient implements OnModuleInit {
     return this.app.create({ data: createAppDto });
   }
 
-  async findAll(paginationDto: PaginationDto) {
+  async findAll(paginationDto: PaginationDto, filtersDto: FiltersDto) {
     const { page, limit } = paginationDto;
-    const totalPages = await this.app.count({ where: { available: true } });
+    const { filter, lenguage } = filtersDto;
+  
+    const where: any = { available: true };
+  
+    // Incluir el filtro por array de 'filter' si está presente
+    if (filter && filter.length > 0) {
+      where.OR = filter.map((value) => ({
+        technologies: {
+          has: value, // Cambia 'tags' por el campo real en tu modelo que corresponde a los filtros
+        },
+      }));
+    }
+  
+    // Incluir el filtro por 'lenguage' si está presente
+    if (lenguage) {
+      where.lenguage = lenguage;
+    }
+  
+    // Obtener el total de páginas con los filtros aplicados
+    const totalPages = await this.app.count({ where });
     const lastPage = Math.ceil(totalPages / limit);
+  
+    // Validar si la página solicitada excede la última página
     if (page > lastPage) {
       throw new RpcException(
         `Page ${page} exceeds the last page number (${lastPage}).`,
       );
     }
+  
+    // Retornar los datos paginados con los filtros aplicados
     return {
       data: await this.app.findMany({
         skip: (page - 1) * limit,
         take: limit,
-        where: { available: true },
+        where,
       }),
       meta: {
         total: totalPages,
@@ -40,7 +64,7 @@ export class AppsService extends PrismaClient implements OnModuleInit {
       },
     };
   }
-
+  
   async findOne(id: string) {
     const app = await this.app.findFirst({
       where: { id: id, available: true },

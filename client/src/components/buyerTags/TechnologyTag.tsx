@@ -28,8 +28,8 @@ export default function TechnologyTag({
 			<Image
 				src={technologyData.icon}
 				alt={technologyData.name}
-				width={size === 'l' ? 25 : 50}
-				height={size === 'l' ? 22 : 50}
+				width={size === 'l' ? 44 : 50}
+				height={size === 'l' ? 44 : 50}
 				className={clsx({
 					'h-[22px] w-auto': size === 'l',
 					'h-[50px] w-auto': size === 'xl'

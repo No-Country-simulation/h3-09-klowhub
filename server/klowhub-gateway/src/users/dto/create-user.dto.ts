@@ -1,9 +1,31 @@
-import { Type } from 'class-transformer';
-import { IsNumber, IsString, Min } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  IsOptional,
+  IsDateString,
+  IsNumberString,
+} from 'class-validator';
 
-export class CreateUserDto {
+export class UserDto {
   @IsString()
+  @IsNotEmpty()
   public name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @IsEmail()
+  public email: string;
 
+  @IsString()
+  @IsNotEmpty()
+  public password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public bio: string;
+
+  @IsOptional()
+  @IsString()
+  public photo?: string;
 }

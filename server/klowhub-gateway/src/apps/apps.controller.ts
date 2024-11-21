@@ -19,6 +19,7 @@ import { PaginationDto } from 'src/common';
 import { CreateAppDto, UpdateAppDto } from './dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { FiltersDto } from 'src/common/dto';
 
 @Controller('apps')
 export class AppsController {
@@ -29,8 +30,9 @@ export class AppsController {
     return this.appClient.send('createApp', createAppDto);
   }
   @Get()
-  findAllProducts(@Query() paginationDto: PaginationDto) {
-    return this.appClient.send('findAllApps', paginationDto);
+  findAllProducts(@Query() paginationDto: PaginationDto,@Body() filtersDto: FiltersDto) {
+    const payload = { pagination: paginationDto, filters: filtersDto };
+    return this.appClient.send('findAllApps', payload);
   }
   @Get(':id')
   async findOneProduct(@Param('id') id: string) {
