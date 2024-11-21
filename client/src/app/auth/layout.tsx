@@ -1,5 +1,5 @@
 'use client'
-import Footer from '@/components/layout/footer'
+import Footer from '@/components/layout/Footer'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
