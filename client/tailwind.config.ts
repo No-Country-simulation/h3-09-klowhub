@@ -12,6 +12,7 @@ export default {
 		extend: {
 			backgroundImage: {
 				'section-button': "url('/img/section-button-bg.png')",
+				'home-banner': "url('/img/banner-bg.png')",
 				'custom-gradient': 'linear-gradient(to right, #201C2D, #201D43,#262136)'
 			},
 			colors: {
