@@ -42,6 +42,6 @@ export class UserController {
       throw new RpcException('id is required');
     }
     console.log(id);
-    return this.userService.deleteUser({ id: id });
+    return this.userService.deleteUser(id);
   }
 }

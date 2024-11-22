@@ -89,15 +89,15 @@ export class UserService extends PrismaClient implements OnModuleInit {
     return updateUser;
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  async deleteUser(userId: string): Promise<User> {
     this.logger.log('delete_user');
-    //agregar un patch y setear abailable a false
-    if (!where.id) {
-      throw new RpcException('id is required');
-    }
-    const deleteUser = await this.user.delete({
-      where,
+
+    const updateUser = await this.user.update({
+      where: { id: userId },
+      data: {
+        available: false,
+      },
     });
-    return deleteUser;
+    return updateUser;
   }
 }
