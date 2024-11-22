@@ -3,7 +3,9 @@ import {
   IsNotEmpty,
   IsEmail,
   IsOptional,
+  IsEnum,
 } from 'class-validator';
+import { Roles } from '@prisma/client';
 
 export class UserDto {
   @IsString()
@@ -26,4 +28,11 @@ export class UserDto {
   @IsOptional()
   @IsString()
   public photo?: string;
+
+  @IsOptional()
+  public available?: boolean;
+
+  @IsNotEmpty()
+  @IsEnum(Roles)
+  public role: Roles[];
 }

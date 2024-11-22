@@ -1,4 +1,9 @@
-import { Injectable, Logger, OnModuleInit, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Prisma, PrismaClient, User } from '@prisma/client';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -24,7 +29,10 @@ export class UserService extends PrismaClient implements OnModuleInit {
       return null;
     }
   }
-  async login(email: string, password: string): Promise<{ token: string }> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ token: string; user: Omit<User, 'password'> }> {
     const user = await this.findOneUserByEmail(email);
 
     if (!user) {
@@ -40,10 +48,11 @@ export class UserService extends PrismaClient implements OnModuleInit {
     const token = jwt.sign({ id: user.id, email: user.email }, this.jwtSecret, {
       expiresIn: this.jwtExpiresIn,
     });
+    const { password: _, ...userData } = user;
 
-    return { token};
+    return { token, user: userData };
   }
-  
+
   async findOneUserByEmail(email: string) {
     this.logger.log('find_one_user_by_email');
     const user = await this.user.findUnique({

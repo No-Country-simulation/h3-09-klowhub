@@ -7,11 +7,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RpcException } from '@nestjs/microservices';
 import { LoginDto } from './dto/login-user.dto';
 
-
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
+
   @MessagePattern({ cmd: 'login' })
   async login(@Payload() { email, password }: LoginDto) {
     console.log('Microservicio: Procesando login para:', email);
