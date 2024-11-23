@@ -1,8 +1,8 @@
 import { DigitalProduct } from './product.model'
 
-export type ContentType = 'Free' | 'Paid'
-export type CourseType = 'Course' | 'Lesson'
-export type Level = 'Basic' | 'Intermediate' | 'Advanced'
+export type ContentType = 'free' | 'paid'
+export type CourseType = 'course' | 'lesson'
+export type Level = 'basic' | 'intermediate' | 'advanced'
 
 // Modelo para lecciones
 export interface Lesson {
