@@ -2,7 +2,7 @@ import { Technologies } from '@/constants/technologies.constant'
 import clsx from 'clsx'
 import Image from 'next/image'
 
-export type Technology = 'appsheet' | 'powerapps'
+export type Technology = keyof typeof Technologies
 
 interface TechnologyTagProps {
 	technology: Technology

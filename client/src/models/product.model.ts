@@ -1,4 +1,10 @@
-export type Platform = 'AppSheet' | 'PowerApps'
+export type Platform = 'appsheet' | 'powerapps'
+
+export interface Review {
+	reviewer: string
+	score: number
+	text: string
+}
 
 // Modelo base para todos los productos digitales
 export interface DigitalProduct {
@@ -12,4 +18,5 @@ export interface DigitalProduct {
 	functionalities: string[] // Funcionalidades (ej: "APIs", "Integraciones")
 	relatedTags: string[] // Palabras clave o etiquetas
 	image: string
+	reviews: Review[]
 }
