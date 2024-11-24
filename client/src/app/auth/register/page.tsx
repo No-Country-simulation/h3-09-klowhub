@@ -1,5 +1,6 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -98,7 +99,7 @@ export default function Page() {
 			<div className="mt-6 text-center">
 				<p>O continuar con</p>
 				<div className="mt-2 flex justify-center space-x-4">
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('github')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -111,7 +112,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('facebook')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -124,7 +125,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('google')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}

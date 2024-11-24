@@ -2,12 +2,18 @@
 import Button from '@/components/buttons/Button'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { signIn, useSession } from 'next-auth/react'
+
 
 interface IFormInput {
 	email: string
 	password: string
 }
 export default function Page() {
+
+	const { data: session } = useSession()
+	console.log('This is data session ' + session?.user.name)
+
 	const {
 		register,
 		handleSubmit,
@@ -76,7 +82,7 @@ export default function Page() {
 			<div className="mt-6 text-center">
 				<p>O continuar con</p>
 				<div className="mt-2 flex justify-center space-x-4">
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('github')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -89,7 +95,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('facebook')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -102,7 +108,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('google')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
