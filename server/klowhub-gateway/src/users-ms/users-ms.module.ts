@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { envs } from 'src/config';
+import { UsersController } from './user/users.controller';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
-  controllers: [UsersController],
+  controllers: [AuthController,UsersController],
   providers: [],
   imports: [
     ClientsModule.register([
@@ -19,4 +20,4 @@ import { envs } from 'src/config';
     ]),
   ],
 })
-export class UsersModule {}
+export class UserMsModule {}

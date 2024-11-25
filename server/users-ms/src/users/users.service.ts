@@ -4,44 +4,15 @@ import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RpcException } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
+
 
 @Injectable()
 export class UserService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('User service');
-  private readonly jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
-  private readonly jwtExpiresIn = '1d'; // 24 horas
 
   async onModuleInit() {
     await this.$connect();
     this.logger.log('onModuleInit');
-  }
-  async validateToken(token: string): Promise<User | null> {
-    try {
-      const decoded = jwt.verify(token, this.jwtSecret) as { id: string };
-      return this.findOneUser(decoded.id);
-    } catch {
-      return null;
-    }
-  }
-  async login(email: string, password: string): Promise<{ token: string }> {
-    const user = await this.findOneUserByEmail(email);
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const token = jwt.sign({ id: user.id, email: user.email }, this.jwtSecret, {
-      expiresIn: this.jwtExpiresIn,
-    });
-
-    return { token};
   }
   
   async findOneUserByEmail(email: string) {

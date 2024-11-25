@@ -26,4 +26,8 @@ export class UserDto {
   @IsOptional()
   @IsString()
   public photo?: string;
+
+  @IsOptional()
+  @IsString()
+  public google_id?: string;
 }
