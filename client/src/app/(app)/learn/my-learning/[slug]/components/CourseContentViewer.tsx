@@ -1,3 +1,4 @@
+'use client'
 import { Course } from '@/models/course.model'
 import { useEffect, useState } from 'react'
 import LessonsPreviewList from './LessonsPreviewList'
@@ -37,15 +38,9 @@ export default function CourseContentViewer({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeLessonIndex])
 	return (
-		<section className="flex gap-12 rounded-xl bg-white/10 px-6 pb-6 pt-8">
-			<div className="flex w-[906px] flex-col gap-4">
-				<video
-					key={videoLink}
-					width={906}
-					height={504}
-					controls
-					className="rounded-xl"
-				>
+		<section className="flex justify-between gap-12 rounded-xl bg-white/10 px-6 pb-6 pt-8">
+			<div className="flex w-3/4 flex-col gap-4">
+				<video key={videoLink} controls className="min-w-80 rounded-xl">
 					<source src={videoLink} type="video/mp4" />
 				</video>
 
@@ -57,14 +52,16 @@ export default function CourseContentViewer({
 				)}
 			</div>
 
-			{course.modules && (
-				<ModulesAccordion
-					modules={course.modules}
-					activeLessonIndex={activeLessonIndex}
-					setActiveModuleIndex={setActiveModuleIndex}
-					setActiveLessonIndex={setActiveLessonIndex}
-				/>
-			)}
+			<div className="flex grow justify-center">
+				{course.modules && (
+					<ModulesAccordion
+						modules={course.modules}
+						activeLessonIndex={activeLessonIndex}
+						setActiveModuleIndex={setActiveModuleIndex}
+						setActiveLessonIndex={setActiveLessonIndex}
+					/>
+				)}
+			</div>
 		</section>
 	)
 }

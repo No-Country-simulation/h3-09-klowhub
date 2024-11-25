@@ -1,7 +1,7 @@
-'use client'
 import { Course } from '@/models/course.model'
-
 import CourseContentViewer from './components/CourseContentViewer'
+import CourseDetails from './components/CourseDetails'
+import OtherCourses from './components/OtherCourses'
 
 // TODO: Quitar data mockeada
 // Curso tipo "curso"
@@ -47,16 +47,52 @@ const course: Course = {
 			description: 'Familiarízate con la plataforma y sus capacidades.',
 			lessons: [
 				{
-					title: 'Configuración inicial',
-					description: 'Cómo crear tu primera aplicación en AppSheet.',
+					title: '¿Qué es AppSheet?',
+					description:
+						'Explora qué es AppSheet, cómo funciona y por qué es una herramienta ideal para crear aplicaciones sin necesidad de programar.',
 					contentLink:
 						'https://videos.pexels.com/video-files/8430970/8430970-uhd_2732_1440_25fps.mp4',
 					additionalResources: ['https://example.com/setup-guide.pdf'],
 					image: 'https://picsum.photos/500/500'
 				},
 				{
-					title: 'Exploración de funciones básicas',
-					description: 'Descubre las principales funcionalidades de AppSheet.',
+					title: 'Cómo registrarse y configurar tu cuenta',
+					description:
+						'Aprende a registrarte en AppSheet, configurar tu cuenta y acceder al entorno de desarrollo.',
+					contentLink:
+						'https://videos.pexels.com/video-files/6201664/6201664-uhd_2560_1440_24fps.mp4',
+					image: 'https://picsum.photos/500/500'
+				},
+				{
+					title: 'Conceptos clave de AppSheet',
+					description:
+						'Conoce los conceptos fundamentales como tablas, datos, vistas y workflows para comenzar a usar AppSheet de manera efectiva.',
+					contentLink:
+						'https://videos.pexels.com/video-files/8430970/8430970-uhd_2732_1440_25fps.mp4',
+					additionalResources: ['https://example.com/setup-guide.pdf'],
+					image: 'https://picsum.photos/500/500'
+				},
+				{
+					title: 'Creación de tu primera aplicación',
+					description:
+						'Paso a paso para construir tu primera aplicación simple con AppSheet y personalizar sus vistas básicas.',
+					contentLink:
+						'https://videos.pexels.com/video-files/6201664/6201664-uhd_2560_1440_24fps.mp4',
+					image: 'https://picsum.photos/500/500'
+				},
+				{
+					title: 'Navegación por la interfaz de AppSheet',
+					description:
+						'Familiarízate con la interfaz de AppSheet, identificando las herramientas y opciones más importantes para desarrollar aplicaciones.',
+					contentLink:
+						'https://videos.pexels.com/video-files/8430970/8430970-uhd_2732_1440_25fps.mp4',
+					additionalResources: ['https://example.com/setup-guide.pdf'],
+					image: 'https://picsum.photos/500/500'
+				},
+				{
+					title: 'Conexión de datos desde Google Sheets',
+					description:
+						'Aprende a conectar AppSheet con una hoja de cálculo de Google Sheets para utilizar datos en tu aplicación.',
 					contentLink:
 						'https://videos.pexels.com/video-files/6201664/6201664-uhd_2560_1440_24fps.mp4',
 					image: 'https://picsum.photos/500/500'
@@ -77,13 +113,23 @@ const course: Course = {
 				}
 			]
 		}
-	]
+	],
+	creator: {
+		id: 'creator-001',
+		name: 'Juan Pérez',
+		bio: 'Instructor y desarrollador de aplicaciones con AppSheet.',
+		profilePicture: '/img/profile_test.jpeg'
+	}
 }
 
 export default function MyCoursePage() {
 	return (
-		<>
+		<div className="flex flex-col gap-14">
 			<CourseContentViewer course={course} />
-		</>
+			<div className="flex gap-14">
+				<CourseDetails course={course} />
+				<OtherCourses />
+			</div>
+		</div>
 	)
 }

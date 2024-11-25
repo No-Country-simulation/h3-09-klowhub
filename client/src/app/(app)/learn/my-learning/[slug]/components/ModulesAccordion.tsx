@@ -17,7 +17,7 @@ export default function ModulesAccordion({
 	setActiveLessonIndex
 }: ModulesAccordionProps) {
 	return (
-		<section className="w-80">
+		<section className="max-w-max">
 			<Accordion.Root type="single" defaultValue={modules[0].title}>
 				{modules.map((module, idx) => {
 					return (
@@ -29,7 +29,7 @@ export default function ModulesAccordion({
 								>
 									<div className="flex items-center gap-2">
 										<Inbox size={16} />
-										<p className="text-sm">{module.title}</p>
+										<p className="text-start text-sm">{module.title}</p>
 									</div>
 									<ChevronDown
 										size={16}
@@ -46,7 +46,7 @@ export default function ModulesAccordion({
 													key={lesson.title}
 													role="button"
 													onClick={() => setActiveLessonIndex(idx)}
-													className={clsx('h-10 px-3', {
+													className={clsx('min-h-10 px-3', {
 														['rounded-lg bg-white text-primary-b-300']:
 															idx === activeLessonIndex
 													})}

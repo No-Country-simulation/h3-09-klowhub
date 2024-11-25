@@ -13,7 +13,7 @@ export default function LessonsPreviewList({
 	return (
 		<section className="flex flex-col gap-3 rounded-xl bg-white/5 px-6 py-4">
 			<h6 className="font-semibold">Vista previa</h6>
-			<div className="flex gap-2">
+			<div className="flex gap-2 overflow-y-hidden">
 				{lessons.map((lesson, idx) => {
 					return (
 						<div
@@ -31,7 +31,7 @@ export default function LessonsPreviewList({
 								height={500}
 								className="h-20 w-48 rounded-md object-cover"
 							/>
-							<h3 className="p-4">Lección {idx + 1}</h3>
+							<h3 className="w-48 p-4">Lección {idx + 1}</h3>
 						</div>
 					)
 				})}
