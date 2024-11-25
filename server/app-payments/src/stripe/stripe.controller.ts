@@ -11,9 +11,7 @@ import {
 } from './dto'
 
 import { CreateCustomerResponse } from './interfaces/stripe.interface'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 
-@ApiTags('Stripe Module')
 @Controller('stripe')
 export class StripeController {
   constructor(private readonly stripeService: StripeService) { }
@@ -25,7 +23,6 @@ export class StripeController {
     return await this.stripeService.createCheckoutSession(createCheckoutSession)
   }
 
-  @ApiBearerAuth()
   @Post('create-subscription')
   async createSubscription(
     @Body() createSubscriptionDto: CreateSubscriptionDto,
