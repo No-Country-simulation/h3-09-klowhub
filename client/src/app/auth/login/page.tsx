@@ -21,6 +21,11 @@ export default function Page() {
 	} = useForm<IFormInput>()
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+		signIn('credentials', {
+			email: data.email,
+			password: data.password,
+			redirect: false,
+		})
 		console.log(data)
 		// Aquí puedes manejar el envío del formulario, como enviar los datos a tu servidor
 	}

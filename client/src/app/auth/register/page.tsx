@@ -17,8 +17,19 @@ export default function Page() {
 		formState: { errors }
 	} = useForm<IFormInput>()
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log(data)
+	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+		const result = await signIn('Credentials', {
+			redirect: false,
+			email: data.email,
+			password: data.password
+		})
+
+		if (result?.error) {
+			console.error('Error al inciar sesion: ', result.error)
+		} else {
+			console.log('Inicio de sesion exitoso: ', result)
+		}
+		console.log(result)
 		// Aquí puedes manejar el envío del formulario, como enviar los datos a tu servidor
 	}
 
