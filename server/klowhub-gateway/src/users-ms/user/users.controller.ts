@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { UserDto, UpdateUserDto, LoginDto } from './dto';
 import { catchError, firstValueFrom } from 'rxjs';
+import { UpdateUserDto, UserDto } from '../dto';
 
 @Controller('users')
 export class UsersController {
@@ -22,11 +22,7 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly userClient: ClientProxy,
   ) {}
 
-  @Post('login')
-  login(@Body() { email, password }: LoginDto) {
-    console.log('Logging in user with email:', email);
-    return this.userClient.send({ cmd: 'login' }, { email, password });
-  }
+ 
   @Post('create')
   createUser(@Body() createUserDto: UserDto) {
     return this.userClient.send({ cmd: 'create_user' }, createUserDto);
