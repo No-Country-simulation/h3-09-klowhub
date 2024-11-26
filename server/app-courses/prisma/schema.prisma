@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  COURSE
+  APPLICATION
+}
+
+model Course {
+  id           String          @id @default(uuid())
+  title        String
+  photo        String?
+  description  String
+  price        Int
+  sellerId     String
+  category     Category //Enum type for category 
+  technologies String[]
+  approved     Boolean
+  language     String
+  available    Boolean
+  productId    String
+  level        String
+  sections     CourseSection[] // One-to-many relationship with CourseSection
+
+  @@map("courses") // Name of the table in the database
+}
+
+model CourseSection {
+  id           String     @id @default(uuid())
+  titleSection String
+  courseId     String
+  resourceId   String?
+  order        Int
+  course       Course     @relation(fields: [courseId], references: [id]) // Relationship with Course
+  resources    Resource[] // One-to-many relationship with Resource
+
+  @@map("course_sections") // Name of the table in the database
+}
+
+model Resource {
+  id        String        @id @default(uuid())
+  sectionId String
+  mediaId   String
+  section   CourseSection @relation(fields: [sectionId], references: [id]) // Relationship with CourseSection
+
+  @@map("resources") // Name of the table in the database
+}
