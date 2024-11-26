@@ -1,4 +1,6 @@
 export enum Category {
   COURSE = 'COURSE',
-  APPLICATION = 'APPLICATION',
+  LESSON = 'LESSON',
 }
+
+export const CategoryEnum = [Category.COURSE, Category.LESSON];

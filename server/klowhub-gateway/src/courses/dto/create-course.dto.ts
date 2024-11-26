@@ -6,6 +6,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Category } from '../../common/Enum/category.enum';
+import { CategoryEnum } from '../../common/Enum/category.enum';
 
 export class CreateCourseDto {
   @IsString()
@@ -26,7 +27,9 @@ export class CreateCourseDto {
   public sellerId: string;
 
   @IsNotEmpty()
-  @IsEnum(Category)
+  @IsEnum(CategoryEnum, {
+    message: `Possible values are ${CategoryEnum}`,
+  })
   public category: Category;
 
   @IsNotEmpty()

@@ -15,7 +15,7 @@ datasource db {
 
 enum Category {
   COURSE
-  APPLICATION
+  LESSON
 }
 
 model Course {

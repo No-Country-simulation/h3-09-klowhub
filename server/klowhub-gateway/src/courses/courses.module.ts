@@ -12,8 +12,8 @@ import { envs } from 'src/config';
         name: 'COURSES_SERVICE',
         transport: Transport.TCP,
         options: {
-          host: envs.usersMicroserviceHost,
-          port: envs.usersMicroservicePort,
+          host: envs.coursesMicroserviceHost,
+          port: envs.coursesMicroservicePort,
         },
       },
     ]),
