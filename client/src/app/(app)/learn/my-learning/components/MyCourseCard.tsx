@@ -27,7 +27,7 @@ export default function MyCourseCard({ course }: MyCourseCard) {
 	const totalVotes = course.reviews.length
 
 	return (
-		<article className="flex h-[500px] w-[453px] flex-col rounded-lg bg-card">
+		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card">
 			<div className="relative rounded-t-lg">
 				<Image
 					src={course.image}
