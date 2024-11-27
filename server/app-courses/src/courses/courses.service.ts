@@ -5,10 +5,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
-import { CreateCourseDto } from './dto/create-course.dto';
 import { RpcException } from '@nestjs/microservices';
+import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { CreateResourceDto } from './dto/create-resource.dto';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
@@ -31,11 +32,56 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     const course = await this.course.findMany();
     return course;
   }
-
+  /*
   async createCourse(courseData: CreateCourseDto) {
     this.logger.log('create_course');
     const createCourse = await this.course.create({ data: courseData });
     return createCourse;
+  }
+*/
+
+  async createCourse(courseData: CreateCourseDto) {
+    this.logger.log('create_course');
+
+    try {
+      // Create the course
+      const createdCourse = await this.course.create({ data: courseData });
+      this.logger.log(`Course created with ID: ${createdCourse.id}`);
+
+      // Create the section associated with the course
+      const sectionData: CreateCourseSectionDto = {
+        titleSection: 'Default Section Title',
+        courseId: createdCourse.id,
+        order: 1,
+      };
+      const createdSection = await this.courseSection.create({
+        data: sectionData,
+      });
+      this.logger.log(
+        `Section created with ID: ${createdSection.id} for course ID: ${createdCourse.id}`,
+      );
+
+      // Create the resource associated with the section
+      const resourceData: CreateResourceDto = {
+        sectionId: createdSection.id,
+        mediaId: 'default-media-id', // id default
+      };
+      const createdResource = await this.resource.create({
+        data: resourceData,
+      });
+      this.logger.log(
+        `Resource created with ID: ${createdResource.id} for section ID: ${createdSection.id}`,
+      );
+
+      return {
+        course: createdCourse,
+        section: createdSection,
+        resource: createdResource,
+      };
+    } catch (error) {
+      this.logger.error('Error creating course, section, or resource', error);
+      throw new RpcException('Failed to create course and related entities');
+    }
   }
 
   async createSection(courseSectionData: CreateCourseSectionDto) {
