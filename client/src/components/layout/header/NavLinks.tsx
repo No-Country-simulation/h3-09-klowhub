@@ -2,11 +2,11 @@ import Link from 'next/link'
 
 const links = [
 	{ label: 'Dashboard', href: '/dashboard' },
-	{ label: 'Curso y lecciones', href: '/courses' },
+	{ label: 'Curso y lecciones', href: '/learn/courses' },
 	{ label: 'Appstore', href: '/appstore' },
 	{ label: 'Proyectos', href: '/projects' },
 	{ label: 'Consultoría', href: '/consulting' },
-	{ label: 'Sobre Appsheet', href: '/about' },
+	{ label: 'Sobre Appsheet', href: '/about' }
 ]
 
 export default function NavLinks() {
