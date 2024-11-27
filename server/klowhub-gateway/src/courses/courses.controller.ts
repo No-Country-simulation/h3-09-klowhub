@@ -36,7 +36,7 @@ export class CoursesController {
   async findOneCourse(@Param('id') id: string) {
     try {
       const course = await firstValueFrom(
-        this.courseClient.send({ cmd: 'find_one_course' }, { id }),
+        this.courseClient.send({ cmd: 'find_one_course_by_id' }, { id }),
       );
       return course;
     } catch (error) {
