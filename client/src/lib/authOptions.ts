@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
-import axiosInstance from '@/utils/axiosInstance'
+import axios, {AxiosError} from 'axios'
 
 
 export const authOptions: NextAuthOptions = {
@@ -11,23 +11,33 @@ export const authOptions: NextAuthOptions = {
 		CredentialsProvider({
 			name: 'Credentials',
 			credentials: {
-				email: { label: 'Email', type: 'email', placeholder: 'yourmail@gmail.com' },
+				email: { label: 'Email', type: 'email', placeholder: 'test@test.com' },
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
 				try {
-					const { data: user } = await axiosInstance.post('/api/auth/login', {
+					const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
 						email: credentials?.email,
 						password: credentials?.password,
-					})
-
-					if (user) {
-						return user
+					},
+					{
+						headers: {
+							'Content-Type': 'application/json',
+						},
 					}
-					return null
+					)
+
+					if(!data || data.error){
+						throw new Error(data?.error || 'Credenciales invalidas')
+					}
+					return data
 				} catch (error) {
-					console.error('Authorization error: ', error)
-					return null
+					if (axios.isAxiosError(error)){
+						const axiosError = error as AxiosError<{error:string}>
+						const errorMessage = axiosError.response?.data?.error || 'Ha ocurrido un error en la autenticacion'
+						throw new Error(errorMessage)
+					}
+					throw new Error('Error inesperado al autenticar')
 				}
 			},
 		}),
@@ -55,7 +65,7 @@ export const authOptions: NextAuthOptions = {
 		async redirect({ url, baseUrl }) {
 			console.log('Redirect URL: ', url)
 			console.log('Base URL: ', baseUrl)
-			return url.startsWith(baseUrl) ? url : baseUrl
+			return baseUrl
 		},
 		async jwt({ token, user }) {
 			if (user) {

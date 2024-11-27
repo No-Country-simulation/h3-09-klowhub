@@ -11,8 +11,8 @@ interface IFormInput {
 }
 export default function Page() {
 
-	const { data: session } = useSession()
-	console.log('This is data session ' + session?.user.name)
+	const { data: session, status } = useSession()
+	console.log({ session, status })
 
 	const {
 		register,
@@ -21,13 +21,21 @@ export default function Page() {
 	} = useForm<IFormInput>()
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		signIn('credentials', {
-			email: data.email,
-			password: data.password,
-			redirect: false,
-		})
-		console.log(data)
-		// Aquí puedes manejar el envío del formulario, como enviar los datos a tu servidor
+		try {
+			const res = signIn('credentials', {
+				email: data.email,
+				password: data.password,
+				redirect: true,
+			})
+
+			if (!res) {
+				throw new Error('Invalid email or password.')
+			}
+			console.log(res)
+
+		} catch (err) {
+			console.error('Login error: ', err)
+		}
 	}
 
 	return (
