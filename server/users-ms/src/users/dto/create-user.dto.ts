@@ -20,7 +20,7 @@ export class UserDto {
   public password: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   public bio: string;
 
   @IsOptional()
