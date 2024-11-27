@@ -11,7 +11,7 @@ export default function RecommendedApps() {
 					proyecto y empezá a trabajar de inmediato.
 				</p>
 			</div>
-			<div className="flex w-full flex-wrap justify-between">
+			<div className="flex w-full flex-wrap justify-between gap-y-8">
 				{Array.from({ length: 4 }).map((_, i) => (
 					<AppCourseCard key={i} variant="app" />
 				))}
