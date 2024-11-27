@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-ms-service
+spec:
+  selector:
+    app: users-ms
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001

@@ -7,7 +7,7 @@ import {
 import { PrismaClient, User } from '@prisma/client';
 import { UserService } from 'src/users/users.service';
 import * as jwt from 'jsonwebtoken';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService extends PrismaClient implements OnModuleInit {
