@@ -32,14 +32,14 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     const course = await this.course.findMany();
     return course;
   }
-  /*
+
   async createCourse(courseData: CreateCourseDto) {
     this.logger.log('create_course');
     const createCourse = await this.course.create({ data: courseData });
     return createCourse;
   }
-*/
 
+  /*
   async createCourse(courseData: CreateCourseDto) {
     this.logger.log('create_course');
 
@@ -83,7 +83,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       throw new RpcException('Failed to create course and related entities');
     }
   }
-
+*/
   async createSection(courseSectionData: CreateCourseSectionDto) {
     this.logger.log('create_section');
     const createSection = await this.courseSection.create({
@@ -102,6 +102,55 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return updateCourse;
   }
 
+  /*
+  async updateCourse(id: string, updateData: UpdateCourseDto): Promise<any> {
+    this.logger.log(`update_course with ID: ${id}`);
+
+    try {
+      // Update the course
+      const { sectionData, resourceData, ...courseData } = updateData;
+      const updatedCourse = await this.course.update({
+        where: { id },
+        data: courseData,
+      });
+      this.logger.log(`Course with ID: ${id} updated successfully`);
+
+      // Update the associated section
+      let updatedSection = null;
+      if (sectionData) {
+        updatedSection = await this.courseSection.update({
+          where: { id: sectionData.id },
+          data: sectionData,
+        });
+        this.logger.log(
+          `Section with ID: ${sectionData.id} updated successfully for course ID: ${id}`,
+        );
+      }
+
+      // Update the associated resource
+      let updatedResource = null;
+      if (resourceData) {
+        updatedResource = await this.resource.update({
+          where: { id: resourceData.id },
+          data: resourceData,
+        });
+        this.logger.log(
+          `Resource with ID: ${resourceData.id} updated successfully for section ID: ${sectionData?.id}`,
+        );
+      }
+
+      // Return updated data
+      return {
+        course: updatedCourse,
+        section: updatedSection,
+        resource: updatedResource,
+      };
+    } catch (error) {
+      this.logger.error(`Error updating course with ID: ${id}`, error);
+      throw new RpcException('Failed to update course and related entities');
+    }
+  }
+*/
   async deleteCourse(courseId: string): Promise<Course> {
     this.logger.log('delete_course');
 
