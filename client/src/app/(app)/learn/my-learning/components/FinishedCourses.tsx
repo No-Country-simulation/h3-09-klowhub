@@ -206,7 +206,7 @@ export default function FinishedCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Cursos terminados</h4>
-			<div className="flex gap-6">
+			<div className="flex gap-6 overflow-scroll">
 				{finishedCourses.map((course) => {
 					return <MyCourseCard key={course.id} course={course} />
 				})}

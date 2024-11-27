@@ -135,7 +135,7 @@ export default function MyCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Mis cursos</h4>
-			<div className="flex gap-6">
+			<div className="flex flex-wrap gap-6">
 				{myCourses.map((course) => {
 					return <MyCourseCard key={course.id} course={course} />
 				})}
