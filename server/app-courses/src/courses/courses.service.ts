@@ -9,7 +9,9 @@ import { RpcException } from '@nestjs/microservices';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
+import { UpdateResourceDto } from './dto/update-resource.dto';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
@@ -18,6 +20,17 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     await this.$connect();
     this.logger.log('onModuleInit');
+  }
+  //Course
+
+  async findCoursesByUserId(userId: string) {
+    this.logger.log('find_courses_by_user_id');
+
+    const courses = await this.course.findMany({
+      where: { sellerId: userId },
+    });
+
+    return courses;
   }
 
   async findOneCourseById(id: string) {
@@ -39,59 +52,6 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return createCourse;
   }
 
-  /*
-  async createCourse(courseData: CreateCourseDto) {
-    this.logger.log('create_course');
-
-    try {
-      // Create the course
-      const createdCourse = await this.course.create({ data: courseData });
-      this.logger.log(`Course created with ID: ${createdCourse.id}`);
-
-      // Create the section associated with the course
-      const sectionData: CreateCourseSectionDto = {
-        titleSection: 'Default Section Title',
-        courseId: createdCourse.id,
-        order: 1,
-      };
-      const createdSection = await this.courseSection.create({
-        data: sectionData,
-      });
-      this.logger.log(
-        `Section created with ID: ${createdSection.id} for course ID: ${createdCourse.id}`,
-      );
-
-      // Create the resource associated with the section
-      const resourceData: CreateResourceDto = {
-        sectionId: createdSection.id,
-        mediaId: 'default-media-id', // id default
-      };
-      const createdResource = await this.resource.create({
-        data: resourceData,
-      });
-      this.logger.log(
-        `Resource created with ID: ${createdResource.id} for section ID: ${createdSection.id}`,
-      );
-
-      return {
-        course: createdCourse,
-        section: createdSection,
-        resource: createdResource,
-      };
-    } catch (error) {
-      this.logger.error('Error creating course, section, or resource', error);
-      throw new RpcException('Failed to create course and related entities');
-    }
-  }
-*/
-  async createSection(courseSectionData: CreateCourseSectionDto) {
-    this.logger.log('create_section');
-    const createSection = await this.courseSection.create({
-      data: courseSectionData,
-    });
-    return createSection;
-  }
-
   async updateCourse(id: string, updateData: UpdateCourseDto): Promise<Course> {
     this.logger.log('update_course');
     const { id: _, ...Data } = updateData;
@@ -102,55 +62,6 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return updateCourse;
   }
 
-  /*
-  async updateCourse(id: string, updateData: UpdateCourseDto): Promise<any> {
-    this.logger.log(`update_course with ID: ${id}`);
-
-    try {
-      // Update the course
-      const { sectionData, resourceData, ...courseData } = updateData;
-      const updatedCourse = await this.course.update({
-        where: { id },
-        data: courseData,
-      });
-      this.logger.log(`Course with ID: ${id} updated successfully`);
-
-      // Update the associated section
-      let updatedSection = null;
-      if (sectionData) {
-        updatedSection = await this.courseSection.update({
-          where: { id: sectionData.id },
-          data: sectionData,
-        });
-        this.logger.log(
-          `Section with ID: ${sectionData.id} updated successfully for course ID: ${id}`,
-        );
-      }
-
-      // Update the associated resource
-      let updatedResource = null;
-      if (resourceData) {
-        updatedResource = await this.resource.update({
-          where: { id: resourceData.id },
-          data: resourceData,
-        });
-        this.logger.log(
-          `Resource with ID: ${resourceData.id} updated successfully for section ID: ${sectionData?.id}`,
-        );
-      }
-
-      // Return updated data
-      return {
-        course: updatedCourse,
-        section: updatedSection,
-        resource: updatedResource,
-      };
-    } catch (error) {
-      this.logger.error(`Error updating course with ID: ${id}`, error);
-      throw new RpcException('Failed to update course and related entities');
-    }
-  }
-*/
   async deleteCourse(courseId: string): Promise<Course> {
     this.logger.log('delete_course');
 
@@ -161,5 +72,97 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       },
     });
     return updateCourse;
+  }
+  //  Course Section
+
+  async createCourseSection(courseSectionData: CreateCourseSectionDto) {
+    this.logger.log('create_course_section');
+    const courseSection = await this.courseSection.create({
+      data: courseSectionData,
+    });
+    return courseSection;
+  }
+
+  async getAllCourseSections() {
+    this.logger.log('find_all_course_sections');
+    const courseSections = await this.courseSection.findMany();
+    return courseSections;
+  }
+
+  async findOneCourseSectionById(id: string) {
+    this.logger.log('find_one_course_section_by_id');
+    const courseSection = await this.courseSection.findUnique({
+      where: { id },
+    });
+    return courseSection;
+  }
+
+  async updateCourseSection(id: string, updateData: UpdateCourseSectionDto) {
+    this.logger.log('update_course_section');
+    const updateCourseSection = await this.courseSection.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateCourseSection;
+  }
+
+  async deleteCourseSection(id: string) {
+    this.logger.log('delete_course_section');
+
+    try {
+      const deletedCourseSection = await this.courseSection.delete({
+        where: { id },
+      });
+      return deletedCourseSection;
+    } catch (error) {
+      this.logger.error(`Error deleting course section with ID ${id}`, error);
+      throw new Error('Could not delete course section');
+    }
+  }
+  // Resource
+
+  async createResource(resourceData: CreateResourceDto) {
+    this.logger.log('create_resource');
+    const resource = await this.resource.create({
+      data: resourceData,
+    });
+    return resource;
+  }
+
+  async getAllResources() {
+    this.logger.log('find_all_resources');
+    const resources = await this.resource.findMany();
+    return resources;
+  }
+
+  async findOneResourceById(id: string) {
+    this.logger.log('find_one_resource_by_id');
+    const resource = await this.resource.findUnique({
+      where: { id },
+    });
+    return resource;
+  }
+
+  async updateResource(id: string, updateData: UpdateResourceDto) {
+    this.logger.log('update_resource');
+    const updateResource = await this.resource.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateResource;
+  }
+
+  async deleteResource(id: string) {
+    this.logger.log('delete_resource');
+
+    try {
+      const deletedResource = await this.resource.delete({
+        where: { id },
+      });
+      return deletedResource;
+    } catch (error) {
+      this.logger.error(`Error deleting resource with ID ${id}`, error);
+      throw new Error('Could not delete resource');
+    }
   }
 }
