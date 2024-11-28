@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-ms
+  template:
+    metadata:
+      labels:
+        app: users-ms
+    spec:
+      containers:
+      - name: users-ms
+        image: gcr.io/wired-climate-442121-i1/users-ms:latest
+        ports:
+        - containerPort: 3001

@@ -11,11 +11,11 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        port: envs.port,
+        port: envs.userPort,
       },
     },
   );
   await app.listen();
-  logger.log(`Main-Users running on port ${envs.port}`);
+  logger.log(`Main-Users running on port ${envs.userPort}`);
 }
 bootstrap();

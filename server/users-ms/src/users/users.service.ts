@@ -3,7 +3,7 @@ import { Prisma, PrismaClient, User } from '@prisma/client';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RpcException } from '@nestjs/microservices';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 
 @Injectable()
