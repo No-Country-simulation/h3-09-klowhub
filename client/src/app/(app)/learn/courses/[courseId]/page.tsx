@@ -125,7 +125,7 @@ export default function Page() {
 	const averageScore = Number((totalScore / reviews.length).toFixed(1))
 
 	return (
-		<section className="grid grid-rows-2 gap-20 md:grid-cols-5 md:gap-[8%]">
+		<section className="grid grid-rows-2 gap-20 md:grid-cols-5 md:grid-rows-1 md:gap-[8%]">
 			<div className="flex flex-col space-y-6 md:col-span-3">
 				<b>{course.title}</b>
 				<p className="text-sm">{course.shortDescription}</p>
