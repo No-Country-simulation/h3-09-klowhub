@@ -11,6 +11,7 @@ export interface DigitalProduct {
 	id: string
 	title: string
 	shortDescription: string
+	price?: number
 	platform: Platform
 	language: string
 	sector: string // Sector o industria (ej: "Ventas y CRM", "Finanzas y Contabilidad")
