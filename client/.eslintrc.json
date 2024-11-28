@@ -1,3 +1,42 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"next/core-web-vitals",
+		"next/typescript",
+		"eslint:recommended",
+		"plugin:@next/next/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"plugins": ["@typescript-eslint"],
+	"rules": {
+		"quotes": [
+			"error",
+			"single",
+			{ "avoidEscape": true, "allowTemplateLiterals": true }
+		],
+		"semi": ["error", "never"],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"no-tabs": "off",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"@next/next/no-html-link-for-pages": "off",
+		"react/react-in-jsx-scope": "off"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
 }
