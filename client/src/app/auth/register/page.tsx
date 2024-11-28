@@ -1,24 +1,56 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import axios, { AxiosError } from 'axios'
 
 interface IFormInput {
 	name: string
 	email: string
 	password: string
-	newsletter: boolean
+	newsletter?: boolean
 }
 export default function Page() {
+	const { data: session, status } = useSession()
+	console.log({ session, status })
+
+	const router = useRouter()
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors }
 	} = useForm<IFormInput>()
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log(data)
-		// Aquí puedes manejar el envío del formulario, como enviar los datos a tu servidor
+	const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
+		try {
+			const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/create`, {
+				name: formData.name,
+				email: formData.email,
+				password: formData.password
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			}
+			)
+			if (data?.error || data?.statusCode >= 400) {
+				console.error('Error en registro: Verifica los datos ingresados.')
+				return
+			}
+
+			router.push('/auth/login')
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				console.error('Error al registrar usuario:', error.response?.data?.message || error.message)
+			} else {
+				console.error('Error inesperado:', error)
+			}
+
+		}
 	}
 
 	return (
@@ -98,7 +130,7 @@ export default function Page() {
 			<div className="mt-6 text-center">
 				<p>O continuar con</p>
 				<div className="mt-2 flex justify-center space-x-4">
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('github')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -111,7 +143,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('facebook')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -124,7 +156,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('google')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}

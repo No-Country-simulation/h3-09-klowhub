@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { SessionAuthProvider } from '../context/SessionProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,9 +16,9 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="es">
+		<html lang="es" className="no-scrollbar">
 			<body className={` ${inter.className} antialiased`}>
-				{children}
+				<SessionAuthProvider>{children}</SessionAuthProvider>
 			</body>
 		</html>
 	)

@@ -52,7 +52,7 @@ export const consultants: Consultant[] = [
 export default function FeaturedConsultants() {
 	return (
 		<section>
-			<div className="flex w-full flex-wrap justify-between">
+			<div className="flex w-full flex-wrap justify-between gap-y-8">
 				{consultants.map((consultant) => (
 					<ConsultantCard key={consultant.id} consultant={consultant} />
 				))}

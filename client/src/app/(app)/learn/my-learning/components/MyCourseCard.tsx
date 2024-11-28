@@ -10,6 +10,7 @@ import { Technologies } from '@/constants/technologies.constant'
 import { Course } from '@/models/course.model'
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 interface MyCourseCard {
@@ -26,7 +27,7 @@ export default function MyCourseCard({ course }: MyCourseCard) {
 	const totalVotes = course.reviews.length
 
 	return (
-		<article className="flex h-[500px] w-[453px] flex-col rounded-lg bg-card">
+		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card">
 			<div className="relative rounded-t-lg">
 				<Image
 					src={course.image}
@@ -63,9 +64,11 @@ export default function MyCourseCard({ course }: MyCourseCard) {
 
 				<RatingStars rating={averageRating} totalVotes={totalVotes} />
 
-				<Button variant="tertiary" className="mx-auto">
-					Ver detalles
-				</Button>
+				<Link href={`/learn/my-learning/${course.id}`}>
+					<Button variant="tertiary" className="mx-auto">
+						Ver detalles
+					</Button>
+				</Link>
 			</div>
 		</article>
 	)

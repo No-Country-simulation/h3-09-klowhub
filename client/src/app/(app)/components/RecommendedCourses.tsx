@@ -12,7 +12,7 @@ export default function RecommendedCourses() {
 					proyectos reales con AppSheet.
 				</p>
 			</div>
-			<div className="flex w-full flex-wrap justify-between">
+			<div className="flex w-full flex-wrap justify-between gap-y-8">
 				{Array.from({ length: 3 }).map((_, i) => (
 					<AppCourseCard key={i} variant="course" />
 				))}

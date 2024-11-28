@@ -2,12 +2,18 @@
 import Button from '@/components/buttons/Button'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { signIn, useSession } from 'next-auth/react'
+
 
 interface IFormInput {
 	email: string
 	password: string
 }
 export default function Page() {
+
+	const { data: session, status } = useSession()
+	console.log({ session, status })
+
 	const {
 		register,
 		handleSubmit,
@@ -15,8 +21,21 @@ export default function Page() {
 	} = useForm<IFormInput>()
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log(data)
-		// Aquí puedes manejar el envío del formulario, como enviar los datos a tu servidor
+		try {
+			const res = signIn('credentials', {
+				email: data.email,
+				password: data.password,
+				redirect: true,
+			})
+
+			if (!res) {
+				throw new Error('Invalid email or password.')
+			}
+			console.log(res)
+
+		} catch (err) {
+			console.error('Login error: ', err)
+		}
 	}
 
 	return (
@@ -76,7 +95,7 @@ export default function Page() {
 			<div className="mt-6 text-center">
 				<p>O continuar con</p>
 				<div className="mt-2 flex justify-center space-x-4">
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('github')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -89,7 +108,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('facebook')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -102,7 +121,7 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2">
+					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('google')}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}

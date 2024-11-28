@@ -49,13 +49,15 @@ export default function MyCourses() {
 						title: 'Configuración inicial',
 						description: 'Cómo crear tu primera aplicación en AppSheet.',
 						contentLink: 'https://example.com/lesson-1',
-						additionalResources: ['https://example.com/setup-guide.pdf']
+						additionalResources: ['https://example.com/setup-guide.pdf'],
+						image: 'https://picsum.photos/500/200'
 					},
 					{
 						title: 'Exploración de funciones básicas',
 						description:
 							'Descubre las principales funcionalidades de AppSheet.',
-						contentLink: 'https://example.com/lesson-2'
+						contentLink: 'https://example.com/lesson-2',
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			},
@@ -68,11 +70,18 @@ export default function MyCourses() {
 						title: 'Uso de bots y acciones',
 						description: 'Configura automatizaciones efectivas.',
 						contentLink: 'https://example.com/lesson-3',
-						additionalResources: ['https://example.com/bots-guide.pdf']
+						additionalResources: ['https://example.com/bots-guide.pdf'],
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			}
-		]
+		],
+		creator: {
+			id: 'creator-002',
+			name: 'Ana López',
+			bio: 'Experta en AppSheet y ventas.',
+			profilePicture: '/img/profile_test.jpeg'
+		}
 	}
 
 	// Curso tipo "lección"
@@ -112,7 +121,13 @@ export default function MyCourses() {
 		detailedDescription:
 			'Esta lección te enseña cómo conectar PowerApps con otras herramientas para optimizar tus procesos.',
 		contentLink: 'https://example.com/integrations-lesson',
-		additionalResources: ['https://example.com/integrations-cheatsheet.pdf']
+		additionalResources: ['https://example.com/integrations-cheatsheet.pdf'],
+		creator: {
+			id: 'creator-001',
+			name: 'María Rodríguez',
+			bio: 'Experta en integraciones y desarrollo de aplicaciones empresariales.',
+			profilePicture: '/img/profile_test.jpeg'
+		}
 	}
 
 	const myCourses: Course[] = [mockCourse, mockLessonCourse]
@@ -120,7 +135,7 @@ export default function MyCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Mis cursos</h4>
-			<div className="flex gap-6">
+			<div className="flex flex-wrap gap-6">
 				{myCourses.map((course) => {
 					return <MyCourseCard key={course.id} course={course} />
 				})}

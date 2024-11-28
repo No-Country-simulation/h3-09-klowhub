@@ -49,12 +49,14 @@ export default function FinishedCourses() {
 						title: 'Instalación y configuración',
 						description: 'Cómo preparar tu entorno de PowerApps.',
 						contentLink: 'https://example.com/powerapps-lesson-1',
-						additionalResources: ['https://example.com/install-guide.pdf']
+						additionalResources: ['https://example.com/install-guide.pdf'],
+						image: 'https://picsum.photos/500/200'
 					},
 					{
 						title: 'Diseño de interfaces',
 						description: 'Aprende a diseñar interfaces intuitivas y efectivas.',
-						contentLink: 'https://example.com/powerapps-lesson-2'
+						contentLink: 'https://example.com/powerapps-lesson-2',
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			},
@@ -66,11 +68,18 @@ export default function FinishedCourses() {
 					{
 						title: 'Creación de flujos básicos',
 						description: 'Aprende a crear tus primeros flujos de trabajo.',
-						contentLink: 'https://example.com/powerapps-lesson-3'
+						contentLink: 'https://example.com/powerapps-lesson-3',
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			}
-		]
+		],
+		creator: {
+			id: 'creator-002',
+			name: 'Ana Gómez',
+			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
+			profilePicture: '/img/profile_test.jpeg'
+		}
 	}
 
 	// Curso tipo "curso" 2
@@ -120,7 +129,8 @@ export default function FinishedCourses() {
 						title: 'Creación de tu primera aplicación',
 						description: 'Aprende a configurar los elementos básicos.',
 						contentLink: 'https://example.com/appsheet-lesson-1',
-						additionalResources: ['https://example.com/setup-guide.pdf']
+						additionalResources: ['https://example.com/setup-guide.pdf'],
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			},
@@ -131,11 +141,18 @@ export default function FinishedCourses() {
 					{
 						title: 'Integración con APIs',
 						description: 'Cómo conectar AppSheet con otras herramientas.',
-						contentLink: 'https://example.com/appsheet-lesson-2'
+						contentLink: 'https://example.com/appsheet-lesson-2',
+						image: 'https://picsum.photos/500/200'
 					}
 				]
 			}
-		]
+		],
+		creator: {
+			id: 'creator-003',
+			name: 'Carlos Rodríguez',
+			bio: 'Experto en AppSheet y ventas.',
+			profilePicture: '/img/profile_test.jpeg'
+		}
 	}
 
 	// Curso tipo "lección"
@@ -175,7 +192,13 @@ export default function FinishedCourses() {
 		detailedDescription:
 			'Esta lección te guiará paso a paso en la creación de tus primeros flujos.',
 		contentLink: 'https://example.com/flow-creation-lesson',
-		additionalResources: ['https://example.com/flows-cheatsheet.pdf']
+		additionalResources: ['https://example.com/flows-cheatsheet.pdf'],
+		creator: {
+			id: 'creator-004',
+			name: 'Jorge Ramírez',
+			bio: 'Experto en automatización y Power Automate.',
+			profilePicture: '/img/profile_test.jpeg'
+		}
 	}
 
 	const finishedCourses: Course[] = [course1, course2, lessonCourse]
@@ -183,7 +206,7 @@ export default function FinishedCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Cursos terminados</h4>
-			<div className="flex gap-6">
+			<div className="flex gap-6 overflow-scroll">
 				{finishedCourses.map((course) => {
 					return <MyCourseCard key={course.id} course={course} />
 				})}
