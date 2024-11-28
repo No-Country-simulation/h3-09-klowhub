@@ -21,7 +21,7 @@ export function CourseInProgressCard() {
 		<Card
 			theme={{
 				root: {
-					children: 'p-4  gap-3 flex flex-col w-full',
+					children: 'p-2  gap-3 flex flex-col w-full',
 					horizontal: {
 						on: 'md:max-w-full max-sm:flex-col flex-row '
 					}
@@ -36,11 +36,15 @@ export function CourseInProgressCard() {
 			className={`overflow-hidden border-none bg-card`}
 			renderImage={() => (
 				<picture className="relative aspect-video sm:w-1/4">
+					<span className="absolute left-2 top-2 z-20">
+						<CategoryTag>Curso</CategoryTag>
+					</span>
 					<Image
 						fill
+						sizes="200px"
 						src={course.image}
 						alt="app image"
-						className="object-cover"
+						className="z-0 object-cover"
 					/>
 				</picture>
 			)}
