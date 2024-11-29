@@ -1,14 +1,7 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  Headers,
-  Post,
-} from '@nestjs/common'
+import { Controller, BadRequestException } from '@nestjs/common'
+import { MessagePattern, Payload } from '@nestjs/microservices'
 
 import Stripe from 'stripe'
-
 import { StripeService } from './stripe.service'
 import {
   CreateCheckoutSessionDto,
@@ -16,6 +9,9 @@ import {
   CreateCustomerPortalUrlDto,
   CreateSubscriptionDto,
 } from './dto'
+import { CreateCustomerResponse } from './interfaces/stripe.interface'
+import { CreateAccountDto } from './dto/create-account.dto'
+import { ConfigService } from '@nestjs/config'
 
 const STRIPE_EVENT_TYPES = {
   PAYMENT_INTENT_SUCCEEDED: 'payment_intent.succeeded',
@@ -23,21 +19,16 @@ const STRIPE_EVENT_TYPES = {
   INVOICE_PAYMENT_SUCCEEDED: 'invoice.payment_succeeded',
 }
 
-import { CreateCustomerResponse } from './interfaces/stripe.interface'
-import { CreateAccountDto } from './dto/create-account.dto'
-import { ConfigService } from '@nestjs/config'
-
-@Controller('stripe')
+@Controller()
 export class StripeController {
   constructor(
     private readonly configService: ConfigService,
     private readonly stripeService: StripeService,
   ) { }
 
-  @Post('webhook')
+  @MessagePattern('stripe.webhook')
   async handleStripeWebhook(
-    @Body() body: Buffer,
-    @Headers('stripe-signature') signature: string,
+    @Payload() { body, signature }: { body: Buffer; signature: string },
   ): Promise<void> {
     const endpointSecret = this.configService.get('STRIPE_API_KEY')
 
@@ -75,49 +66,40 @@ export class StripeController {
     }
   }
 
-  @Post('create-checkout-session')
+  @MessagePattern('stripe.create-checkout-session')
   async createCheckoutSession(
-    @Body() createCheckoutSession: CreateCheckoutSessionDto,
+    @Payload() createCheckoutSession: CreateCheckoutSessionDto,
   ): Promise<{ url: string }> {
     return await this.stripeService.createCheckoutSession(createCheckoutSession)
   }
 
-  @Post('create-subscription')
+  @MessagePattern('stripe.create-subscription')
   async createSubscription(
-    @Body() createSubscriptionDto: CreateSubscriptionDto,
+    @Payload() createSubscriptionDto: CreateSubscriptionDto,
   ): Promise<Stripe.Response<Stripe.Subscription>> {
     return await this.stripeService.createSubscription(createSubscriptionDto)
   }
 
-  // todo: customers
-  //* use in create or update user
-  @Post('create-customer')
+  @MessagePattern('stripe.create-customer')
   async createCustomer(
-    @Body() createCustomerDto: CreateCustomerDto,
+    @Payload() createCustomerDto: CreateCustomerDto,
   ): Promise<CreateCustomerResponse> {
     return await this.stripeService.createCustomer(createCustomerDto)
   }
 
-  @Post('customer-portal')
+  @MessagePattern('stripe.customer-portal')
   async getCustomerPortalUrl(
-    @Body() createCustomerPortalUrlDto: CreateCustomerPortalUrlDto,
+    @Payload() createCustomerPortalUrlDto: CreateCustomerPortalUrlDto,
   ): Promise<{ url: string }> {
     return await this.stripeService.getCustomerPortalUrl(
       createCustomerPortalUrlDto,
     )
   }
 
-  @Post('create-account')
+  @MessagePattern('stripe.create-account')
   async createAccount(
-    @Body() createAccountDto: CreateAccountDto,
+    @Payload() createAccountDto: CreateAccountDto,
   ): Promise<Stripe.Response<Stripe.Account>> {
-    {
-      return await this.stripeService.createAccount(createAccountDto)
-    }
-  }
-
-  @Get()
-  helloWorld(): string {
-    return 'Oa'
+    return await this.stripeService.createAccount(createAccountDto)
   }
 }

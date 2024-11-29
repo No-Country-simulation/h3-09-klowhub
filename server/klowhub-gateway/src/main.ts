@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -16,6 +17,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
   app.useGlobalFilters(new ExceptionFilter());
   await app.listen(envs.port);
 
