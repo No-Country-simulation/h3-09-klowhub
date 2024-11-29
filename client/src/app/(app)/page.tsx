@@ -9,8 +9,8 @@ import SectionsLinkButtons from './components/SectionsLinkButtons'
 export default function Home() {
 	return (
 		<div className="flex flex-col gap-12">
-			<MyLearn />
 			<SectionsLinkButtons />
+			<MyLearn />
 			<RecommendedCourses />
 			<RecommendedApps />
 			<LastConsultations />
