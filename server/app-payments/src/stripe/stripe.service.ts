@@ -8,6 +8,7 @@ import {
 } from './dto/create-checkout-session.dto'
 import { CreateCustomerPortalUrlDto, CreateSubscriptionDto } from './dto'
 import { CreateCustomerResponse } from './interfaces/stripe.interface'
+import { CreateAccountDto } from './dto/create-account.dto'
 
 @Injectable()
 export class StripeService {
@@ -117,5 +118,41 @@ export class StripeService {
     })
 
     return { url: session.url }
+  }
+
+  async createAccount(
+    createAccountDto: CreateAccountDto,
+  ): Promise<Stripe.Response<Stripe.Account>> {
+    const { country, email } = createAccountDto
+
+    const account = await this.stripe.accounts.create({
+      country,
+      email,
+      controller: {
+        fees: {
+          payer: 'application',
+        },
+        losses: {
+          payments: 'application',
+        },
+        stripe_dashboard: {
+          type: 'express',
+        },
+      },
+    })
+
+    return account
+  }
+
+  constructEventFromSignature(
+    payload: Buffer,
+    signature: string,
+    endpointSecret: string,
+  ): Stripe.Event {
+    return this.stripe.webhooks.constructEvent(
+      payload,
+      signature,
+      endpointSecret,
+    )
   }
 }
