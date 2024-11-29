@@ -43,10 +43,10 @@ export default function LatestSalesTable({ sales }: LatestSalesTableProps) {
 				</thead>
 				<tbody>
 					{sales.map((sale, index) => (
-						<tr key={index} className="h-20 bg-white/10">
+						<tr key={index} className="bg-white/10">
 							<th
 								scope="row"
-								className={clsx('py-6 pl-6', {
+								className={clsx('py-4 pl-4', {
 									'rounded-tl-lg': index === 0,
 									'rounded-bl-lg': index === sales.length - 1
 								})}
@@ -63,15 +63,15 @@ export default function LatestSalesTable({ sales }: LatestSalesTableProps) {
 									)}
 								</div>
 							</th>
-							<td className="py-6 pl-6 font-normal">
+							<td className="py-4 pl-4 font-normal">
 								<p className="w-max">{sale.buyer.name}</p>
 							</td>
-							<td className="py-6 pl-6">${sale.amount}</td>
-							<td className="py-6 pl-6">
+							<td className="py-4 pl-4">${sale.amount}</td>
+							<td className="py-4 pl-4">
 								<CardStatusTag status={sale.state} />
 							</td>
 							<td
-								className={clsx('p-6', {
+								className={clsx('p-4', {
 									'rounded-tr-lg': index === 0,
 									'rounded-br-lg': index === sales.length - 1
 								})}
