@@ -8,7 +8,7 @@ async function bootstrap(): Promise<void> {
     AppModule,
     {
       transport: Transport.TCP,
-      options: { port: 3001 },
+      options: { port: 3002 },
     },
   )
 

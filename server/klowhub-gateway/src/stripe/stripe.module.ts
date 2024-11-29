@@ -1,9 +1,22 @@
 import { Module } from '@nestjs/common';
-import { StripeController } from '../../../app-payments/src/stripe/stripe.controller';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+
+import { StripeController } from './stripe.controller';
+import { envs } from '../config';
 
 @Module({
-  imports: [],
   controllers: [StripeController],
-  providers: [],
+  imports: [
+    ClientsModule.register([
+      {
+        name: 'APP_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: envs.paymentsMicroserviceHost,
+          port: envs.paymentsroservicePort,
+        },
+      },
+    ]),
+  ],
 })
 export class StripeModule { }

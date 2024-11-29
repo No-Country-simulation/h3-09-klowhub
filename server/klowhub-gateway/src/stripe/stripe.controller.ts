@@ -13,16 +13,15 @@ import {
   CreateCustomerDto,
   CreateCustomerPortalUrlDto,
   CreateSubscriptionDto,
-} from '../../../app-payments/src/stripe/dto';
+  CreateAccountDto
+} from './dto';
 
-import { CreateCustomerResponse } from '../../../app-payments/src/stripe/interfaces/stripe.interface';
-import { CreateAccountDto } from '../../../app-payments/src/stripe/dto/create-account.dto';
-import { firstValueFrom } from 'rxjs';
+import { CreateCustomerResponse } from './interfaces/stripe.interface';
 
 @Controller('stripe')
 export class StripeController {
   constructor(
-    @Inject('PAYMENTS_SERVICE') private readonly paymentsService: ClientProxy,
+    @Inject('APP_SERVICE') private readonly appClient: ClientProxy
   ) { }
 
   @Post('webhook')
@@ -31,7 +30,7 @@ export class StripeController {
     @Headers('stripe-signature') signature: string,
   ): Promise<void> {
     try {
-      await this.paymentsService
+      await this.appClient
         .send<void>('stripe.webhook', { body, signature })
 
     } catch (err) {
@@ -44,8 +43,8 @@ export class StripeController {
   async createCheckoutSession(
     @Body() createCheckoutSession: CreateCheckoutSessionDto,
   ) {
-    return firstValueFrom(this.paymentsService
-      .send<{ url: string }>('stripe.create-checkout-session', createCheckoutSession))
+    return this.appClient
+      .send<{ url: string }>('stripe.create-checkout-session', createCheckoutSession)
 
   }
 
@@ -53,7 +52,7 @@ export class StripeController {
   async createSubscription(
     @Body() createSubscriptionDto: CreateSubscriptionDto,
   ) {
-    return this.paymentsService
+    return this.appClient
       .send('stripe.create-subscription', createSubscriptionDto)
   }
 
@@ -61,7 +60,7 @@ export class StripeController {
   async createCustomer(
     @Body() createCustomerDto: CreateCustomerDto,
   ) {
-    return this.paymentsService
+    return this.appClient
       .send<CreateCustomerResponse>('stripe.create-customer', createCustomerDto)
   }
 
@@ -69,7 +68,7 @@ export class StripeController {
   async getCustomerPortalUrl(
     @Body() createCustomerPortalUrlDto: CreateCustomerPortalUrlDto,
   ) {
-    return this.paymentsService
+    return this.appClient
       .send<{ url: string }>('stripe.customer-portal', createCustomerPortalUrlDto)
   }
 
@@ -77,7 +76,7 @@ export class StripeController {
   async createAccount(
     @Body() createAccountDto: CreateAccountDto,
   ) {
-    return this.paymentsService
+    return this.appClient
       .send('stripe.create-account', createAccountDto)
 
   }

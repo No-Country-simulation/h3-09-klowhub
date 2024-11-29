@@ -1,8 +1,8 @@
 import { DynamicModule, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { StripeController } from '../../../klowhub-gateway/src/stripe/stripe.controller'
 import { StripeService } from './stripe.service'
+import { StripeController } from './stripe.controller'
 
 @Module({})
 export class StripeModule {
