@@ -77,7 +77,9 @@ export default function LatestSalesTable({ sales }: LatestSalesTableProps) {
 								})}
 							>
 								<Link href={`/my-courses/sold/${sale.id}`}>
-									<Button variant="tertiary">Ver detalles</Button>
+									<Button variant="tertiary" size="l">
+										Ver detalles
+									</Button>
 								</Link>
 							</td>
 						</tr>

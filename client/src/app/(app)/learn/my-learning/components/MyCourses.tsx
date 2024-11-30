@@ -1,5 +1,5 @@
+import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
-import MyCourseCard from './MyCourseCard'
 
 export default function MyCourses() {
 	// TODO: Quitar data mockeada
@@ -137,7 +137,16 @@ export default function MyCourses() {
 			<h4 className="text-base font-bold">Mis cursos</h4>
 			<div className="flex flex-wrap gap-6">
 				{myCourses.map((course) => {
-					return <MyCourseCard key={course.id} course={course} />
+					return (
+						<CourseCard
+							key={course.id}
+							course={course}
+							linkButtonProps={{
+								text: 'Ver detalles',
+								href: `/learn/my-learning/${course.id}`
+							}}
+						/>
+					)
 				})}
 			</div>
 		</section>
