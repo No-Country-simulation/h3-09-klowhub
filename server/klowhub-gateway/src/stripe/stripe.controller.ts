@@ -2,8 +2,11 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Headers,
   Post,
+  RawBodyRequest,
+  Req,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
@@ -17,6 +20,7 @@ import {
 } from './dto';
 
 import { CreateCustomerResponse } from './interfaces/stripe.interface';
+import { Request } from 'express';
 
 @Controller('stripe')
 export class StripeController {
@@ -26,12 +30,15 @@ export class StripeController {
 
   @Post('webhook')
   async handleStripeWebhook(
-    @Body() body: Buffer,
+    @Req() req: RawBodyRequest<Request>,
     @Headers('stripe-signature') signature: string,
-  ): Promise<void> {
+  ) {
+
+    const payload = req.rawBody
+
     try {
-      await this.appClient
-        .send<void>('stripe.webhook', { body, signature })
+      return this.appClient
+        .send('stripe.webhook', { body: payload, signature })
 
     } catch (err) {
       console.error('⚠️  Error handling Stripe webhook.', err.message);
@@ -45,7 +52,6 @@ export class StripeController {
   ) {
     return this.appClient
       .send<{ url: string }>('stripe.create-checkout-session', createCheckoutSession)
-
   }
 
   @Post('create-subscription')
@@ -78,6 +84,10 @@ export class StripeController {
   ) {
     return this.appClient
       .send('stripe.create-account', createAccountDto)
+  }
 
+  @Get()
+  hello() {
+    return 'hello'
   }
 }

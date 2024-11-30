@@ -30,13 +30,16 @@ export class StripeController {
   async handleStripeWebhook(
     @Payload() { body, signature }: { body: Buffer; signature: string },
   ): Promise<void> {
-    const endpointSecret = this.configService.get('STRIPE_API_KEY')
+    // const endpointSecret = this.configService.get('STRIPE_API_KEY')
+    const endpointSecret = 'whsec_1HqXKt4M7vP1E0KpT7GluIJvipxm2jGK'
+
+    const decodedBody = Buffer.from(body)
 
     let event: Stripe.Event
 
     try {
       event = this.stripeService.constructEventFromSignature(
-        body,
+        decodedBody,
         signature,
         endpointSecret,
       )
@@ -44,23 +47,19 @@ export class StripeController {
       console.error('⚠️  Webhook signature verification failed.', err.message)
       throw new BadRequestException('Invalid Stripe webhook signature.')
     }
-
     switch (event.type) {
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_SUCCEEDED:
         const paymentIntent = event.data.object as Stripe.PaymentIntent
         console.log(`PaymentIntent ${paymentIntent.id} was successful!`)
         break
-
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_PAYMENT_FAILED:
         const failedPaymentIntent = event.data.object as Stripe.PaymentIntent
         console.log(`PaymentIntent ${failedPaymentIntent.id} failed.`)
         break
-
       case STRIPE_EVENT_TYPES.INVOICE_PAYMENT_SUCCEEDED:
         const invoice = event.data.object as Stripe.Invoice
         console.log(`Invoice ${invoice.id} was paid!`)
         break
-
       default:
         console.log(`Unhandled event type ${event.type}.`)
     }

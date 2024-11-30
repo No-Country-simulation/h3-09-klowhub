@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { UsersModule } from './users/users.module';
 import { StripeModule } from './stripe/stripe.module';
+import { raw } from 'express';
 
 
 @Module({

@@ -6,7 +6,10 @@ import { ExceptionFilter } from './common';
 
 async function bootstrap() {
   const logger = new Logger('Main-Gateway');
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+    bodyParser: true
+  });
 
   app.setGlobalPrefix('api');
 
@@ -17,6 +20,10 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  app.enableCors({
+    origin: '*'
+  })
 
   app.useGlobalFilters(new ExceptionFilter());
   await app.listen(envs.port);
