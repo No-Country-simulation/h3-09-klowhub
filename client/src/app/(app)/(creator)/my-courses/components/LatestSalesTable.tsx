@@ -28,17 +28,17 @@ export default function LatestSalesTable({ sales }: LatestSalesTableProps) {
 			<table className="w-full border-separate border-spacing-y-2 text-left text-sm font-semibold text-white">
 				<thead className="bg-white/10">
 					<tr>
-						<th scope="col" className="w-20 rounded-tl-md px-6 py-4" />
-						<th scope="col" className="px-6 py-4">
+						<th scope="col" className="w-20 rounded-tl-md p-4" />
+						<th scope="col" className="p-4">
 							Nombre de cliente
 						</th>
-						<th scope="col" className="px-6 py-4">
+						<th scope="col" className="p-4">
 							Monto
 						</th>
-						<th scope="col" className="px-6 py-4">
+						<th scope="col" className="p-4">
 							Estado
 						</th>
-						<th scope="col" className="rounded-tr-md px-6 py-4"></th>
+						<th scope="col" className="rounded-tr-md p-4"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,11 +63,11 @@ export default function LatestSalesTable({ sales }: LatestSalesTableProps) {
 									)}
 								</div>
 							</th>
-							<td className="py-4 pl-4 font-normal">
+							<td className="p-4 font-normal">
 								<p className="w-max">{sale.buyer.name}</p>
 							</td>
-							<td className="py-4 pl-4">${sale.amount}</td>
-							<td className="py-4 pl-4">
+							<td className="p-4">${sale.amount}</td>
+							<td className="p-4">
 								<CardStatusTag status={sale.state} />
 							</td>
 							<td
