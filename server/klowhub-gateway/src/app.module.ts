@@ -4,9 +4,11 @@ import { UsersModule } from './users/users.module';
 import { StripeModule } from './stripe/stripe.module';
 import { raw } from 'express';
 
+import { AppsModule } from './apps/apps.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
-  imports: [StripeModule, UsersModule],
+  imports: [UsersModule, AppsModule, CoursesModule, StripeModule],
   controllers: [],
   providers: [],
 })

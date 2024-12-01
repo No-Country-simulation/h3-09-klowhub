@@ -15,17 +15,20 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
     }),
   );
 
   app.enableCors({
-    origin: '*'
-  })
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true
+  });
 
   app.useGlobalFilters(new ExceptionFilter());
+
   await app.listen(envs.port);
 
   logger.log(`Client-Gateway running on port ${envs.port}`);
