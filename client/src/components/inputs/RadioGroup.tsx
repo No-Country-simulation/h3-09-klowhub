@@ -1,45 +1,30 @@
-import { Controller } from 'react-hook-form'
+import { InputHTMLAttributes } from 'react'
 
-interface Option {
+export interface Option {
 	value: string
 	label: string
 }
 
-interface RadioGroupProps {
-	name: string
+interface RadioGroupProps extends InputHTMLAttributes<HTMLInputElement> {
+	name?: string
 	options: Option[]
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	control: any
-	className: string
+	className?: string
 }
 
 export default function RadioGroup({
 	name,
 	options,
-	control,
-	className
+	className,
+	...props
 }: RadioGroupProps) {
 	return (
-		<div className={`flex flex-col ${className}`}>
-			<Controller
-				name={name}
-				control={control}
-				render={({ field }) => (
-					<>
-						{options.map((option) => (
-							<label key={option.value} className="flex items-center">
-								<input
-									type="radio"
-									value={option.value}
-									checked={field.value === option.value}
-									onChange={(e) => field.onChange(e.target.value)}
-								/>
-								<span>{option.label}</span>
-							</label>
-						))}
-					</>
-				)}
-			/>
+		<div className={`flex flex-col gap-3 ${className}`}>
+			{options.map((option) => (
+				<label key={option.value} className="flex items-center gap-4">
+					<input type="radio" name={name} value={option.value} {...props} />
+					<span className="text-sm">{option.label}</span>
+				</label>
+			))}
 		</div>
 	)
 }

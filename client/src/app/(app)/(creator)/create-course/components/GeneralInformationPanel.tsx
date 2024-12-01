@@ -1,27 +1,58 @@
 import Input from '@/components/inputs/Input'
-import { CircleAlert } from 'lucide-react'
+import TextArea from '@/components/inputs/TextArea'
+import { Course } from '@/models/course.model'
+import { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
+import ContentAccessInfo from './ContentAccessInfo'
+import ContentTypeRadioGroup from './ContentTypeRadioGroup'
+import CourseTypeRadioGroup from './CourseTypeRadioGroup'
+import LevelRadioGroup from './LevelRadioGroup'
 import PanelContainer from './PanelContainer'
+import PlatformRadioGroup from './PlatformRadioGroup'
 
-export default function GeneralInformationPanel() {
+interface GeneralInformationPanelProps {
+	nextStep: (data: object) => void
+	handleSubmit: UseFormHandleSubmit<Course, undefined>
+	register: UseFormRegister<Course>
+}
+
+export default function GeneralInformationPanel({
+	nextStep,
+	handleSubmit,
+	register
+}: GeneralInformationPanelProps) {
 	return (
-		<PanelContainer className="flex flex-col gap-12">
-			<Input
-				label="Título del curso/lección"
-				placeholder="Nombrá tu curso o lección"
-				className="w-96"
-			/>
+		<form onSubmit={handleSubmit(nextStep)}>
+			<PanelContainer className="flex">
+				<div className="flex grow flex-col gap-12">
+					<Input
+						label="Título del curso/lección"
+						placeholder="Nombrá tu curso o lección"
+						className="w-96"
+						{...register('title', { required: true })}
+					/>
 
-			<div className="flex w-[600px] gap-6 rounded-3xl bg-white/10 px-6 py-3">
-				<div>
-					<CircleAlert className="w-6" />
+					<ContentAccessInfo />
+
+					<div className="flex">
+						<ContentTypeRadioGroup register={register} />
+						<CourseTypeRadioGroup register={register} />
+					</div>
+
+					<section>
+						<TextArea
+							label="Contá de qué trata, en no más de 3 líneas."
+							placeholder="Escribie una descripción básica del proyecto"
+							{...register('shortDescription', { required: true })}
+						/>
+					</section>
+
+					<div className="flex">
+						<LevelRadioGroup register={register} />
+						<PlatformRadioGroup register={register} />
+					</div>
 				</div>
-				<p className="text-sm font-semibold">
-					El contenido gratuito ofrece acceso limitado a [características breves
-					del contenido gratuito]. El contenido premium desbloquea [principales
-					beneficios del contenido de pago]. Más información en nuestra
-					[documentación].
-				</p>
-			</div>
-		</PanelContainer>
+				<div className="w-80"></div>
+			</PanelContainer>
+		</form>
 	)
 }
