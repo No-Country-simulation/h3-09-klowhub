@@ -1,5 +1,5 @@
-import { Controller, BadRequestException } from '@nestjs/common'
-import { MessagePattern, Payload } from '@nestjs/microservices'
+import { Controller, BadRequestException, Inject } from '@nestjs/common'
+import { ClientProxy, MessagePattern, Payload } from '@nestjs/microservices'
 
 import Stripe from 'stripe'
 import { StripeService } from './stripe.service'
@@ -24,13 +24,14 @@ export class StripeController {
   constructor(
     private readonly configService: ConfigService,
     private readonly stripeService: StripeService,
+    @Inject('ORDERS_SERVICE')
+    private readonly ordersClient: ClientProxy,
   ) { }
 
   @MessagePattern('stripe.webhook')
-  async handleStripeWebhook(
+  async handleWebhook(
     @Payload() { body, signature }: { body: Buffer; signature: string },
-  ): Promise<void> {
-    // const endpointSecret = this.configService.get('STRIPE_API_KEY')
+  ) {
     const endpointSecret = 'whsec_1HqXKt4M7vP1E0KpT7GluIJvipxm2jGK'
 
     const decodedBody = Buffer.from(body)
@@ -44,24 +45,31 @@ export class StripeController {
         endpointSecret,
       )
     } catch (err) {
-      console.error('⚠️  Webhook signature verification failed.', err.message)
       throw new BadRequestException('Invalid Stripe webhook signature.')
     }
+
+    // Check event type
     switch (event.type) {
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_SUCCEEDED:
-        const paymentIntent = event.data.object as Stripe.PaymentIntent
-        console.log(`PaymentIntent ${paymentIntent.id} was successful!`)
-        break
+        console.log('PAYMENT_INTENT_SUCCEEDED')
+        // const paymentIntent = event.data.object as Stripe.PaymentIntent
+
+        return this.ordersClient.send('orders.createOrder', {})
+
+      // return `PaymentIntent ${paymentIntent.id} was successful!`
+
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_PAYMENT_FAILED:
+        console.log('PAYMENT_INTENT_PAYMENT_FAILED')
         const failedPaymentIntent = event.data.object as Stripe.PaymentIntent
-        console.log(`PaymentIntent ${failedPaymentIntent.id} failed.`)
-        break
+        return `PaymentIntent ${failedPaymentIntent.id} failed.`
+
       case STRIPE_EVENT_TYPES.INVOICE_PAYMENT_SUCCEEDED:
+        console.log('INVOICE_PAYMENT_SUCCEEDED')
         const invoice = event.data.object as Stripe.Invoice
-        console.log(`Invoice ${invoice.id} was paid!`)
-        break
+        return `Invoice ${invoice.id} was paid!`
+
       default:
-        console.log(`Unhandled event type ${event.type}.`)
+        return `Unhandled event type ${event.type}.`
     }
   }
 

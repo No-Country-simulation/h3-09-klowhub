@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { StripeService } from './stripe.service'
 import { StripeController } from './stripe.controller'
+import { ClientsModule, Transport } from '@nestjs/microservices'
 
 @Module({})
 export class StripeModule {
@@ -10,7 +11,19 @@ export class StripeModule {
     return {
       module: StripeModule,
       controllers: [StripeController],
-      imports: [ConfigModule.forRoot()],
+      imports: [
+        ConfigModule.forRoot(),
+        ClientsModule.register([
+          {
+            name: 'ORDERS_SERVICE',
+            transport: Transport.TCP,
+            options: {
+              host: 'localhost',
+              port: 3003,
+            },
+          },
+        ]),
+      ],
       providers: [
         StripeService,
         {

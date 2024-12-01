@@ -8,6 +8,7 @@ import {
   RawBodyRequest,
   Req,
 } from '@nestjs/common';
+
 import { ClientProxy } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 
@@ -39,9 +40,7 @@ export class StripeController {
     try {
       return this.appClient
         .send('stripe.webhook', { body: payload, signature })
-
     } catch (err) {
-      console.error('⚠️  Error handling Stripe webhook.', err.message);
       throw new BadRequestException('Invalid Stripe webhook signature.');
     }
   }
