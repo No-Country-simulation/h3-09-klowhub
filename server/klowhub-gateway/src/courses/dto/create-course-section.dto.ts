@@ -1,26 +1,17 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  IsOptional,
-  IsEnum,
-  IsNumber,
-} from 'class-validator';
+import { Res } from '@nestjs/common';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { CreateResourceDto } from './create-resource.dto';
+import { Type } from 'class-transformer';
 
-export class CreateCourseSectionDto {
-  @IsNotEmpty()
+export class CreateSectionDto {
   @IsString()
+  @IsNotEmpty()
   public titleSection: string;
 
+  @IsString()
   @IsNotEmpty()
-  @IsNumber()
-  public courseId: string; // Relationship whit Course
+  public moduleId: string;
 
-  @IsOptional()
-  @IsNumber()
-  public resourceId?: string; // Optional value
-
-  @IsNotEmpty()
   @IsNumber()
   public order: number;
 }

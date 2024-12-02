@@ -6,12 +6,14 @@ import {
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { CreateSectionDto } from './dto/create-course-section.dto';
 import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { ModuleDto } from './dto/create-module.dto';
+import { UpdateModuleDto } from './dto/update-module.dto';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
@@ -27,7 +29,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     this.logger.log('find_courses_by_user_id');
 
     const courses = await this.course.findMany({
-      where: { sellerId: userId },
+      where: { creator: userId },
     });
 
     return courses;
@@ -46,7 +48,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return course;
   }
 
-  async createCourse(courseData: CreateCourseDto) {
+  async createCourse(courseData: CourseDto) {
     this.logger.log('create_course');
     const createCourse = await this.course.create({ data: courseData });
     return createCourse;
@@ -75,23 +77,28 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
   //  Course Section
 
-  async createCourseSection(courseSectionData: CreateCourseSectionDto) {
+  async createCourseSection(courseSectionData: CreateSectionDto) {
     this.logger.log('create_course_section');
-    const courseSection = await this.courseSection.create({
-      data: courseSectionData,
-    });
-    return courseSection;
+    try {
+      const courseSection = await this.section.create({
+        data: courseSectionData,
+      });
+      return courseSection;
+    } catch (error) {
+      this.logger.error(`Error creating course section`, error);
+      throw new Error('Could not create course section');
+    }
   }
 
   async getAllCourseSections() {
     this.logger.log('find_all_course_sections');
-    const courseSections = await this.courseSection.findMany();
+    const courseSections = await this.section.findMany();
     return courseSections;
   }
 
   async findOneCourseSectionById(id: string) {
     this.logger.log('find_one_course_section_by_id');
-    const courseSection = await this.courseSection.findUnique({
+    const courseSection = await this.section.findUnique({
       where: { id },
     });
     return courseSection;
@@ -99,7 +106,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
   async updateCourseSection(id: string, updateData: UpdateCourseSectionDto) {
     this.logger.log('update_course_section');
-    const updateCourseSection = await this.courseSection.update({
+    const updateCourseSection = await this.section.update({
       where: { id },
       data: updateData,
     });
@@ -110,7 +117,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     this.logger.log('delete_course_section');
 
     try {
-      const deletedCourseSection = await this.courseSection.delete({
+      const deletedCourseSection = await this.section.delete({
         where: { id },
       });
       return deletedCourseSection;
@@ -163,6 +170,53 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     } catch (error) {
       this.logger.error(`Error deleting resource with ID ${id}`, error);
       throw new Error('Could not delete resource');
+    }
+  }
+
+  //Module
+
+  async createModule(moduleData: ModuleDto) {
+    this.logger.log('create_module');
+    const module = await this.module.create({
+      data: moduleData,
+    });
+    return module;
+  }
+
+  async getAllModules() {
+    this.logger.log('find_all_modules');
+    const modules = await this.module.findMany();
+    return modules;
+  }
+
+  async findOneModuleById(id: string) {
+    this.logger.log('find_one_module_by_id');
+    const module = await this.module.findUnique({
+      where: { id },
+    });
+    return module;
+  }
+
+  async updateModule(id: string, updateData: UpdateModuleDto) {
+    this.logger.log('update_module');
+    const updateModule = await this.module.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateModule;
+  }
+
+  async deleteModule(id: string) {
+    this.logger.log('delete_module');
+
+    try {
+      const deletedModule = await this.module.delete({
+        where: { id },
+      });
+      return deletedModule;
+    } catch (error) {
+      this.logger.error(`Error deleting module with ID ${id}`, error);
+      throw new Error('Could not delete module');
     }
   }
 }

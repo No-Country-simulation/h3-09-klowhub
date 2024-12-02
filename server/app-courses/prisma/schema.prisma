@@ -13,47 +13,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Category {
+enum CourseType {
   COURSE
   LESSON
 }
 
+enum Platform {
+  APPSHEET
+  POWERAPPS
+}
+
+enum ContentType {
+  FREE
+  PAID
+}
+
 model Course {
-  id           String          @id @default(uuid())
-  title        String
-  photo        String?
-  description  String
-  price        Int
-  sellerId     String
-  category     Category //Enum type for category 
-  technologies String[]
-  approved     Boolean
-  language     String
-  available    Boolean
-  productId    String
-  level        String
-  sections     CourseSection[] // One-to-many relationship with CourseSection
+  id                  String      @id @default(uuid())
+  title               String
+  photo               String[]
+  shortDescription    String
+  price               Int?
+  functionalities     String[]
+  language            String
+  sector              String
+  toolsAndPlatforms   String[]
+  contentType         ContentType
+  courseType          CourseType
+  level               String
+  contentPillar       String
+  learningOutcomes    String[]
+  prerequisites       String[]
+  detailedDescription String
+  approved            Boolean     @default(false)
+  available           Boolean     @default(true)
+  creator             String
+  module              Module[] // One-to-many relationship with Module
+  moduleId            String?
 
   @@map("courses") // Name of the table in the database
 }
 
-model CourseSection {
+model Section {
   id           String     @id @default(uuid())
   titleSection String
-  courseId     String
-  resourceId   String?
+  moduleId     String
   order        Int
-  course       Course     @relation(fields: [courseId], references: [id]) // Relationship with Course
+  module       Module     @relation(fields: [moduleId], references: [id]) // Relationship with Module
   resources    Resource[] // One-to-many relationship with Resource
 
-  @@map("course_sections") // Name of the table in the database
+  @@map("sections") // Name of the table in the database
 }
 
 model Resource {
-  id        String        @id @default(uuid())
+  id        String  @id @default(uuid())
   sectionId String
-  mediaId   String
-  section   CourseSection @relation(fields: [sectionId], references: [id]) // Relationship with CourseSection
+  extra     Boolean
+  section   Section @relation(fields: [sectionId], references: [id]) // Relationship with CourseSection
 
   @@map("resources") // Name of the table in the database
+}
+
+model Module {
+  id       String    @id @default(uuid())
+  courseId String
+  order    Int
+  course   Course    @relation(fields: [courseId], references: [id])
+  section  Section[] // One-to-many relationship with CourseSection
+
+  @@map("modules") // Name of the table in the database
 }

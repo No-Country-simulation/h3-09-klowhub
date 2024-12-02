@@ -1,53 +1,74 @@
 import {
   IsString,
   IsNotEmpty,
-  IsEmail,
   IsOptional,
+  IsArray,
   IsEnum,
+  IsBoolean,
+  IsInt,
 } from 'class-validator';
-import { Category } from '@prisma/client';
+import { Type } from 'class-transformer';
+import { ContentType, CourseType } from '../../common/enums';
+import { ModuleDto } from './create-module.dto';
 
-export class CreateCourseDto {
+export class CourseDto {
   @IsString()
   @IsNotEmpty()
   public title: string;
 
+  @IsArray()
+  public photo: string[];
+
   @IsString()
-  public photo: string;
+  public shortDescription: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsInt()
+  public price?: number;
+
+  @IsArray()
+  public functionalities: string[];
+
   @IsString()
-  public description: string;
-
-  @IsNotEmpty()
-  public price: number;
-
-  @IsNotEmpty()
-  public sellerId: string;
-
-  @IsNotEmpty()
-  @IsEnum(Category)
-  public category: Category;
-
-  @IsNotEmpty()
-  public technologies: string[];
-
-  @IsNotEmpty()
-  public approved: boolean;
-
-  @IsNotEmpty()
   public language: string;
 
-  @IsNotEmpty()
-  public available: boolean;
+  @IsString()
+  public sector: string;
 
-  @IsNotEmpty()
-  public productId: string;
+  @IsArray()
+  public toolsAndPlatforms: string[];
 
-  @IsNotEmpty()
+  @IsEnum(ContentType)
+  public contentType: ContentType;
+
+  @IsEnum(CourseType)
+  public courseType: CourseType;
+
   @IsString()
   public level: string;
-  /*
-  @IsNotEmpty()
-  public sections: string;*/
+
+  @IsString()
+  public contentPillar: string;
+
+  @IsArray()
+  public learningOutcomes: string[];
+
+  @IsArray()
+  public prerequisites: string[];
+
+  @IsString()
+  public detailedDescription: string;
+
+  @IsBoolean()
+  public approved: boolean;
+
+  @IsBoolean()
+  public available: boolean;
+
+  @IsString()
+  public creator: string;
+
+  @IsOptional()
+  @IsString()
+  moduleId?: string;
 }

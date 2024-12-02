@@ -2,16 +2,19 @@ import { Controller, Param } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import {
   Course as CourseModel,
-  CourseSection as CourseSectionModel,
+  Section as CourseSectionModel,
   Resource as ResourceModel,
+  Module as ModuleModel,
 } from '@prisma/client';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { CreateSectionDto } from './dto/create-course-section.dto';
 import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { ModuleDto } from './dto/create-module.dto';
+import { UpdateModuleDto } from './dto/update-module.dto';
 import { RpcException } from '@nestjs/microservices';
 
 @Controller('courses')
@@ -24,7 +27,7 @@ export class CoursesController {
   }
 
   @MessagePattern({ cmd: 'create_course' })
-  async signupCourse(@Payload() courseData: CreateCourseDto) {
+  async signupCourse(@Payload() courseData: CourseDto) {
     return this.coursesService.createCourse(courseData);
   }
 
@@ -57,7 +60,7 @@ export class CoursesController {
 
   @MessagePattern({ cmd: 'create_course_section' })
   async createCourseSection(
-    @Payload() courseSectionData: CreateCourseSectionDto,
+    @Payload() courseSectionData: CreateSectionDto,
   ): Promise<CourseSectionModel> {
     return this.coursesService.createCourseSection(courseSectionData);
   }
@@ -116,5 +119,36 @@ export class CoursesController {
       throw new RpcException('id is required');
     }
     return this.coursesService.deleteResource(id);
+  }
+  // Module
+
+  @MessagePattern({ cmd: 'create_module' })
+  async signupModule(@Payload() moduleData: ModuleDto) {
+    return this.coursesService.createModule(moduleData);
+  }
+
+  @MessagePattern({ cmd: 'find_all_modules' })
+  async getAllModules() {
+    return this.coursesService.getAllModules();
+  }
+
+  @MessagePattern({ cmd: 'find_one_module_by_id' })
+  async getModuleById(@Payload('id') id: string) {
+    return this.coursesService.findOneModuleById(id);
+  }
+
+  @MessagePattern({ cmd: 'update_module' })
+  async updateModule(
+    @Payload() updateData: UpdateModuleDto,
+  ): Promise<ModuleModel> {
+    return this.coursesService.updateModule(updateData.id, updateData);
+  }
+
+  @MessagePattern({ cmd: 'delete_module' })
+  async deleteModule(@Payload('id') id: string) {
+    if (!id) {
+      throw new RpcException('id is required');
+    }
+    return this.coursesService.deleteModule(id);
   }
 }

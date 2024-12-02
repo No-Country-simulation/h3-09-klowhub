@@ -13,12 +13,14 @@ import {
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { CreateSectionDto } from './dto/create-course-section.dto';
 import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { ModuleDto } from './dto/create-module.dto';
+import { UpdateModuleDto } from './dto/update-module.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 
 @Controller('courses')
@@ -34,7 +36,7 @@ export class CoursesController {
   }
 
   @Post('create')
-  createCourse(@Body() createCourseDto: CreateCourseDto) {
+  createCourse(@Body() createCourseDto: CourseDto) {
     return this.courseClient.send({ cmd: 'create_course' }, createCourseDto);
   }
   @Get('findAll')
@@ -97,7 +99,7 @@ export class CoursesController {
   // Course Section
 
   @Post('createSection')
-  createCourseSection(@Body() createCourseSectionDto: CreateCourseSectionDto) {
+  createCourseSection(@Body() createCourseSectionDto: CreateSectionDto) {
     return this.courseClient.send(
       { cmd: 'create_course_section' },
       createCourseSectionDto,
@@ -225,6 +227,71 @@ export class CoursesController {
     console.log('Deleting resource with ID:', id);
 
     return this.courseClient.send({ cmd: 'delete_resource' }, { id }).pipe(
+      catchError((err) => {
+        console.error('Error from microservice:', err);
+        const errorMessage =
+          typeof err === 'object' && err.message
+            ? err.message
+            : 'Unexpected error occurred';
+        throw new RpcException({
+          status: 400,
+          message: errorMessage,
+        });
+      }),
+    );
+  }
+
+  //Module
+
+  @Post('createModule')
+  createModule(@Body() createModuleDto: ModuleDto) {
+    return this.courseClient.send({ cmd: 'create_module' }, createModuleDto);
+  }
+
+  @Get('findAllModules')
+  findAllModules(@Query() paginationDto: PaginationDto) {
+    return this.courseClient.send({ cmd: 'find_all_modules' }, paginationDto);
+  }
+
+  @Get('findOneModule/:id')
+  async findOneModule(@Param('id') id: string) {
+    try {
+      const module = await firstValueFrom(
+        this.courseClient.send({ cmd: 'find_one_module_by_id' }, { id }),
+      );
+      return module;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @Patch('patchModule/:id')
+  async updateModule(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateModuleDto: UpdateModuleDto,
+  ) {
+    try {
+      const module = await firstValueFrom(
+        this.courseClient.send(
+          { cmd: 'update_module' },
+          { id, ...updateModuleDto },
+        ),
+      );
+      return module;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
+  @Delete('deleteModule/:id')
+  removeModule(@Param('id', ParseUUIDPipe) id: string) {
+    if (!id) {
+      throw new RpcException('id is required');
+    }
+
+    console.log('Deleting resource with ID:', id);
+
+    return this.courseClient.send({ cmd: 'delete_module' }, { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
