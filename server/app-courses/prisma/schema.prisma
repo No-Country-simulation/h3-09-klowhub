@@ -33,7 +33,7 @@ model Course {
   title               String
   photo               String[]
   shortDescription    String
-  price               Int?
+  price               Float
   functionalities     String[]
   language            String
   sector              String

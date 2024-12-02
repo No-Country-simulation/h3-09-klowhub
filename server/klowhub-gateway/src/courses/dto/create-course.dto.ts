@@ -20,51 +20,62 @@ export class CourseDto {
   public photo: string[];
 
   @IsString()
+  @IsNotEmpty()
   public shortDescription: string;
 
-  @IsOptional()
-  @IsInt()
-  public price?: number;
+  @IsNotEmpty()
+  public price: number;
 
   @IsArray()
   public functionalities: string[];
 
   @IsString()
+  @IsNotEmpty()
   public language: string;
 
   @IsString()
+  @IsNotEmpty()
   public sector: string;
 
   @IsArray()
   public toolsAndPlatforms: string[];
 
+  @IsNotEmpty()
   @IsEnum(ContentType)
   public contentType: ContentType;
 
+  @IsNotEmpty()
   @IsEnum(CourseType)
   public courseType: CourseType;
 
+  @IsNotEmpty()
   @IsString()
   public level: string;
 
+  @IsNotEmpty()
   @IsString()
   public contentPillar: string;
 
+  @IsNotEmpty()
   @IsArray()
   public learningOutcomes: string[];
 
   @IsArray()
   public prerequisites: string[];
 
+  @IsNotEmpty()
   @IsString()
   public detailedDescription: string;
 
+  @IsNotEmpty()
   @IsBoolean()
   public approved: boolean;
 
+  @IsNotEmpty()
   @IsBoolean()
   public available: boolean;
 
+  @IsNotEmpty()
   @IsString()
   public creator: string;
 
