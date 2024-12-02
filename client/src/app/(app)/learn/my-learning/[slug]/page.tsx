@@ -119,7 +119,8 @@ const course: Course = {
 		name: 'Juan Pérez',
 		bio: 'Instructor y desarrollador de aplicaciones con AppSheet.',
 		profilePicture: '/img/profile_test.jpeg'
-	}
+	},
+	price: 0
 }
 
 export default function MyCoursePage() {

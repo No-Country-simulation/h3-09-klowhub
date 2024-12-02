@@ -1,5 +1,5 @@
 import { Course } from '@/models/course.model'
-import MyCourseCard from './MyCourseCard'
+import MyCourseCard from '../../../components/CourseCard'
 
 export default function FinishedCourses() {
 	// TODO: Quitar data mockeada
@@ -79,7 +79,8 @@ export default function FinishedCourses() {
 			name: 'Ana Gómez',
 			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "curso" 2
@@ -152,7 +153,8 @@ export default function FinishedCourses() {
 			name: 'Carlos Rodríguez',
 			bio: 'Experto en AppSheet y ventas.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "lección"
@@ -198,7 +200,8 @@ export default function FinishedCourses() {
 			name: 'Jorge Ramírez',
 			bio: 'Experto en automatización y Power Automate.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	const finishedCourses: Course[] = [course1, course2, lessonCourse]
@@ -208,7 +211,16 @@ export default function FinishedCourses() {
 			<h4 className="text-base font-bold">Cursos terminados</h4>
 			<div className="flex gap-6 overflow-scroll">
 				{finishedCourses.map((course) => {
-					return <MyCourseCard key={course.id} course={course} />
+					return (
+						<MyCourseCard
+							key={course.id}
+							course={course}
+							linkButtonProps={{
+								text: 'Ver detalles',
+								href: `/learn/my-learning/${course.id}`
+							}}
+						/>
+					)
 				})}
 			</div>
 		</section>
