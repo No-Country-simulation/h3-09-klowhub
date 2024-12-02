@@ -1,18 +1,20 @@
-import { Controller, Param } from '@nestjs/common';
-import { UserService } from './users.service';
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { User as UserModel } from '@prisma/client';
-import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserDto } from './dto/create-user.dto';
+import { LoginDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { RpcException } from '@nestjs/microservices';
-//import { LoginDto } from './dto/login-user.dto';
-
+import { UserService } from './users.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
 
+  @MessagePattern({ cmd: 'login' })
+  async login(@Payload() { email, password }: LoginDto) {
+    console.log('Microservicio: Procesando login para:', email);
+    return this.userService.login(email, password);
+  }
   @MessagePattern({ cmd: 'find_all_users' })
   async getAllUsers() {
     return this.userService.getAllUsers();
@@ -39,6 +41,6 @@ export class UserController {
       throw new RpcException('id is required');
     }
     console.log(id);
-    return this.userService.deleteUser({ id: id });
+    return this.userService.deleteUser(id);
   }
 }

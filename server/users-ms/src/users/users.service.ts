@@ -1,9 +1,13 @@
-import { Injectable, Logger, OnModuleInit, UnauthorizedException } from '@nestjs/common';
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import {
+	Injectable,
+	Logger,
+	OnModuleInit,
+	UnauthorizedException,
+} from '@nestjs/common';
+import { PrismaClient, User } from '@prisma/client';
+import * as bcrypt from 'bcryptjs';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { RpcException } from '@nestjs/microservices';
-import * as bcrypt from 'bcryptjs';
 
 
 @Injectable()
@@ -14,7 +18,38 @@ export class UserService extends PrismaClient implements OnModuleInit {
     await this.$connect();
     this.logger.log('onModuleInit');
   }
-  
+  async validateToken(token: string): Promise<User | null> {
+    try {
+      const decoded = jwt.verify(token, this.jwtSecret) as { id: string };
+      return this.findOneUser(decoded.id);
+    } catch {
+      return null;
+    }
+  }
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ token: string; user: Omit<User, 'password'> }> {
+    const user = await this.findOneUserByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const token = jwt.sign({ id: user.id, email: user.email }, this.jwtSecret, {
+      expiresIn: this.jwtExpiresIn,
+    });
+    const { password: _, ...userData } = user;
+
+    return { token, user: userData };
+  }
+
   async findOneUserByEmail(email: string) {
     this.logger.log('find_one_user_by_email');
     const user = await this.user.findUnique({
@@ -51,15 +86,15 @@ export class UserService extends PrismaClient implements OnModuleInit {
     return updateUser;
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  async deleteUser(userId: string): Promise<User> {
     this.logger.log('delete_user');
-    //agregar un patch y setear abailable a false
-    if (!where.id) {
-      throw new RpcException('id is required');
-    }
-    const deleteUser = await this.user.delete({
-      where,
+
+    const updateUser = await this.user.update({
+      where: { id: userId },
+      data: {
+        available: false,
+      },
     });
-    return deleteUser;
+    return updateUser;
   }
 }
