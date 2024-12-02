@@ -15,10 +15,11 @@ import InfoFunctionalities from './components/InfoFunctionalities'
 import Reviews from './components/Reviews'
 import { Course } from '@/models/course.model'
 import { Review } from '@/models/product.model'
+import useStore from '@/lib/store'
 const course: Course = {
 	id: '2',
 	title: 'Automatización avanzada con PowerApps',
-	price: 1000,
+	price: 10.0,
 	shortDescription:
 		'Aprende a automatizar procesos complejos usando PowerApps.',
 	platform: 'powerapps',
@@ -123,7 +124,7 @@ export default function Page() {
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
 	const averageScore = Number((totalScore / reviews.length).toFixed(1))
-
+	const { addCartItem } = useStore()
 	return (
 		<section className="grid grid-rows-2 gap-20 md:grid-cols-5 md:grid-rows-1 md:gap-[8%]">
 			<div className="flex flex-col space-y-6 md:col-span-3">
@@ -240,7 +241,9 @@ export default function Page() {
 				<Modules modules={course.modules} />
 				<div className="flex flex-col items-center gap-2">
 					<Button>Comprar curso</Button>
-					<Button variant="secondary">Añadir al carrito</Button>
+					<Button variant="secondary" onClick={() => addCartItem(course)}>
+						Añadir al carrito
+					</Button>
 				</div>
 			</div>
 		</section>

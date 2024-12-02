@@ -4,6 +4,7 @@ import { Bell, Mail, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 import IconBadge from './IconBadge'
+import useStore from '@/lib/store'
 
 export default function UserActions() {
 	const notifications = [
@@ -21,7 +22,7 @@ export default function UserActions() {
 	function handleMsgs() {
 		window.location.href = '/messages'
 	}
-
+	const { cart } = useStore()
 	return (
 		<div className="flex items-center space-x-6">
 			<div className="flex items-center justify-between space-x-6">
@@ -33,7 +34,7 @@ export default function UserActions() {
 				/>
 				<IconBadge
 					icon={<ShoppingCart />}
-					count={2}
+					count={cart.length}
 					items={[]}
 					onClick={handleCart}
 				/>

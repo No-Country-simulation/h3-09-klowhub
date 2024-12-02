@@ -18,7 +18,7 @@ const courses: Course[] = [
 		functionalities: ['APIs', 'Ventas'],
 		relatedTags: ['Automatización', 'No-Code'],
 		image: 'https://picsum.photos/200/100',
-		contentType: 'free',
+		contentType: 'paid',
 		courseType: 'course',
 		level: 'basic',
 		contentPillar: 'Automatización',
@@ -83,7 +83,8 @@ const courses: Course[] = [
 			id: '',
 			name: '',
 			bio: ''
-		}
+		},
+		price: 150.25
 	},
 	{
 		id: '2',
@@ -178,7 +179,8 @@ const courses: Course[] = [
 			id: '',
 			name: '',
 			bio: ''
-		}
+		},
+		price: 200.5
 	}
 ]
 
