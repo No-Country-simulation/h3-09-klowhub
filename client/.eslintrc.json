@@ -28,7 +28,7 @@
 			{ "avoidEscape": true, "allowTemplateLiterals": true }
 		],
 		"semi": ["error", "never"],
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"indent": ["error", "tab", { "SwitchCase": 1 }, { "MemberExpression": 1 }],
 		"no-tabs": "off",
 		"@typescript-eslint/no-unused-vars": "warn",
 		"@next/next/no-html-link-for-pages": "off",
