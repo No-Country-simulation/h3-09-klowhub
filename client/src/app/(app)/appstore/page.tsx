@@ -1,6 +1,6 @@
 'use client'
 import Button from '@/components/buttons/Button'
-import { AppCourseCard } from '@/components/cards/AppCourseCard'
+import ApplicationCard from '@/components/cards/ApplicationCard'
 import AppModal from '@/components/modals/AppModal'
 import { App } from '@/models/app.model'
 import { ListFilter, ListOrdered, Search } from 'lucide-react'
@@ -16,7 +16,7 @@ const apps: App[] = [
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
-		functionalities: ['Logistica', 'Retail', 'Inventarios'],
+		functionalities: ['Logistica', 'Retail'],
 		relatedTags: ['Optimizacion', 'Flexibilidad', 'Mantenimiento'],
 		image: 'https://picsum.photos/200/100',
 		targetAudience: 'Comercios',
@@ -52,14 +52,14 @@ const apps: App[] = [
 	},
 	{
 		id: '2',
-		title: 'Control de Inventario para retail',
+		title: 'Optimizador de ventas',
 		shortDescription: 'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
-		price: 80000,
+		price: 65000,
 		platform: 'appsheet',
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
-		functionalities: ['Logistica', 'Retail', 'Inventarios'],
+		functionalities: ['Logistica', 'Inventarios'],
 		relatedTags: ['Optimizacion', 'Flexibilidad', 'Mantenimiento'],
 		image: 'https://picsum.photos/200/100',
 		targetAudience: 'Comercios',
@@ -92,11 +92,65 @@ const apps: App[] = [
 				reviewer: 'Mario Perez',
 			}
 		],
+	},
+	{
+		id: '3',
+		title: 'Integrador de ventas y gestion'  ,
+		shortDescription: 'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
+		price: 90000,
+		platform: 'appsheet',
+		language: 'Ingles',
+		sector: 'Logistica',
+		toolsAndPlatforms: ['AppSheet'],
+		functionalities: ['Logistica', 'Inventarios','Retail'],
+		relatedTags: ['Optimizacion', 'Flexibilidad', 'Mantenimiento'],
+		image: 'https://picsum.photos/200/100',
+		targetAudience: 'Comercios',
+		benefits: ['Orden', 'Escalabilidad', 'Practicidad'],
+		additionalMedia: ['https://example.com/advanced1', 'https://example.com/advanced1'],
+		detailedDescription: 'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
+		links: {
+			mobile: '/',
+			desktop: '/'
+		},
+		reviews: [
+			{
+				score: 5,
+				text: 'Esta app superó mis expectativas. Sebastián explica todo de manera clara y sencilla, lo que me permitió organizar mi negocio en tiempo récord.',
+				reviewer: 'Mariana Lopez',
+			},
+			{
+				score: 5,
+				text: 'Nunca pensé que podría organizar mi negocio tan rapido Gracias a Sebastián, ahora puedo automatizar varias tareas en mi trabajo. ¡Muy recomendado!',
+				reviewer: 'Marta Torres',
+			},
+			{
+				score: 4,
+				text: 'El enfoque práctico de Sebastián es perfecto para organizar un negocio. Su experiencia se nota en parte de la app y las herramientas que proporciona son súper útiles.',
+				reviewer: 'Rodrigo Baez',
+			},
+			{
+				score: 4,
+				text: 'Excelente app para quienes quieren iniciarse en el mundo no-code. Sebastián sabe cómo optimizarprocesos manera efectiva y accesible.',
+				reviewer: 'Mario Perez',
+			},
+			{
+				score: 5,
+				text: 'Esta app es una herramienta imprescindible para cualquier negocio.',
+				reviewer: 'Juan Carlos Mansilla',
+			}
+		],
 	}
 ]
 
+const categories = [
+	{ name: 'Logistica' },
+	{ name: 'Retail' },
+	{ name: 'Inventarios' },
+]
+
 export default function AppStorePage() {
-	const [appSelected, setAppSelected] = useState<App[]>([])
+	const [appSelected, setAppSelected] = useState<App | null>(null)
 	const [filteredResult, setFilteredResult] = useState<App[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
 	const [searchInput, setSearchInput] = useState('')
@@ -143,12 +197,33 @@ export default function AppStorePage() {
 						Ordenar por
 					</Button>
 				</div>
+				<div className="my-3 flex flex-nowrap gap-3 overflow-x-auto">
+					{categories.map((category, i) => (
+						<Button
+							key={i}
+							variant={
+								filterByCategory === category.name ? 'primary' : 'secondary'
+							}
+							size="l"
+							onClick={() => {
+								if (filterByCategory === category.name) {
+									setFilterByCategory(null)
+								} else {
+									setFilterByCategory(category.name)
+								}
+							}}
+						>
+							{category.name}
+						</Button>
+					))}
+				</div>
 			</section>
 			<section className="flex flex-col md:flex-row gap-4">
 				{filteredResult.map((app) => (
-					<AppCourseCard
+					<ApplicationCard
 						key={app.id}
-						variant='app'
+						app={app}
+						setProductSelected={setAppSelected}
 					/>
 				))}
 				{appSelected && (
@@ -158,7 +233,6 @@ export default function AppStorePage() {
 					/>
 				)}
 			</section>
-
 		</article>
 
 	)
