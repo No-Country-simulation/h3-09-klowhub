@@ -13,11 +13,7 @@ import { CreateCustomerResponse } from './interfaces/stripe.interface'
 import { CreateAccountDto } from './dto/create-account.dto'
 import { ConfigService } from '@nestjs/config'
 
-const STRIPE_EVENT_TYPES = {
-  PAYMENT_INTENT_SUCCEEDED: 'payment_intent.succeeded',
-  PAYMENT_INTENT_PAYMENT_FAILED: 'payment_intent.payment_failed',
-  INVOICE_PAYMENT_SUCCEEDED: 'invoice.payment_succeeded',
-}
+import { STRIPE_EVENT_TYPES } from './const'
 
 @Controller()
 export class StripeController {
@@ -48,15 +44,10 @@ export class StripeController {
       throw new BadRequestException('Invalid Stripe webhook signature.')
     }
 
-    // Check event type
     switch (event.type) {
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_SUCCEEDED:
         console.log('PAYMENT_INTENT_SUCCEEDED')
-        // const paymentIntent = event.data.object as Stripe.PaymentIntent
-
         return this.ordersClient.send('orders.createOrder', {})
-
-      // return `PaymentIntent ${paymentIntent.id} was successful!`
 
       case STRIPE_EVENT_TYPES.PAYMENT_INTENT_PAYMENT_FAILED:
         console.log('PAYMENT_INTENT_PAYMENT_FAILED')

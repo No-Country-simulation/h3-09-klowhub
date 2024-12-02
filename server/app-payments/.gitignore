@@ -5,6 +5,9 @@
 
 # others
 *.http
+/prisma
+/postgres
+pnpm-lock.yaml
 
 # Logs
 logs
