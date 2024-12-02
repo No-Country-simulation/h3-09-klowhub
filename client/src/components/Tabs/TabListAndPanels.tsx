@@ -34,7 +34,7 @@ export default function TabListAndPanels({
 					{labels.map((label, index) => (
 						<Tab
 							key={index}
-							label="Información general"
+							label={label}
 							value={index + 1}
 							sx={{
 								color: '#ffffff',

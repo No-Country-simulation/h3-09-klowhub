@@ -10,7 +10,7 @@ export default function Input({ label, ...props }: InputProps) {
 			{label && <span className="text-sm font-semibold">{label}</span>}
 			<input
 				{...props}
-				className={`h-9 rounded-lg border border-[#E5E7EB] px-3 text-black ${props.className}`}
+				className={`h-11 rounded-lg border border-[#E5E7EB] px-3 text-black ${props.className}`}
 			/>
 		</label>
 	)

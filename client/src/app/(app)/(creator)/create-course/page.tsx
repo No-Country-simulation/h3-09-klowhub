@@ -9,7 +9,7 @@ export default function CreateCoursePage() {
 	const [step, setStep] = useState(1)
 	const [formData, setFormData] = useState({})
 
-	const { register, handleSubmit, watch, reset } = useForm<Course>()
+	const { register, handleSubmit, watch, reset, control } = useForm<Course>()
 
 	// Avanzar al siguiente paso
 	const nextStep = (data: object) => {
@@ -29,9 +29,10 @@ export default function CreateCoursePage() {
 			handleSubmit={handleSubmit}
 			nextStep={nextStep}
 			register={register}
+			control={control}
 		/>,
-		<div key={1}>Contenido</div>,
-		<div key={2}>Preguntas</div>
+		<div key={1}>Detalles del curso</div>,
+		<div key={2}>Módulos y lecciones</div>
 	]
 
 	return (

@@ -1,24 +1,31 @@
 import Input from '@/components/inputs/Input'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
-import { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
+import { Control, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
 import ContentAccessInfo from './ContentAccessInfo'
 import ContentTypeRadioGroup from './ContentTypeRadioGroup'
 import CourseTypeRadioGroup from './CourseTypeRadioGroup'
+import FunctionalitiesListbox from './FunctionalitiesListbox'
+import LanguageListbox from './LanguageListbox'
 import LevelRadioGroup from './LevelRadioGroup'
 import PanelContainer from './PanelContainer'
 import PlatformRadioGroup from './PlatformRadioGroup'
+import SectorListbox from './SectorListbox'
+import TagsListbox from './TagsListbox'
+import ToolsAndPlatListbox from './ToolsAndPlatListbox'
 
 interface GeneralInformationPanelProps {
 	nextStep: (data: object) => void
 	handleSubmit: UseFormHandleSubmit<Course, undefined>
 	register: UseFormRegister<Course>
+	control: Control<Course, any>
 }
 
 export default function GeneralInformationPanel({
 	nextStep,
 	handleSubmit,
-	register
+	register,
+	control
 }: GeneralInformationPanelProps) {
 	return (
 		<form onSubmit={handleSubmit(nextStep)}>
@@ -49,6 +56,37 @@ export default function GeneralInformationPanel({
 					<div className="flex">
 						<LevelRadioGroup register={register} />
 						<PlatformRadioGroup register={register} />
+					</div>
+
+					<div className="flex gap-2 xl:gap-40">
+						<div className="w-full">
+							<LanguageListbox control={control} />
+						</div>
+						<div className="w-full">
+							<SectorListbox control={control} />
+						</div>
+					</div>
+
+					<div className="flex gap-2 xl:gap-40">
+						<div className="w-full">
+							<Input
+								label="Define el contenido de tu curso"
+								placeholder="Pilar de contenido"
+								{...register('contentPillar', { required: true })}
+							/>
+						</div>
+						<div className="w-full">
+							<ToolsAndPlatListbox control={control} />
+						</div>
+					</div>
+
+					<div className="flex gap-2 xl:gap-40">
+						<div className="w-full">
+							<FunctionalitiesListbox control={control} />
+						</div>
+						<div className="w-full">
+							<TagsListbox control={control} />
+						</div>
 					</div>
 				</div>
 				<div className="w-80"></div>
