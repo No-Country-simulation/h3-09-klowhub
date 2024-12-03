@@ -19,7 +19,7 @@ export class StripeModule {
             transport: Transport.TCP,
             options: {
               host: 'localhost',
-              port: 3003,
+              port: 3005,
             },
           },
         ]),
@@ -27,9 +27,9 @@ export class StripeModule {
       providers: [
         StripeService,
         {
-          provide: 'STRIPE_API_KEY',
+          provide: 'STRIPE_SECRET_KEY',
           useFactory: async (configService: ConfigService) =>
-            configService.get('STRIPE_API_KEY'),
+            configService.get('STRIPE_SECRET_KEY'),
           inject: [ConfigService],
         },
       ],

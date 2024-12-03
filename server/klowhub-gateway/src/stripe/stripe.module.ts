@@ -17,6 +17,16 @@ import { envs } from '../config';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'ORDERS_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'localhost',
+          port: 3005
+        },
+      },
+    ]),
   ],
 })
 export class StripeModule { }

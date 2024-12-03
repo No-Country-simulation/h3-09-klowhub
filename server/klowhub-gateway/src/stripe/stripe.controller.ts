@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Get,
   Headers,
   Post,
   RawBodyRequest,
@@ -26,7 +25,8 @@ import { Request } from 'express';
 @Controller('stripe')
 export class StripeController {
   constructor(
-    @Inject('APP_SERVICE') private readonly appClient: ClientProxy
+    @Inject('APP_SERVICE') private readonly appClient: ClientProxy,
+    @Inject('ORDERS_SERVICE') private readonly ordersClient: ClientProxy,
   ) { }
 
   @Post('webhook')
@@ -49,8 +49,11 @@ export class StripeController {
   async createCheckoutSession(
     @Body() createCheckoutSession: CreateCheckoutSessionDto,
   ) {
-    return this.appClient
-      .send<{ url: string }>('stripe.create-checkout-session', createCheckoutSession)
+
+    return this.ordersClient.send('orders.create-order', { userId: 'qqqqq' })
+
+    // return this.appClient
+    //   .send<{ url: string }>('stripe.create-checkout-session', createCheckoutSession)
   }
 
   @Post('create-subscription')
@@ -85,8 +88,4 @@ export class StripeController {
       .send('stripe.create-account', createAccountDto)
   }
 
-  @Get()
-  hello() {
-    return 'hello'
-  }
 }

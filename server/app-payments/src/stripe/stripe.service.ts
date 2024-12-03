@@ -14,7 +14,9 @@ import { CreateAccountDto } from './dto/create-account.dto'
 export class StripeService {
   private readonly stripe: Stripe
 
-  constructor(@Inject('STRIPE_API_KEY') private readonly stripeApiKey: string) {
+  constructor(
+    @Inject('STRIPE_SECRET_KEY') private readonly stripeApiKey: string,
+  ) {
     this.stripe = new Stripe(this.stripeApiKey)
   }
 
