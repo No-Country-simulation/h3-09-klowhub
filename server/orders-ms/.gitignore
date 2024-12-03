@@ -3,8 +3,7 @@
 /node_modules
 /build
 
-# others
-api/
+postgres/
 
 # Logs
 logs

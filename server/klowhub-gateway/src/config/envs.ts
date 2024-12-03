@@ -4,16 +4,21 @@ import * as Joi from 'joi';
 
 interface EnvVars {
   PORT: number;
+
   USERS_MICROSERVICE_HOST: string;
   USERS_MICROSERVICE_PORT: number;
 
   PAYMENTS_MICROSERVICE_HOST: string;
   PAYMENTS_MICROSERVICE_PORT: number;
+
   COURSES_MICROSERVICE_PORT: number;
   COURSES_MICROSERVICE_HOST: string;
 
   APPS_MICROSERVICE_HOST: string;
   APPS_MICROSERVICE_PORT: number;
+
+  ORDERS_MICROSERVICE_HOST: string;
+  ORDERS_MICROSERVICE_PORT: number;
 }
 
 const envSchema = Joi.object({
@@ -27,8 +32,12 @@ const envSchema = Joi.object({
   COURSES_MICROSERVICE_PORT: Joi.number().required(),
   COURSES_MICROSERVICE_HOST: Joi.string().required(),
 
+
   APPS_MICROSERVICE_HOST: Joi.string().required(),
   APPS_MICROSERVICE_PORT: Joi.number().required(),
+
+  ORDERS_MICROSERVICE_HOST: Joi.string().required(),
+  ORDERS_MICROSERVICE_PORT: Joi.number().required(),
 }).unknown(true);
 
 const { error, value } = envSchema.validate(process.env);
@@ -36,6 +45,7 @@ const { error, value } = envSchema.validate(process.env);
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
+
 const envVars = value as EnvVars;
 
 export const envs = {
@@ -51,4 +61,7 @@ export const envs = {
 
   appsMicroserviceHost: envVars.APPS_MICROSERVICE_HOST,
   appsMicroservicePort: envVars.APPS_MICROSERVICE_PORT,
+
+  ordersMicroserviceHost: envVars.ORDERS_MICROSERVICE_HOST,
+  ordersMicroservicePort: envVars.ORDERS_MICROSERVICE_PORT,
 };
