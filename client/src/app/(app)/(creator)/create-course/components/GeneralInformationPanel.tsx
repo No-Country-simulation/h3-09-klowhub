@@ -1,3 +1,4 @@
+import Button from '@/components/buttons/Button'
 import Input from '@/components/inputs/Input'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
@@ -28,7 +29,7 @@ export default function GeneralInformationPanel({
 	control
 }: GeneralInformationPanelProps) {
 	return (
-		<form onSubmit={handleSubmit(nextStep)}>
+		<form onSubmit={handleSubmit(nextStep)} className="flex flex-col gap-4">
 			<PanelContainer className="flex">
 				<div className="flex grow flex-col gap-12">
 					<Input
@@ -91,6 +92,11 @@ export default function GeneralInformationPanel({
 				</div>
 				<div className="w-80"></div>
 			</PanelContainer>
+			<div className="flex w-full justify-end">
+				<Button type="submit" className="w-16">
+					Continuar
+				</Button>
+			</div>
 		</form>
 	)
 }

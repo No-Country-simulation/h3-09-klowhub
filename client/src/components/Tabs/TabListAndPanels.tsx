@@ -3,18 +3,22 @@ import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import Tab from '@mui/material/Tab'
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 interface TabListAndPanelsProps {
 	labels: string[]
 	panels: React.ReactNode[]
+	tabValue: number
+	setTabValue: Dispatch<SetStateAction<number>>
 }
 
 export default function TabListAndPanels({
 	labels,
-	panels
+	panels,
+	tabValue,
+	setTabValue
 }: TabListAndPanelsProps) {
-	const [tabValue, setTabValue] = useState(1)
+	// const [tabValue, setTabValue] = useState(1)
 
 	const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
 		setTabValue(newValue)

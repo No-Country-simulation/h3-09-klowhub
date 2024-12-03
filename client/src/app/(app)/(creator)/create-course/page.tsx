@@ -6,15 +6,16 @@ import { useForm } from 'react-hook-form'
 import GeneralInformationPanel from './components/GeneralInformationPanel'
 
 export default function CreateCoursePage() {
-	const [step, setStep] = useState(1)
+	const [tabValue, setTabValue] = useState(1)
 	const [formData, setFormData] = useState({})
 
 	const { register, handleSubmit, watch, reset, control } = useForm<Course>()
 
 	// Avanzar al siguiente paso
 	const nextStep = (data: object) => {
+		console.log(data)
 		setFormData((prevData) => ({ ...prevData, ...data }))
-		setStep(step + 1)
+		setTabValue(tabValue + 1)
 	}
 
 	const labels = [
@@ -38,7 +39,12 @@ export default function CreateCoursePage() {
 	return (
 		<>
 			<h4>Lanza tu curso: Comparte tu conocimiento</h4>
-			<TabListAndPanels labels={labels} panels={panels} />
+			<TabListAndPanels
+				labels={labels}
+				panels={panels}
+				tabValue={tabValue}
+				setTabValue={setTabValue}
+			/>
 		</>
 	)
 }
