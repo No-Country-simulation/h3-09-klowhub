@@ -3,6 +3,7 @@ import TabListAndPanels from '@/components/Tabs/TabListAndPanels'
 import { Course } from '@/models/course.model'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import CourseDetailsPanel from './components/CourseDetailsPanel'
 import GeneralInformationPanel from './components/GeneralInformationPanel'
 
 export default function CreateCoursePage() {
@@ -32,8 +33,13 @@ export default function CreateCoursePage() {
 			register={register}
 			control={control}
 		/>,
-		<div key={1}>Detalles del curso</div>,
-		<div key={2}>Módulos y lecciones</div>
+		<CourseDetailsPanel
+			key={2}
+			handleSubmit={handleSubmit}
+			nextStep={nextStep}
+			register={register}
+		/>,
+		<div key={3}>Módulos y lecciones</div>
 	]
 
 	return (

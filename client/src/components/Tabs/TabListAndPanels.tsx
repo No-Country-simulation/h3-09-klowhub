@@ -18,8 +18,6 @@ export default function TabListAndPanels({
 	tabValue,
 	setTabValue
 }: TabListAndPanelsProps) {
-	// const [tabValue, setTabValue] = useState(1)
-
 	const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
 		setTabValue(newValue)
 	}
