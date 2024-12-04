@@ -28,11 +28,32 @@ export default function CreateCoursePage() {
 		setAddedModules((prevModules) => [...prevModules, module])
 	}
 
+	const deleteModule = (moduleIndex: number) => {
+		setAddedModules((prevModules) =>
+			prevModules.filter((_, index) => index !== moduleIndex)
+		)
+	}
+
 	const addModuleLesson = (moduleIndex: number, lesson: Lesson) => {
 		setAddedModules((prevModules) =>
 			prevModules.map((module, index) =>
 				index === moduleIndex
 					? { ...module, lessons: [...module.lessons, lesson] }
+					: module
+			)
+		)
+	}
+
+	const deleteModuleLesson = (moduleIndex: number, lessonIndex: number) => {
+		setAddedModules((prevModules) =>
+			prevModules.map((module, index) =>
+				index === moduleIndex
+					? {
+							...module,
+							lessons: module.lessons.filter(
+								(_, index) => index !== lessonIndex
+							)
+						}
 					: module
 			)
 		)
@@ -65,13 +86,17 @@ export default function CreateCoursePage() {
 			nextStep={onSubmit}
 			addedModules={addedModules}
 			addModule={addModule}
+			deleteModule={deleteModule}
 			addModuleLesson={addModuleLesson}
+			deleteModuleLesson={deleteModuleLesson}
 		/>
 	]
 
 	return (
 		<>
-			<h4>Lanza tu curso: Comparte tu conocimiento</h4>
+			<h4 className="mb-12 font-bold">
+				Lanza tu curso: Comparte tu conocimiento
+			</h4>
 			<TabListAndPanels
 				labels={labels}
 				panels={panels}
