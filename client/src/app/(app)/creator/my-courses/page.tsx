@@ -11,7 +11,7 @@ export default function MyCoursesPage() {
 
 			<div className="mb-6 flex items-center justify-between">
 				<h6 className="font-bold">Últimas ventas</h6>
-				<Link href={'/create-course'}>
+				<Link href={'creator/create-course'}>
 					<Button>Crear curso</Button>
 				</Link>
 			</div>

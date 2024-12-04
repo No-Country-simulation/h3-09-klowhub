@@ -36,7 +36,7 @@ export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card shadow-2xl">
 			<div className="relative rounded-t-lg">
 				<Image
-					src={course.image}
+					src={course.image as string}
 					alt={course.title}
 					height={200}
 					width={500}
