@@ -1,5 +1,6 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import CartConfirmModal from '@/components/modals/CartConfirmModal'
 import useStore from '@/lib/store'
 import moneyFormat from '@/utils/moneyFormat'
 import Image from 'next/image'
@@ -28,6 +29,8 @@ export default function PaymentMethod() {
 	const [discountInput, setDiscountInput] = useState('')
 	const [activeDiscount, setActiveDiscount] = useState<Coupon | null>(null)
 	const [totalResume, setTotalResume] = useState(getTotalCart())
+	const [showModalConfirmation, setShowModalConfirmation] = useState(false)
+
 	const loadDiscount = () => {
 		const coupon = coupons.filter((item) => item.name === discountInput)[0]
 		if (coupon) {
@@ -89,7 +92,10 @@ export default function PaymentMethod() {
 				<div className="space-y-5">
 					<p>Selecciona un método de pago</p>
 					<div className="grid h-fit w-full grid-cols-3 gap-5">
-						<span className="relative flex aspect-video cursor-pointer rounded-lg bg-slate-100">
+						<span
+							className="relative flex aspect-video cursor-pointer rounded-lg bg-slate-100"
+							onClick={() => setShowModalConfirmation(true)}
+						>
 							<Image
 								src={'/img/stripe-logo.png'}
 								alt=""
@@ -123,6 +129,12 @@ export default function PaymentMethod() {
 					</p>
 				</div>
 			</div>
+			{showModalConfirmation && (
+				<CartConfirmModal
+					setShowModalConfirmation={setShowModalConfirmation}
+					showModalConfirmation={showModalConfirmation}
+				/>
+			)}
 		</article>
 	)
 }
