@@ -5,12 +5,14 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CourseDetailsPanel from './components/CourseDetailsPanel'
 import GeneralInformationPanel from './components/GeneralInformationPanel'
+import ModulesLessonsPanel from './components/ModulesLessonsPanel'
 
 export default function CreateCoursePage() {
 	const [tabValue, setTabValue] = useState(1)
 	const [formData, setFormData] = useState({})
 
-	const { register, handleSubmit, watch, reset, control } = useForm<Course>()
+	const { register, handleSubmit, watch, reset, control, setValue } =
+		useForm<Course>()
 
 	// Avanzar al siguiente paso
 	const nextStep = (data: object) => {
@@ -38,8 +40,14 @@ export default function CreateCoursePage() {
 			handleSubmit={handleSubmit}
 			nextStep={nextStep}
 			register={register}
+			setValue={setValue}
 		/>,
-		<div key={3}>Módulos y lecciones</div>
+		<ModulesLessonsPanel
+			key={3}
+			handleSubmit={handleSubmit}
+			nextStep={nextStep}
+			register={register}
+		/>
 	]
 
 	return (

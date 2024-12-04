@@ -3,25 +3,32 @@ import FileInput from '@/components/inputs/FileInput'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
 import { useState } from 'react'
-import { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
+import {
+	UseFormHandleSubmit,
+	UseFormRegister,
+	UseFormSetValue
+} from 'react-hook-form'
 import PanelContainer from './PanelContainer'
 
 interface CourseDetailsPanelProps {
 	nextStep: (data: object) => void
 	handleSubmit: UseFormHandleSubmit<Course, undefined>
 	register: UseFormRegister<Course>
+	setValue: UseFormSetValue<Course>
 }
 
 export default function CourseDetailsPanel({
 	nextStep,
 	handleSubmit,
-	register
+	register,
+	setValue
 }: CourseDetailsPanelProps) {
 	const [files, setFiles] = useState<FileList>()
 
 	const onFileChange = (files: FileList | null) => {
 		if (!files) return
 		setFiles(files)
+		setValue('image', files[0])
 	}
 
 	return (
@@ -57,7 +64,6 @@ export default function CourseDetailsPanel({
 							label="Subí una imagen que represente tu curso de manera atractiva para utilizarla de portada"
 							onFileChange={(files) => onFileChange(files)}
 							files={files}
-							{...register('image', { required: true })}
 						/>
 					</div>
 				</div>

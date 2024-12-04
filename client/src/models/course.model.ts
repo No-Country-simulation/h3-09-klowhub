@@ -9,7 +9,7 @@ export interface Lesson {
 	title: string
 	description: string
 	contentLink: string
-	image: string
+	image: string | File
 	additionalResources?: string[]
 }
 
