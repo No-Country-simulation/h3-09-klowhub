@@ -14,7 +14,6 @@ interface Props {
 }
 export default function AppModal({ setAppSelected, app }: Props) {
 	const router = useRouter()
-	console.log('this is review content: ',app.reviews)
 	const totalScore = app.reviews.reduce(
 		(acc, review) => acc + review.score,
 		0
