@@ -17,7 +17,7 @@ import { Course } from '@/models/course.model'
 import { Review } from '@/models/product.model'
 import useStore from '@/lib/store'
 const course: Course = {
-	id: '2',
+	id: '4',
 	title: 'Automatización avanzada con PowerApps',
 	price: 10.0,
 	shortDescription:
@@ -165,7 +165,7 @@ export default function Page() {
 						<b>Acerca de este curso</b>
 						<p className="text-sm">{course.detailedDescription}</p>
 					</div>
-					<Button>Añadir al carrito</Button>
+					<Button onClick={() => addCartItem(course)}>Añadir al carrito</Button>
 					<Share />
 					<Prerequisites prerequisites={course.prerequisites} />
 					<InfoFunctionalities
