@@ -2,15 +2,15 @@ import { Controller, Param } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import {
   Course as CourseModel,
-  Section as CourseSectionModel,
+  Lesson as CourseLessonModel,
   Resource as ResourceModel,
   Module as ModuleModel,
 } from '@prisma/client';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateSectionDto } from './dto/create-course-section.dto';
-import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
+import { CreateLessonDto } from './dto/create-lesson.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
@@ -21,6 +21,7 @@ import { RpcException } from '@nestjs/microservices';
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
+  // Course
   @MessagePattern({ cmd: 'find_courses_by_user_id' })
   async findCoursesByUserId(@Payload('userId') userId: string) {
     return this.coursesService.findCoursesByUserId(userId);
@@ -56,40 +57,39 @@ export class CoursesController {
     console.log(id);
     return this.coursesService.deleteCourse(id);
   }
-  ////CourseSection
 
-  @MessagePattern({ cmd: 'create_course_section' })
-  async createCourseSection(
-    @Payload() courseSectionData: CreateSectionDto,
-  ): Promise<CourseSectionModel> {
-    return this.coursesService.createCourseSection(courseSectionData);
+  //// Course Lesson
+
+  @MessagePattern({ cmd: 'create_lesson' })
+  async signupLesson(@Payload() courseLessonData: CreateLessonDto) {
+    return this.coursesService.createLesson(courseLessonData);
+  }
+  @MessagePattern({ cmd: 'find_all_course_lessons' })
+  async getAllCourseLessons() {
+    return this.coursesService.getAllCourseLessons();
   }
 
-  @MessagePattern({ cmd: 'find_all_course_sections' })
-  async getAllCourseSections() {
-    return this.coursesService.getAllCourseSections();
+  @MessagePattern({ cmd: 'find_one_course_lesson_by_id' })
+  async getCourseLessonById(@Payload('id') id: string) {
+    return this.coursesService.findOneCourseLessonById(id);
   }
 
-  @MessagePattern({ cmd: 'find_one_course_section_by_id' })
-  async getCourseSectionById(@Payload('id') id: string) {
-    return this.coursesService.findOneCourseSectionById(id);
+  @MessagePattern({ cmd: 'update_course_lesson' })
+  async updateCourseLesson(
+    @Payload() updateData: UpdateLessonDto,
+  ): Promise<CourseLessonModel> {
+    return this.coursesService.updateCourseLesson(updateData.id, updateData);
   }
 
-  @MessagePattern({ cmd: 'update_course_section' })
-  async updateCourseSection(
-    @Payload() updateData: UpdateCourseSectionDto,
-  ): Promise<CourseSectionModel> {
-    return this.coursesService.updateCourseSection(updateData.id, updateData);
-  }
-
-  @MessagePattern({ cmd: 'delete_course_section' })
-  async deleteCourseSection(@Payload('id') id: string) {
+  @MessagePattern({ cmd: 'delete_course_lesson' })
+  async deleteCourseLesson(@Payload('id') id: string) {
     if (!id) {
       throw new RpcException('id is required');
     }
-    return this.coursesService.deleteCourseSection(id);
+    return this.coursesService.deleteCourseLesson(id);
   }
-  ////Resource
+
+  //// Resource
 
   @MessagePattern({ cmd: 'create_resource' })
   async createResource(@Payload() resourceData: CreateResourceDto) {
@@ -120,6 +120,7 @@ export class CoursesController {
     }
     return this.coursesService.deleteResource(id);
   }
+
   // Module
 
   @MessagePattern({ cmd: 'create_module' })

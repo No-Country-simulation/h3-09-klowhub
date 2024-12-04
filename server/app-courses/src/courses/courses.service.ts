@@ -3,21 +3,30 @@ import {
   Logger,
   OnModuleInit,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
 import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateSectionDto } from './dto/create-course-section.dto';
-import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
+import { CreateLessonDto } from './dto/create-lesson.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
+import { Storage } from '@google-cloud/storage';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('Courses service');
+  private storage: Storage;
+  private bucketName = 'buket-name';
+
+  constructor() {
+    super();
+    this.storage = new Storage();
+  }
 
   async onModuleInit() {
     await this.$connect();
@@ -75,55 +84,83 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     });
     return updateCourse;
   }
-  //  Course Section
+  //  Course Lesson
 
-  async createCourseSection(courseSectionData: CreateSectionDto) {
-    this.logger.log('create_course_section');
+  async uploadVideo(file: Express.Multer.File): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('No file provided for upload');
+    }
+
+    this.logger.log('Uploading video to Google Cloud Storage');
+    const bucket = this.storage.bucket(this.bucketName);
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+
+    return new Promise((resolve, reject) => {
+      blobStream
+        .on('finish', () => {
+          const publicUrl = `https://storage.googleapis.com/${this.bucketName}/${blob.name}`;
+          this.logger.log(`Video uploaded successfully: ${publicUrl}`);
+          resolve(publicUrl);
+        })
+        .on('error', (err) => {
+          this.logger.error('Error uploading video:', err.message);
+          reject(err);
+        })
+        .end(file.buffer);
+    });
+  }
+
+  async createLesson(lessonData: CreateLessonDto) {
+    this.logger.log('create_course_lesson');
     try {
-      const courseSection = await this.section.create({
-        data: courseSectionData,
+      const courseLesson = await this.lesson.create({
+        data: lessonData,
       });
-      return courseSection;
+      return courseLesson;
     } catch (error) {
       this.logger.error(`Error creating course section`, error);
       throw new Error('Could not create course section');
     }
   }
 
-  async getAllCourseSections() {
-    this.logger.log('find_all_course_sections');
-    const courseSections = await this.section.findMany();
-    return courseSections;
+  async getAllCourseLessons() {
+    this.logger.log('find_all_course_lessons');
+    const courseLessons = await this.lesson.findMany();
+    return courseLessons;
   }
 
-  async findOneCourseSectionById(id: string) {
-    this.logger.log('find_one_course_section_by_id');
-    const courseSection = await this.section.findUnique({
+  async findOneCourseLessonById(id: string) {
+    this.logger.log('find_one_course_lesson_by_id');
+    const courseLesson = await this.lesson.findUnique({
       where: { id },
     });
-    return courseSection;
+    return courseLesson;
   }
 
-  async updateCourseSection(id: string, updateData: UpdateCourseSectionDto) {
-    this.logger.log('update_course_section');
-    const updateCourseSection = await this.section.update({
+  async updateCourseLesson(id: string, updateData: UpdateLessonDto) {
+    this.logger.log('update_course_lesson');
+    const updateCourseLesson = await this.lesson.update({
       where: { id },
       data: updateData,
     });
-    return updateCourseSection;
+    return updateCourseLesson;
   }
 
-  async deleteCourseSection(id: string) {
-    this.logger.log('delete_course_section');
+  async deleteCourseLesson(id: string) {
+    this.logger.log('delete_course_lesson');
 
     try {
-      const deletedCourseSection = await this.section.delete({
+      const deletedCourseLesson = await this.lesson.delete({
         where: { id },
       });
-      return deletedCourseSection;
+      return deletedCourseLesson;
     } catch (error) {
-      this.logger.error(`Error deleting course section with ID ${id}`, error);
-      throw new Error('Could not delete course section');
+      this.logger.error(`Error deleting course lesson with ID ${id}`, error);
+      throw new Error('Could not delete course lesson');
     }
   }
   // Resource

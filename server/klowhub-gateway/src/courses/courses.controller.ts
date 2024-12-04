@@ -15,8 +15,8 @@ import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
 import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateSectionDto } from './dto/create-course-section.dto';
-import { UpdateCourseSectionDto } from './dto/update-course-section.dto';
+import { CreateLessonDto } from './dto/create-lesson.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
@@ -96,82 +96,80 @@ export class CoursesController {
       }),
     );
   }
-  // Course Section
+  // Course Lesson
 
-  @Post('createSection')
-  createCourseSection(@Body() createCourseSectionDto: CreateSectionDto) {
+  @Post('createLesson')
+  createLesson(@Body() createLessonDto: CreateLessonDto) {
     return this.courseClient.send(
-      { cmd: 'create_course_section' },
-      createCourseSectionDto,
+      { cmd: 'create_course_lesson' },
+      createLessonDto,
     );
   }
 
-  @Get('findAllSections')
-  findAllCourseSections(@Query() paginationDto: PaginationDto) {
+  @Get('findAllLessons')
+  findAllCourseLessons(@Query() paginationDto: PaginationDto) {
     return this.courseClient.send(
-      { cmd: 'find_all_course_sections' },
+      { cmd: 'find_all_course_lessons' },
       paginationDto,
     );
   }
 
-  @Get('courseSection/:id')
-  async findOneCourseSection(@Param('id') id: string) {
+  @Get('courseLesson/:id')
+  async findOneCourseLesson(@Param('id') id: string) {
     try {
-      const courseSection = await firstValueFrom(
+      const courseLesson = await firstValueFrom(
         this.courseClient.send(
           {
-            cmd: 'find_one_course_section_by_id',
+            cmd: 'find_one_course_lesson_by_id',
           },
           { id },
         ),
       );
-      return courseSection;
+      return courseLesson;
     } catch (error) {
       throw new RpcException(error);
     }
   }
 
-  @Patch('patchSection/:id')
-  async updateCourseSection(
+  @Patch('patchLesson/:id')
+  async updateCourseLesson(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateCourseSectionDto: UpdateCourseSectionDto,
+    @Body() updateLessonDto: UpdateLessonDto,
   ) {
     try {
-      const courseSection = await firstValueFrom(
+      const courseLesson = await firstValueFrom(
         this.courseClient.send(
-          { cmd: 'update_course_section' },
-          { id, ...updateCourseSectionDto },
+          { cmd: 'update_course_lesson' },
+          { id, ...updateLessonDto },
         ),
       );
-      return courseSection;
+      return courseLesson;
     } catch (error) {
       throw new RpcException(error);
     }
   }
 
-  @Delete('deleteSection/:id')
-  removeCourseSection(@Param('id', ParseUUIDPipe) id: string) {
+  @Delete('deleteLesson/:id')
+  removeCourseLesson(@Param('id', ParseUUIDPipe) id: string) {
     if (!id) {
       throw new RpcException('id is required');
     }
 
-    console.log('Deleting course section with ID:', id);
+    console.log('Deleting course lesson with ID:', id);
 
-    return this.courseClient
-      .send({ cmd: 'delete_course_section' }, { id })
-      .pipe(
-        catchError((err) => {
-          console.error('Error from microservice:', err);
-          const errorMessage =
-            typeof err === 'object' && err.message
-              ? err.message
-              : 'Unexpected error occurred';
-          throw new RpcException({
-            status: 400,
-            message: errorMessage,
-          });
-        }),
-      );
+    return this.courseClient.send({ cmd: 'delete_course_lesson' }, { id }).pipe(
+      catchError((err) => {
+        console.error('Error from microservice:', err);
+        const errorMessage =
+          typeof err === 'object' && err.message
+            ? err.message
+            : 'Unexpected error occurred';
+        throw new RpcException({
+          status: 400,
+          message: errorMessage,
+        });
+      }),
+    );
   }
   // Resource
 

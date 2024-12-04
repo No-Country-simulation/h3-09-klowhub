@@ -81,5 +81,5 @@ export class CourseDto {
 
   @IsOptional()
   @IsString()
-  moduleId?: string;
+  public moduleId: string;
 }

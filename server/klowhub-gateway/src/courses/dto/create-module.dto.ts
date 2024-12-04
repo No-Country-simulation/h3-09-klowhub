@@ -7,7 +7,7 @@ import {
   IsNumber,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateSectionDto } from './create-course-section.dto';
+import { CreateLessonDto } from './create-lesson.dto';
 
 export class ModuleDto {
   @IsString()
