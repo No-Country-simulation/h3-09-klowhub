@@ -17,8 +17,6 @@ export default function AddModule({ onAdd }: AddModuleProps) {
 		description: '',
 		lessons: []
 	})
-	// const { handleSubmit, register, reset } = useForm<Module>()
-
 	const handleInputChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -38,7 +36,7 @@ export default function AddModule({ onAdd }: AddModuleProps) {
 				<div
 					role="button"
 					onClick={() => setShowModuleForm(true)}
-					className="flex w-full items-center justify-center gap-6 rounded-2xl border border-dashed border-primary-b-300 bg-white/10 p-10 hover:text-primary-b-300 active:text-primary-b-600"
+					className="flex w-full items-center justify-center gap-6 rounded-xl border border-dashed border-primary-b-300 bg-white/10 p-8 hover:text-primary-b-300 active:text-primary-b-600"
 				>
 					<Plus size={32} />
 					<p>Agregar módulo</p>

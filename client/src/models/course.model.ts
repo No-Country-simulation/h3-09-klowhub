@@ -8,7 +8,7 @@ export type Level = 'basic' | 'intermediate' | 'advanced'
 export interface Lesson {
 	title: string
 	description: string
-	contentLink: string
+	contentLink: string | File
 	image: string | File
 	additionalResources?: string[]
 }

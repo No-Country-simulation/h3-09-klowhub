@@ -1,15 +1,18 @@
-import { Module } from '@/models/course.model'
+import { Lesson, Module } from '@/models/course.model'
 import * as Accordion from '@radix-ui/react-accordion'
 import { ChevronsUpDown } from 'lucide-react'
 import AddedLessonsAccordion from './AddedLessonsAccordion'
+import AddLesson from './AddLesson'
 
 interface ModuleAccordionItemProps {
 	module: Module
 	index: number
+	addModuleLesson: (moduleIndex: number, lesson: Lesson) => void
 }
 export default function ModuleAccordionItem({
 	module,
-	index
+	index,
+	addModuleLesson
 }: ModuleAccordionItemProps) {
 	return (
 		<Accordion.Item
@@ -22,10 +25,11 @@ export default function ModuleAccordionItem({
 				</p>
 				<ChevronsUpDown size={16} />
 			</Accordion.Trigger>
-			<Accordion.Content>
-				<p className="mb-3 mt-6 text-sm font-semibold">Descripción</p>
-				<p className="mb-3 text-sm">{module.description}</p>
+			<Accordion.Content className="flex flex-col gap-6">
+				<p className="mt-6 text-sm font-semibold">Descripción</p>
+				<p className="text-sm">{module.description}</p>
 				<AddedLessonsAccordion lessons={module.lessons} />
+				<AddLesson onAdd={addModuleLesson} moduleIndex={index} />
 			</Accordion.Content>
 		</Accordion.Item>
 	)

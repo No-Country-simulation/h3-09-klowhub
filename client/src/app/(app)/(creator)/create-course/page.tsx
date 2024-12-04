@@ -10,53 +10,7 @@ import ModulesLessonsPanel from './components/ModulesLessonsPanel'
 export default function CreateCoursePage() {
 	const [tabValue, setTabValue] = useState(1)
 	const [formData, setFormData] = useState({})
-	const [addedModules, setAddedModules] = useState<Module[]>([
-		// TODO: Borrar data mockeada
-		{
-			title: 'Introducción a gestión de inventarios con AppSheet',
-			description: 'Descripción del módulo 1',
-			lessons: [
-				{
-					title: 'Lección 1',
-					description: 'Descripción de la lección 1',
-					contentLink:
-						'https://videos.pexels.com/video-files/4370609/4370609-uhd_2560_1440_25fps.mp4',
-					image: 'https://picsum.photos/900/600',
-					additionalResources: [
-						'https://example.com/resource1.pdf',
-						'https://example.com/resource2.pdf'
-					]
-				},
-				{
-					title: 'Lección 2',
-					description: 'Descripción de la lección 2',
-					contentLink:
-						'https://videos.pexels.com/video-files/6201664/6201664-uhd_2560_1440_24fps.mp4',
-					image: 'https://picsum.photos/900/600'
-				}
-			]
-		},
-		{
-			title: 'Teoria de la gestión de inventarios con AppSheet',
-			description: 'Descripción del módulo 2',
-			lessons: [
-				{
-					title: 'Lección 1',
-					description: 'Descripción de la lección 1',
-					contentLink:
-						'https://videos.pexels.com/video-files/4370609/4370609-uhd_2560_1440_25fps.mp4',
-					image: 'https://picsum.photos/900/600'
-				},
-				{
-					title: 'Lección 2',
-					description: 'Descripción de la lección 2',
-					contentLink:
-						'https://videos.pexels.com/video-files/6201664/6201664-uhd_2560_1440_24fps.mp4',
-					image: 'https://picsum.photos/900/600'
-				}
-			]
-		}
-	])
+	const [addedModules, setAddedModules] = useState<Module[]>([])
 
 	const { register, handleSubmit, control, setValue } = useForm<Course>()
 
@@ -74,10 +28,12 @@ export default function CreateCoursePage() {
 		setAddedModules((prevModules) => [...prevModules, module])
 	}
 
-	const updateModuleLessons = (moduleIndex: number, lessons: Lesson[]) => {
+	const addModuleLesson = (moduleIndex: number, lesson: Lesson) => {
 		setAddedModules((prevModules) =>
 			prevModules.map((module, index) =>
-				index === moduleIndex ? { ...module, lessons } : module
+				index === moduleIndex
+					? { ...module, lessons: [...module.lessons, lesson] }
+					: module
 			)
 		)
 	}
@@ -109,7 +65,7 @@ export default function CreateCoursePage() {
 			nextStep={onSubmit}
 			addedModules={addedModules}
 			addModule={addModule}
-			updateModuleLessons={updateModuleLessons}
+			addModuleLesson={addModuleLesson}
 		/>
 	]
 

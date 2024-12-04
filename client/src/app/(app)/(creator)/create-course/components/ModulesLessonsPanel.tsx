@@ -10,7 +10,7 @@ interface ModulesLessonsPanelProps {
 	handleSubmit: UseFormHandleSubmit<Course, undefined>
 	addedModules: Module[]
 	addModule: (module: Module) => void
-	updateModuleLessons: (moduleIndex: number, lessons: Lesson[]) => void
+	addModuleLesson: (moduleIndex: number, lesson: Lesson) => void
 }
 
 export default function ModulesLessonsPanel({
@@ -18,16 +18,21 @@ export default function ModulesLessonsPanel({
 	handleSubmit,
 	addedModules,
 	addModule,
-	updateModuleLessons
+	addModuleLesson
 }: ModulesLessonsPanelProps) {
 	return (
 		<form onSubmit={handleSubmit(nextStep)} className="flex flex-col gap-4">
 			<PanelContainer className="flex">
 				<div className="flex grow flex-col gap-12">
-					{addedModules && <AddedModulesAccordion modules={addedModules} />}
+					{addedModules && (
+						<AddedModulesAccordion
+							modules={addedModules}
+							addModuleLesson={addModuleLesson}
+						/>
+					)}
 					<AddModule onAdd={addModule} />
 				</div>
-				<div className="w-80"></div>
+				<div className="min-w-80"></div>
 			</PanelContainer>
 			<div className="flex w-full justify-end">
 				<Button type="submit" className="w-16">
