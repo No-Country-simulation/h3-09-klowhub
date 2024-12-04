@@ -81,7 +81,8 @@ export default function MyCourses() {
 			name: 'Ana López',
 			bio: 'Experta en AppSheet y ventas.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "lección"
@@ -127,7 +128,8 @@ export default function MyCourses() {
 			name: 'María Rodríguez',
 			bio: 'Experta en integraciones y desarrollo de aplicaciones empresariales.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	const myCourses: Course[] = [mockCourse, mockLessonCourse]

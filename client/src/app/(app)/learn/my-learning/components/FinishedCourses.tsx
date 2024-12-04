@@ -79,7 +79,8 @@ export default function FinishedCourses() {
 			name: 'Ana Gómez',
 			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "curso" 2
@@ -152,7 +153,8 @@ export default function FinishedCourses() {
 			name: 'Carlos Rodríguez',
 			bio: 'Experto en AppSheet y ventas.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "lección"
@@ -198,7 +200,8 @@ export default function FinishedCourses() {
 			name: 'Jorge Ramírez',
 			bio: 'Experto en automatización y Power Automate.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	const finishedCourses: Course[] = [course1, course2, lessonCourse]
