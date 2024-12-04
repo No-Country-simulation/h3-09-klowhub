@@ -14,11 +14,15 @@ export default function CreateCoursePage() {
 	const { register, handleSubmit, watch, reset, control, setValue } =
 		useForm<Course>()
 
-	// Avanzar al siguiente paso
 	const nextStep = (data: object) => {
-		console.log(data)
 		setFormData((prevData) => ({ ...prevData, ...data }))
 		setTabValue(tabValue + 1)
+	}
+
+	const onSubmit = (data: object) => {
+		console.log(data)
+		const finalData = { ...formData, ...data }
+		console.log('Datos finales para enviar: ', finalData)
 	}
 
 	const labels = [
@@ -45,7 +49,7 @@ export default function CreateCoursePage() {
 		<ModulesLessonsPanel
 			key={3}
 			handleSubmit={handleSubmit}
-			nextStep={nextStep}
+			nextStep={onSubmit}
 			register={register}
 		/>
 	]

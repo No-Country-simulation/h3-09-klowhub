@@ -17,6 +17,7 @@ export default function ModulesLessonsPanel({
 	handleSubmit
 }: ModulesLessonsPanelProps) {
 	const [addedModules, setAddedModules] = useState<Module[]>([
+		// TODO: Borrar data mockeada
 		{
 			title: 'Introducción a gestión de inventarios con AppSheet',
 			description: 'Descripción del módulo 1',
