@@ -1,31 +1,31 @@
+import React, { Dispatch, SetStateAction } from 'react'
+import { App } from '@/models/app.model'
 import { Card } from 'flowbite-react'
-import { Heart } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
-import Button from '../buttons/Button'
+import { Heart } from 'lucide-react'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
+import Button from '../buttons/Button'
 
-const app = {
-	id: 1,
-	title: 'Control de Inventario para retail',
-	description:
-		'App diseñada para gestionar y monitorear el stock en tiendas físicas',
-	price: 100,
-	rating: 3,
-	totalVotes: 26,
-	categories: ['Logística', 'Retail', 'Inventarios'],
-	stack: ['appsheet'],
-	image: 'https://picsum.photos/200'
+function getRandomInt(min: number, max: number): number {
+	return Math.floor(Math.random() * (max - min + 1)) + min
 }
-const user = {
-	favorites: [1]
+const mockApp = {
+	price: getRandomInt(500, 5000),
+	rating: getRandomInt(3, 5),
+	stack: ['appsheet']
 }
+const user = { favorites: [1, 2, 3] }
 interface Props {
-	variant?: 'course' | 'app'
+	app: App
+	setProductSelected: Dispatch<SetStateAction<App | null>>
 }
-export function AppCourseCard({ variant = 'app' }: Props) {
+
+export default function ApplicationCard({ app, setProductSelected }: Props) {
+	const totalScore = app.reviews.reduce((acc, review) => acc + review.score, 0)
+	const average = Number((totalScore / app.reviews.length).toFixed(1))
+
 	return (
 		<Card
 			theme={{
@@ -33,38 +33,33 @@ export function AppCourseCard({ variant = 'app' }: Props) {
 					children: 'p-4 md:p-5 gap-3 flex flex-col'
 				}
 			}}
-			className={`relative min-w-[320px] ${variant === 'app' ? 'max-w-xs' : 'max-w-sm'} overflow-hidden border-none bg-card`}
+			className={'relative min-w-[320px] max-w-xs  overflow-hidden border-none bg-card'}
 			renderImage={() => (
 				<picture className="relative aspect-video w-full">
 					<Image fill src={app.image} alt="app image" />
 				</picture>
 			)}
 		>
-			{variant === 'course' && (
-				<span className="absolute left-2 top-2 z-20">
-					<CategoryTag>Curso</CategoryTag>
-				</span>
-			)}
 			<Heart
 				className="absolute right-2 top-2 z-20"
-				fill={`${user.favorites.includes(app.id) ? '#fff' : 'transparent'}`}
+				fill={`${user.favorites.includes(parseInt(app.id)) ? '#fff' : 'transparent'}`}
 			/>
 			<h5 className="text-sm font-bold">{app.title}</h5>
-			<p className="text-sm">{app.description}</p>
+			<p className="text-sm">{app.shortDescription}</p>
 			<div className="flex flex-wrap gap-4">
-				{app.categories.map((category, i) => (
+				{app.functionalities.map((category, i) => (
 					<CategoryTag key={i}>{category}</CategoryTag>
 				))}
 			</div>
 			<div className="flex gap-2">
-				{app.stack.map((technology, i) => (
+				{mockApp.stack.map((technology, i) => (
 					<TechnologyTag
 						technology={technology as Technology}
 						key={'technology-' + i}
 					/>
 				))}
 			</div>
-			<RatingStars rating={app.rating} totalVotes={app.totalVotes} />
+			<RatingStars rating={average} totalVotes={app.reviews.length} />
 			<b className="text-xl">
 				{app.price ? (
 					<>
@@ -81,12 +76,11 @@ export function AppCourseCard({ variant = 'app' }: Props) {
 				<Button className="min-w-0 p-2 text-xs" size="l">
 					Añadir al carrito
 				</Button>
-				<Link href={`/app/${app.id}`}>
-					<Button className="min-w-0 p-2 text-xs" size="l" variant="tertiary" >
-						Ver detalles
-					</Button>
-				</Link>
+				<Button className='min-w-0 p-2 text-xs' size='l' variant='tertiary' onClick={() => setProductSelected(app)} >
+					Ver detalles
+				</Button>
 			</div>
 		</Card>
 	)
 }
+
