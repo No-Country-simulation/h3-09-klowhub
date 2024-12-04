@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react'
 import { App } from '@/models/app.model'
 import { Card } from 'flowbite-react'
-import Image from 'next/image'
 import { Heart } from 'lucide-react'
+import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
+import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
-import Button from '../buttons/Button'
 
 function getRandomInt(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -33,10 +33,12 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 					children: 'p-4 md:p-5 gap-3 flex flex-col'
 				}
 			}}
-			className={'relative min-w-[320px] max-w-xs  overflow-hidden border-none bg-card'}
+			className={
+				'relative min-w-[320px] max-w-xs overflow-hidden border-none bg-card'
+			}
 			renderImage={() => (
 				<picture className="relative aspect-video w-full">
-					<Image fill src={app.image} alt="app image" />
+					<Image fill src={app.image as string} alt="app image" />
 				</picture>
 			)}
 		>
@@ -76,11 +78,15 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 				<Button className="min-w-0 p-2 text-xs" size="l">
 					Añadir al carrito
 				</Button>
-				<Button className='min-w-0 p-2 text-xs' size='l' variant='tertiary' onClick={() => setProductSelected(app)} >
+				<Button
+					className="min-w-0 p-2 text-xs"
+					size="l"
+					variant="tertiary"
+					onClick={() => setProductSelected(app)}
+				>
 					Ver detalles
 				</Button>
 			</div>
 		</Card>
 	)
 }
-

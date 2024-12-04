@@ -18,6 +18,6 @@ export interface DigitalProduct {
 	toolsAndPlatforms: string[] // Herramientas relacionadas (ej: "Zapier", "Excel")
 	functionalities: string[] // Funcionalidades (ej: "APIs", "Integraciones")
 	relatedTags: string[] // Palabras clave o etiquetas
-	image: string
+	image: string | File
 	reviews: Review[]
 }

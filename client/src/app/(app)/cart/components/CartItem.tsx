@@ -6,9 +6,8 @@ import { Course } from '@/models/course.model'
 import { Review } from '@/models/product.model'
 import moneyFormat from '@/utils/moneyFormat'
 import { Card } from 'flowbite-react'
-import { Star, MessageSquare, FileChartColumnIncreasing } from 'lucide-react'
+import { FileChartColumnIncreasing, MessageSquare, Star } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
 
 export default function CartItem({ item }: { item: Course }) {
 	const calculateRating = (reviews: Review[]) => {
@@ -35,7 +34,7 @@ export default function CartItem({ item }: { item: Course }) {
 					renderImage={() => (
 						<picture className="relative flex aspect-square h-fit w-full md:w-72">
 							<Image
-								src={item.image}
+								src={item.image as string}
 								layout="fill"
 								objectFit="cover"
 								alt="app image"

@@ -1,13 +1,13 @@
 'use client'
+import { Course } from '@/models/course.model'
 import { Modal } from 'flowbite-react'
-import React, { Dispatch, SetStateAction } from 'react'
-import Button from '../buttons/Button'
 import { Mail, Video } from 'lucide-react'
 import Image from 'next/image'
-import RatingStars from '../RatingStars'
-import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
-import { Course } from '@/models/course.model'
 import { useRouter } from 'next/navigation'
+import { Dispatch, SetStateAction } from 'react'
+import RatingStars from '../RatingStars'
+import Button from '../buttons/Button'
+import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 interface Props {
 	setCourseSelected: Dispatch<SetStateAction<Course | null>>
 	course: Course
@@ -63,7 +63,7 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 						<Image
 							fill
 							sizes="200px"
-							src={course.image}
+							src={course.image as string}
 							alt="app image"
 							className="rounded-lg"
 						/>

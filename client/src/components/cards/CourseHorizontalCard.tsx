@@ -1,14 +1,14 @@
 'use client'
+import useStore from '@/lib/store'
+import { Course } from '@/models/course.model'
+import moneyFormat from '@/utils/moneyFormat'
 import { Card } from 'flowbite-react'
 import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
 import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
-import { Course } from '@/models/course.model'
-import { Dispatch, SetStateAction } from 'react'
-import useStore from '@/lib/store'
-import moneyFormat from '@/utils/moneyFormat'
 
 interface Props {
 	course: Course
@@ -47,7 +47,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 						<Image
 							fill
 							sizes="200px"
-							src={course.image}
+							src={course.image as string}
 							alt="app image"
 							className="z-0 object-cover"
 						/>

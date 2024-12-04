@@ -16,7 +16,7 @@ export default function CourseContentViewer({
 
 	useEffect(() => {
 		if (course.modules) {
-			setVideoLink(course.modules[0].lessons[0].contentLink)
+			setVideoLink(course.modules[0].lessons[0].contentLink as string)
 		} else if (course.contentLink) {
 			setVideoLink(course.contentLink)
 		}
@@ -26,14 +26,17 @@ export default function CourseContentViewer({
 	useEffect(() => {
 		if (!course.modules) return
 		setActiveLessonIndex(0)
-		setVideoLink(course.modules[activeModuleIndex].lessons[0].contentLink)
+		setVideoLink(
+			course.modules[activeModuleIndex].lessons[0].contentLink as string
+		)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeModuleIndex])
 
 	useEffect(() => {
 		if (!course.modules) return
 		setVideoLink(
-			course.modules[activeModuleIndex].lessons[activeLessonIndex].contentLink
+			course.modules[activeModuleIndex].lessons[activeLessonIndex]
+				.contentLink as string
 		)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeLessonIndex])

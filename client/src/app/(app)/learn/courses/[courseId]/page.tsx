@@ -3,19 +3,18 @@ import Button from '@/components/buttons/Button'
 import ProTag from '@/components/buyerTags/ProTag'
 import TechnologyTag, { Technology } from '@/components/buyerTags/TechnologyTag'
 import RatingStars from '@/components/RatingStars'
+import useStore from '@/lib/store'
+import { Course } from '@/models/course.model'
+import { Review } from '@/models/product.model'
 import { GraduationCap, MessageSquare, Star, Video } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import React from 'react'
-import Share from './components/Share'
-import Modules from './components/Modules'
-import LearningOutcomes from './components/LearningOutcomes'
-import Prerequisites from './components/Prerequisites'
 import InfoFunctionalities from './components/InfoFunctionalities'
+import LearningOutcomes from './components/LearningOutcomes'
+import Modules from './components/Modules'
+import Prerequisites from './components/Prerequisites'
 import Reviews from './components/Reviews'
-import { Course } from '@/models/course.model'
-import { Review } from '@/models/product.model'
-import useStore from '@/lib/store'
+import Share from './components/Share'
 const course: Course = {
 	id: '4',
 	title: 'Automatización avanzada con PowerApps',
@@ -141,7 +140,7 @@ export default function Page() {
 					<Image
 						fill
 						sizes="500px"
-						src={course.image}
+						src={course.image as string}
 						alt="app image"
 						className="rounded-lg"
 					/>

@@ -1,0 +1,83 @@
+'use client'
+import TabListAndPanels from '@/components/Tabs/TabListAndPanels'
+import { Course, Lesson, Module } from '@/models/course.model'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import CourseDetailsPanel from './components/CourseDetailsPanel'
+import GeneralInformationPanel from './components/GeneralInformationPanel'
+import ModulesLessonsPanel from './components/ModulesLessonsPanel'
+
+export default function CreateCoursePage() {
+	const [tabValue, setTabValue] = useState(1)
+	const [formData, setFormData] = useState({})
+	const [addedModules, setAddedModules] = useState<Module[]>([])
+
+	const { register, handleSubmit, control, setValue } = useForm<Course>()
+
+	const nextStep = (data: object) => {
+		setFormData((prevData) => ({ ...prevData, ...data }))
+		setTabValue(tabValue + 1)
+	}
+
+	const onSubmit = (data: object) => {
+		const finalData = { ...formData, ...data, modules: addedModules }
+		console.log('Datos finales para enviar: ', finalData)
+	}
+
+	const addModule = (module: Module) => {
+		setAddedModules((prevModules) => [...prevModules, module])
+	}
+
+	const addModuleLesson = (moduleIndex: number, lesson: Lesson) => {
+		setAddedModules((prevModules) =>
+			prevModules.map((module, index) =>
+				index === moduleIndex
+					? { ...module, lessons: [...module.lessons, lesson] }
+					: module
+			)
+		)
+	}
+
+	const labels = [
+		'Información general',
+		'Detalles del curso',
+		'Módulos y lecciones'
+	]
+
+	const panels = [
+		<GeneralInformationPanel
+			key={1}
+			handleSubmit={handleSubmit}
+			nextStep={nextStep}
+			register={register}
+			control={control}
+		/>,
+		<CourseDetailsPanel
+			key={2}
+			handleSubmit={handleSubmit}
+			nextStep={nextStep}
+			register={register}
+			setValue={setValue}
+		/>,
+		<ModulesLessonsPanel
+			key={3}
+			handleSubmit={handleSubmit}
+			nextStep={onSubmit}
+			addedModules={addedModules}
+			addModule={addModule}
+			addModuleLesson={addModuleLesson}
+		/>
+	]
+
+	return (
+		<>
+			<h4>Lanza tu curso: Comparte tu conocimiento</h4>
+			<TabListAndPanels
+				labels={labels}
+				panels={panels}
+				tabValue={tabValue}
+				setTabValue={setTabValue}
+			/>
+		</>
+	)
+}

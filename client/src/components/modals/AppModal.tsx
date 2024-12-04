@@ -1,23 +1,20 @@
 'use client'
+import { App } from '@/models/app.model'
 import { Modal } from 'flowbite-react'
-import React, { Dispatch, SetStateAction } from 'react'
-import Button from '../buttons/Button'
 import { Mail } from 'lucide-react'
 import Image from 'next/image'
-import RatingStars from '../RatingStars'
-import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
-import { App } from '@/models/app.model'
 import { useRouter } from 'next/navigation'
+import { Dispatch, SetStateAction } from 'react'
+import RatingStars from '../RatingStars'
+import Button from '../buttons/Button'
+import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 interface Props {
 	setAppSelected: Dispatch<SetStateAction<App | null>>
 	app: App
 }
 export default function AppModal({ setAppSelected, app }: Props) {
 	const router = useRouter()
-	const totalScore = app.reviews.reduce(
-		(acc, review) => acc + review.score,
-		0
-	)
+	const totalScore = app.reviews.reduce((acc, review) => acc + review.score, 0)
 	const averageScore = Number((totalScore / app.reviews.length).toFixed(1))
 	return (
 		<Modal
@@ -55,7 +52,7 @@ export default function AppModal({ setAppSelected, app }: Props) {
 						<Image
 							fill
 							sizes="200px"
-							src={app.image}
+							src={app.image as string}
 							alt="app image"
 							className="rounded-lg"
 						/>
