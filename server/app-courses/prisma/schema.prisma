@@ -79,6 +79,7 @@ model Resource {
 model Module {
   id       String   @id @default(uuid())
   courseId String
+  title    String
   lesson   Lesson[] // One-to-many relationship with lesson
   order    Int
   course   Course   @relation(fields: [courseId], references: [id]) // Relationship with Course

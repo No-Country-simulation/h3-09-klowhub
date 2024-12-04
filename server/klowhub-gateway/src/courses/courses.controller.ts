@@ -100,10 +100,7 @@ export class CoursesController {
 
   @Post('createLesson')
   createLesson(@Body() createLessonDto: CreateLessonDto) {
-    return this.courseClient.send(
-      { cmd: 'create_course_lesson' },
-      createLessonDto,
-    );
+    return this.courseClient.send({ cmd: 'create_lesson' }, createLessonDto);
   }
 
   @Get('findAllLessons')

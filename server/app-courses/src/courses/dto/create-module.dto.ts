@@ -11,6 +11,9 @@ import { CreateLessonDto } from './create-lesson.dto';
 
 export class ModuleDto {
   @IsString()
+  title: string;
+
+  @IsString()
   public courseId: string;
 
   @IsNumber()

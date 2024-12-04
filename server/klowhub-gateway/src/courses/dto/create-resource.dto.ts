@@ -9,9 +9,6 @@ export class CreateResourceDto {
   @IsString()
   public type: string;
 
-  @IsBoolean()
-  public extra: boolean;
-
   @IsString()
   public mediaId: string;
 }
