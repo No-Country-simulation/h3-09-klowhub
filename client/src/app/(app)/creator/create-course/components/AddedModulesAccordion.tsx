@@ -4,11 +4,15 @@ import ModuleAccordionItem from './ModuleAccordionItem'
 
 interface AddedModulesAccordionProps {
 	modules: Module[]
+	deleteModule: (moduleIndex: number) => void
 	addModuleLesson: (moduleIndex: number, lesson: Lesson) => void
+	deleteModuleLesson: (moduleIndex: number, lessonIndex: number) => void
 }
 export default function AddedModulesAccordion({
 	modules,
-	addModuleLesson
+	deleteModule,
+	addModuleLesson,
+	deleteModuleLesson
 }: AddedModulesAccordionProps) {
 	return (
 		<div className="flex flex-col gap-4">
@@ -19,8 +23,10 @@ export default function AddedModulesAccordion({
 						<ModuleAccordionItem
 							key={index}
 							module={module}
-							index={index}
+							moduleIndex={index}
+							deleteModule={deleteModule}
 							addModuleLesson={addModuleLesson}
+							deleteModuleLesson={deleteModuleLesson}
 						/>
 					))}
 				</div>
