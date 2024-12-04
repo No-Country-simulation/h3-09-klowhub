@@ -10,7 +10,7 @@ export interface Lesson {
 	description: string
 	contentLink: string | File
 	image: string | File
-	additionalResources?: string[]
+	additionalResources?: string[] | FileList
 }
 
 // Modelo para módulos

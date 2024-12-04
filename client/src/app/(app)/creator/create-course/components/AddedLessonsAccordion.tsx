@@ -13,11 +13,7 @@ export default function AddedLessonsAccordion({
 			<div className="flex flex-col gap-3">
 				{lessons.map((lesson, index) => {
 					return (
-						<LessonAccordionItem
-							key={lesson.title}
-							lesson={lesson}
-							index={index}
-						/>
+						<LessonAccordionItem key={index} lesson={lesson} index={index} />
 					)
 				})}
 			</div>

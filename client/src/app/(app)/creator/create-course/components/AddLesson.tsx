@@ -38,6 +38,11 @@ export default function AddLesson({ onAdd, moduleIndex }: AddLessonProps) {
 		setLessonData((prev) => ({ ...prev, contentLink: files[0] }))
 	}
 
+	const handleResourcesChange = (files: FileList | null) => {
+		if (!files) return
+		setLessonData((prev) => ({ ...prev, additionalResources: files }))
+	}
+
 	const handleAddLesson = () => {
 		onAdd(moduleIndex, lessonData) // Enviar datos al padre
 		setShowModuleForm(false)
@@ -81,6 +86,13 @@ export default function AddLesson({ onAdd, moduleIndex }: AddLessonProps) {
 						name="contentLink"
 						onFileChange={handleVideoChange}
 						accept="video/*"
+					/>
+					<FileInput
+						label="Agrega recursos adicionales (opcional)"
+						name="additionalResources"
+						onFileChange={handleResourcesChange}
+						accept="image/*, application/pdf"
+						multiple
 					/>
 					<div className="flex w-full justify-end">
 						<Button
