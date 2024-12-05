@@ -1,10 +1,11 @@
 'use client'
 import { Consultant } from '@/models/consultant.model'
-import { EllipsisVertical, Heart, MonitorPlay } from 'lucide-react'
+import { EllipsisVertical, MonitorPlay } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import Button from '../buttons/Button'
+import HeartLikeButton from '../buttons/HeartLikeButton'
 import CountryTag from '../buyerTags/CountryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 
@@ -25,14 +26,7 @@ export default function ConsultantCard({
 		price
 	}
 }: ConsultantCardProps) {
-	const [liked, setLiked] = useState(false)
-
-	const handleLike = () => {
-		// TODO: Lógica de Like a Consultor
-		console.log(`Like el ${!liked} a consultor con ID: ${id}`)
-
-		setLiked(!liked)
-	}
+	const [isLiked, setIsLiked] = useState(false)
 
 	return (
 		<section className="flex h-[486px] w-[330px] flex-col rounded-lg bg-card">
@@ -43,15 +37,10 @@ export default function ConsultantCard({
 					height={200}
 					width={330}
 					className="h-[200px] w-auto rounded-t-lg"
-					priority
 				/>
-				<Heart
-					role="button"
-					size={26}
-					className="absolute right-[10px] top-[5px]"
-					onClick={handleLike}
-					fill={liked ? '#FFFFFFCC' : 'none'}
-				/>
+				<div className="absolute right-[10px] top-[5px]">
+					<HeartLikeButton isLiked={isLiked} setIsLiked={setIsLiked} />
+				</div>
 			</div>
 
 			<div className="flex grow flex-col justify-between p-5">

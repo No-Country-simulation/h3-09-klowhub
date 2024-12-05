@@ -12,6 +12,7 @@ export default {
 		extend: {
 			backgroundImage: {
 				'section-button': "url('/img/section-button-bg.png')",
+				'home-banner': "url('/img/banner-bg.png')",
 				'custom-gradient': 'linear-gradient(to right, #201C2D, #201D43,#262136)'
 			},
 			colors: {
@@ -124,9 +125,9 @@ export default {
 						}
 					},
 					type: {
-						course: {
-							bg: '#6BFBA426',
-							text: '#6BFBA4'
+						lesson: {
+							bg: '#CDFFDBE5',
+							text: '#3FC262'
 						},
 						app: {
 							bg: '#14B8A626',
@@ -140,9 +141,9 @@ export default {
 							bg: '#BF4DE826',
 							text: '#BF4DE8'
 						},
-						lesson: {
-							bg: '#E8B88D26',
-							text: '#CA6100'
+						course: {
+							bg: '#F7E5FFF2',
+							text: '#AE53DA'
 						}
 					}
 				}

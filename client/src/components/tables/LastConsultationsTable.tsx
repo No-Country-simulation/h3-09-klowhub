@@ -16,7 +16,7 @@ export default function LastConsultationsTable({
 			<table className="w-full border-separate border-spacing-y-2 text-left text-sm font-semibold text-white">
 				<thead className="bg-white/10">
 					<tr>
-						<th scope="col" className="w-[514px] px-6 py-4">
+						<th scope="col" className="w-[514px] rounded-tl-md px-6 py-4">
 							Consulta
 						</th>
 						<th scope="col" className="px-6 py-4">
@@ -28,7 +28,7 @@ export default function LastConsultationsTable({
 						<th scope="col" className="px-6 py-4">
 							Plataforma
 						</th>
-						<th scope="col" className="px-6 py-4">
+						<th scope="col" className="rounded-tr-md px-6 py-4">
 							Estado
 						</th>
 					</tr>

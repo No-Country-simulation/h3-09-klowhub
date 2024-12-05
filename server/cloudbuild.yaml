@@ -1,0 +1,36 @@
+steps:
+ # Paso 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/wired-climate-442121-i1/klowhub-gateway', './klowhub-gateway']
+ # Paso 1
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/wired-climate-442121-i1/klowhub-gateway']
+
+  # Paso 2: Instalar dependencias
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    dir: './users-ms'  # Ajusta la ruta según sea necesario
+
+  # Paso 3: Generar cliente Prisma
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'prisma:generate']  # O `npx prisma generate` si no tienes un script para eso
+    dir: './users-ms/prisma'  # Ajusta la ruta según sea necesario
+
+  # Paso 4: Construir el proyecto
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+    dir: './users-ms'  # Ajusta la ruta según sea necesario
+
+  # Paso 5: Crear la imagen Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/wired-climate-442121-i1/users-ms', '.']
+    dir: './users-ms'  # Ajusta la ruta según sea necesario
+
+  # Paso 6: Subir la imagen Docker a Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/wired-climate-442121-i1/users-ms']
+
+# Ajusta otros pasos si es necesario
+images:
+  - 'gcr.io/wired-climate-442121-i1/users-ms'
+

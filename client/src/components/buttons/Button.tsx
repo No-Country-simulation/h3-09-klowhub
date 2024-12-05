@@ -17,17 +17,18 @@ export default function Button({
 }: ButtonProps) {
 	return (
 		<button
+			{...props}
 			className={clsx(
-				'font-semibold text-sm rounded-lg flex justify-center items-center gap-[10px]',
+				'flex items-center justify-center gap-[10px] rounded-lg text-sm font-semibold',
 				{
-					'text-white bg-primary-b-500 hover:bg-primary-b-400 active:bg-primary-b-600':
+					'bg-primary-b-500 text-white hover:bg-primary-b-400 active:bg-primary-b-600':
 						variant === 'primary',
 					'text-primary-b-200 hover:text-primary-b-400 active:text-primary-b-600':
 						variant !== 'primary',
-					'border border-primary-b-200 hover:border-primary-b-400  active:border-primary-b-600 ':
+					'border border-primary-b-200 hover:border-primary-b-400 active:border-primary-b-600':
 						variant === 'secondary',
 					'h-[45px] min-w-[250px]': size === 'xl',
-					'h-[40px] min-w-[140px]': size === 'l',
+					'h-[40px] min-w-[140px]': size === 'l'
 				},
 				props.className
 			)}
