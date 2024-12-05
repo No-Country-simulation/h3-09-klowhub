@@ -1,12 +1,6 @@
-enum ContentType {
-	FREE = 'FREE',
-	PAID = 'PAID'
-}
+export type ContentType = 'FREE' | 'PAID'
 
-enum CourseType {
-	COURSE = 'COURSE',
-	LESSON = 'LESSON'
-}
+export type CourseType = 'COURSE' | 'LESSON'
 
 export interface CreateCourseRequest {
 	title: string
