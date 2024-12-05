@@ -1,5 +1,7 @@
 import MyListbox from '@/components/inputs/MyListbox'
+import { language } from '@/constants/filters.constant'
 import { Course } from '@/models/course.model'
+import { Option } from '@/models/option.model'
 import { Control, Controller } from 'react-hook-form'
 
 interface LanguageListboxProps {
@@ -7,6 +9,14 @@ interface LanguageListboxProps {
 }
 
 export default function LanguageListbox({ control }: LanguageListboxProps) {
+	const options: Option[] = Object.entries(language).map(
+		([key, value]): Option => {
+			return {
+				label: value,
+				value: key
+			}
+		}
+	)
 	return (
 		<Controller
 			name="language"
@@ -16,10 +26,7 @@ export default function LanguageListbox({ control }: LanguageListboxProps) {
 			render={({ field }) => (
 				<MyListbox
 					label="Elige el idioma del curso"
-					options={[
-						{ value: 'spanish', label: 'Español' },
-						{ value: 'english', label: 'Inglés' }
-					]}
+					options={options}
 					value={field.value}
 					onChange={field.onChange}
 					multiple={false}
