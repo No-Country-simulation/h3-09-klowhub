@@ -16,8 +16,8 @@ export class CourseDto {
   @IsNotEmpty()
   public title: string;
 
-  @IsArray()
-  public photo: string[];
+  @IsString()
+  public photo: string;
 
   @IsString()
   @IsNotEmpty()
@@ -78,8 +78,4 @@ export class CourseDto {
   @IsNotEmpty()
   @IsString()
   public creator: string;
-
-  @IsOptional()
-  @IsString()
-  public moduleId: string;
 }

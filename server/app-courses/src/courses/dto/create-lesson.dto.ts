@@ -17,4 +17,10 @@ export class CreateLessonDto {
 
   @IsNumber()
   public order: number;
+
+  @IsString()
+  public image: string;
+
+  @IsString()
+  public video: string;
 }

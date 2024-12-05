@@ -44,6 +44,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return courses;
   }
 
+  /*
   async findOneCourseById(id: string) {
     this.logger.log('find_one_course_by_id');
     const course = await this.course.findUnique({
@@ -51,6 +52,39 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     });
     return course;
   }
+    */
+  async findOneCourseById(id: string) {
+    this.logger.log('find_one_course_by_id');
+
+    try {
+      const course = await this.course.findUnique({
+        where: { id },
+        include: {
+          module: {
+            include: {
+              lesson: {
+                include: {
+                  resource: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!course) {
+        throw new BadRequestException(`Course with ID ${id} not found`);
+      }
+
+      return course;
+    } catch (error) {
+      this.logger.error(
+        `Error fetching course with ID ${id}: ${error.message}`,
+      );
+      throw new RpcException(error.message);
+    }
+  }
+
   async getAllCourses() {
     this.logger.log('find_all_courses');
     const course = await this.course.findMany();
