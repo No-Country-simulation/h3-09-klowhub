@@ -3,7 +3,7 @@ import { AppsModule } from './apps/apps.module';
 import { CoursesModule } from './courses/courses.module';
 
 @Module({
-  imports: [UsersModule, AppsModule, CoursesModule],
+  imports: [AppsModule, CoursesModule],
   controllers: [],
   providers: [],
 })
