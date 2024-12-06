@@ -43,11 +43,13 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   async changeStatus(changeOrderStatusDto: ChangeOrderStatusDto) {
     const { id, status } = changeOrderStatusDto;
 
-    await this.findOne(id);
+    const orderFound = await this.findOne(id);
+
+    if (orderFound.status === status) return orderFound;
 
     const order = await this.order.update({
-      data: { status },
       where: { id },
+      data: { status },
     });
 
     return order;

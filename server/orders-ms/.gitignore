@@ -4,6 +4,7 @@
 /build
 
 postgres/
+prisma
 
 # Logs
 logs
