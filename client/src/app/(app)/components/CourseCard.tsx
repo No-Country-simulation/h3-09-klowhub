@@ -13,11 +13,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
-interface MyCourseCard {
-	course: Course
+interface LinkButtonProps {
+	text: string
+	href: string
 }
 
-export default function MyCourseCard({ course }: MyCourseCard) {
+interface CourseCard {
+	course: Course
+	linkButtonProps?: LinkButtonProps
+}
+
+export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 	const [isLiked, setIsLiked] = useState(false)
 
 	const averageRating =
@@ -27,10 +33,10 @@ export default function MyCourseCard({ course }: MyCourseCard) {
 	const totalVotes = course.reviews.length
 
 	return (
-		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card">
+		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card shadow-2xl">
 			<div className="relative rounded-t-lg">
 				<Image
-					src={course.image}
+					src={course.image as string}
 					alt={course.title}
 					height={200}
 					width={500}
@@ -63,12 +69,13 @@ export default function MyCourseCard({ course }: MyCourseCard) {
 				</div>
 
 				<RatingStars rating={averageRating} totalVotes={totalVotes} />
-
-				<Link href={`/learn/my-learning/${course.id}`}>
-					<Button variant="tertiary" className="mx-auto">
-						Ver detalles
-					</Button>
-				</Link>
+				{linkButtonProps && (
+					<Link href={linkButtonProps.href}>
+						<Button variant="tertiary" className="mx-auto">
+							{linkButtonProps.text}
+						</Button>
+					</Link>
+				)}
 			</div>
 		</article>
 	)

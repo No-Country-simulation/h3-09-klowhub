@@ -3,22 +3,22 @@ import Button from '@/components/buttons/Button'
 import ProTag from '@/components/buyerTags/ProTag'
 import TechnologyTag, { Technology } from '@/components/buyerTags/TechnologyTag'
 import RatingStars from '@/components/RatingStars'
+import useStore from '@/lib/store'
+import { Course } from '@/models/course.model'
+import { Review } from '@/models/product.model'
 import { GraduationCap, MessageSquare, Star, Video } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import React from 'react'
-import Share from './components/Share'
-import Modules from './components/Modules'
-import LearningOutcomes from './components/LearningOutcomes'
-import Prerequisites from './components/Prerequisites'
 import InfoFunctionalities from './components/InfoFunctionalities'
+import LearningOutcomes from './components/LearningOutcomes'
+import Modules from './components/Modules'
+import Prerequisites from './components/Prerequisites'
 import Reviews from './components/Reviews'
-import { Course } from '@/models/course.model'
-import { Review } from '@/models/product.model'
+import Share from './components/Share'
 const course: Course = {
-	id: '2',
+	id: '4',
 	title: 'Automatización avanzada con PowerApps',
-	price: 1000,
+	price: 10.0,
 	shortDescription:
 		'Aprende a automatizar procesos complejos usando PowerApps.',
 	platform: 'powerapps',
@@ -123,7 +123,7 @@ export default function Page() {
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
 	const averageScore = Number((totalScore / reviews.length).toFixed(1))
-
+	const { addCartItem } = useStore()
 	return (
 		<section className="grid grid-rows-2 gap-20 md:grid-cols-5 md:grid-rows-1 md:gap-[8%]">
 			<div className="flex flex-col space-y-6 md:col-span-3">
@@ -140,7 +140,7 @@ export default function Page() {
 					<Image
 						fill
 						sizes="500px"
-						src={course.image}
+						src={course.image as string}
 						alt="app image"
 						className="rounded-lg"
 					/>
@@ -164,7 +164,7 @@ export default function Page() {
 						<b>Acerca de este curso</b>
 						<p className="text-sm">{course.detailedDescription}</p>
 					</div>
-					<Button>Añadir al carrito</Button>
+					<Button onClick={() => addCartItem(course)}>Añadir al carrito</Button>
 					<Share />
 					<Prerequisites prerequisites={course.prerequisites} />
 					<InfoFunctionalities
@@ -240,7 +240,9 @@ export default function Page() {
 				<Modules modules={course.modules} />
 				<div className="flex flex-col items-center gap-2">
 					<Button>Comprar curso</Button>
-					<Button variant="secondary">Añadir al carrito</Button>
+					<Button variant="secondary" onClick={() => addCartItem(course)}>
+						Añadir al carrito
+					</Button>
 				</div>
 			</div>
 		</section>
