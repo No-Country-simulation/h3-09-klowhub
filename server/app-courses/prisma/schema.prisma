@@ -68,7 +68,6 @@ model Lesson {
   module      Module     @relation(fields: [moduleId], references: [id])
   order       Int
   resource    Resource[] // One-to-many relationship with Resource
-  image       String
   video       String
 
   @@index([moduleId, order])
@@ -76,10 +75,10 @@ model Lesson {
 }
 
 model Resource {
-  id       String   @id @default(uuid())
+  id       String  @id @default(uuid())
   lessonId String
-  pdf      String[]
-  lesson   Lesson   @relation(fields: [lessonId], references: [id])
+  lesson   Lesson  @relation(fields: [lessonId], references: [id])
+  extra    Boolean @default(false)
 
   @@map("resources")
 }

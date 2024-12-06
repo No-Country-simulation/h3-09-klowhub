@@ -14,5 +14,5 @@ export class CreateResourceDto {
   public lessonId: string;
 
   @IsArray()
-  public pdf: string[];
+  public extra: boolean;
 }

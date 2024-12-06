@@ -19,8 +19,5 @@ export class CreateLessonDto {
   public order: number;
 
   @IsString()
-  public image: string;
-
-  @IsString()
   public video: string;
 }
