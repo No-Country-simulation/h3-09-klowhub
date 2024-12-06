@@ -1,0 +1,56 @@
+@base_url = http://localhost:3000/api/stripe
+@customerId = 'cus_REmET2oOQKqSBd'
+
+// review payment
+POST {{base_url}}/create-checkout-session
+Content-Type: application/json
+
+  # "creator_account_id": "acct_1QMA7UHJ38VjFPkP",
+{
+  "items": [{
+    
+    "name": "Curso 2",
+    "unit_amount": 9900,
+    "quantity": 1,
+    "currency": "clp"
+  }],
+  "success_url": "https://misitio.com/success",
+  "cancel_url": "https://misitio.com/cancel"
+}
+###
+
+POST {{base_url}}/create-subscription
+Content-Type: application/json
+
+{
+  "customer_id": "cus_RGa80zaAXZwRU3",
+  "price_id": "price_1QMyXAH0hzqZC0DZYNKpWN2c"
+}
+###
+
+##* Customer
+POST {{base_url}}/create-customer
+Content-Type: application/json
+
+{
+  "name": "Mirko",
+  "email": "mirko1@gmail.com"
+}
+###
+
+POST {{base_url}}/customer-portal
+Content-Type: application/json
+
+{
+  "customer_id": "cus_RGa80zaAXZwRU3",
+  "return_url": "http://misitio.com"
+}
+###
+
+POST {{base_url}}/create-account
+Content-Type: application/json
+
+{
+  "email": "gaspar@gmail.com",
+  "country": "US"
+}
