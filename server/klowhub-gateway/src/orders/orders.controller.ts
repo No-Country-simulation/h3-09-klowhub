@@ -12,7 +12,7 @@ export class OrdersController {
     private readonly orderClient: ClientProxy
   ) { }
 
-  @Post('create-order')
+  @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.orderClient.send('create-order', createOrderDto);
   }

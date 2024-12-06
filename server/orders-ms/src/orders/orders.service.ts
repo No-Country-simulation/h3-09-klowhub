@@ -14,11 +14,20 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   }
 
   create(createOrderDto: CreateOrderDto) {
-    const order = this.order.create({
-      data: createOrderDto,
-    });
+    const { items } = createOrderDto;
 
-    return order;
+    // 1. verify products id with product ms
+
+    // 2. calculate total amount
+
+    // const totalAmount = Array(10)
+    //   .fill(null)
+    //   .reduce((orderItem, item) => {
+    //     const item = product;
+    //     return value * 3 + acc;
+    //   }, 0);
+
+    // 3. create order
   }
 
   findAll() {
