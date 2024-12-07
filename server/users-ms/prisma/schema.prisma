@@ -26,7 +26,7 @@ model User {
   name      String
   password  String
   role      Roles[]  @default([BUYER])
-  bio       String
+  bio       String?
   photo     String?
   point     Int?     @default(0)
   available Boolean? @default(true)
