@@ -17,7 +17,4 @@ export class CreateLessonDto {
 
   @IsNumber()
   public order: number;
-
-  @IsString()
-  public video: string;
 }

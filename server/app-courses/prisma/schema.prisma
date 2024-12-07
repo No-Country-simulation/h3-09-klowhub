@@ -68,7 +68,6 @@ model Lesson {
   module      Module     @relation(fields: [moduleId], references: [id])
   order       Int
   resource    Resource[] // One-to-many relationship with Resource
-  video       String
 
   @@index([moduleId, order])
   @@map("lessons")
