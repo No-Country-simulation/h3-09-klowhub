@@ -1,3 +1,5 @@
-import { AppLenguage } from '@prisma/client';
+import { ContentType, Plataform } from '@prisma/client';
 
-export const AppLenguageEnum = [AppLenguage.SPANISH, AppLenguage.ENGLISH];
+export const ContentTypeEnum = [ContentType.FREE, ContentType.PAID];
+
+export const PlataformEnum = [Plataform.APPSHEET, Plataform.POWERAPPS];

@@ -12,14 +12,14 @@ import {
   IsEnum,
   IsNotEmpty,
 } from 'class-validator';
-import { Lenguage, LenguageEnum } from 'src/common/Enum';
+import { ContentType, ContentTypeEnum, Plataform, PlataformEnum } from 'src/common/Enum';
 
 
 
 export class CreateAppDto {
   @IsUUID()
   @IsNotEmpty()
-  public seller_id: string;
+  public creator_id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -28,6 +28,41 @@ export class CreateAppDto {
   @IsString()
   @IsNotEmpty()
   public description: string;
+
+  @IsArray()
+  @IsArray()
+  @IsString({ each: true })
+  public functionalities: string[];
+
+  @IsString()
+  @IsNotEmpty()
+  public language: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty()
+  public sector: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty()
+  public toolsAndPlatforms: string[];
+
+  @IsNotEmpty()
+  @IsEnum(ContentTypeEnum, {
+    message: `Possible values are ${ContentTypeEnum}`,
+  })
+  public contentType: ContentType;
+
+  @IsNotEmpty()
+  @IsEnum(PlataformEnum, {
+    message: `Possible values are ${PlataformEnum}`,
+  })
+  public plataform: Plataform;
+
+  @IsNotEmpty()
+  @IsString()
+  public level: string;
 
   @IsNumber({
     maxDecimalPlaces: 2,
@@ -38,26 +73,28 @@ export class CreateAppDto {
   @Type(() => Number)
   public price: number;
 
-  @IsUrl()
+
   @IsOptional()
-  public photo_url: string;
+  @IsArray()
+  @IsString({ each: true })
+  public photo_url: string[];
   
   @IsUrl()
   @IsOptional()
-  public deploy_url: string;
+  public deploy_desktop_url: string;
 
   @IsUrl()
   @IsOptional()
-  public download_url: string;
+  public dowload_desktop_url: string;
+  
+  @IsUrl()
+  @IsOptional()
+  public deploy_movil_url: string;
 
-  @IsArray()
-  @IsString({ each: true })
-  @IsNotEmpty()
-  public technologies: string[];
+  @IsUrl()
+  @IsOptional()
+  public dowload_movil_url: string;
 
-  @IsEnum(LenguageEnum, {
-    message: `Possible values are ${LenguageEnum}`,
-  })
-  public lenguage: Lenguage;
 }
+
 //

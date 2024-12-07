@@ -1,15 +1,43 @@
 import { IsOptional, IsEnum, IsArray, IsString } from 'class-validator';
-import {  Lenguage, LenguageEnum } from '../Enum/apps.enum';
+import {  ContentType, ContentTypeEnum, Plataform, PlataformEnum } from '../Enum/apps.enum';
 
 export class FiltersDto {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  filter: string[];
-  
+  public functionalities: string[];
+
   @IsOptional()
-  @IsEnum(LenguageEnum, {
-    message: `Possible values are ${LenguageEnum}`,
+  @IsString()
+  public language: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  public sector: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  public toolsAndPlatforms: string[];
+
+  @IsOptional()
+  @IsEnum(ContentTypeEnum, {
+    message: `Possible values are ${ContentTypeEnum}`,
   })
-  public lenguage: Lenguage;
+  public contentType: ContentType;
+
+  @IsOptional()
+  @IsEnum(PlataformEnum, {
+    message: `Possible values are ${PlataformEnum}`,
+  })
+  public plataform: Plataform;
+
+  @IsOptional()
+  @IsString()
+  public level: string;
+
+  @IsOptional()
+  @IsString()
+  public orderPrice: string;
 }
