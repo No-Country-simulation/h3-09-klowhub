@@ -6,7 +6,6 @@ import { AuthController } from './auth/auth.controller';
 
 @Module({
   controllers: [AuthController,UsersController],
-  providers: [],
   imports: [
     ClientsModule.register([
       {
@@ -20,4 +19,5 @@ import { AuthController } from './auth/auth.controller';
     ]),
   ],
 })
+
 export class UserMsModule {}
