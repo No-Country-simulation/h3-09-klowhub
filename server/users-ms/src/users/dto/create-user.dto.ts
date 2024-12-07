@@ -1,8 +1,10 @@
+import { Roles } from '@prisma/client';
 import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  IsOptional,
+	IsEmail,
+	IsEnum,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
 } from 'class-validator';
 
 export class UserDto {
@@ -28,6 +30,9 @@ export class UserDto {
   public photo?: string;
 
   @IsOptional()
-  @IsString()
-  public google_id?: string;
+  public available?: boolean;
+
+  @IsNotEmpty()
+  @IsEnum(Roles)
+  public role: Roles[];
 }

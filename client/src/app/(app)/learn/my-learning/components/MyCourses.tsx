@@ -1,5 +1,5 @@
+import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
-import MyCourseCard from './MyCourseCard'
 
 export default function MyCourses() {
 	// TODO: Quitar data mockeada
@@ -81,7 +81,8 @@ export default function MyCourses() {
 			name: 'Ana López',
 			bio: 'Experta en AppSheet y ventas.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	// Curso tipo "lección"
@@ -127,7 +128,8 @@ export default function MyCourses() {
 			name: 'María Rodríguez',
 			bio: 'Experta en integraciones y desarrollo de aplicaciones empresariales.',
 			profilePicture: '/img/profile_test.jpeg'
-		}
+		},
+		price: 0
 	}
 
 	const myCourses: Course[] = [mockCourse, mockLessonCourse]
@@ -137,7 +139,16 @@ export default function MyCourses() {
 			<h4 className="text-base font-bold">Mis cursos</h4>
 			<div className="flex flex-wrap gap-6">
 				{myCourses.map((course) => {
-					return <MyCourseCard key={course.id} course={course} />
+					return (
+						<CourseCard
+							key={course.id}
+							course={course}
+							linkButtonProps={{
+								text: 'Ver detalles',
+								href: `/learn/my-learning/${course.id}`
+							}}
+						/>
+					)
 				})}
 			</div>
 		</section>

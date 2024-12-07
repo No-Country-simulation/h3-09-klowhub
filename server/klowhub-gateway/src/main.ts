@@ -16,12 +16,20 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: '*', // Permite todas las solicitudes (no recomendado en producción)
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
-    allowedHeaders: 'Content-Type, Authorization', // Cabeceras permitidas
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+    allowedHeaders: 'Content-Type, Authorization',
   });
 
   app.useGlobalFilters(new ExceptionFilter());
+
+/*   // CORS
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+ */
   await app.listen(envs.port);
 
   logger.log(`Client-Gateway running on port ${envs.port}`);

@@ -8,9 +8,9 @@ export type Level = 'basic' | 'intermediate' | 'advanced'
 export interface Lesson {
 	title: string
 	description: string
-	contentLink: string
-	image: string
-	additionalResources?: string[]
+	contentLink: string | File
+	image: string | File
+	additionalResources?: string[] | FileList
 }
 
 // Modelo para módulos
