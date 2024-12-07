@@ -13,25 +13,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AppLenguage {
-  SPANISH
-  ENGLISH
+enum ContentType {
+  FREE
+  PAID
+}
+
+enum Plataform {
+  APPSHEET
+  POWERAPPS
 }
 
 model App {
-  id String @id @default(uuid())
-  seller_id String
-  title String
-  photo_url String
-  description String
-  price Float
-  deploy_url String?
-  download_url String?
-  category String @default("APPLICATION")
-  technologies String[]
-  lenguage AppLenguage @default(SPANISH)
-  approved Boolean @default(false)
-  available Boolean @default(true)
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id                   String      @id @default(uuid())
+  creator_id           String
+  title                String
+  photo_url            String[]
+  description          String
+  price                Float
+  deploy_desktop_url   String?
+  download_desktop_url String?
+  deploy_movil_url     String?
+  download_movil_url   String?
+  language             String
+  plataform            Plataform
+  functionalities      String[]
+  sector               String[]
+  toolsAndPlatforms    String[]
+  level                String
+  contentType          ContentType
+  productType          String      @default("APPLICATION")
+  approved             Boolean     @default(false)
+  available            Boolean     @default(true)
+  createAt             DateTime    @default(now())
+  updateAt             DateTime    @updatedAt
 }
