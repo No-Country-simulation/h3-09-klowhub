@@ -26,6 +26,7 @@
     "@nestjs/microservices": "^10.4.8",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.22.0",
+    "app-courses": "file:",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "joi": "^17.13.3",
