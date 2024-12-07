@@ -4,8 +4,12 @@ import {
 	OnModuleInit,
 	UnauthorizedException,
 } from '@nestjs/common';
+
 import { PrismaClient, User } from '@prisma/client';
+
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -13,6 +17,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('User service');
+  private readonly jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
+  private readonly jwtExpiresIn = '1d';
 
   async onModuleInit() {
     await this.$connect();
