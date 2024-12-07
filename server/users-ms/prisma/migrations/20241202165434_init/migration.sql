@@ -8,9 +8,10 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "Roles"[] DEFAULT ARRAY['BUYER']::"Roles"[],
-    "bio" TEXT NOT NULL,
+    "bio" TEXT,
     "photo" TEXT,
-    "available" BOOLEAN NOT NULL DEFAULT true,
+    "point" INTEGER,
+    "available" BOOLEAN DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

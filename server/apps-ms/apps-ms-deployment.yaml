@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apps-ms
+  template:
+    metadata:
+      labels:
+        app: apps-ms
+    spec:
+      containers:
+        - name: apps-ms
+          image: gcr.io/wired-climate-442121-i1/apps-ms:latest
+          ports:
+            - containerPort: 3002
+          envFrom:
+            - configMapRef:
+                name: env-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps-ms-service
+spec:
+  type: ClusterIP
+  selector:
+    app: apps-ms
+  ports:
+  - protocol: TCP
+    port: 3002
+    targetPort: 3002
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-apps-ms-config
+data:
+  APP_PORT: "3002"
+  APP_HOST: "0.0.0.0"
+  GCP_PROJECT_ID: wired-climate-442121-i1
+  DATABASE_URL_USER: postgresql://appsdb_user:qwTek0rWQVkASL5GuLXGCh8num3DH16y@dpg-cst3sppu0jms73egsn9g-a.oregon-postgres.render.com/appsdb?schema=public
