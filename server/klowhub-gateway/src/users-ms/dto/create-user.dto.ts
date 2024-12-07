@@ -34,8 +34,8 @@ export class UserDto {
 
   @IsOptional()
   public available?: boolean;
-
-  @IsNotEmpty()
+  
+  @IsOptional()
   @IsArray()
   @IsEnum(Roles, { each: true })
   public role: Roles[];
