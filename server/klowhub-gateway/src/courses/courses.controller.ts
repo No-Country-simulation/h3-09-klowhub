@@ -105,6 +105,18 @@ export class CoursesController {
   }
   // Course Lesson
 
+  @Post('uploadImage')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    const fileData = {
+      buffer: file.buffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    };
+    return this.courseClient.send({ cmd: 'upload_image' }, fileData);
+  }
+
   @Post('uploadLessonVideo')
   @UseInterceptors(FileInterceptor('file'))
   uploadLessonVideo(@UploadedFile() file: Express.Multer.File) {

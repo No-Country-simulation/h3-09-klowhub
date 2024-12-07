@@ -107,7 +107,38 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     });
     return updateCourse;
   }
-  //  Lesson
+
+  //  Image
+  async uploadImage(file: {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+  }): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('No file provided for upload');
+    }
+    this.logger.log('Uploading image to Google Cloud Storage');
+    const bucket = storage.bucket(this.bucketName);
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+    return new Promise((resolve, reject) => {
+      blobStream
+        .on('finish', () => {
+          const publicUrl = `https://storage.googleapis.com/${this.bucketName}/${blob.name}`;
+          this.logger.log(`Image uploaded successfully: ${publicUrl}`);
+          console.log(publicUrl);
+          resolve(publicUrl);
+        })
+        .on('error', (err) => {
+          this.logger.error('Error uploading image:', err.message);
+          reject(err);
+        })
+        .end(file.buffer);
+    });
+  }
 
   async uploadVideo(file: {
     buffer: Buffer;
@@ -140,7 +171,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
         .end(file.buffer);
     });
   }
-
+  //  Lesson
   async createLesson(lessonData: CreateLessonDto) {
     this.logger.log('create_course_lesson');
     try {

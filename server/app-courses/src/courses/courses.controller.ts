@@ -64,6 +64,23 @@ export class CoursesController {
     console.log(id);
     return this.coursesService.deleteCourse(id);
   }
+  //  Image
+  @MessagePattern({ cmd: 'upload_image' })
+  async uploadImage(
+    @Payload()
+    file: {
+      buffer: { type: string; data: number[] };
+      originalname: string;
+      mimetype: string;
+    },
+  ) {
+    const fileBuffer: Buffer = Buffer.from(file.buffer.data);
+    return this.coursesService.uploadImage({
+      buffer: fileBuffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    });
+  }
 
   // Lesson
 
