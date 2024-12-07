@@ -21,6 +21,7 @@ import { storage } from '../config/storage.config';
 export class CoursesService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('Courses service');
   private bucketName = process.env.BUCKET_NAME;
+  private bucketNameImage = process.env.BUCKET_NAME_IMAGE;
 
   constructor() {
     super();
@@ -118,7 +119,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       throw new BadRequestException('No file provided for upload');
     }
     this.logger.log('Uploading image to Google Cloud Storage');
-    const bucket = storage.bucket(this.bucketName);
+    const bucket = storage.bucket(this.bucketNameImage);
     const blob = bucket.file(file.originalname);
     const blobStream = blob.createWriteStream({
       resumable: false,
@@ -127,7 +128,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return new Promise((resolve, reject) => {
       blobStream
         .on('finish', () => {
-          const publicUrl = `https://storage.googleapis.com/${this.bucketName}/${blob.name}`;
+          const publicUrl = `https://storage.googleapis.com/${this.bucketNameImage}/${blob.name}`;
           this.logger.log(`Image uploaded successfully: ${publicUrl}`);
           console.log(publicUrl);
           resolve(publicUrl);
