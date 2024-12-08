@@ -11,6 +11,9 @@ import Image from 'next/image'
 
 export default function CartItem({ item }: { item: Course }) {
 	const calculateRating = (reviews: Review[]) => {
+			if (reviews.length < 1) {
+			return 0
+		}
 		const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
 		const averageScore = Number((totalScore / reviews.length).toFixed(1))
 		return averageScore
