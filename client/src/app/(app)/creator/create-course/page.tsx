@@ -12,7 +12,7 @@ export default function CreateCoursePage() {
 	const [formData, setFormData] = useState({})
 	const [addedModules, setAddedModules] = useState<Module[]>([])
 
-	const { register, handleSubmit, control, setValue } = useForm<Course>()
+	const { register, handleSubmit, control, setValue, watch } = useForm<Course>()
 
 	const nextStep = (data: object) => {
 		setFormData((prevData) => ({ ...prevData, ...data }))
@@ -72,6 +72,7 @@ export default function CreateCoursePage() {
 			nextStep={nextStep}
 			register={register}
 			control={control}
+			watch={watch}
 		/>,
 		<CourseDetailsPanel
 			key={2}
