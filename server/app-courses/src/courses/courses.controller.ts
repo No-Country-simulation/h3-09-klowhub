@@ -1,4 +1,10 @@
-import { Controller, Param } from '@nestjs/common';
+import {
+  Controller,
+  Param,
+  UploadedFile,
+  UseInterceptors,
+  BadRequestException,
+} from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import {
   Course as CourseModel,
@@ -6,7 +12,7 @@ import {
   Resource as ResourceModel,
   Module as ModuleModel,
 } from '@prisma/client';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { CreateLessonDto } from './dto/create-lesson.dto';
@@ -15,8 +21,9 @@ import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
-import { RpcException } from '@nestjs/microservices';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
@@ -57,13 +64,48 @@ export class CoursesController {
     console.log(id);
     return this.coursesService.deleteCourse(id);
   }
+  //  Image
+  @MessagePattern({ cmd: 'upload_image' })
+  async uploadImage(
+    @Payload()
+    file: {
+      buffer: { type: string; data: number[] };
+      originalname: string;
+      mimetype: string;
+    },
+  ) {
+    const fileBuffer: Buffer = Buffer.from(file.buffer.data);
+    return this.coursesService.uploadImage({
+      buffer: fileBuffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    });
+  }
 
-  //// Course Lesson
+  // Lesson
+
+  @MessagePattern({ cmd: 'upload_lesson_video' })
+  async uploadLessonVideo(
+    @Payload()
+    file: {
+      buffer: { type: string; data: number[] };
+      originalname: string;
+      mimetype: string;
+    },
+  ) {
+    const fileBuffer: Buffer = Buffer.from(file.buffer.data);
+    return this.coursesService.uploadVideo({
+      buffer: fileBuffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    });
+  }
 
   @MessagePattern({ cmd: 'create_lesson' })
-  async signupLesson(@Payload() courseLessonData: CreateLessonDto) {
-    return this.coursesService.createLesson(courseLessonData);
+  async signupLesson(@Payload() lessonData: CreateLessonDto) {
+    return this.coursesService.createLesson(lessonData);
   }
+
   @MessagePattern({ cmd: 'find_all_course_lessons' })
   async getAllCourseLessons() {
     return this.coursesService.getAllCourseLessons();

@@ -10,7 +10,12 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+  UploadedFiles,
 } from '@nestjs/common';
+
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
 import { CourseDto } from './dto/create-course.dto';
@@ -22,7 +27,9 @@ import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
 import { catchError, firstValueFrom } from 'rxjs';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 @Controller('courses')
 export class CoursesController {
   constructor(
@@ -97,6 +104,30 @@ export class CoursesController {
     );
   }
   // Course Lesson
+
+  @Post('uploadImage')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    const fileData = {
+      buffer: file.buffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    };
+    return this.courseClient.send({ cmd: 'upload_image' }, fileData);
+  }
+
+  @Post('uploadLessonVideo')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadLessonVideo(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    const fileData = {
+      buffer: file.buffer,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    };
+    return this.courseClient.send({ cmd: 'upload_lesson_video' }, fileData);
+  }
 
   @Post('createLesson')
   createLesson(@Body() createLessonDto: CreateLessonDto) {

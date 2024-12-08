@@ -32,7 +32,7 @@ export class UserDto {
   @IsOptional()
   public available?: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(Roles)
   public role: Roles[];
 }
