@@ -47,7 +47,7 @@ export function courseAdapter({
 		detailedDescription: detailedDescription,
 		approved: true,
 		available: true,
-		creator: creator.id
+		creator: creator
 	}
 }
 

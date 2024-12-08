@@ -26,9 +26,10 @@ interface CourseCard {
 export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 	const [isLiked, setIsLiked] = useState(false)
 
-	const averageRating =
-		course.reviews.reduce((acc, review) => acc + review.score, 0) /
-		course.reviews.length
+	const averageRating = !course.reviews.length
+		? 0
+		: course.reviews.reduce((acc, review) => acc + review.score, 0) /
+			course.reviews.length
 
 	const totalVotes = course.reviews.length
 
@@ -36,11 +37,15 @@ export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 		<article className="flex h-[500px] w-[453px] min-w-[453px] flex-col rounded-lg bg-card shadow-2xl">
 			<div className="relative rounded-t-lg">
 				<Image
-					src={course.image as string}
+					src={
+						typeof course.image === 'string' && course.image.length > 0
+							? course.image
+							: '/images/placeholder.jpg'
+					}
 					alt={course.title}
 					height={200}
 					width={500}
-					className="h-48 w-auto rounded-t-lg object-cover"
+					className="h-48 w-full rounded-t-lg object-cover"
 				/>
 				<div className="absolute left-2 top-2">
 					<TypeTag type={course.courseType as keyof typeof typeTags} />
@@ -58,9 +63,11 @@ export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 
 				<p className="text-sm font-normal">{course.shortDescription}</p>
 
-				<TechnologyTag
-					technology={course.platform as keyof typeof Technologies}
-				/>
+				{course.platform.length > 0 && (
+					<TechnologyTag
+						technology={course.platform as keyof typeof Technologies}
+					/>
+				)}
 
 				<div className="flex gap-4">
 					{course.relatedTags.map((tag, index) => (

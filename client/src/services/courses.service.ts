@@ -19,7 +19,7 @@ export async function createCourse(course: CreateCourseRequest) {
 	if (!response.ok) {
 		throw new Error('Failed to create course')
 	}
-	return response.json()
+	return await response.json()
 }
 
 export async function getCourses() {
@@ -29,7 +29,7 @@ export async function getCourses() {
 	if (!response.ok) {
 		throw new Error('Failed to fetch courses')
 	}
-	return response.json()
+	return await response.json()
 }
 
 export async function getCourseById(id: string) {
@@ -39,7 +39,7 @@ export async function getCourseById(id: string) {
 	if (!response.ok) {
 		throw new Error('Failed to fetch course')
 	}
-	return response.json()
+	return await response.json()
 }
 
 // Modules
@@ -58,7 +58,7 @@ export async function createModule(module: CreateModuleRequest) {
 	if (!response.ok) {
 		throw new Error('Failed to create module')
 	}
-	return response.json()
+	return await response.json()
 }
 
 // Lessons
@@ -77,7 +77,7 @@ export async function createLesson(lesson: CreateLessonRequest) {
 	if (!response.ok) {
 		throw new Error('Failed to create lesson')
 	}
-	return response.json()
+	return await response.json()
 }
 
 // Resources
@@ -96,5 +96,5 @@ export async function createResources(resources: CreateResourcesRequest) {
 	if (!response.ok) {
 		throw new Error('Failed to create resources')
 	}
-	return response.json()
+	return await response.json()
 }

@@ -4,7 +4,7 @@ import {
 	lessonAdapter,
 	moduleAdapter,
 	resourceAdapter
-} from '@/adapters/course.adapter'
+} from '@/adapters/create-course.adapter'
 import TabListAndPanels from '@/components/Tabs/TabListAndPanels'
 import { Course, Lesson, Module } from '@/models/course.model'
 import {
@@ -39,12 +39,7 @@ const initialCourseState: Course = {
 	learningOutcomes: [],
 	prerequisites: [],
 	detailedDescription: '',
-	creator: {
-		id: '123',
-		bio: '',
-		name: '',
-		profilePicture: ''
-	},
+	creator: '1111',
 	reviews: []
 }
 

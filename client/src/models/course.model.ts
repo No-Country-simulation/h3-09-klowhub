@@ -40,5 +40,5 @@ export interface Course extends DigitalProduct {
 	modules?: Module[] // Módulos si es un curso completo
 	contentLink?: string // Enlace al contenido si es una lección
 	additionalResources?: string[] // Recursos adicionales si es una lección
-	creator: Creator
+	creator: string // ID del creador
 }
