@@ -1,5 +1,4 @@
-export interface CreateResourceRequest {
+export interface CreateResourcesRequest {
 	lessonId: string
-	type: string
-	mediaId: string
+	pdf: string[]
 }

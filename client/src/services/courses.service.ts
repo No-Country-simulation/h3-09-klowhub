@@ -1,5 +1,7 @@
 import { CreateCourseRequest } from '@/models/create-course-request.model'
+import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
+import { CreateResourcesRequest } from '@/models/create-resource-request.model'
 
 // Courses
 
@@ -59,12 +61,40 @@ export async function createModule(module: CreateModuleRequest) {
 	return response.json()
 }
 
-export async function getModulesByCourseId(id: string) {
+// Lessons
+
+export async function createLesson(lesson: CreateLessonRequest) {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/courses/modules/${id}`
+		`${process.env.NEXT_PUBLIC_API_URL}/courses/createLesson`,
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(lesson)
+		}
 	)
 	if (!response.ok) {
-		throw new Error('Failed to fetch modules')
+		throw new Error('Failed to create lesson')
+	}
+	return response.json()
+}
+
+// Resources
+
+export async function createResources(resources: CreateResourcesRequest) {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/courses/createResource`,
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(resources)
+		}
+	)
+	if (!response.ok) {
+		throw new Error('Failed to create resources')
 	}
 	return response.json()
 }

@@ -4,7 +4,7 @@ export type CourseType = 'COURSE' | 'LESSON'
 
 export interface CreateCourseRequest {
 	title: string
-	photo: string[]
+	photo: string
 	shortDescription: string
 	price: number
 	functionalities: string[]
@@ -21,5 +21,4 @@ export interface CreateCourseRequest {
 	approved: boolean
 	available: boolean
 	creator: string
-	moduleId?: string
 }

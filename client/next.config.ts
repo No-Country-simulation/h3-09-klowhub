@@ -8,16 +8,22 @@ const nextConfig: NextConfig = {
 				protocol: 'https',
 				hostname: 'randomuser.me',
 				port: '',
-				pathname: '/**',
+				pathname: '/**'
 			},
 			{
 				protocol: 'https',
 				hostname: 'picsum.photos',
 				port: '',
-				pathname: '/**',
+				pathname: '/**'
 			},
-		],
-	},
+			{
+				protocol: 'https',
+				hostname: 'res.cloudinary.com',
+				port: '',
+				pathname: '/**'
+			}
+		]
+	}
 }
 
 export default nextConfig
