@@ -9,11 +9,14 @@ import useStore from '@/lib/store'
 import Link from 'next/link'
 import avatarImg from '../../../../public/img/user_avatar.png'
 
+
 export default function UserActions() {
 	const { data: session, status } = useSession()
-	const notifications = ['first notification', 'second notification', 'third notification']
-	const { cart } = useStore()
-	const [userMode, setUserMode] = useState(false)
+	const notifications = [
+		'Tu nuevo curso NoCode Basics comenzara esta semana',
+		'Jhon Doe quiere conectar contigo',
+		'Tu pago se ha efectuado con exito']
+	const { cart, role } = useStore()
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 	// console.log(status, session)
@@ -38,10 +41,12 @@ export default function UserActions() {
 		<div className="flex items-center space-x-6">
 			<div className="flex items-center justify-between space-x-6">
 				<IconBadge icon={<Bell />} count={3} items={notifications} isNotification />
-				<IconBadge icon={<ShoppingCart />} count={cart.length} items={[]} onClick={handleCart} />
+				{role === 'Explorer' && (
+					<IconBadge icon={<ShoppingCart />} count={cart.length} items={[]} onClick={handleCart} />
+				)}
 				<IconBadge icon={<Mail />} count={0} items={[]} onClick={handleMsgs} />
 			</div>
-			<ExplorerCreatorSwitch enabled={userMode} setEnabled={setUserMode} />
+			<ExplorerCreatorSwitch />
 			<div className="relative" ref={dropdownRef}>
 				<div
 					className="h-8 w-8 overflow-hidden rounded-full bg-gray-400 cursor-pointer"
