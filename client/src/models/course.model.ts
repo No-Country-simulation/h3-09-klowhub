@@ -1,7 +1,7 @@
 import { DigitalProduct } from './product.model'
 
-export type ContentType = 'free' | 'paid'
-export type CourseType = 'course' | 'lesson'
+export type ContentType = 'FREE' | 'PAID'
+export type CourseType = 'COURSE' | 'LESSON'
 export type Level = 'basic' | 'intermediate' | 'advanced'
 
 // Modelo para lecciones
@@ -34,8 +34,8 @@ export interface Course extends DigitalProduct {
 	courseType: CourseType // Tipo de curso: curso completo o lección
 	level: Level // Nivel de dificultad: básico, intermedio, avanzado
 	contentPillar: string // Pilar de contenido (ej: "Automatización", "Gestión de flujos de trabajo")
-	learningOutcomes: string[] // Lo que aprenderán los estudiantes
-	prerequisites: string[] // Requisitos previos para tomar el curso
+	learningOutcomes: string[] | string // Lo que aprenderán los estudiantes
+	prerequisites: string[] | string // Requisitos previos para tomar el curso
 	detailedDescription: string // Descripción detallada del curso
 	modules?: Module[] // Módulos si es un curso completo
 	contentLink?: string // Enlace al contenido si es una lección

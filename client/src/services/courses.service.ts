@@ -46,7 +46,7 @@ export async function getCourseById(id: string) {
 
 export async function createModule(module: CreateModuleRequest) {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/courses/createModule`,
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/createModule`,
 		{
 			method: 'POST',
 			headers: {
@@ -65,7 +65,7 @@ export async function createModule(module: CreateModuleRequest) {
 
 export async function createLesson(lesson: CreateLessonRequest) {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/courses/createLesson`,
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/createLesson`,
 		{
 			method: 'POST',
 			headers: {
@@ -84,7 +84,7 @@ export async function createLesson(lesson: CreateLessonRequest) {
 
 export async function createResources(resources: CreateResourcesRequest) {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/courses/createResource`,
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/createResource`,
 		{
 			method: 'POST',
 			headers: {

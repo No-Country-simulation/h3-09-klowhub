@@ -1,33 +1,53 @@
 import { Course, Lesson, Module } from '@/models/course.model'
-import {
-	ContentType,
-	CourseType,
-	CreateCourseRequest
-} from '@/models/create-course-request.model'
+import { CreateCourseRequest } from '@/models/create-course-request.model'
 import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
-import { CreateResourceRequest } from '@/models/create-resource-request.model'
+import { CreateResourcesRequest } from '@/models/create-resource-request.model'
 
-export function courseAdapter(course: Course): CreateCourseRequest {
+export function courseAdapter({
+	title,
+	image,
+	shortDescription,
+	price,
+	functionalities,
+	language,
+	sector,
+	toolsAndPlatforms,
+	contentType,
+	courseType,
+	level,
+	contentPillar,
+	learningOutcomes,
+	prerequisites,
+	detailedDescription,
+	creator
+}: Course): CreateCourseRequest {
+	const learningOutcomesArray =
+		typeof learningOutcomes === 'string'
+			? learningOutcomes.split(',')
+			: learningOutcomes
+	const prerequisitesArray =
+		typeof prerequisites === 'string' ? prerequisites.split(',') : prerequisites
+
 	return {
-		title: course.title,
-		photo: [course.image as string],
-		shortDescription: course.shortDescription,
-		price: course.price,
-		functionalities: course.functionalities,
-		language: course.language,
-		sector: course.sector,
-		toolsAndPlatforms: course.toolsAndPlatforms,
-		contentType: course.contentType.toUpperCase as unknown as ContentType,
-		courseType: course.courseType as unknown as CourseType,
-		level: course.level,
-		contentPillar: course.contentPillar,
-		learningOutcomes: course.learningOutcomes,
-		prerequisites: course.prerequisites,
-		detailedDescription: course.detailedDescription,
+		title: title,
+		photo: image as string,
+		shortDescription: shortDescription,
+		price: parseFloat(price.toString()),
+		functionalities: functionalities,
+		language: language,
+		sector: sector,
+		toolsAndPlatforms: toolsAndPlatforms,
+		contentType: contentType,
+		courseType: courseType,
+		level: level,
+		contentPillar: contentPillar,
+		learningOutcomes: learningOutcomesArray,
+		prerequisites: prerequisitesArray,
+		detailedDescription: detailedDescription,
 		approved: true,
 		available: true,
-		creator: course.creator.id
+		creator: creator.id
 	}
 }
 
@@ -39,6 +59,7 @@ export function moduleAdapter(
 	return {
 		title: module.title,
 		courseId: courseId,
+		description: module.description,
 		order: index
 	}
 }
@@ -59,10 +80,9 @@ export function lessonAdapter(
 export function resourceAdapter(
 	resourse: string,
 	lessonId: string
-): CreateResourceRequest {
+): CreateResourcesRequest {
 	return {
 		lessonId: lessonId,
-		type: 'pdf',
-		mediaId: resourse
+		pdf: [resourse]
 	}
 }

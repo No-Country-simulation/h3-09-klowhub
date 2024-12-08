@@ -1,28 +1,177 @@
 'use client'
+import {
+	courseAdapter,
+	lessonAdapter,
+	moduleAdapter,
+	resourceAdapter
+} from '@/adapters/course.adapter'
 import TabListAndPanels from '@/components/Tabs/TabListAndPanels'
 import { Course, Lesson, Module } from '@/models/course.model'
+import {
+	createCourse,
+	createLesson,
+	createModule,
+	createResources
+} from '@/services/courses.service'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CourseDetailsPanel from './components/CourseDetailsPanel'
 import GeneralInformationPanel from './components/GeneralInformationPanel'
 import ModulesLessonsPanel from './components/ModulesLessonsPanel'
 
+// Configuración inicial del curso
+const initialCourseState: Course = {
+	id: '',
+	platform: 'appsheet',
+	relatedTags: [],
+	title: '',
+	image: '',
+	shortDescription: '',
+	price: 0,
+	functionalities: [],
+	language: '',
+	sector: '',
+	toolsAndPlatforms: [],
+	contentType: 'FREE',
+	courseType: 'COURSE',
+	level: 'basic',
+	contentPillar: '',
+	learningOutcomes: [],
+	prerequisites: [],
+	detailedDescription: '',
+	creator: {
+		id: '123',
+		bio: '',
+		name: '',
+		profilePicture: ''
+	},
+	reviews: []
+}
+
 export default function CreateCoursePage() {
 	const [tabValue, setTabValue] = useState(1)
-	const [formData, setFormData] = useState({})
+	const [formData, setFormData] = useState<Course>(initialCourseState)
 	const [addedModules, setAddedModules] = useState<Module[]>([])
 
-	const { register, handleSubmit, control, setValue, watch, getValues } =
-		useForm<Course>()
+	const { register, handleSubmit, control, setValue, watch } = useForm<Course>()
 
 	const nextStep = (data: object) => {
 		setFormData((prevData) => ({ ...prevData, ...data }))
 		setTabValue(tabValue + 1)
 	}
 
-	const onSubmit = (data: object) => {
+	//
+	const handleError = (error: unknown, context: string) => {
+		console.error(`Error en ${context}:`, error)
+	}
+
+	const postResources = async (
+		moduleIndex: number,
+		lessonIndex: number,
+		lessonId: string
+	) => {
+		try {
+			const adaptedResourcesToRequest = resourceAdapter(
+				addedModules[moduleIndex].lessons[lessonIndex]
+					.additionalResources?.[0] as string,
+				lessonId
+			)
+
+			const createdResource = await createResources(adaptedResourcesToRequest)
+
+			if (!createdResource.id) {
+				throw new Error('No se pudo crear el recurso')
+			}
+		} catch (error) {
+			handleError(
+				error,
+				`postResources (módulo ${moduleIndex}, lección ${lessonIndex})`
+			)
+		}
+	}
+
+	const postLessons = async (moduleIndex: number, moduleId: string) => {
+		const adaptedLessonsToRequest = addedModules[moduleIndex].lessons.map(
+			(lesson, index) => lessonAdapter(lesson, moduleId, index)
+		)
+		for (const [
+			lessonIndex,
+			adaptedLesson
+		] of adaptedLessonsToRequest.entries()) {
+			try {
+				const createdLesson = await createLesson(adaptedLesson)
+
+				if (!createdLesson.id) {
+					throw new Error('No se pudo crear la lección')
+				}
+
+				const lessonId = createdLesson.id
+
+				const additionalResources =
+					addedModules[moduleIndex].lessons[lessonIndex].additionalResources
+
+				if (additionalResources?.length) {
+					await postResources(moduleIndex, lessonIndex, lessonId)
+				}
+			} catch (error) {
+				handleError(
+					error,
+					`postLessons (módulo ${moduleIndex}, lección ${lessonIndex})`
+				)
+			}
+		}
+	}
+
+	const postModules = async (courseId: string) => {
+		const adaptedModulesToRequest = addedModules.map((module, index) =>
+			moduleAdapter(module, courseId, index)
+		)
+
+		for (const [
+			moduleIndex,
+			adaptedModule
+		] of adaptedModulesToRequest.entries()) {
+			try {
+				const createdModule = await createModule(adaptedModule)
+
+				if (!createdModule.id) {
+					throw new Error('No se pudo crear el módulo')
+				}
+
+				const moduleId = createdModule.id
+
+				await postLessons(moduleIndex, moduleId)
+			} catch (error) {
+				handleError(error, `postModules (módulo ${moduleIndex})`)
+			}
+		}
+	}
+
+	const postCourse = async (finalData: any) => {
+		try {
+			const adaptedCourseToRequest = courseAdapter(finalData)
+			console.log('adaptedCourseToRequest: ', adaptedCourseToRequest)
+
+			const createdCourse = await createCourse(adaptedCourseToRequest)
+
+			if (!createdCourse.id) {
+				throw new Error('No se pudo crear el curso')
+			}
+
+			const courseId = createdCourse.id
+
+			await postModules(courseId)
+		} catch (error) {
+			handleError(error, 'postCourse')
+		}
+	}
+
+	//
+
+	const onSubmit = async (data: object) => {
 		const finalData = { ...formData, ...data, modules: addedModules }
 		console.log('Datos finales para enviar: ', finalData)
+		await postCourse(finalData)
 	}
 
 	const addModule = (module: Module) => {
@@ -46,6 +195,7 @@ export default function CreateCoursePage() {
 	}
 
 	const deleteModuleLesson = (moduleIndex: number, lessonIndex: number) => {
+		// TODO: Remover archivos de Cloudinary
 		setAddedModules((prevModules) =>
 			prevModules.map((module, index) =>
 				index === moduleIndex

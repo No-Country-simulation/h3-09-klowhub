@@ -82,3 +82,13 @@ export const relatedTags = {
 	security: 'Seguridad - Accesibilidad',
 	general: 'General'
 }
+
+export const contentTypes = {
+	FREE: 'Gratuito',
+	PAID: 'Pago'
+}
+
+export const courseTypes = {
+	COURSE: 'Curso',
+	LESSON: 'Lección'
+}

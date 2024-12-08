@@ -3,6 +3,7 @@ export type ContentType = 'FREE' | 'PAID'
 export type CourseType = 'COURSE' | 'LESSON'
 
 export interface CreateCourseRequest {
+	id?: string
 	title: string
 	photo: string
 	shortDescription: string
