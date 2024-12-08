@@ -18,4 +18,7 @@ export class ModuleDto {
 
   @IsNumber()
   public order: number;
+
+  @IsString()
+  description: string;
 }

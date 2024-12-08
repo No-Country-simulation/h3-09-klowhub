@@ -15,17 +15,16 @@ import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
-import { Storage } from '@google-cloud/storage';
+import { storage } from '../config/storage.config';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('Courses service');
-  private storage: Storage;
-  private bucketName = 'buket-name';
+  private bucketName = process.env.BUCKET_NAME;
+  private bucketNameImage = process.env.BUCKET_NAME_IMAGE;
 
   constructor() {
     super();
-    this.storage = new Storage();
   }
 
   async onModuleInit() {
@@ -46,11 +45,36 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
   async findOneCourseById(id: string) {
     this.logger.log('find_one_course_by_id');
-    const course = await this.course.findUnique({
-      where: { id },
-    });
-    return course;
+
+    try {
+      const course = await this.course.findUnique({
+        where: { id },
+        include: {
+          module: {
+            include: {
+              lesson: {
+                include: {
+                  resource: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!course) {
+        throw new BadRequestException(`Course with ID ${id} not found`);
+      }
+
+      return course;
+    } catch (error) {
+      this.logger.error(
+        `Error fetching course with ID ${id}: ${error.message}`,
+      );
+      throw new RpcException(error.message);
+    }
   }
+
   async getAllCourses() {
     this.logger.log('find_all_courses');
     const course = await this.course.findMany();
@@ -84,15 +108,50 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     });
     return updateCourse;
   }
-  //  Course Lesson
 
-  async uploadVideo(file: Express.Multer.File): Promise<string> {
+  //  Image
+  async uploadImage(file: {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+  }): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('No file provided for upload');
+    }
+    this.logger.log('Uploading image to Google Cloud Storage');
+    const bucket = storage.bucket(this.bucketNameImage);
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+    return new Promise((resolve, reject) => {
+      blobStream
+        .on('finish', () => {
+          const publicUrl = `https://storage.googleapis.com/${this.bucketNameImage}/${blob.name}`;
+          this.logger.log(`Image uploaded successfully: ${publicUrl}`);
+          console.log(publicUrl);
+          resolve(publicUrl);
+        })
+        .on('error', (err) => {
+          this.logger.error('Error uploading image:', err.message);
+          reject(err);
+        })
+        .end(file.buffer);
+    });
+  }
+
+  async uploadVideo(file: {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+  }): Promise<string> {
     if (!file) {
       throw new BadRequestException('No file provided for upload');
     }
 
     this.logger.log('Uploading video to Google Cloud Storage');
-    const bucket = this.storage.bucket(this.bucketName);
+    const bucket = storage.bucket(this.bucketName);
     const blob = bucket.file(file.originalname);
     const blobStream = blob.createWriteStream({
       resumable: false,
@@ -113,7 +172,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
         .end(file.buffer);
     });
   }
-
+  //  Lesson
   async createLesson(lessonData: CreateLessonDto) {
     this.logger.log('create_course_lesson');
     try {

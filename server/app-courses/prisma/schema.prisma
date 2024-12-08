@@ -28,10 +28,17 @@ enum ContentType {
   PAID
 }
 
+enum ResourceType {
+  VIDEO
+  DOCUMENT
+  LINK
+  OTHER
+}
+
 model Course {
   id                  String      @id @default(uuid())
   title               String
-  photo               String[]
+  photo               String
   shortDescription    String
   price               Float
   functionalities     String[]
@@ -49,9 +56,8 @@ model Course {
   available           Boolean     @default(true)
   creator             String
   module              Module[] // One-to-many relationship with Module
-  moduleId            String
 
-  @@map("courses") // Name of the table in the database
+  @@map("courses")
 }
 
 model Lesson {
@@ -59,30 +65,32 @@ model Lesson {
   title       String
   description String
   moduleId    String
-  module      Module     @relation(fields: [moduleId], references: [id]) // Relationship with Module
+  module      Module     @relation(fields: [moduleId], references: [id])
   order       Int
   resource    Resource[] // One-to-many relationship with Resource
 
-  @@map("lessons") // Name of the table in the database
+  @@index([moduleId, order])
+  @@map("lessons")
 }
 
 model Resource {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   lessonId String
-  type     String //agregar un enum
-  mediaId  String
-  lesson   Lesson @relation(fields: [lessonId], references: [id]) // Relationship with lesson
+  lesson   Lesson  @relation(fields: [lessonId], references: [id])
+  extra    Boolean @default(false)
 
-  @@map("resources") // Name of the table in the database
+  @@map("resources")
 }
 
 model Module {
-  id       String   @id @default(uuid())
-  courseId String
-  title    String
-  lesson   Lesson[] // One-to-many relationship with lesson
-  order    Int
-  course   Course   @relation(fields: [courseId], references: [id]) // Relationship with Course
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  lesson      Lesson[] // One-to-many relationship with lesson
+  order       Int
+  description String
+  course      Course   @relation(fields: [courseId], references: [id])
 
-  @@map("modules") // Name of the table in the database
+  @@index([courseId, order])
+  @@map("modules")
 }

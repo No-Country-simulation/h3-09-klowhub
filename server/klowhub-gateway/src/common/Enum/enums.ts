@@ -13,3 +13,10 @@ export enum ContentType {
   FREE = 'FREE',
   PAID = 'PAID',
 }
+
+export enum ResourceType {
+  VIDEO = 'VIDEO',
+  DOCUMENT = 'DOCUMENT',
+  LINK = 'LINK',
+  OTHER = 'OTHER',
+}
