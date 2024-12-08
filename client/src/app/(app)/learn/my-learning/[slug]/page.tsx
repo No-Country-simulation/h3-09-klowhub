@@ -29,8 +29,8 @@ const course: Course = {
 			text: 'Muy útil, pero faltó algo de detalle en algunos temas.'
 		}
 	],
-	contentType: 'paid',
-	courseType: 'course',
+	contentType: 'PAID',
+	courseType: 'COURSE',
 	level: 'intermediate',
 	contentPillar: 'Automatización',
 	learningOutcomes: [

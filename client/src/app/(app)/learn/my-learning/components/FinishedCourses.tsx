@@ -28,8 +28,8 @@ export default function FinishedCourses() {
 				text: 'Cubrió todas mis expectativas, muy recomendable.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'intermediate',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -108,8 +108,8 @@ export default function FinishedCourses() {
 				text: 'Me ayudó mucho, aunque algunas partes fueron rápidas.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -182,8 +182,8 @@ export default function FinishedCourses() {
 				text: 'Me hubiera gustado más detalle en las configuraciones.'
 			}
 		],
-		contentType: 'free',
-		courseType: 'lesson',
+		contentType: 'FREE',
+		courseType: 'LESSON',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [

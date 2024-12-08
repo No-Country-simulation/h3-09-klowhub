@@ -28,8 +28,8 @@ const course: Course = {
 	functionalities: ['APIs', 'Integraciones', 'Automatizaciones'],
 	relatedTags: ['Automatización', 'Flujos de trabajo'],
 	image: 'https://picsum.photos/300/150',
-	contentType: 'paid',
-	courseType: 'course',
+	contentType: 'PAID',
+	courseType: 'COURSE',
 	level: 'advanced',
 	contentPillar: 'Automatización',
 	learningOutcomes: [

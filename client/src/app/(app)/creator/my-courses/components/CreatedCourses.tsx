@@ -27,8 +27,8 @@ const mockCourse: Course = {
 			text: 'Muy útil, pero faltó algo de detalle en algunos temas.'
 		}
 	],
-	contentType: 'paid',
-	courseType: 'course',
+	contentType: 'PAID',
+	courseType: 'COURSE',
 	level: 'intermediate',
 	contentPillar: 'Automatización',
 	learningOutcomes: [
@@ -107,8 +107,8 @@ const mockLessonCourse: Course = {
 			text: 'Me ayudó a entender mejor las integraciones con PowerApps.'
 		}
 	],
-	contentType: 'free',
-	courseType: 'lesson',
+	contentType: 'FREE',
+	courseType: 'LESSON',
 	level: 'basic',
 	contentPillar: 'Integraciones',
 	learningOutcomes: [

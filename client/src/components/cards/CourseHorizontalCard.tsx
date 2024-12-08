@@ -83,7 +83,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 					</Button>
 				</div>
 				<b className="right-5 text-xl lg:absolute">
-					{course.contentType === 'paid' && course.price
+					{course.contentType === 'PAID' && course.price
 						? moneyFormat(course.price)
 						: 'GRATIS'}
 				</b>

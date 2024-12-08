@@ -18,8 +18,8 @@ const courses: Course[] = [
 		functionalities: ['APIs', 'Ventas'],
 		relatedTags: ['Automatización', 'No-Code'],
 		image: 'https://picsum.photos/200/100',
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -98,8 +98,8 @@ const courses: Course[] = [
 		functionalities: ['APIs', 'Integraciones', 'Automatizaciones'],
 		relatedTags: ['Automatización', 'Flujos de trabajo'],
 		image: 'https://picsum.photos/200/100',
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [

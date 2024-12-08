@@ -88,7 +88,7 @@ export default function CartItem({ item }: { item: Course }) {
 						</div>
 					</div>
 					<b className="right-0 text-xl lg:absolute">
-						{item.contentType === 'paid' && item.price
+						{item.contentType === 'PAID' && item.price
 							? moneyFormat(item.price)
 							: 'GRATIS'}
 					</b>
