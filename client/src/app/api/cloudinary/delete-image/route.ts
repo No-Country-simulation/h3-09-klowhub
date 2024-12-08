@@ -7,5 +7,6 @@ export async function POST(request: Request) {
 	const res = await cloudinary.uploader.destroy(publicId, {
 		invalidate: true
 	})
+
 	return Response.json(res)
 }

@@ -1,9 +1,8 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import MyCldUploadWidget from '@/components/cloudinary/MyCldUploadWidget'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
-import { CldUploadWidget, CloudinaryUploadWidgetInfo } from 'next-cloudinary'
-import Image from 'next/image'
 import { useState } from 'react'
 import {
 	UseFormHandleSubmit,
@@ -27,33 +26,11 @@ export default function CourseDetailsPanel({
 }: CourseDetailsPanelProps) {
 	const [resource, setResource] = useState<string>()
 	// const [files, setFiles] = useState<FileList>()
-
 	// const onFileChange = (files: FileList | null) => {
 	// 	if (!files) return
 	// 	setFiles(files)
 	// 	setValue('image', files[0])
 	// }
-	const handleRemoveImage = async () => {
-		try {
-			if (resource) {
-				const publicId = resource.split('/').pop()?.split('.')[0]
-				const response = await fetch('/api/cloudinary/delete-image', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ publicId })
-				})
-				if (!response.ok) {
-					throw new Error('Failed to delete image from Cloudinary')
-				}
-				setValue('image', '')
-				setResource('')
-			}
-		} catch (error) {
-			console.error('Error deleting image from Cloudinary:', error)
-		}
-	}
 
 	return (
 		<form onSubmit={handleSubmit(nextStep)} className="flex flex-col gap-4">
@@ -83,59 +60,24 @@ export default function CourseDetailsPanel({
 						/>
 					</section>
 
-					<div className="flex-col space-y-6">
-						{/* <FileInput
+					{/* Cloudinary */}
+					<MyCldUploadWidget
+						label="Subí una imagen que represente tu curso de manera atractiva para utilizarla de portada"
+						setFormValue={setValue}
+						formField="image"
+						setResource={setResource}
+						resource={resource}
+						resourceType="image"
+					/>
+					{/* Cloudinary */}
+
+					{/* <div className="flex-col space-y-6">
+						<FileInput
 							label="Subí una imagen que represente tu curso de manera atractiva para utilizarla de portada"
 							onFileChange={(files) => onFileChange(files)}
 							files={files}
-						/> */}
-						<p className="text-sm font-semibold text-white">
-							Subí una imagen que represente tu curso de manera atractiva para
-							utilizarla de portada
-						</p>
-						<CldUploadWidget
-							signatureEndpoint="/api/cloudinary/sign-image"
-							onSuccess={(result, { widget }) => {
-								const uploadedInfo = result?.info as CloudinaryUploadWidgetInfo
-								setValue('image', uploadedInfo.secure_url)
-								setResource(uploadedInfo.secure_url)
-							}}
-							onQueuesEnd={(result, { widget }) => {
-								widget.close()
-							}}
-						>
-							{({ open }) => {
-								function handleOnClick() {
-									handleRemoveImage()
-									open()
-								}
-								return (
-									<>
-										{resource && (
-											<div className="flex items-center">
-												<Image
-													src={resource}
-													alt="preview"
-													width={500}
-													height={500}
-													className="h-40 w-fit rounded-lg object-scale-down"
-												/>
-												<Button
-													type="button"
-													variant="tertiary"
-													size="l"
-													onClick={handleRemoveImage}
-												>
-													Remover imagen
-												</Button>
-											</div>
-										)}
-										<Button onClick={handleOnClick}>Agrega una imagen</Button>
-									</>
-								)
-							}}
-						</CldUploadWidget>
-					</div>
+						/>
+					</div> */}
 				</div>
 				<div className="w-80"></div>
 			</PanelContainer>
