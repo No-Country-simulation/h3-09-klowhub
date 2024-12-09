@@ -1,4 +1,4 @@
-export type Platform = 'appsheet' | 'powerapps'
+export type Platform = 'APPSHEET' | 'POWERAPPS'
 
 export interface Review {
 	reviewer: string

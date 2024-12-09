@@ -1,20 +1,17 @@
 import { Type } from 'class-transformer';
 import {
-  IsBoolean,
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
   IsUrl,
-  IsArray,
   IsUUID,
   Min,
-  IsEnum,
-  IsNotEmpty,
 } from 'class-validator';
-import { ContentType, ContentTypeEnum, Plataform, PlataformEnum } from 'src/common/Enum';
-
-
+import { ContentType, Platform } from 'src/common/Enum/enums';
 
 export class CreateAppDto {
   @IsUUID()
@@ -49,16 +46,16 @@ export class CreateAppDto {
   public toolsAndPlatforms: string[];
 
   @IsNotEmpty()
-  @IsEnum(ContentTypeEnum, {
-    message: `Possible values are ${ContentTypeEnum}`,
+  @IsEnum(ContentType, {
+    message: `Possible values are ${ContentType}`,
   })
   public contentType: ContentType;
 
   @IsNotEmpty()
-  @IsEnum(PlataformEnum, {
-    message: `Possible values are ${PlataformEnum}`,
+  @IsEnum(Platform, {
+    message: `Possible values are ${Platform}`,
   })
-  public plataform: Plataform;
+  public plataform: Platform;
 
   @IsNotEmpty()
   @IsString()
@@ -73,12 +70,11 @@ export class CreateAppDto {
   @Type(() => Number)
   public price: number;
 
-
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   public photo_url: string[];
-  
+
   @IsUrl()
   @IsOptional()
   public deploy_desktop_url: string;
@@ -86,7 +82,7 @@ export class CreateAppDto {
   @IsUrl()
   @IsOptional()
   public dowload_desktop_url: string;
-  
+
   @IsUrl()
   @IsOptional()
   public deploy_movil_url: string;
@@ -94,7 +90,6 @@ export class CreateAppDto {
   @IsUrl()
   @IsOptional()
   public dowload_movil_url: string;
-
 }
 
 //

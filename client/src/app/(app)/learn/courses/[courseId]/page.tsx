@@ -28,8 +28,8 @@ const course: Course = {
 	functionalities: ['APIs', 'Integraciones', 'Automatizaciones'],
 	relatedTags: ['Automatización', 'Flujos de trabajo'],
 	image: 'https://picsum.photos/300/150',
-	contentType: 'paid',
-	courseType: 'course',
+	contentType: 'PAID',
+	courseType: 'COURSE',
 	level: 'advanced',
 	contentPillar: 'Automatización',
 	learningOutcomes: [
@@ -78,11 +78,7 @@ const course: Course = {
 			]
 		}
 	],
-	creator: {
-		id: '',
-		name: '',
-		bio: ''
-	},
+	creator: '675412',
 	reviews: []
 }
 
@@ -122,7 +118,9 @@ export default function Page() {
 	})
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
-	const averageScore = Number((totalScore / reviews.length).toFixed(1))
+	const averageScore = reviews.length
+		? Number((totalScore / reviews.length).toFixed(1))
+		: 0
 	const { addCartItem } = useStore()
 	return (
 		<section className="grid grid-rows-2 gap-20 md:grid-cols-5 md:grid-rows-1 md:gap-[8%]">

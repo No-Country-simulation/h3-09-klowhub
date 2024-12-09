@@ -1,9 +1,18 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+} from 'class-validator';
+import { CreateLessonDto } from './create-lesson.dto';
+import { Type } from 'class-transformer';
+import { ResourceType } from 'src/common/Enum/enums';
 
 export class CreateResourceDto {
-  @IsNotEmpty()
-  public sectionId: string;
-  @IsNotEmpty()
   @IsString()
-  public mediaId: string;
+  public lessonId: string;
+
+  @IsArray()
+  public resourceLink: string[];
 }

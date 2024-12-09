@@ -4,14 +4,13 @@ import { UpdateAppDto } from './dto/update-app.dto';
 import { PrismaClient } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { envs, storage } from 'src/config';
+import { storage } from 'src/config';
 import { FiltersDto } from './dto/filters.dto';
 
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('AppsService');
-  private bucketName = envs.googleBucketName;
-
+  private bucketName = 'appsheet-powerapps-files';
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Connected to database');
@@ -19,51 +18,25 @@ export class AppsService extends PrismaClient implements OnModuleInit {
   create(createAppDto: CreateAppDto) {
     return this.app.create({ data: createAppDto });
   }
+
   async findAll(paginationDto: PaginationDto, filtersDto: FiltersDto) {
     const { page, limit } = paginationDto;
-    const { orderPrice } = filtersDto;
+    const { filter, lenguage } = filtersDto;
   
     const where: any = { available: true };
   
-    // Filtrar por funcionalidades
-    if (filtersDto.functionalities && filtersDto.functionalities.length > 0) {
-      where.functionalities = {
-        hasEvery: filtersDto.functionalities,
-      };
+    // Incluir el filtro por array de 'filter' si está presente
+    if (filter && filter.length > 0) {
+      where.OR = filter.map((value) => ({
+        technologies: {
+          has: value, // Cambia 'tags' por el campo real en tu modelo que corresponde a los filtros
+        },
+      }));
     }
   
-    // Filtrar por idioma
-    if (filtersDto.language) {
-      where.language = filtersDto.language;
-    }
-  
-    // Filtrar por sector
-    if (filtersDto.sector && filtersDto.sector.length > 0) {
-      where.sector = {
-        hasEvery: filtersDto.sector,
-      };
-    }
-  
-    // Filtrar por herramientas y plataformas
-    if (filtersDto.toolsAndPlatforms && filtersDto.toolsAndPlatforms.length > 0) {
-      where.toolsAndPlatforms = {
-        hasEvery: filtersDto.toolsAndPlatforms,
-      };
-    }
-  
-    // Filtrar por tipo de contenido
-    if (filtersDto.contentType) {
-      where.contentType = filtersDto.contentType;
-    }
-  
-    // Filtrar por plataforma
-    if (filtersDto.plataform) {
-      where.plataform = filtersDto.plataform;
-    }
-  
-    // Filtrar por nivel
-    if (filtersDto.level) {
-      where.level = filtersDto.level;
+    // Incluir el filtro por 'lenguage' si está presente
+    if (lenguage) {
+      where.lenguage = lenguage;
     }
   
     // Obtener el total de páginas con los filtros aplicados
@@ -77,19 +50,12 @@ export class AppsService extends PrismaClient implements OnModuleInit {
       );
     }
   
-    // Definir el orden del precio
-    const orderBy = [];
-    if (orderPrice) {
-      orderBy.push({ price: orderPrice.toLowerCase() === 'asc' ? 'asc' : 'desc' });
-    }
-  
-    // Retornar los datos paginados con los filtros y orden aplicados
+    // Retornar los datos paginados con los filtros aplicados
     return {
       data: await this.app.findMany({
         skip: (page - 1) * limit,
         take: limit,
         where,
-        orderBy,
       }),
       meta: {
         total: totalPages,
@@ -98,7 +64,6 @@ export class AppsService extends PrismaClient implements OnModuleInit {
       },
     };
   }
-  
   
   async findOne(id: string) {
     const app = await this.app.findFirst({

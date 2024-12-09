@@ -28,8 +28,8 @@ export default function FinishedCourses() {
 				text: 'Cubrió todas mis expectativas, muy recomendable.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'intermediate',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -74,12 +74,7 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-002',
-			name: 'Ana Gómez',
-			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '78612',
 		price: 0
 	}
 
@@ -108,8 +103,8 @@ export default function FinishedCourses() {
 				text: 'Me ayudó mucho, aunque algunas partes fueron rápidas.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -148,12 +143,7 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-003',
-			name: 'Carlos Rodríguez',
-			bio: 'Experto en AppSheet y ventas.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '897456',
 		price: 0
 	}
 
@@ -182,8 +172,8 @@ export default function FinishedCourses() {
 				text: 'Me hubiera gustado más detalle en las configuraciones.'
 			}
 		],
-		contentType: 'free',
-		courseType: 'lesson',
+		contentType: 'FREE',
+		courseType: 'LESSON',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -195,12 +185,7 @@ export default function FinishedCourses() {
 			'Esta lección te guiará paso a paso en la creación de tus primeros flujos.',
 		contentLink: 'https://example.com/flow-creation-lesson',
 		additionalResources: ['https://example.com/flows-cheatsheet.pdf'],
-		creator: {
-			id: 'creator-004',
-			name: 'Jorge Ramírez',
-			bio: 'Experto en automatización y Power Automate.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '8971814',
 		price: 0
 	}
 

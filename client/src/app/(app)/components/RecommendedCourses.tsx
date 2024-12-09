@@ -1,7 +1,27 @@
+'use client'
 import Button from '@/components/buttons/Button'
 import { AppCourseCard } from '@/components/cards/AppCourseCard'
+import { Course } from '@/models/course.model'
+import { getCourses } from '@/services/courses.service'
+import { useEffect, useState } from 'react'
 
 export default function RecommendedCourses() {
+	const [allCourses, setAllCourses] = useState<Course[]>()
+
+	useEffect(() => {
+		void (async () => {
+			try {
+				const res = await getCourses()
+				// TODO: Adaptar cursos
+				setAllCourses(res)
+			} catch (error) {
+				console.log(error)
+			}
+		})()
+	}, [])
+
+	console.log(allCourses)
+
 	return (
 		<section className="flex flex-col gap-6">
 			<div className="flex flex-col gap-1">

@@ -1,14 +1,18 @@
+import { ContentType, CourseType } from '../../common/Enum/enums';
 import {
   IsString,
   IsNotEmpty,
-  IsEmail,
   IsOptional,
+  IsArray,
   IsEnum,
+  IsBoolean,
+  IsInt,
 } from 'class-validator';
-import { Category } from '../../common/Enum/category.enum';
-import { CategoryEnum } from '../../common/Enum/category.enum';
+import { Type } from 'class-transformer';
+import { ModuleDto } from './create-module.dto';
+import { Platform } from '../../common/Enum/enums';
 
-export class CreateCourseDto {
+export class CourseDto {
   @IsString()
   @IsNotEmpty()
   public title: string;
@@ -16,41 +20,71 @@ export class CreateCourseDto {
   @IsString()
   public photo: string;
 
-  @IsNotEmpty()
   @IsString()
-  public description: string;
+  @IsNotEmpty()
+  public shortDescription: string;
 
   @IsNotEmpty()
   public price: number;
 
-  @IsNotEmpty()
-  public sellerId: string;
+  @IsArray()
+  public functionalities: string[];
 
-  @IsNotEmpty()
-  @IsEnum(CategoryEnum, {
-    message: `Possible values are ${CategoryEnum}`,
-  })
-  public category: Category;
-
-  @IsNotEmpty()
-  public technologies: string[];
-
-  @IsNotEmpty()
-  public approved: boolean;
-
+  @IsString()
   @IsNotEmpty()
   public language: string;
 
+  @IsString()
   @IsNotEmpty()
-  public available: boolean;
+  public sector: string;
+
+  @IsArray()
+  public toolsAndPlatforms: string[];
 
   @IsNotEmpty()
-  public productId: string;
+  @IsEnum(ContentType)
+  public contentType: ContentType;
+
+  @IsNotEmpty()
+  @IsEnum(CourseType)
+  public courseType: CourseType;
 
   @IsNotEmpty()
   @IsString()
   public level: string;
-  /*
-    @IsNotEmpty()
-    public sections: string;*/
+
+  @IsNotEmpty()
+  @IsString()
+  public contentPillar: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  public learningOutcomes: string[];
+
+  @IsArray()
+  public prerequisites: string[];
+
+  @IsNotEmpty()
+  @IsString()
+  public detailedDescription: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  public approved: boolean;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  public available: boolean;
+
+  @IsNotEmpty()
+  @IsString()
+  public creator: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  public platform: Platform[];
+
+  @IsArray()
+  @IsNotEmpty()
+  public relatedTags: string[];
 }

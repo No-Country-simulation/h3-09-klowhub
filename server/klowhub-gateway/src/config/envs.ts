@@ -3,7 +3,6 @@ import 'dotenv/config';
 import * as Joi from 'joi';
 
 interface EnvVars {
-  HOST: string;
   PORT: number;
   USERS_MICROSERVICE_HOST: string;
   USERS_MICROSERVICE_PORT: number;
@@ -16,7 +15,6 @@ interface EnvVars {
 }
 
 const envSchema = Joi.object({
-  HOST: Joi.string().required(),
   PORT: Joi.number().required(),
   USERS_MICROSERVICE_HOST: Joi.string().required(),
   USERS_MICROSERVICE_PORT: Joi.number().required(),
@@ -35,7 +33,6 @@ if (error) {
 const envVars = value as EnvVars;
 
 export const envs = {
-  host: envVars.HOST,
   port: envVars.PORT,
   usersMicroserviceHost: envVars.USERS_MICROSERVICE_HOST,
   usersMicroservicePort: envVars.USERS_MICROSERVICE_PORT,
