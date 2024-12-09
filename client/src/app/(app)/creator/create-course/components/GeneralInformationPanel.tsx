@@ -2,7 +2,12 @@ import Button from '@/components/buttons/Button'
 import Input from '@/components/inputs/Input'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
-import { Control, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
+import {
+	Control,
+	UseFormHandleSubmit,
+	UseFormRegister,
+	UseFormWatch
+} from 'react-hook-form'
 import ContentAccessInfo from './ContentAccessInfo'
 import ContentTypeRadioGroup from './ContentTypeRadioGroup'
 import CourseTypeRadioGroup from './CourseTypeRadioGroup'
@@ -20,13 +25,15 @@ interface GeneralInformationPanelProps {
 	handleSubmit: UseFormHandleSubmit<Course, undefined>
 	register: UseFormRegister<Course>
 	control: Control<Course, any>
+	watch: UseFormWatch<Course>
 }
 
 export default function GeneralInformationPanel({
 	nextStep,
 	handleSubmit,
 	register,
-	control
+	control,
+	watch
 }: GeneralInformationPanelProps) {
 	return (
 		<form onSubmit={handleSubmit(nextStep)} className="flex flex-col gap-4">
@@ -42,7 +49,7 @@ export default function GeneralInformationPanel({
 					<ContentAccessInfo />
 
 					<div className="flex">
-						<ContentTypeRadioGroup register={register} />
+						<ContentTypeRadioGroup register={register} watch={watch} />
 						<CourseTypeRadioGroup register={register} />
 					</div>
 

@@ -21,11 +21,11 @@ export default function Button({
 			className={clsx(
 				'flex items-center justify-center gap-[10px] rounded-lg text-sm font-semibold',
 				{
-					'bg-primary-b-500 text-white hover:bg-primary-b-400 active:bg-primary-b-600':
+					'bg-primary-b-500 text-white hover:bg-primary-b-400 active:bg-primary-b-600 disabled:bg-primary-b-500/40 disabled:text-white/40':
 						variant === 'primary',
-					'text-primary-b-200 hover:text-primary-b-400 active:text-primary-b-600':
+					'text-primary-b-200 hover:text-primary-b-400 active:text-primary-b-600 disabled:text-primary-b-200/40':
 						variant !== 'primary',
-					'border border-primary-b-200 hover:border-primary-b-400 active:border-primary-b-600':
+					'border border-primary-b-200 hover:border-primary-b-400 active:border-primary-b-600 disabled:border-primary-b-200/40':
 						variant === 'secondary',
 					'h-[45px] min-w-[250px]': size === 'xl',
 					'h-[40px] min-w-[140px]': size === 'l'

@@ -48,16 +48,16 @@ export default function IconBadge({ icon, count, items, isNotification, onClick 
 				)}
 			</button>
 			{isNotification && isOpen && (
-				<div ref={dropdownRef} className="absolute right-0 mt-2 bg-[#1F2026] shadow-lg rounded-lg p-2 w-[598px] z-40">
+				<div ref={dropdownRef} className="absolute right-0 mt-6 bg-card shadow-lg rounded-lg p-2 w-[500px] z-40">
 					<div className="border-b border-primary-b-200 flex items-center justify-start gap-2 p-2">
 						<Bell />
-						<span>Notificaciones</span>
+						<span className='text-[16px] font-medium'>Notificaciones</span>
 					</div>
 					{items.length > 0 ? (
 						items.map((item, index) => (
 							<div
 								key={index}
-								className="flex items-center justify-between p-4 border-b border-primary-b-200 last:border-none text-white"
+								className="flex items-center justify-between text-[14px] font-light p-2 border-b border-primary-b-200 last:border-none text-white"
 							>
 								{item}
 							</div>

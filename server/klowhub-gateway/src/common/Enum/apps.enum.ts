@@ -1,6 +1,6 @@
-export enum ContentType {
-    FREE = 'FREE',
-    PAID = 'PAID'
+export enum Lenguage {
+    SPANISH = 'SPANISH',
+    ENGLISH = 'ENGLISH'
 }
 export const ContentTypeEnum = [ContentType.FREE, ContentType.PAID];
 

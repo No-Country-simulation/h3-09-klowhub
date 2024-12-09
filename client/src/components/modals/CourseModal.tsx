@@ -22,14 +22,20 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 		(acc, review) => acc + review.score,
 		0
 	)
-	const averageScore = Number((totalScore / course.reviews.length).toFixed(1))
+	const averageScore = course.reviews.length
+		? Number((totalScore / course.reviews.length).toFixed(1))
+		: 0
 	return (
 		<Modal
 			show={course ? true : false}
 			onClose={() => setCourseSelected(null)}
 			theme={{
+				root: {
+					base: 'no-scrollbar z-50'
+				},
 				content: {
-					inner: 'bg-card rounded-lg sm:p-6'
+					inner:
+						'bg-card rounded-lg sm:p-6 max-h-[95vh] overflow-y-scroll scrollbar-hide'
 				},
 				header: {
 					base: 'border-b-0 flex'

@@ -7,6 +7,7 @@ import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
+import useStore from '@/lib/store'
 
 function getRandomInt(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -25,7 +26,7 @@ interface Props {
 export default function ApplicationCard({ app, setProductSelected }: Props) {
 	const totalScore = app.reviews.reduce((acc, review) => acc + review.score, 0)
 	const average = Number((totalScore / app.reviews.length).toFixed(1))
-
+	const { addCartItem } = useStore()
 	return (
 		<Card
 			theme={{
@@ -43,7 +44,7 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 			)}
 		>
 			<Heart
-				className="absolute right-2 top-2 z-20"
+				className="absolute right-2 top-2 z-10"
 				fill={`${user.favorites.includes(parseInt(app.id)) ? '#fff' : 'transparent'}`}
 			/>
 			<h5 className="text-sm font-bold">{app.title}</h5>
@@ -75,7 +76,11 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 				)}
 			</b>
 			<div className="flex w-full flex-wrap justify-between">
-				<Button className="min-w-0 p-2 text-xs" size="l">
+				<Button
+					className="min-w-0 p-2 text-xs"
+					size="l"
+					onClick={() => addCartItem(app)}
+				>
 					Añadir al carrito
 				</Button>
 				<Button

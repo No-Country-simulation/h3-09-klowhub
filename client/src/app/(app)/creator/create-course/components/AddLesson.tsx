@@ -1,6 +1,6 @@
 'use client'
 import Button from '@/components/buttons/Button'
-import FileInput from '@/components/inputs/FileInput'
+import MyCldUploadWidget from '@/components/cloudinary/MyCldUploadWidget'
 import Input from '@/components/inputs/Input'
 import TextArea from '@/components/inputs/TextArea'
 import { Lesson } from '@/models/course.model'
@@ -28,19 +28,20 @@ export default function AddLesson({ onAdd, moduleIndex }: AddLessonProps) {
 		setLessonData((prev) => ({ ...prev, [name]: value }))
 	}
 
-	const handleImageChange = (files: FileList | null) => {
-		if (!files) return
-		setLessonData((prev) => ({ ...prev, image: files[0] }))
+	const handleImageChange = (image: string) => {
+		if (!image) return
+		setLessonData((prev) => ({ ...prev, image }))
 	}
 
-	const handleVideoChange = (files: FileList | null) => {
-		if (!files) return
-		setLessonData((prev) => ({ ...prev, contentLink: files[0] }))
+	const handleVideoChange = (contentLink: string) => {
+		if (!contentLink) return
+		setLessonData((prev) => ({ ...prev, contentLink }))
 	}
 
-	const handleResourcesChange = (files: FileList | null) => {
-		if (!files) return
-		setLessonData((prev) => ({ ...prev, additionalResources: files }))
+	const handleResourcesChange = (additionalResource: string) => {
+		if (!additionalResource) return
+		const additionalResources = [additionalResource]
+		setLessonData((prev) => ({ ...prev, additionalResources }))
 	}
 
 	const handleAddLesson = () => {
@@ -76,7 +77,7 @@ export default function AddLesson({ onAdd, moduleIndex }: AddLessonProps) {
 						value={lessonData.description}
 						onChange={handleInputChange}
 					/>
-					<FileInput
+					{/* <FileInput
 						label="Agrega la imagen de la lección"
 						name="image"
 						onFileChange={handleImageChange}
@@ -93,7 +94,27 @@ export default function AddLesson({ onAdd, moduleIndex }: AddLessonProps) {
 						onFileChange={handleResourcesChange}
 						accept="image/*, application/pdf"
 						multiple
+					/> */}
+					{/* Cloudinary */}
+					<MyCldUploadWidget
+						label="Agrega la imagen de la lección"
+						setResource={handleImageChange}
+						resourceType="image"
+						resource={lessonData.image as string}
 					/>
+					<MyCldUploadWidget
+						label="Agrega el video de la lección"
+						setResource={handleVideoChange}
+						resourceType="video"
+						resource={lessonData.contentLink as string}
+					/>
+					<MyCldUploadWidget
+						label="Agrega recursos adicionales (opcional)"
+						setResource={handleResourcesChange}
+						resourceType="raw"
+						resource={lessonData.additionalResources?.[0] as string}
+					/>
+					{/* Cloudinary */}
 					<div className="flex w-full justify-end">
 						<Button
 							type="button"

@@ -7,18 +7,19 @@ import Image from 'next/image'
 import IconBadge from './IconBadge'
 import useStore from '@/lib/store'
 import Link from 'next/link'
+import avatarImg from '../../../../public/img/user_avatar.png'
+
 
 export default function UserActions() {
-	const { data: session } = useSession()
-	const notifications = ['first notification', 'second notification', 'third notification']
-	const { cart } = useStore()
-	const [userMode, setUserMode] = useState(false)
+	const { data: session, status } = useSession()
+	const notifications = [
+		'Tu nuevo curso NoCode Basics comenzara esta semana',
+		'Jhon Doe quiere conectar contigo',
+		'Tu pago se ha efectuado con exito']
+	const { cart, role } = useStore()
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 
-	const img = '/img/user_avatar.png'
-
-	// Cierra el dropdown al hacer clic fuera de él
 	useEffect(() => {
 		function handleOutsideClick(event: MouseEvent) {
 			if (isOpen && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -39,17 +40,19 @@ export default function UserActions() {
 		<div className="flex items-center space-x-6">
 			<div className="flex items-center justify-between space-x-6">
 				<IconBadge icon={<Bell />} count={3} items={notifications} isNotification />
-				<IconBadge icon={<ShoppingCart />} count={cart.length} items={[]} onClick={handleCart} />
+				{role === 'Explorer' && (
+					<IconBadge icon={<ShoppingCart />} count={cart.length} items={[]} onClick={handleCart} />
+				)}
 				<IconBadge icon={<Mail />} count={0} items={[]} onClick={handleMsgs} />
 			</div>
-			<ExplorerCreatorSwitch enabled={userMode} setEnabled={setUserMode} />
+			<ExplorerCreatorSwitch />
 			<div className="relative" ref={dropdownRef}>
 				<div
 					className="h-8 w-8 overflow-hidden rounded-full bg-gray-400 cursor-pointer"
 					onClick={() => setIsOpen((prev) => !prev)}
 				>
 					<Image
-						src={session?.user?.image || img}
+						src={session?.user?.image || avatarImg}
 						alt="User profile"
 						className="h-full w-full object-cover"
 						width={40}
@@ -65,7 +68,7 @@ export default function UserActions() {
 						<ul className="py-2">
 							<li>
 								<Link
-									href={'/profile'}
+									href={'/creator/profile'}
 									className="flex items-center px-6 py-3 text-sm text-white hover:bg-white/10 hover:w-56 hover:rounded-lg gap-3"
 								>
 									<CircleUserRound />

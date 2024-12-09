@@ -15,7 +15,11 @@ export default function CourseContentViewer({
 	const [videoLink, setVideoLink] = useState<string>()
 
 	useEffect(() => {
-		if (course.modules) {
+		if (
+			Array.isArray(course.modules) &&
+			course.modules.length > 0 &&
+			course.modules[0].lessons?.length > 0
+		) {
 			setVideoLink(course.modules[0].lessons[0].contentLink as string)
 		} else if (course.contentLink) {
 			setVideoLink(course.contentLink)
@@ -24,7 +28,14 @@ export default function CourseContentViewer({
 	}, [])
 
 	useEffect(() => {
-		if (!course.modules) return
+		if (
+			!Array.isArray(course.modules) ||
+			course.modules.length <= activeModuleIndex ||
+			!Array.isArray(course.modules[activeModuleIndex].lessons) ||
+			course.modules[activeModuleIndex].lessons.length === 0 ||
+			!course.modules[activeModuleIndex].lessons[0].contentLink
+		)
+			return
 		setActiveLessonIndex(0)
 		setVideoLink(
 			course.modules[activeModuleIndex].lessons[0].contentLink as string
@@ -33,7 +44,14 @@ export default function CourseContentViewer({
 	}, [activeModuleIndex])
 
 	useEffect(() => {
-		if (!course.modules) return
+		if (
+			!Array.isArray(course.modules) ||
+			course.modules.length <= activeModuleIndex ||
+			!Array.isArray(course.modules[activeModuleIndex].lessons) ||
+			course.modules[activeModuleIndex].lessons.length <= activeLessonIndex ||
+			!course.modules[activeModuleIndex].lessons[activeLessonIndex].contentLink
+		)
+			return
 		setVideoLink(
 			course.modules[activeModuleIndex].lessons[activeLessonIndex]
 				.contentLink as string

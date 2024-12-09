@@ -1,5 +1,6 @@
+'use client'
 import Button from '@/components/buttons/Button'
-import FileInput from '@/components/inputs/FileInput'
+import MyCldUploadWidget from '@/components/cloudinary/MyCldUploadWidget'
 import TextArea from '@/components/inputs/TextArea'
 import { Course } from '@/models/course.model'
 import { useState } from 'react'
@@ -23,13 +24,13 @@ export default function CourseDetailsPanel({
 	register,
 	setValue
 }: CourseDetailsPanelProps) {
-	const [files, setFiles] = useState<FileList>()
-
-	const onFileChange = (files: FileList | null) => {
-		if (!files) return
-		setFiles(files)
-		setValue('image', files[0])
-	}
+	const [resource, setResource] = useState<string>()
+	// const [files, setFiles] = useState<FileList>()
+	// const onFileChange = (files: FileList | null) => {
+	// 	if (!files) return
+	// 	setFiles(files)
+	// 	setValue('image', files[0])
+	// }
 
 	return (
 		<form onSubmit={handleSubmit(nextStep)} className="flex flex-col gap-4">
@@ -59,13 +60,24 @@ export default function CourseDetailsPanel({
 						/>
 					</section>
 
-					<div>
+					{/* Cloudinary */}
+					<MyCldUploadWidget
+						label="Subí una imagen que represente tu curso de manera atractiva para utilizarla de portada"
+						setFormValue={setValue}
+						formField="image"
+						setResource={setResource}
+						resource={resource}
+						resourceType="image"
+					/>
+					{/* Cloudinary */}
+
+					{/* <div className="flex-col space-y-6">
 						<FileInput
 							label="Subí una imagen que represente tu curso de manera atractiva para utilizarla de portada"
 							onFileChange={(files) => onFileChange(files)}
 							files={files}
 						/>
-					</div>
+					</div> */}
 				</div>
 				<div className="w-80"></div>
 			</PanelContainer>

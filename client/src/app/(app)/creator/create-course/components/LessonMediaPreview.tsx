@@ -9,7 +9,7 @@ export default function LessonMediaPreview({ lesson }: { lesson: Lesson }) {
 				{lesson.image && (
 					<div className="flex flex-col gap-1">
 						<Image
-							src={URL.createObjectURL(lesson.image as File)}
+							src={lesson.image as string}
 							alt={lesson.title}
 							width={900}
 							height={600}
@@ -25,10 +25,7 @@ export default function LessonMediaPreview({ lesson }: { lesson: Lesson }) {
 							controls
 							className="h-48 w-fit rounded-lg"
 						>
-							<source
-								src={URL.createObjectURL(lesson.contentLink as File)}
-								type="video/mp4"
-							/>
+							<source src={lesson.contentLink as string} type="video/mp4" />
 						</video>
 						<p>Video</p>
 					</div>

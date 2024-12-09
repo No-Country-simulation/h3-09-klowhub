@@ -4,14 +4,13 @@ import { UpdateAppDto } from './dto/update-app.dto';
 import { PrismaClient } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { envs, storage } from 'src/config';
+import { storage } from 'src/config';
 import { FiltersDto } from './dto/filters.dto';
 
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('AppsService');
-  private bucketName = envs.googleBucketName;
-
+  private bucketName = 'appsheet-powerapps-files';
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Connected to database');
@@ -19,6 +18,7 @@ export class AppsService extends PrismaClient implements OnModuleInit {
   create(createAppDto: CreateAppDto) {
     return this.app.create({ data: createAppDto });
   }
+
   async findAll(paginationDto: PaginationDto, filtersDto: FiltersDto) {
     const { page, limit } = paginationDto;
     const { orderPrice } = filtersDto;
@@ -94,7 +94,6 @@ export class AppsService extends PrismaClient implements OnModuleInit {
         skip: (page - 1) * limit,
         take: limit,
         where,
-        orderBy,
       }),
       meta: {
         total: totalPages,

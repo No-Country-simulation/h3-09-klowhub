@@ -1,5 +1,7 @@
 import MyListbox from '@/components/inputs/MyListbox'
+import { functionalities } from '@/constants/filters.constant'
 import { Course } from '@/models/course.model'
+import { Option } from '@/models/option.model'
 import { Control, Controller } from 'react-hook-form'
 
 interface FunctionalitiesListboxProps {
@@ -9,6 +11,14 @@ interface FunctionalitiesListboxProps {
 export default function FunctionalitiesListbox({
 	control
 }: FunctionalitiesListboxProps) {
+	const options: Option[] = Object.entries(functionalities).map(
+		([key, value]): Option => {
+			return {
+				label: value,
+				value: key
+			}
+		}
+	)
 	return (
 		<Controller
 			name="functionalities"
@@ -18,11 +28,7 @@ export default function FunctionalitiesListbox({
 			render={({ field }) => (
 				<MyListbox
 					label="Funcionalidades"
-					options={[
-						{ value: 'apis', label: 'APIs' },
-						{ value: 'automation', label: 'Automatización' },
-						{ value: 'dinamic-forms', label: 'Formularios dinámicos' }
-					]}
+					options={options}
 					value={field.value}
 					onChange={field.onChange}
 					multiple={true}
