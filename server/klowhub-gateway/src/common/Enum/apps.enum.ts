@@ -1,12 +1,6 @@
-export enum ContentType {
-    FREE = 'FREE',
-    PAID = 'PAID'
+export enum Lenguage {
+    SPANISH = 'SPANISH',
+    ENGLISH = 'ENGLISH'
 }
-export const ContentTypeEnum = [ContentType.FREE, ContentType.PAID];
 
-export enum Plataform {
-    APPSHEET = 'APPSHEET',
-    POWERAPPS = 'POWERAPPS'
-}
-export const PlataformEnum = [Plataform.APPSHEET, Plataform.POWERAPPS];
-
+export const LenguageEnum = [Lenguage.SPANISH, Lenguage.ENGLISH];

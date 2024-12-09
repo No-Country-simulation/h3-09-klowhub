@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ModuleDto } from './create-module.dto';
+import { Platform } from '../../common/Enum/enums';
 
 export class CourseDto {
   @IsString()
@@ -78,4 +79,12 @@ export class CourseDto {
   @IsNotEmpty()
   @IsString()
   public creator: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  public platform: Platform[];
+
+  @IsArray()
+  @IsNotEmpty()
+  public relatedTags: string[];
 }

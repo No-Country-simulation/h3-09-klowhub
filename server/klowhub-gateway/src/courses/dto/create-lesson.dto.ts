@@ -17,4 +17,11 @@ export class CreateLessonDto {
 
   @IsNumber()
   public order: number;
+
+  @IsString()
+  @IsNotEmpty()
+  public contentLink: string;
+
+  @IsString()
+  public image: string;
 }

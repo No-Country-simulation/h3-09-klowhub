@@ -14,5 +14,5 @@ export class CreateResourceDto {
   public lessonId: string;
 
   @IsArray()
-  public extra: boolean;
+  public resourceLink: string[];
 }
