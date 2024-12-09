@@ -74,12 +74,7 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-002',
-			name: 'Ana Gómez',
-			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '78612',
 		price: 0
 	}
 
@@ -148,12 +143,7 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-003',
-			name: 'Carlos Rodríguez',
-			bio: 'Experto en AppSheet y ventas.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '897456',
 		price: 0
 	}
 
@@ -195,12 +185,7 @@ export default function FinishedCourses() {
 			'Esta lección te guiará paso a paso en la creación de tus primeros flujos.',
 		contentLink: 'https://example.com/flow-creation-lesson',
 		additionalResources: ['https://example.com/flows-cheatsheet.pdf'],
-		creator: {
-			id: 'creator-004',
-			name: 'Jorge Ramírez',
-			bio: 'Experto en automatización y Power Automate.',
-			profilePicture: '/img/profile_test.jpeg'
-		},
+		creator: '8971814',
 		price: 0
 	}
 

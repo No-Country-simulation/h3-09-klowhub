@@ -73,12 +73,13 @@ const mockCourse: Course = {
 			]
 		}
 	],
-	creator: {
-		id: 'creator-002',
-		name: 'Ana López',
-		bio: 'Experta en AppSheet y ventas.',
-		profilePicture: '/img/profile_test.jpeg'
-	},
+	creator: '242424',
+	// creator: {
+	// 	id: 'creator-002',
+	// 	name: 'Ana López',
+	// 	bio: 'Experta en AppSheet y ventas.',
+	// 	profilePicture: '/img/profile_test.jpeg'
+	// },
 	price: 0
 }
 
@@ -120,12 +121,7 @@ const mockLessonCourse: Course = {
 		'Esta lección te enseña cómo conectar PowerApps con otras herramientas para optimizar tus procesos.',
 	contentLink: 'https://example.com/integrations-lesson',
 	additionalResources: ['https://example.com/integrations-cheatsheet.pdf'],
-	creator: {
-		id: 'creator-001',
-		name: 'María Rodríguez',
-		bio: 'Experta en integraciones y desarrollo de aplicaciones empresariales.',
-		profilePicture: '/img/profile_test.jpeg'
-	},
+	creator: '313131',
 	price: 0
 }
 

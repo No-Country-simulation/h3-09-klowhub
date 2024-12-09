@@ -79,11 +79,7 @@ const courses: Course[] = [
 				reviewer: 'Mariana López'
 			}
 		],
-		creator: {
-			id: '',
-			name: '',
-			bio: ''
-		},
+		creator: '76853',
 		price: 150.25
 	},
 	{
@@ -175,11 +171,7 @@ const courses: Course[] = [
 				reviewer: 'Mariana López'
 			}
 		],
-		creator: {
-			id: '',
-			name: '',
-			bio: ''
-		},
+		creator: 'k8g812',
 		price: 200.5
 	}
 ]
@@ -196,6 +188,7 @@ export default function Page() {
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
 	const [searchInput, setSearchInput] = useState('')
+
 	useEffect(() => {
 		console.log(searchInput)
 	}, [searchInput])
@@ -215,6 +208,7 @@ export default function Page() {
 		})
 		setFilteredResult(filtered)
 	}, [filterByCategory, searchInput])
+
 	return (
 		<article className="space-y-5">
 			<h1 className="font-semibold">

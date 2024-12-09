@@ -1,3 +1,4 @@
+'use client'
 import { coursesAdapter } from '@/adapters/read-course.adapter'
 import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
@@ -19,7 +20,6 @@ export default function MyCourses() {
 					)
 					return []
 				}
-
 				const adaptedReceivedCourses = coursesAdapter(receivedCourses)
 				setMyCourses(adaptedReceivedCourses)
 			} catch (error) {

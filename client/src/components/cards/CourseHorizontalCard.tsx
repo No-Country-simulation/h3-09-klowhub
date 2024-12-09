@@ -19,7 +19,9 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 		(acc, review) => acc + review.score,
 		0
 	)
-	const averageScore = Number((totalScore / course.reviews.length).toFixed(1))
+	const averageScore = course.reviews.length
+		? Number((totalScore / course.reviews.length).toFixed(1))
+		: 0
 	const { addCartItem } = useStore()
 	return (
 		<>

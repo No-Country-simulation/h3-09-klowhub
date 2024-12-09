@@ -15,6 +15,13 @@ interface CourseDetailsProps {
 }
 
 export default function CourseDetails({ course }: CourseDetailsProps) {
+	// TODO: Borrar data falsa
+	const creator = {
+		id: 'creator-001',
+		name: 'Juan Pérez',
+		bio: 'Instructor y desarrollador de aplicaciones con AppSheet.',
+		profilePicture: '/img/profile_test.jpeg'
+	}
 	return (
 		<section className="flex h-fit flex-col gap-6 rounded-lg bg-white/10 px-6 py-7">
 			<div className="flex items-center justify-between">
@@ -23,7 +30,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
 			</div>
 
 			<div className="flex items-end justify-between">
-				<CreatorSection creator={course.creator} />
+				<CreatorSection creator={creator} />
 				<TechnologyTag technology={course.platform} />
 			</div>
 
@@ -37,7 +44,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
 			<section className="flex flex-col gap-6">
 				<LearningOutcomes learningOutcomes={course.learningOutcomes} />
 				<CourseAbout detailedDescription={course.detailedDescription} />
-				<InstructorHighlight creator={course.creator} />
+				<InstructorHighlight creator={creator} />
 				<CourseAudience />
 				<CoursePrerequisites prerequisites={course.prerequisites} />
 				<CourseInclusions platform={course.platform} />

@@ -13,6 +13,7 @@ import {
 	createModule,
 	createResources
 } from '@/services/courses.service'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CourseDetailsPanel from './components/CourseDetailsPanel'
@@ -49,6 +50,8 @@ export default function CreateCoursePage() {
 	const [addedModules, setAddedModules] = useState<Module[]>([])
 
 	const { register, handleSubmit, control, setValue, watch } = useForm<Course>()
+
+	const router = useRouter()
 
 	const nextStep = (data: object) => {
 		setFormData((prevData) => ({ ...prevData, ...data }))
@@ -167,6 +170,7 @@ export default function CreateCoursePage() {
 		const finalData = { ...formData, ...data, modules: addedModules }
 		console.log('Datos finales para enviar: ', finalData)
 		await postCourse(finalData)
+		router.push('/creator/my-courses')
 	}
 
 	const addModule = (module: Module) => {
