@@ -19,7 +19,6 @@ export default function UserActions() {
 	const { cart, role } = useStore()
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
-	// console.log(status, session)
 
 	useEffect(() => {
 		function handleOutsideClick(event: MouseEvent) {
