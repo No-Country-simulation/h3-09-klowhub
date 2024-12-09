@@ -92,3 +92,8 @@ export const courseTypes = {
 	COURSE: 'Curso',
 	LESSON: 'Lección'
 }
+
+export const platforms = {
+	APPSHEET: 'AppSheet',
+	POWERAPPS: 'PowerApps'
+}

@@ -11,7 +11,7 @@ import {
 	createCourse,
 	createLesson,
 	createModule,
-	createResources
+	createResource
 } from '@/services/courses.service'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ import ModulesLessonsPanel from './components/ModulesLessonsPanel'
 // Configuración inicial del curso
 const initialCourseState: Course = {
 	id: '',
-	platform: 'appsheet',
+	platform: 'POWERAPPS',
 	relatedTags: [],
 	title: '',
 	image: '',
@@ -68,23 +68,27 @@ export default function CreateCoursePage() {
 		lessonIndex: number,
 		lessonId: string
 	) => {
-		try {
-			const adaptedResourcesToRequest = resourceAdapter(
-				addedModules[moduleIndex].lessons[lessonIndex]
-					.additionalResources?.[0] as string,
-				lessonId
-			)
+		const additionalResources = addedModules[moduleIndex].lessons[lessonIndex]
+			.additionalResources as string[]
+		const adaptedResourcesToRequest = additionalResources?.map((resource) =>
+			resourceAdapter(resource, lessonId)
+		)
+		for (const [
+			resourceIndex,
+			adaptedResource
+		] of adaptedResourcesToRequest.entries()) {
+			try {
+				const createdResource = await createResource(adaptedResource)
 
-			const createdResource = await createResources(adaptedResourcesToRequest)
-
-			if (!createdResource.id) {
-				throw new Error('No se pudo crear el recurso')
+				if (!createdResource.id) {
+					throw new Error('No se pudo crear el recurso')
+				}
+			} catch (error) {
+				handleError(
+					error,
+					`postResources (módulo ${moduleIndex}, lección ${lessonIndex}), recurso ${resourceIndex}`
+				)
 			}
-		} catch (error) {
-			handleError(
-				error,
-				`postResources (módulo ${moduleIndex}, lección ${lessonIndex})`
-			)
 		}
 	}
 

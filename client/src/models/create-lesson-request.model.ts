@@ -4,4 +4,6 @@ export interface CreateLessonRequest {
 	description: string
 	moduleId: string
 	order: number
+	contentLink: string
+	image: string
 }

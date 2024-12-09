@@ -2,14 +2,16 @@ import { Course, Lesson, Module } from '@/models/course.model'
 import { CreateCourseRequest } from '@/models/create-course-request.model'
 import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
-import { CreateResourcesRequest } from '@/models/create-resource-request.model'
+import { CreateResourceRequest } from '@/models/create-resource-request.model'
 
 export function courseAdapter({
 	title,
 	image,
 	shortDescription,
 	price,
+	platform,
 	functionalities,
+	relatedTags,
 	language,
 	sector,
 	toolsAndPlatforms,
@@ -34,7 +36,9 @@ export function courseAdapter({
 		photo: image as string,
 		shortDescription: shortDescription,
 		price: parseFloat(price.toString()),
+		platform: [platform],
 		functionalities: functionalities,
+		relatedTags: relatedTags,
 		language: language,
 		sector: sector,
 		toolsAndPlatforms: toolsAndPlatforms,
@@ -73,16 +77,18 @@ export function lessonAdapter(
 		title: lesson.title,
 		description: lesson.description,
 		moduleId: moduleId,
-		order: index
+		order: index,
+		contentLink: lesson.contentLink as string,
+		image: lesson.image as string
 	}
 }
 
 export function resourceAdapter(
 	resourse: string,
 	lessonId: string
-): CreateResourcesRequest {
+): CreateResourceRequest {
 	return {
 		lessonId: lessonId,
-		pdf: [resourse]
+		resourceLink: [resourse]
 	}
 }

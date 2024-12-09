@@ -1,7 +1,7 @@
 import { CreateCourseRequest } from '@/models/create-course-request.model'
 import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
-import { CreateResourcesRequest } from '@/models/create-resource-request.model'
+import { CreateResourceRequest } from '@/models/create-resource-request.model'
 
 // Courses
 
@@ -82,7 +82,7 @@ export async function createLesson(lesson: CreateLessonRequest) {
 
 // Resources
 
-export async function createResources(resources: CreateResourcesRequest) {
+export async function createResource(resource: CreateResourceRequest) {
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/createResource`,
 		{
@@ -90,7 +90,7 @@ export async function createResources(resources: CreateResourcesRequest) {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(resources)
+			body: JSON.stringify(resource)
 		}
 	)
 	if (!response.ok) {

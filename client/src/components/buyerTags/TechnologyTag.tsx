@@ -27,7 +27,7 @@ export default function TechnologyTag({
 		>
 			<Image
 				src={technologyData.icon}
-				alt={technologyData.name}
+				alt={'Etiqueta de tecnología'}
 				width={size === 'l' ? 44 : 50}
 				height={size === 'l' ? 44 : 50}
 				className={clsx({

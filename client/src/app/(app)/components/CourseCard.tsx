@@ -5,8 +5,8 @@ import HeartLikeButton from '@/components/buttons/HeartLikeButton'
 import CategoryTag from '@/components/buyerTags/CategoryTag'
 import TechnologyTag from '@/components/buyerTags/TechnologyTag'
 import RatingStars from '@/components/RatingStars'
+import { platforms } from '@/constants/filters.constant'
 import { typeTags } from '@/constants/tags.constant'
-import { Technologies } from '@/constants/technologies.constant'
 import { Course } from '@/models/course.model'
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
@@ -65,7 +65,7 @@ export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 
 				{course.platform.length > 0 && (
 					<TechnologyTag
-						technology={course.platform as keyof typeof Technologies}
+						technology={course.platform as keyof typeof platforms}
 					/>
 				)}
 

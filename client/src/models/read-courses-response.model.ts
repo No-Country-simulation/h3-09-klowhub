@@ -4,7 +4,9 @@ export interface ReadCourseItemResponse {
 	photo: string
 	shortDescription: string
 	price: number
+	platform: string[]
 	functionalities: string[]
+	relatedTags: string[]
 	language: string
 	sector: string
 	toolsAndPlatforms: string[]
@@ -40,10 +42,12 @@ export interface ReadOneCourseResponse {
 	approved: boolean
 	available: boolean
 	creator: string
+	platform: string[]
+	relatedTags: string[]
 	module: Module[]
 }
 
-interface Module {
+export interface Module {
 	id: string
 	courseId: string
 	title: string
@@ -52,11 +56,19 @@ interface Module {
 	lesson: Lesson[]
 }
 
-interface Lesson {
+export interface Lesson {
 	id: string
 	title: string
 	description: string
 	moduleId: string
 	order: number
-	resource: any[]
+	contentLink: string
+	image: string
+	resource: Resource[]
+}
+
+export interface Resource {
+	id: string
+	lessonId: string
+	resourceLink: string[]
 }
