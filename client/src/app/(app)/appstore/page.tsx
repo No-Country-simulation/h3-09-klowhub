@@ -10,8 +10,9 @@ const apps: App[] = [
 	{
 		id: '1',
 		title: 'Control de Inventario para retail',
-		shortDescription: 'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
-		price: 80000,
+		shortDescription:
+			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
+		price: 800,
 		platform: 'appsheet',
 		language: 'Español',
 		sector: 'Logistica',
@@ -21,8 +22,12 @@ const apps: App[] = [
 		image: 'https://picsum.photos/200/100',
 		targetAudience: 'Comercios',
 		benefits: ['Orden', 'Escalabilidad', 'Practicidad'],
-		additionalMedia: ['https://example.com/advanced1', 'https://example.com/advanced1'],
-		detailedDescription: 'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
+		additionalMedia: [
+			'https://example.com/advanced1',
+			'https://example.com/advanced1'
+		],
+		detailedDescription:
+			'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
 		links: {
 			mobile: '/',
 			desktop: '/'
@@ -31,30 +36,31 @@ const apps: App[] = [
 			{
 				score: 5,
 				text: 'Esta app superó mis expectativas. Sebastián explica todo de manera clara y sencilla, lo que me permitió organizar mi negocio en tiempo récord.',
-				reviewer: 'Mariana Lopez',
+				reviewer: 'Mariana Lopez'
 			},
 			{
 				score: 5,
 				text: 'Nunca pensé que podría organizar mi negocio tan rapido Gracias a Sebastián, ahora puedo automatizar varias tareas en mi trabajo. ¡Muy recomendado!',
-				reviewer: 'Marta Torres',
+				reviewer: 'Marta Torres'
 			},
 			{
 				score: 4,
 				text: 'El enfoque práctico de Sebastián es perfecto para organizar un negocio. Su experiencia se nota en parte de la app y las herramientas que proporciona son súper útiles.',
-				reviewer: 'Rodrigo Baez',
+				reviewer: 'Rodrigo Baez'
 			},
 			{
 				score: 4,
 				text: 'Excelente app para quienes quieren iniciarse en el mundo no-code. Sebastián sabe cómo optimizarprocesos manera efectiva y accesible.',
-				reviewer: 'Mario Perez',
+				reviewer: 'Mario Perez'
 			}
-		],
+		]
 	},
 	{
 		id: '2',
 		title: 'Optimizador de ventas',
-		shortDescription: 'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
-		price: 65000,
+		shortDescription:
+			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
+		price: 650,
 		platform: 'appsheet',
 		language: 'Español',
 		sector: 'Logistica',
@@ -64,8 +70,12 @@ const apps: App[] = [
 		image: 'https://picsum.photos/200/100',
 		targetAudience: 'Comercios',
 		benefits: ['Orden', 'Escalabilidad', 'Practicidad'],
-		additionalMedia: ['https://example.com/advanced1', 'https://example.com/advanced1'],
-		detailedDescription: 'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
+		additionalMedia: [
+			'https://example.com/advanced1',
+			'https://example.com/advanced1'
+		],
+		detailedDescription:
+			'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
 		links: {
 			mobile: '/',
 			desktop: '/'
@@ -74,41 +84,46 @@ const apps: App[] = [
 			{
 				score: 5,
 				text: 'Esta app superó mis expectativas. Sebastián explica todo de manera clara y sencilla, lo que me permitió organizar mi negocio en tiempo récord.',
-				reviewer: 'Mariana Lopez',
+				reviewer: 'Mariana Lopez'
 			},
 			{
 				score: 5,
 				text: 'Nunca pensé que podría organizar mi negocio tan rapido Gracias a Sebastián, ahora puedo automatizar varias tareas en mi trabajo. ¡Muy recomendado!',
-				reviewer: 'Marta Torres',
+				reviewer: 'Marta Torres'
 			},
 			{
 				score: 4,
 				text: 'El enfoque práctico de Sebastián es perfecto para organizar un negocio. Su experiencia se nota en parte de la app y las herramientas que proporciona son súper útiles.',
-				reviewer: 'Rodrigo Baez',
+				reviewer: 'Rodrigo Baez'
 			},
 			{
 				score: 4,
 				text: 'Excelente app para quienes quieren iniciarse en el mundo no-code. Sebastián sabe cómo optimizarprocesos manera efectiva y accesible.',
-				reviewer: 'Mario Perez',
+				reviewer: 'Mario Perez'
 			}
-		],
+		]
 	},
 	{
 		id: '3',
-		title: 'Integrador de ventas y gestion'  ,
-		shortDescription: 'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
-		price: 90000,
+		title: 'Integrador de ventas y gestion',
+		shortDescription:
+			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
+		price: 900,
 		platform: 'appsheet',
 		language: 'Ingles',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
-		functionalities: ['Logistica', 'Inventarios','Retail'],
+		functionalities: ['Logistica', 'Inventarios', 'Retail'],
 		relatedTags: ['Optimizacion', 'Flexibilidad', 'Mantenimiento'],
 		image: 'https://picsum.photos/200/100',
 		targetAudience: 'Comercios',
 		benefits: ['Orden', 'Escalabilidad', 'Practicidad'],
-		additionalMedia: ['https://example.com/advanced1', 'https://example.com/advanced1'],
-		detailedDescription: 'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
+		additionalMedia: [
+			'https://example.com/advanced1',
+			'https://example.com/advanced1'
+		],
+		detailedDescription:
+			'Con nuestra plataforma de gestión de proyectos, podrás coordinar equipos, establecer plazos y hacer seguimiento de cada tarea en un solo lugar. Visualiza el avance en tiempo real, asigna prioridades y asegúrate de que todos estén alineados con los objetivos.',
 		links: {
 			mobile: '/',
 			desktop: '/'
@@ -117,29 +132,29 @@ const apps: App[] = [
 			{
 				score: 5,
 				text: 'Esta app superó mis expectativas. Sebastián explica todo de manera clara y sencilla, lo que me permitió organizar mi negocio en tiempo récord.',
-				reviewer: 'Mariana Lopez',
+				reviewer: 'Mariana Lopez'
 			},
 			{
 				score: 5,
 				text: 'Nunca pensé que podría organizar mi negocio tan rapido Gracias a Sebastián, ahora puedo automatizar varias tareas en mi trabajo. ¡Muy recomendado!',
-				reviewer: 'Marta Torres',
+				reviewer: 'Marta Torres'
 			},
 			{
 				score: 4,
 				text: 'El enfoque práctico de Sebastián es perfecto para organizar un negocio. Su experiencia se nota en parte de la app y las herramientas que proporciona son súper útiles.',
-				reviewer: 'Rodrigo Baez',
+				reviewer: 'Rodrigo Baez'
 			},
 			{
 				score: 4,
 				text: 'Excelente app para quienes quieren iniciarse en el mundo no-code. Sebastián sabe cómo optimizarprocesos manera efectiva y accesible.',
-				reviewer: 'Mario Perez',
+				reviewer: 'Mario Perez'
 			},
 			{
 				score: 5,
 				text: 'Esta app es una herramienta imprescindible para cualquier negocio.',
-				reviewer: 'Juan Carlos Mansilla',
+				reviewer: 'Juan Carlos Mansilla'
 			}
-		],
+		]
 	}
 ]
 

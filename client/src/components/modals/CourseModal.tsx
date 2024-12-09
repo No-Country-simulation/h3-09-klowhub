@@ -28,8 +28,12 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 			show={course ? true : false}
 			onClose={() => setCourseSelected(null)}
 			theme={{
+				root: {
+					base: 'no-scrollbar z-50'
+				},
 				content: {
-					inner: 'bg-card rounded-lg sm:p-6'
+					inner:
+						'bg-card rounded-lg sm:p-6 max-h-[95vh] overflow-y-scroll scrollbar-hide'
 				},
 				header: {
 					base: 'border-b-0 flex'
