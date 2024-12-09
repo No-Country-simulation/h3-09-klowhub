@@ -21,8 +21,12 @@ export default function AppModal({ setAppSelected, app }: Props) {
 			show={app ? true : false}
 			onClose={() => setAppSelected(null)}
 			theme={{
+				root: {
+					base: 'no-scrollbar z-50'
+				},
 				content: {
-					inner: 'bg-card rounded-lg sm:p-6'
+					inner:
+						'bg-card rounded-lg sm:p-6 max-h-[95vh] overflow-y-scroll scrollbar-hide'
 				},
 				header: {
 					base: 'border-b-0 flex'

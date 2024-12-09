@@ -2,6 +2,7 @@ import Button from '@/components/buttons/Button'
 import CategoryTag from '@/components/buyerTags/CategoryTag'
 import RatingStars from '@/components/RatingStars'
 import useStore from '@/lib/store'
+import { App } from '@/models/app.model'
 import { Course } from '@/models/course.model'
 import { Review } from '@/models/product.model'
 import moneyFormat from '@/utils/moneyFormat'
@@ -9,8 +10,11 @@ import { Card } from 'flowbite-react'
 import { FileChartColumnIncreasing, MessageSquare, Star } from 'lucide-react'
 import Image from 'next/image'
 
-export default function CartItem({ item }: { item: Course }) {
+export default function CartItem({ item }: { item: Course | App }) {
 	const calculateRating = (reviews: Review[]) => {
+		if (reviews.length < 1) {
+			return 0
+		}
 		const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
 		const averageScore = Number((totalScore / reviews.length).toFixed(1))
 		return averageScore
@@ -88,9 +92,7 @@ export default function CartItem({ item }: { item: Course }) {
 						</div>
 					</div>
 					<b className="right-0 text-xl lg:absolute">
-						{item.contentType === 'PAID' && item.price
-							? moneyFormat(item.price)
-							: 'GRATIS'}
+						{item.price ? moneyFormat(item.price) : 'GRATIS'}
 					</b>
 				</Card>
 			</div>

@@ -1,14 +1,14 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import StripeButton from '@/components/buttons/StripeButton'
 import CartConfirmModal from '@/components/modals/CartConfirmModal'
 import useStore from '@/lib/store'
+import { Coupon } from '@/models/coupon.model'
 import moneyFormat from '@/utils/moneyFormat'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-interface Coupon {
-	name: string
-	discount: number
-}
+
 const coupons: Coupon[] = [
 	{
 		name: 'VERANO2024',
@@ -25,11 +25,18 @@ const coupons: Coupon[] = [
 ]
 
 export default function PaymentMethod() {
-	const { getTotalCart } = useStore()
+	const { getTotalCart, cart, emptyCart } = useStore()
 	const [discountInput, setDiscountInput] = useState('')
 	const [activeDiscount, setActiveDiscount] = useState<Coupon | null>(null)
 	const [totalResume, setTotalResume] = useState(getTotalCart())
 	const [showModalConfirmation, setShowModalConfirmation] = useState(false)
+	const param = useSearchParams()
+	useEffect(() => {
+		if (param.get('status') === 'success') {
+			emptyCart()
+			setShowModalConfirmation(true)
+		}
+	}, [])
 
 	const loadDiscount = () => {
 		const coupon = coupons.filter((item) => item.name === discountInput)[0]
@@ -92,18 +99,22 @@ export default function PaymentMethod() {
 				<div className="space-y-5">
 					<p>Selecciona un método de pago</p>
 					<div className="grid h-fit w-full grid-cols-3 gap-5">
-						<span
-							className="relative flex aspect-video cursor-pointer rounded-lg bg-slate-100"
-							onClick={() => setShowModalConfirmation(true)}
+						<StripeButton
+							items={cart}
+							activeDiscount={activeDiscount}
+							disabled={cart.length < 1}
 						>
-							<Image
-								src={'/img/stripe-logo.png'}
-								alt=""
-								width={120}
-								height={45}
-								className="m-auto aspect-video rounded-lg object-contain p-2"
-							/>
-						</span>
+							<span className="relative flex aspect-video cursor-pointer rounded-lg bg-slate-100">
+								<Image
+									src={'/img/stripe-logo.png'}
+									alt=""
+									width={120}
+									height={45}
+									className="m-auto aspect-video rounded-lg object-contain p-2"
+								/>
+							</span>
+						</StripeButton>
+
 						<span className="relative flex aspect-video cursor-pointer rounded-lg bg-slate-100">
 							<Image
 								src={'/img/payPal-logo.png'}

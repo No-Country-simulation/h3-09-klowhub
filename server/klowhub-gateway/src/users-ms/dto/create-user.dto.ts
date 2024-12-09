@@ -3,8 +3,6 @@ import {
   IsNotEmpty,
   IsEmail,
   IsOptional,
-  IsDateString,
-  IsNumberString,
   IsEnum,
   IsArray,
 } from 'class-validator';
@@ -34,8 +32,8 @@ export class UserDto {
 
   @IsOptional()
   public available?: boolean;
-
-  @IsNotEmpty()
+  
+  @IsOptional()
   @IsArray()
   @IsEnum(Roles, { each: true })
   public role: Roles[];
