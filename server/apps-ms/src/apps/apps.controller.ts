@@ -72,4 +72,8 @@ export class AppsController {
       appId,
     };
   }
+  @MessagePattern('deleteFile')
+  async deleteFile(@Payload('fileName') fileName: string): Promise<string> {
+    return this.appsService.deleteFile(fileName);
+  }
 }
