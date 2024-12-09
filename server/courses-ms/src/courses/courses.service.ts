@@ -3,93 +3,88 @@ import {
   Logger,
   OnModuleInit,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { CreateCourseSectionDto } from './dto/create-course-section.dto';
+import { CreateLessonDto } from './dto/create-lesson.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { CreateResourceDto } from './dto/create-resource.dto';
+import { UpdateResourceDto } from './dto/update-resource.dto';
+import { ModuleDto } from './dto/create-module.dto';
+import { UpdateModuleDto } from './dto/update-module.dto';
+import { storage } from '../config/storage.config';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('Courses service');
+  private bucketName = process.env.BUCKET_NAME;
+  private bucketNameImage = process.env.BUCKET_NAME_IMAGE;
+
+  constructor() {
+    super();
+  }
 
   async onModuleInit() {
     await this.$connect();
     this.logger.log('onModuleInit');
   }
+  //Course
+
+  async findCoursesByUserId(userId: string) {
+    this.logger.log('find_courses_by_user_id');
+
+    const courses = await this.course.findMany({
+      where: { creator: userId },
+    });
+
+    return courses;
+  }
 
   async findOneCourseById(id: string) {
     this.logger.log('find_one_course_by_id');
-    const course = await this.course.findUnique({
-      where: { id },
-    });
-    return course;
+
+    try {
+      const course = await this.course.findUnique({
+        where: { id },
+        include: {
+          module: {
+            include: {
+              lesson: {
+                include: {
+                  resource: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!course) {
+        throw new BadRequestException(`Course with ID ${id} not found`);
+      }
+
+      return course;
+    } catch (error) {
+      this.logger.error(
+        `Error fetching course with ID ${id}: ${error.message}`,
+      );
+      throw new RpcException(error.message);
+    }
   }
+
   async getAllCourses() {
     this.logger.log('find_all_courses');
     const course = await this.course.findMany();
     return course;
   }
 
-  async createCourse(courseData: CreateCourseDto) {
+  async createCourse(courseData: CourseDto) {
     this.logger.log('create_course');
     const createCourse = await this.course.create({ data: courseData });
     return createCourse;
-  }
-
-  /*
-  async createCourse(courseData: CreateCourseDto) {
-    this.logger.log('create_course');
-
-    try {
-      // Create the course
-      const createdCourse = await this.course.create({ data: courseData });
-      this.logger.log(`Course created with ID: ${createdCourse.id}`);
-
-      // Create the section associated with the course
-      const sectionData: CreateCourseSectionDto = {
-        titleSection: 'Default Section Title',
-        courseId: createdCourse.id,
-        order: 1,
-      };
-      const createdSection = await this.courseSection.create({
-        data: sectionData,
-      });
-      this.logger.log(
-        `Section created with ID: ${createdSection.id} for course ID: ${createdCourse.id}`,
-      );
-
-      // Create the resource associated with the section
-      const resourceData: CreateResourceDto = {
-        sectionId: createdSection.id,
-        mediaId: 'default-media-id', // id default
-      };
-      const createdResource = await this.resource.create({
-        data: resourceData,
-      });
-      this.logger.log(
-        `Resource created with ID: ${createdResource.id} for section ID: ${createdSection.id}`,
-      );
-
-      return {
-        course: createdCourse,
-        section: createdSection,
-        resource: createdResource,
-      };
-    } catch (error) {
-      this.logger.error('Error creating course, section, or resource', error);
-      throw new RpcException('Failed to create course and related entities');
-    }
-  }
-*/
-  async createSection(courseSectionData: CreateCourseSectionDto) {
-    this.logger.log('create_section');
-    const createSection = await this.courseSection.create({
-      data: courseSectionData,
-    });
-    return createSection;
   }
 
   async updateCourse(id: string, updateData: UpdateCourseDto): Promise<Course> {
@@ -102,55 +97,6 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     return updateCourse;
   }
 
-  /*
-  async updateCourse(id: string, updateData: UpdateCourseDto): Promise<any> {
-    this.logger.log(`update_course with ID: ${id}`);
-
-    try {
-      // Update the course
-      const { sectionData, resourceData, ...courseData } = updateData;
-      const updatedCourse = await this.course.update({
-        where: { id },
-        data: courseData,
-      });
-      this.logger.log(`Course with ID: ${id} updated successfully`);
-
-      // Update the associated section
-      let updatedSection = null;
-      if (sectionData) {
-        updatedSection = await this.courseSection.update({
-          where: { id: sectionData.id },
-          data: sectionData,
-        });
-        this.logger.log(
-          `Section with ID: ${sectionData.id} updated successfully for course ID: ${id}`,
-        );
-      }
-
-      // Update the associated resource
-      let updatedResource = null;
-      if (resourceData) {
-        updatedResource = await this.resource.update({
-          where: { id: resourceData.id },
-          data: resourceData,
-        });
-        this.logger.log(
-          `Resource with ID: ${resourceData.id} updated successfully for section ID: ${sectionData?.id}`,
-        );
-      }
-
-      // Return updated data
-      return {
-        course: updatedCourse,
-        section: updatedSection,
-        resource: updatedResource,
-      };
-    } catch (error) {
-      this.logger.error(`Error updating course with ID: ${id}`, error);
-      throw new RpcException('Failed to update course and related entities');
-    }
-  }
-*/
   async deleteCourse(courseId: string): Promise<Course> {
     this.logger.log('delete_course');
 
@@ -161,5 +107,212 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       },
     });
     return updateCourse;
+  }
+
+  //  Image
+  async uploadImage(file: {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+  }): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('No file provided for upload');
+    }
+    this.logger.log('Uploading image to Google Cloud Storage');
+    const bucket = storage.bucket(this.bucketNameImage);
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+    return new Promise((resolve, reject) => {
+      blobStream
+        .on('finish', () => {
+          const publicUrl = `https://storage.googleapis.com/${this.bucketNameImage}/${blob.name}`;
+          this.logger.log(`Image uploaded successfully: ${publicUrl}`);
+          console.log(publicUrl);
+          resolve(publicUrl);
+        })
+        .on('error', (err) => {
+          this.logger.error('Error uploading image:', err.message);
+          reject(err);
+        })
+        .end(file.buffer);
+    });
+  }
+
+  async uploadVideo(file: {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+  }): Promise<string> {
+    if (!file) {
+      throw new BadRequestException('No file provided for upload');
+    }
+
+    this.logger.log('Uploading video to Google Cloud Storage');
+    const bucket = storage.bucket(this.bucketName);
+    const blob = bucket.file(file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+
+    return new Promise((resolve, reject) => {
+      blobStream
+        .on('finish', () => {
+          const publicUrl = `https://storage.googleapis.com/${this.bucketName}/${blob.name}`;
+          this.logger.log(`Video uploaded successfully: ${publicUrl}`);
+          resolve(publicUrl);
+        })
+        .on('error', (err) => {
+          this.logger.error('Error uploading video:', err.message);
+          reject(err);
+        })
+        .end(file.buffer);
+    });
+  }
+  //  Lesson
+  async createLesson(lessonData: CreateLessonDto) {
+    this.logger.log('create_course_lesson');
+    try {
+      const courseLesson = await this.lesson.create({
+        data: lessonData,
+      });
+      return courseLesson;
+    } catch (error) {
+      this.logger.error(`Error creating course section`, error);
+      throw new Error('Could not create course section');
+    }
+  }
+
+  async getAllCourseLessons() {
+    this.logger.log('find_all_course_lessons');
+    const courseLessons = await this.lesson.findMany();
+    return courseLessons;
+  }
+
+  async findOneCourseLessonById(id: string) {
+    this.logger.log('find_one_course_lesson_by_id');
+    const courseLesson = await this.lesson.findUnique({
+      where: { id },
+    });
+    return courseLesson;
+  }
+
+  async updateCourseLesson(id: string, updateData: UpdateLessonDto) {
+    this.logger.log('update_course_lesson');
+    const updateCourseLesson = await this.lesson.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateCourseLesson;
+  }
+
+  async deleteCourseLesson(id: string) {
+    this.logger.log('delete_course_lesson');
+
+    try {
+      const deletedCourseLesson = await this.lesson.delete({
+        where: { id },
+      });
+      return deletedCourseLesson;
+    } catch (error) {
+      this.logger.error(`Error deleting course lesson with ID ${id}`, error);
+      throw new Error('Could not delete course lesson');
+    }
+  }
+  // Resource
+
+  async createResource(resourceData: CreateResourceDto) {
+    this.logger.log('create_resource');
+    const resource = await this.resource.create({
+      data: resourceData,
+    });
+    return resource;
+  }
+
+  async getAllResources() {
+    this.logger.log('find_all_resources');
+    const resources = await this.resource.findMany();
+    return resources;
+  }
+
+  async findOneResourceById(id: string) {
+    this.logger.log('find_one_resource_by_id');
+    const resource = await this.resource.findUnique({
+      where: { id },
+    });
+    return resource;
+  }
+
+  async updateResource(id: string, updateData: UpdateResourceDto) {
+    this.logger.log('update_resource');
+    const updateResource = await this.resource.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateResource;
+  }
+
+  async deleteResource(id: string) {
+    this.logger.log('delete_resource');
+
+    try {
+      const deletedResource = await this.resource.delete({
+        where: { id },
+      });
+      return deletedResource;
+    } catch (error) {
+      this.logger.error(`Error deleting resource with ID ${id}`, error);
+      throw new Error('Could not delete resource');
+    }
+  }
+
+  //Module
+
+  async createModule(moduleData: ModuleDto) {
+    this.logger.log('create_module');
+    const module = await this.module.create({
+      data: moduleData,
+    });
+    return module;
+  }
+
+  async getAllModules() {
+    this.logger.log('find_all_modules');
+    const modules = await this.module.findMany();
+    return modules;
+  }
+
+  async findOneModuleById(id: string) {
+    this.logger.log('find_one_module_by_id');
+    const module = await this.module.findUnique({
+      where: { id },
+    });
+    return module;
+  }
+
+  async updateModule(id: string, updateData: UpdateModuleDto) {
+    this.logger.log('update_module');
+    const updateModule = await this.module.update({
+      where: { id },
+      data: updateData,
+    });
+    return updateModule;
+  }
+
+  async deleteModule(id: string) {
+    this.logger.log('delete_module');
+
+    try {
+      const deletedModule = await this.module.delete({
+        where: { id },
+      });
+      return deletedModule;
+    } catch (error) {
+      this.logger.error(`Error deleting module with ID ${id}`, error);
+      throw new Error('Could not delete module');
+    }
   }
 }

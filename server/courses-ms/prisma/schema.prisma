@@ -13,47 +13,88 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Category {
+enum CourseType {
   COURSE
   LESSON
 }
 
-model Course {
-  id           String          @id @default(uuid())
-  title        String
-  photo        String?
-  description  String
-  price        Int
-  sellerId     String
-  category     Category //Enum type for category 
-  technologies String[]
-  approved     Boolean
-  language     String
-  available    Boolean
-  productId    String
-  level        String
-  sections     CourseSection[] // One-to-many relationship with CourseSection
-
-  @@map("courses") // Name of the table in the database
+enum Platform {
+  APPSHEET
+  POWERAPPS
 }
 
-model CourseSection {
-  id           String     @id @default(uuid())
-  titleSection String
-  courseId     String
-  resourceId   String?
-  order        Int
-  course       Course     @relation(fields: [courseId], references: [id]) // Relationship with Course
-  resources    Resource[] // One-to-many relationship with Resource
+enum ContentType {
+  FREE
+  PAID
+}
 
-  @@map("course_sections") // Name of the table in the database
+enum ResourceType {
+  VIDEO
+  DOCUMENT
+  LINK
+  OTHER
+}
+
+model Course {
+  id                  String      @id @default(uuid())
+  title               String
+  photo               String
+  shortDescription    String
+  price               Float
+  functionalities     String[]
+  language            String
+  sector              String
+  toolsAndPlatforms   String[]
+  contentType         ContentType
+  courseType          CourseType
+  level               String
+  contentPillar       String
+  learningOutcomes    String[]
+  prerequisites       String[]
+  detailedDescription String
+  approved            Boolean     @default(false)
+  available           Boolean     @default(true)
+  creator             String // 
+  module              Module[] // One-to-many relationship with Module
+  platform            Platform[]
+  relatedTags         String[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  moduleId    String
+  module      Module     @relation(fields: [moduleId], references: [id])
+  order       Int
+  resource    Resource[] // One-to-many relationship with Resource
+  contentLink String
+  image       String
+
+  @@index([moduleId, order])
+  @@map("lessons")
 }
 
 model Resource {
-  id        String        @id @default(uuid())
-  sectionId String
-  mediaId   String
-  section   CourseSection @relation(fields: [sectionId], references: [id]) // Relationship with CourseSection
+  id           String   @id @default(uuid())
+  lessonId     String
+  lesson       Lesson   @relation(fields: [lessonId], references: [id])
+  resourceLink String[]
 
-  @@map("resources") // Name of the table in the database
+  @@map("resources")
+}
+
+model Module {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  lesson      Lesson[] // One-to-many relationship with lesson
+  order       Int
+  description String
+  course      Course   @relation(fields: [courseId], references: [id])
+
+  @@index([courseId, order])
+  @@map("modules")
 }

@@ -10,3 +10,9 @@ export enum Plataform {
 }
 export const PlataformEnum = [Plataform.APPSHEET, Plataform.POWERAPPS];
 
+export enum AppType {
+    DESKTOP = 'DESKTOP',
+    MOVIL = 'MOVIL'
+}
+export const AppTypeEnum = [AppType.DESKTOP, AppType.MOVIL];
+

@@ -1,10 +1,17 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
-import { CreateCourseSectionDto } from './create-course-section.dto';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+} from 'class-validator';
+import { CreateLessonDto } from './create-lesson.dto';
+import { Type } from 'class-transformer';
 
 export class CreateResourceDto {
-  @IsNotEmpty()
-  public sectionId: string;
-  @IsNotEmpty()
   @IsString()
-  public mediaId: string;
+  public lessonId: string;
+
+  @IsArray()
+  public resourceLink: string[];
 }
