@@ -17,22 +17,29 @@ const linksCreator = [
 	{ label: "Sobre AppSheet", href: "/creator" },
 ];
 
-export default function NavLinks() {
+interface NavLinksProps {
+	isVertical?: boolean
+	onLinkClick?: () => void
+}
+
+export default function NavLinks({ isVertical = false, onLinkClick }: NavLinksProps) {
 	const { role } = useStore()
 	const links = role === 'Creator' ? linksCreator : linksExplorer
 
 	return (
-		<nav className="flex space-x-8">
+		<ul className={`flex ${isVertical ? 'flex-col items-center space-y-6' : 'space-x-1'}`}>
 			{links.map(({ label, href }) => (
-				<Link
-					key={label}
-					href={href}
-					className="text-[14px] font-semibold text-primary-b-200 p-2 hover:bg-gray-500 hover:rounded-lg hover:text-white"
-				>
-					{label}
-				</Link>
+				<li key={label}>
+					<Link
+						href={href}
+						className={`${isVertical ? 'text-[16px] font-semibold text-primary-b-200 p-2 hover:bg-gray-500 hover:rounded-lg hover:text-white' : 'text-[14px] font-semibold text-primary-b-200 p-1 2xl:p-2 hover:bg-gray-500 hover:rounded-lg hover:text-white'}`}
+						onClick={onLinkClick}
+					>
+						{label}
+					</Link>
+				</li>
 			))}
-		</nav>
+		</ul>
 	);
 }
 

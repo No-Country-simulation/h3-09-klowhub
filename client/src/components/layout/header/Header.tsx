@@ -4,10 +4,16 @@ import { useState } from 'react'
 import Logo from './Logo'
 import NavLinks from './NavLinks'
 import UserActions from './UserActions'
+import { Menu, X } from 'lucide-react'
 
 
 export default function Header() {
 	const [isEnabled, setIsEnabled] = useState(true)
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+	const handleLinkClick = () => {
+		setIsMenuOpen(false)
+	}
 
 	return (
 		<header className="w-full bg-[url('/img/header-bg.png')] bg-cover bg-center pt-3">
@@ -17,14 +23,34 @@ export default function Header() {
 					<div className="mt-2 md:mt-0">
 						<HomePlatformSwitch enabled={isEnabled} setEnabled={setIsEnabled} />
 					</div>
-					<div className="ml-4 hidden items-center space-x-6 md:flex">
+					<div className="hidden items-center xl:flex">
 						<NavLinks />
 					</div>
 				</div>
 				<div className="relative">
 					<UserActions />
 				</div>
+				{/* Mobile icon menu */}
+				<button
+					onClick={() => setIsMenuOpen(!isMenuOpen)} className='xl:hidden'
+					aria-label="Toggle Menu">
+					{isMenuOpen ? (
+						<X className='h6 w-6 text-white' />
+					) : (
+						<Menu className='h6 w-6 text-white' />
+					)
+					}
+				</button>
 			</nav>
+			{/* Modal mobile menu */}
+			{isMenuOpen && (
+				<div className="fixed right-0 top-20 z-30 h-96 w-full bg-custom-gradient xl:hidden">
+					{/* Centered NavLinks */}
+					<div className="flex h-full flex-col items-center justify-center space-y-6">
+						<NavLinks isVertical onLinkClick={handleLinkClick} />
+					</div>
+				</div>
+			)}
 		</header>
 	)
 }
