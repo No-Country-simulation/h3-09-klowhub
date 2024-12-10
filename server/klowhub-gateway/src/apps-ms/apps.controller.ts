@@ -16,7 +16,7 @@ import {
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { catchError, firstValueFrom } from 'rxjs';
 import { PaginationDto } from 'src/common';
-import { CreateAppDto, UpdateAppDto } from './dto';
+import { CreateAppDto, UpdateAppDto, UploadFileDto } from './dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { FiltersDto } from 'src/common/dto';
@@ -30,7 +30,10 @@ export class AppsController {
     return this.appClient.send('createApp', createAppDto);
   }
   @Get()
-  findAllProducts(@Query() paginationDto: PaginationDto,@Body() filtersDto: FiltersDto) {
+  findAllProducts(
+    @Query() paginationDto: PaginationDto,
+    @Body() filtersDto: FiltersDto,
+  ) {
     const payload = { pagination: paginationDto, filters: filtersDto };
     return this.appClient.send('findAllApps', payload);
   }
@@ -47,7 +50,7 @@ export class AppsController {
   }
 
   @Patch(':id')
-  async updateProduct(
+  async updateApp(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateAppDto: UpdateAppDto,
   ) {
@@ -62,7 +65,7 @@ export class AppsController {
     }
   }
   @Delete(':id')
-  removeProduct(@Param('id', ParseUUIDPipe) id: string) {
+  removeApp(@Param('id', ParseUUIDPipe) id: string) {
     return this.appClient.send('removeApp', { id }).pipe(
       catchError((err) => {
         throw new RpcException(err);
@@ -74,20 +77,17 @@ export class AppsController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body('appId', ParseUUIDPipe) appId: string,
+    @Body() UploadFileDto: UploadFileDto, // Enum recibido
   ): Promise<{ url: string }> {
     try {
-      // Obtener la extensión original del archivo
-      const extension = file.originalname.split('.').pop() || 'rar';
-      // Generar un nombre único con UUID
-      const newFileName = `${appId}.${extension}`;
+      const extension = 'rar';
+      const newFileName = `${UploadFileDto.type_app}_${UploadFileDto.app_id}.${extension}`; // Agregar tipo al nombre
 
       const fileData = {
         buffer: file.buffer,
         originalname: newFileName,
         mimetype: file.mimetype,
       };
-      //console.log('Sending file data to microservice:', fileData);
 
       const url = await firstValueFrom(
         this.appClient.send('uploadFile', fileData),
@@ -95,12 +95,31 @@ export class AppsController {
 
       return url;
     } catch (error) {
-      console.log(error);
+      console.error('Error al subir archivo:', error.message);
       throw new RpcException(error);
     }
   }
 
-  @Get('download/:appId')
+  @Delete('delete/:type/:appId')
+  async deleteFile(
+    @Param() UploadFileDto: UploadFileDto,
+    @Param('appId', ParseUUIDPipe) appId: string,
+  ): Promise<{ message: string }> {
+    try {
+     
+      const fileName = `${UploadFileDto.type_app}_${appId}`;
+      const result = await firstValueFrom(
+        this.appClient.send('deleteFile', { fileName }),
+      );
+
+      return { message: result };
+    } catch (error) {
+      console.error('Error al eliminar archivo:', error.message);
+      throw new RpcException(error);
+    }
+  }
+
+  @Get('download/:type/:appId')
   async downloadFile(
     @Param('appId', ParseUUIDPipe) appId: string,
     @Res() res: Response,

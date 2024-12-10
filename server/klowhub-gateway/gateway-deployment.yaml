@@ -58,6 +58,8 @@ data:
   USERS_MICROSERVICE_PORT: '3001'
   APPS_MICROSERVICE_HOST: apps-ms-service.default.svc.cluster.local
   APPS_MICROSERVICE_PORT: '3002'
+  COURSES_MICROSERVICE_HOST: courses-ms-service.default.svc.cluster.local
+  COURSES_MICROSERVICE_PORT: '3004'
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

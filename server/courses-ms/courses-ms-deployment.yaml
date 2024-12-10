@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: courses-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: courses-ms
+  template:
+    metadata:
+      labels:
+        app: courses-ms
+    spec:
+      containers:
+        - name: courses-ms
+          image: gcr.io/wired-climate-442121-i1/courses-ms:latest
+          ports:
+            - containerPort: 3004
+          envFrom:
+            - configMapRef:
+                name: env-courses-ms-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: courses-ms-service
+spec:
+  type: ClusterIP
+  selector:
+    app: courses-ms
+  ports:
+  - protocol: TCP
+    port: 3004
+    targetPort: 3004
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-courses-ms-config
+data:
+  COURSE_PORT: "3004"
+  COURSE_HOST: "0.0.0.0"
+  DATABASE_URL_USER: AGREGARLA
