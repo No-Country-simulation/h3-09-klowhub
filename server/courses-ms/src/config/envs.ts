@@ -3,11 +3,13 @@ import 'dotenv/config';
 import * as Joi from 'joi';
 
 interface EnvVars {
-  PORT: number;
+  COURSES_PORT: number;
+  COURSES_HOST: string; 
 }
 
 const envSchema = Joi.object({
-  PORT: Joi.number().required(),
+  COURSES_PORT: Joi.number().required(),
+  COURSES_HOST: Joi.string().required(),
 }).unknown(true);
 
 const { error, value } = envSchema.validate(process.env);
@@ -17,5 +19,6 @@ if (error) {
 const envVars = value as EnvVars;
 
 export const envs = {
-  port: envVars.PORT,
+  port: envVars.COURSES_PORT,
+  host: envVars.COURSES_HOST
 };

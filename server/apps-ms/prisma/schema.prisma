@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,11 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum ContentType {
   FREE
   PAID
 }
+
 enum Plataform {
   APPSHEET
   POWERAPPS

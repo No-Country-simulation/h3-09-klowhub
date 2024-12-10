@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "prisma:generate": "prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -27,11 +28,7 @@
     "@nestjs/microservices": "^10.4.8",
     "@nestjs/platform-express": "^10.4.13",
     "@prisma/client": "^5.22.0",
-<<<<<<< HEAD:server/app-courses/package.json
     "class-transformer": "^0.5.1",
-=======
-    "app-courses": "file:",
->>>>>>> dev:server/courses-ms/package.json
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "joi": "^17.13.3",

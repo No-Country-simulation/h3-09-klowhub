@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /build
-/src/config/service-account.json
+
 # Logs
 logs
 *.log
@@ -41,11 +41,12 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
-./src/config/service-account.json
+/src/config/service-account
+/src/config/service-account
 # temp directory
 .temp
 .tmp
-
+server/apps-ms/src/config/service-account.json
 # Runtime data
 pids
 *.pid

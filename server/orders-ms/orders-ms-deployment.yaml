@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-ms
+  template:
+    metadata:
+      labels:
+        app: orders-ms
+    spec:
+      containers:
+        - name: orders-ms
+          image: gcr.io/wired-climate-442121-i1/orders-ms:latest
+          ports:
+            - containerPort: 3005
+          envFrom:
+            - configMapRef:
+                name: env-orders-ms-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-ms-service
+spec:
+  type: ClusterIP
+  selector:
+    app: orders-ms
+  ports:
+  - protocol: TCP
+    port: 3005
+    targetPort: 3005
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-orders-ms-config
+data:
+  ORDER_PORT: "3005"
+  ORDER_HOST: "0.0.0.0"
+  DATABASE_URL_USER: postgresql://appsdb_owner:DkY8uORBLC7N@ep-blue-sea-a5lcg70b.us-east-2.aws.neon.tech/orders_db?sslmode=require
