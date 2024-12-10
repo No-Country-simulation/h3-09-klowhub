@@ -9,6 +9,6 @@ export const config = {
 		'/projects/:path*',
 		'/create/:path*',
 		// Excluimos `/auth/login` y `/auth/register` para permitir acceso público a estas rutas
-		'/((?!auth/login|auth/register|components|_next/static|_public/img|_next/image|favicon.ico).*)',
-	],
+		'/((?!auth/login|auth/register|components|_next/static|_public/img|_next/image|favicon.ico).*)'
+	]
 }

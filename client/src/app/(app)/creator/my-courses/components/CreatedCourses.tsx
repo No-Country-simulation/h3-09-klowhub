@@ -8,7 +8,7 @@ const mockCourse: Course = {
 	title: 'Automatización de Procesos con AppSheet',
 	shortDescription:
 		'Aprende a automatizar tareas repetitivas utilizando AppSheet.',
-	platform: 'appsheet',
+	platform: 'APPSHEET',
 	language: 'Español',
 	sector: 'Ventas y CRM',
 	toolsAndPlatforms: ['AppSheet', 'Google Sheets'],
@@ -89,7 +89,7 @@ const mockLessonCourse: Course = {
 	title: 'Integraciones con PowerApps',
 	shortDescription:
 		'Descubre cómo integrar PowerApps con otras herramientas de Microsoft.',
-	platform: 'powerapps',
+	platform: 'POWERAPPS',
 	language: 'Inglés',
 	sector: 'Finanzas y Contabilidad',
 	toolsAndPlatforms: ['PowerApps', 'Microsoft Excel'],

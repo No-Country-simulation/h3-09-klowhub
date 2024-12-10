@@ -21,7 +21,7 @@ const course: Course = {
 	price: 10.0,
 	shortDescription:
 		'Aprende a automatizar procesos complejos usando PowerApps.',
-	platform: 'powerapps',
+	platform: 'POWERAPPS',
 	language: 'Inglés',
 	sector: 'Negocios',
 	toolsAndPlatforms: ['PowerApps', 'AppSheet'],

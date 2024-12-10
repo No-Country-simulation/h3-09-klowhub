@@ -9,7 +9,7 @@ export default function FinishedCourses() {
 		title: 'Construcción de Aplicaciones Empresariales con PowerApps',
 		shortDescription:
 			'Aprende a desarrollar aplicaciones empresariales desde cero con PowerApps.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['PowerApps', 'Microsoft Teams'],
@@ -84,7 +84,7 @@ export default function FinishedCourses() {
 		title: 'Optimización de Ventas con AppSheet',
 		shortDescription:
 			'Mejora tus procesos de ventas usando aplicaciones personalizadas en AppSheet.',
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Inglés',
 		sector: 'Ventas y CRM',
 		toolsAndPlatforms: ['AppSheet', 'Google Drive'],
@@ -104,7 +104,7 @@ export default function FinishedCourses() {
 			}
 		],
 		contentType: 'PAID',
-		courseType: 'COURSE',
+		courseType: 'LESSON',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -153,7 +153,7 @@ export default function FinishedCourses() {
 		title: 'Creación de Flujos con Power Automate',
 		shortDescription:
 			'Domina la creación de flujos básicos con Power Automate.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['Power Automate', 'Microsoft Excel'],
@@ -194,7 +194,7 @@ export default function FinishedCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Cursos terminados</h4>
-			<div className="flex gap-6 overflow-scroll">
+			<div className="no-scrollbar flex gap-6 overflow-scroll">
 				{finishedCourses.map((course) => {
 					return (
 						<MyCourseCard

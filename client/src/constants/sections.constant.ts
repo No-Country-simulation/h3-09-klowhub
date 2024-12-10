@@ -1,6 +1,6 @@
 export const sections = {
 	learn: {
-		href: '/learn',
+		href: '/learn/courses',
 		text: 'Aprende en KlowHub'
 	},
 	appstore: {
