@@ -4,9 +4,12 @@ import App from 'next/app'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-	apiVersion: '2024-11-20.acacia'
-})
+const stripe = new Stripe(
+	'sk_test_51NUxNAE8eiHCQU5rcRB7steaLxr7oaffQXrHmqOlFNKsIKvqojWQCLOOtZZRN9q8itJosnAkXDetMXp7jLlv3jjA00kFcIcc3V',
+	{
+		apiVersion: '2024-11-20.acacia'
+	}
+)
 
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
