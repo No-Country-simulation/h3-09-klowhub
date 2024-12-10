@@ -16,7 +16,7 @@ const app = {
 	rating: 3,
 	totalVotes: 26,
 	categories: ['Logística', 'Retail', 'Inventarios'],
-	stack: ['appsheet'],
+	stack: ['APPSHEET'],
 	image: 'https://picsum.photos/200'
 }
 const user = {
