@@ -27,6 +27,7 @@
     "@nestjs/microservices": "^10.4.8",
     "@nestjs/platform-express": "^10.4.8",
     "@prisma/client": "^5.22.0",
+    "apps-ms": "file:",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
