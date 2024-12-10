@@ -41,7 +41,7 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
-
+./src/config/service-account.json
 # temp directory
 .temp
 .tmp
