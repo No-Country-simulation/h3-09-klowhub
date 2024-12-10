@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-ms
+  template:
+    metadata:
+      labels:
+        app: payments-ms
+    spec:
+      containers:
+        - name: payments-ms
+          image: gcr.io/wired-climate-442121-i1/payments-ms:latest
+          ports:
+            - containerPort: 3006
+          envFrom:
+            - configMapRef:
+                name: env-payments-ms-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-ms-service
+spec:
+  type: ClusterIP
+  selector:
+    app: payments-ms
+  ports:
+  - protocol: TCP
+    port: 3006
+    targetPort: 3006
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-payments-ms-config
+data:
+  PAYMENT_PORT: "3006"
+  PAYMENT_HOST: "0.0.0.0"
+  STRIPE_SECRET_KEY: sk_test_51NUxNAE8eiHCQU5rcRB7steaLxr7oaffQXrHmqOlFNKsIKvqojWQCLOOtZZRN9q8itJosnAkXDetMXp7jLlv3jjA00kFcIcc3V
+  STRIPE_SUCCESS_URL: pedirla a gaspar
+  STRIPE_CANCEL_URL: pedirla a gaspar
+  STRIPE_ENPOINT_SECRET: pedirla a gaspar

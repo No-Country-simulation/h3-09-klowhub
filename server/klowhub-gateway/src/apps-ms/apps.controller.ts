@@ -119,19 +119,19 @@ export class AppsController {
     }
   }
 
-  @Get('download/:type/:appId')
+  @Get('download/:name')
   async downloadFile(
-    @Param('appId', ParseUUIDPipe) appId: string,
+    @Param('name') name: string,
     @Res() res: Response,
   ): Promise<void> {
     try {
       const result = await firstValueFrom(
-        this.appClient.send('downloadFile', { appId }),
+        this.appClient.send('downloadFile', { name }),
       );
 
       // Le asigna una extencion si no tiene
       const extension = result.extension || 'rar'; // Asume 'rar' si no hay extensión
-      const fileName = `${appId}.${extension}`;
+      const fileName = `${name}.${extension}`;
 
       // Configura los encabezados para una descarga de archivo
       res.set({
