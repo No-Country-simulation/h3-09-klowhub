@@ -7,9 +7,9 @@ export default function RatingStars({ rating, totalVotes }: RatingStarsProps) {
 	const roundedRating = Math.round(rating)
 
 	return (
-		<article className="text-base font-medium flex items-center w-fit gap-3">
+		<article className="flex w-fit items-center gap-3 text-base font-medium">
 			<span>{rating}</span>
-			<div className="flex ">
+			<div className="flex">
 				{Array.from({ length: 5 }, (_, i) => (
 					<Star
 						key={i}

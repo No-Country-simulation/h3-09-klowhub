@@ -10,7 +10,8 @@ export default function Logo() {
 					alt="logo image"
 					width={52}
 					height={54}
-					priority />
+					priority
+				/>
 			</Link>
 		</div>
 	)

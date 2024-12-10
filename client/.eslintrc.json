@@ -8,6 +8,7 @@
 		"next/core-web-vitals",
 		"next/typescript",
 		"eslint:recommended",
+		"prettier",
 		"plugin:@next/next/recommended",
 		"plugin:@typescript-eslint/recommended"
 	],
@@ -28,7 +29,17 @@
 			{ "avoidEscape": true, "allowTemplateLiterals": true }
 		],
 		"semi": ["error", "never"],
-		"indent": ["error", "tab", { "SwitchCase": 1 }, { "MemberExpression": 1 }],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1,
+				"MemberExpression": 1,
+				"flatTernaryExpressions": true,
+				"ignoredNodes": ["TemplateLiteral *"],
+				"ignoreComments": false
+			}
+		],
 		"no-tabs": "off",
 		"@typescript-eslint/no-unused-vars": "warn",
 		"@next/next/no-html-link-for-pages": "off",

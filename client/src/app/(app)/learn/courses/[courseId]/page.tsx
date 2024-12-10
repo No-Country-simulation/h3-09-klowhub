@@ -24,7 +24,7 @@ const course: Course = {
 	platform: 'POWERAPPS',
 	language: 'Inglés',
 	sector: 'Negocios',
-	toolsAndPlatforms: ['PowerApps', 'AppSheet'],
+	toolsAndPlatforms: ['POWERAPPS', 'APPSHEET'],
 	functionalities: ['APIs', 'Integraciones', 'Automatizaciones'],
 	relatedTags: ['Automatización', 'Flujos de trabajo'],
 	image: 'https://picsum.photos/300/150',
@@ -230,7 +230,7 @@ export default function Page() {
 				<div className="du flex gap-2">
 					{course.toolsAndPlatforms.map((technology, i: number) => (
 						<TechnologyTag
-							technology={technology.toLocaleLowerCase() as Technology}
+							technology={technology as Technology}
 							key={'technology-' + i}
 						/>
 					))}

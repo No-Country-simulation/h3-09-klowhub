@@ -23,6 +23,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 		? Number((totalScore / course.reviews.length).toFixed(1))
 		: 0
 	const { addCartItem } = useStore()
+
 	return (
 		<>
 			<Card
@@ -66,7 +67,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 				<div className="flex gap-2">
 					{course.toolsAndPlatforms.map((technology, i) => (
 						<TechnologyTag
-							technology={technology.toLocaleLowerCase() as Technology}
+							technology={technology as Technology}
 							key={'technology-' + i}
 						/>
 					))}

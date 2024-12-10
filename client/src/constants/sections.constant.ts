@@ -4,7 +4,7 @@ export const sections = {
 		text: 'Aprende en KlowHub'
 	},
 	appstore: {
-		href: '/app-store',
+		href: '/appstore',
 		text: 'Encuentra aplicaciones'
 	},
 	projects: {

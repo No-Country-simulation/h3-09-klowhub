@@ -24,6 +24,7 @@ interface GeneralInformationPanelProps {
 	nextStep: (data: object) => void
 	handleSubmit: UseFormHandleSubmit<Course, undefined>
 	register: UseFormRegister<Course>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	control: Control<Course, any>
 	watch: UseFormWatch<Course>
 }
