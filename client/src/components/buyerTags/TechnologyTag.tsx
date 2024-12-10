@@ -13,8 +13,9 @@ export default function TechnologyTag({
 	technology,
 	size = 'l'
 }: TechnologyTagProps) {
+	const tech = technology.toLowerCase()
 	const technologyData = {
-		icon: `/svg/${technology}.svg`,
+		icon: `/svg/${tech}.svg`,
 		name: Technologies[technology]
 	}
 
