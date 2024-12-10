@@ -1,6 +1,5 @@
 import CategoryTag from '@/components/buyerTags/CategoryTag'
 import { App } from '@/models/app.model'
-import React from 'react'
 interface Props {
 	contentPillar: App['functionalities']
 	sector: App['sector']
@@ -8,7 +7,6 @@ interface Props {
 	toolsAndPlatforms: App['toolsAndPlatforms']
 }
 export default function InfoFuncApp({
-	contentPillar,
 	sector,
 	functionalities,
 	toolsAndPlatforms

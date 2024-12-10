@@ -8,7 +8,6 @@ interface TagsListboxProps {
 	control: Control<Course>
 }
 
-;['Automatización', 'No Code', 'AppSheet']
 export default function TagsListbox({ control }: TagsListboxProps) {
 	const options: Option[] = Object.entries(relatedTags).map(
 		([key, value]): Option => {

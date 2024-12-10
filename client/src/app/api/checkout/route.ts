@@ -2,7 +2,13 @@ import { Coupon } from '@/models/coupon.model'
 import { Course } from '@/models/course.model'
 import App from 'next/app'
 import { NextRequest, NextResponse } from 'next/server'
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+import Stripe from 'stripe'
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+	apiVersion: '2024-11-20.acacia'
+})
+
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 export async function POST(req: NextRequest) {
 	const {
@@ -14,12 +20,13 @@ export async function POST(req: NextRequest) {
 	try {
 		const coupon = activeDiscount
 			? await stripe.coupons.create({
-					name: activeDiscount.name,
-					percent_off: activeDiscount.discount
-				})
+				name: activeDiscount.name,
+				percent_off: activeDiscount.discount
+			})
 			: null
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			line_items: items.map((item: any) => ({
 				price_data: {
 					currency: 'usd',

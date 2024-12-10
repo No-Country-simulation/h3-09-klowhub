@@ -33,9 +33,9 @@ export default function MyListbox({
 						<span className="block truncate text-sm text-black">
 							{multiple && isMultiple && value.length > 0
 								? options
-										.filter((option) => value.includes(option.value))
-										.map((option) => option.label)
-										.join(', ')
+									.filter((option) => value.includes(option.value))
+									.map((option) => option.label)
+									.join(', ')
 								: !multiple && typeof value === 'string'
 									? options.find((option) => option.value === value)?.label ||
 										'Selecciona una opción'

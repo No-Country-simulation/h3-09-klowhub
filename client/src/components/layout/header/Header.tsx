@@ -6,7 +6,6 @@ import NavLinks from './NavLinks'
 import UserActions from './UserActions'
 import { Menu, X } from 'lucide-react'
 
-
 export default function Header() {
 	const [isEnabled, setIsEnabled] = useState(true)
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -32,14 +31,15 @@ export default function Header() {
 				</div>
 				{/* Mobile icon menu */}
 				<button
-					onClick={() => setIsMenuOpen(!isMenuOpen)} className='xl:hidden'
-					aria-label="Toggle Menu">
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					className="xl:hidden"
+					aria-label="Toggle Menu"
+				>
 					{isMenuOpen ? (
-						<X className='h6 w-6 text-white' />
+						<X className="h6 w-6 text-white" />
 					) : (
-						<Menu className='h6 w-6 text-white' />
-					)
-					}
+						<Menu className="h6 w-6 text-white" />
+					)}
 				</button>
 			</nav>
 			{/* Modal mobile menu */}

@@ -99,6 +99,7 @@ const projectList = [
 
 export default function Page() {
 	const [showModal, setShowModal] = useState(false)
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [appSelected, SetAppSelected] = useState<App | null>(app)
 
 	const param = useParams()

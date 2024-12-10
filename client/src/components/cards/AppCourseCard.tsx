@@ -82,7 +82,7 @@ export function AppCourseCard({ variant = 'app' }: Props) {
 					Añadir al carrito
 				</Button>
 				<Link href={`/app/${app.id}`}>
-					<Button className="min-w-0 p-2 text-xs" size="l" variant="tertiary" >
+					<Button className="min-w-0 p-2 text-xs" size="l" variant="tertiary">
 						Ver detalles
 					</Button>
 				</Link>

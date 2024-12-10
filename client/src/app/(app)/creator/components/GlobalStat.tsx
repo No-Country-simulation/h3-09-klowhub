@@ -7,10 +7,9 @@ interface GlobalStatProps {
 
 export default function GlobalStat({ title, value }: GlobalStatProps) {
 	return (
-		<div className='bg-white/10 rounded-md p-4 shadow-md text-center text-white w-full'>
-			<h3 className='text-sm font-medium'>{title}</h3>
-			<p className='text-xl font-bold text-primary-b-300 mt-2'>{value}</p>
+		<div className="w-full rounded-md bg-white/10 p-4 text-center text-white shadow-md">
+			<h3 className="text-sm font-medium">{title}</h3>
+			<p className="mt-2 text-xl font-bold text-primary-b-300">{value}</p>
 		</div>
 	)
 }
-

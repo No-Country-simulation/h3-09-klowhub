@@ -27,13 +27,13 @@ export default function CardStatusTag({ status }: CardStatusTagProps) {
 			className={clsx(
 				'flex h-8 w-fit items-center justify-center gap-1 rounded-xl border px-2',
 				{
-					'bg-app_tags-status-card-success-bg text-app_tags-status-card-success-text border-app_tags-status-card-success-text':
+					'border-app_tags-status-card-success-text bg-app_tags-status-card-success-bg text-app_tags-status-card-success-text':
 						status === 'finished' ||
 						status === 'solved' ||
 						status === 'published',
-					'bg-app_tags-status-card-inProgress-bg text-app_tags-status-card-inProgress-text border-app_tags-status-card-inProgress-text':
+					'border-app_tags-status-card-inProgress-text bg-app_tags-status-card-inProgress-bg text-app_tags-status-card-inProgress-text':
 						status === 'inProgress',
-					'bg-app_tags-status-card-pending-bg text-app_tags-status-card-pending-text border-app_tags-status-card-pending-text':
+					'border-app_tags-status-card-pending-text bg-app_tags-status-card-pending-bg text-app_tags-status-card-pending-text':
 						status === 'notStarted' || status === 'pending'
 				}
 			)}
