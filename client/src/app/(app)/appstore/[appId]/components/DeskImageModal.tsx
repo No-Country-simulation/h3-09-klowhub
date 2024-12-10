@@ -15,14 +15,14 @@ export default function DeskImageModal({ setShowModal, show }: Props) {
 			onClose={() => setShowModal(false)}
 			theme={{
 				content: {
-					inner: 'bg-[#323238] rounded-lg sm:p-4 w-fit',
+					inner: 'bg-[#323238] rounded-lg sm:p-4 w-fit'
 				},
 				header: {
-					base: 'border-b-0 flex',
+					base: 'border-b-0 flex'
 				},
 				body: {
-					base: 'w-[800px] h-[528px]',
-				},
+					base: 'w-[800px] h-[528px]'
+				}
 			}}
 		>
 			<Modal.Header />

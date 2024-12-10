@@ -96,7 +96,7 @@ export default function MyCldUploadWidget({
 					multiple: false
 				}}
 				signatureEndpoint="/api/cloudinary/sign-image"
-				onSuccess={(result, { widget }) => {
+				onSuccess={(result) => {
 					const uploadedInfo = result?.info as CloudinaryUploadWidgetInfo
 					if (uploadedInfo?.secure_url) {
 						setFormValue?.(formField as keyof Course, uploadedInfo.secure_url)

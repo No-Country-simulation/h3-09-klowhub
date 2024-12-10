@@ -8,7 +8,9 @@ interface SectionLinkButtonProps {
 	section: Section
 }
 
-export default function CreatorSectionLinkBtn({ section }: SectionLinkButtonProps) {
+export default function CreatorSectionLinkBtn({
+	section
+}: SectionLinkButtonProps) {
 	return (
 		<Link
 			href={sections[section].href}

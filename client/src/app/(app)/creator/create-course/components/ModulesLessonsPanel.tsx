@@ -26,6 +26,7 @@ export default function ModulesLessonsPanel({
 	deleteModuleLesson,
 	watch
 }: ModulesLessonsPanelProps) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const isFieldFilled = (value: any) => {
 		if (Array.isArray(value)) return value.length > 0
 		if (value instanceof File || value instanceof Blob) return value.size > 0

@@ -1,11 +1,9 @@
-import { cardStatusTags } from '@/constants/tags.constant'
+import { cardStatusTags, typeTags } from '@/constants/tags.constant'
 import { Technologies } from '@/constants/technologies.constant'
-import CardStatusTag from '../components/appTags/CardStatusTag';
-import { typeTags } from '@/constants/tags.constant';
 
 interface User {
-	id: string;
-	name: string;
+	id: string
+	name: string
 	image: string
 }
 

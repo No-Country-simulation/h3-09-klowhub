@@ -7,9 +7,9 @@ interface Metrics {
 
 export default function MetricTag({ quantity, label }: Metrics) {
 	return (
-		<div className='flex items-baseline w-fit py-2 gap-1'>
-			<p className='text-primary-b-200 text-xl font-bold'>{quantity}</p>
-			<p className='text-sm font-bold'>{label}</p>
+		<div className="flex w-fit items-baseline gap-1 py-2">
+			<p className="text-xl font-bold text-primary-b-200">{quantity}</p>
+			<p className="text-sm font-bold">{label}</p>
 		</div>
 	)
 }

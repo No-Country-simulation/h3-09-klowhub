@@ -26,13 +26,13 @@ export default function ExplorerCreatorSwitch() {
 					<Backpack
 						className={clsx('size-5', {
 							'text-primary-b-500': role !== 'Creator',
-							'text-white': role === 'Creator',
+							'text-white': role === 'Creator'
 						})}
 					/>
 					<Rocket
 						className={clsx('size-5', {
 							'text-primary-b-500': role === 'Creator',
-							'text-white': role !== 'Creator',
+							'text-white': role !== 'Creator'
 						})}
 					/>
 				</div>

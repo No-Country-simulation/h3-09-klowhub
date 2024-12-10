@@ -7,7 +7,7 @@ import { Coupon } from '@/models/coupon.model'
 import moneyFormat from '@/utils/moneyFormat'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const coupons: Coupon[] = [
 	{
@@ -36,6 +36,7 @@ export default function PaymentMethod() {
 			emptyCart()
 			setShowModalConfirmation(true)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const loadDiscount = () => {
@@ -49,6 +50,7 @@ export default function PaymentMethod() {
 	}
 	useEffect(() => {
 		loadDiscount()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getTotalCart()])
 	return (
 		<article>

@@ -9,12 +9,12 @@ export default function CheckedList({ item }: Props) {
 	const items = Array.isArray(item) ? item : [item]
 
 	return (
-		<ul className='w-full'>
+		<ul className="w-full">
 			{items.map((item, index) => {
 				return (
-					<li key={index} className='flex items-center gap-6 mb-4'>
+					<li key={index} className="mb-4 flex items-center gap-6">
 						<Check />
-						<span className='text-[14px]'>{item}</span>
+						<span className="text-[14px]">{item}</span>
 					</li>
 				)
 			})}

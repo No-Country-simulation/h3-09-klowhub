@@ -50,7 +50,7 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 					<div className="flex gap-2">
 						{course.toolsAndPlatforms.map((technology, i: number) => (
 							<TechnologyTag
-								technology={technology.toLocaleLowerCase() as Technology}
+								technology={technology as Technology}
 								key={'technology-' + i}
 							/>
 						))}
