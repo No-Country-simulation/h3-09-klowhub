@@ -13,7 +13,7 @@ const course = {
 	rating: 3,
 	totalVotes: 26,
 	categories: ['CRM', 'Clientes', 'Ventas'],
-	stack: ['appsheet'],
+	stack: ['APPSHEET'],
 	image: 'https://picsum.photos/200'
 }
 export function CourseInProgressCard() {
@@ -79,7 +79,7 @@ export function CourseInProgressCard() {
 				labelProgress
 				labelText
 			/>
-			<Link href={`/app/${course.id}`}>
+			<Link href={`/app/${course.id}`} className="w-fit">
 				<Button className="min-w-0 p-2 text-xs" size="l">
 					Continuar viendo
 				</Button>

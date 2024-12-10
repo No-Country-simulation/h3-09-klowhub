@@ -2,13 +2,13 @@ import Link from 'next/link'
 import useStore from '@/lib/store';
 
 const linksExplorer = [
-	{ label: "Dashboard", href: "/" },
-	{ label: "Curso y lecciones", href: "/learn/courses" },
-	{ label: "Appstore", href: "/appstore" },
-	{ label: "Proyectos", href: "/projects" },
-	{ label: "Consultoría", href: "/consulting" },
-	{ label: "Sobre Appsheet", href: "/about" },
-];
+	{ label: 'Dashboard', href: '/' },
+	{ label: 'Curso y lecciones', href: '/learn/courses' },
+	{ label: 'Appstore', href: '/appstore' },
+	{ label: 'Proyectos', href: '/projects' },
+	{ label: 'Consultoría', href: '/consulting' },
+	{ label: 'Sobre KlowHub', href: '/about' }
+]
 const linksCreator = [
 	{ label: "Dashboard", href: "/creator" },
 	{ label: "Ganancias", href: "/creator" },
