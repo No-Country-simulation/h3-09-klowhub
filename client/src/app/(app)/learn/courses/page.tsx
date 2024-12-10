@@ -11,15 +11,15 @@ const courses: Course[] = [
 		title: 'Introducción a AppSheet',
 		shortDescription:
 			'Aprende los conceptos básicos para crear aplicaciones con AppSheet.',
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Español',
 		sector: 'Tecnología',
 		toolsAndPlatforms: ['AppSheet'],
 		functionalities: ['APIs', 'Ventas'],
 		relatedTags: ['Automatización', 'No-Code'],
 		image: 'https://picsum.photos/200/100',
-		contentType: 'free',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -79,26 +79,23 @@ const courses: Course[] = [
 				reviewer: 'Mariana López'
 			}
 		],
-		creator: {
-			id: '',
-			name: '',
-			bio: ''
-		}
+		creator: '76853',
+		price: 150.25
 	},
 	{
 		id: '2',
 		title: 'Automatización avanzada con PowerApps',
 		shortDescription:
 			'Aprende a automatizar procesos complejos usando PowerApps.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Inglés',
 		sector: 'Negocios',
 		toolsAndPlatforms: ['PowerApps', 'AppSheet'],
 		functionalities: ['APIs', 'Integraciones', 'Automatizaciones'],
 		relatedTags: ['Automatización', 'Flujos de trabajo'],
 		image: 'https://picsum.photos/200/100',
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -174,11 +171,8 @@ const courses: Course[] = [
 				reviewer: 'Mariana López'
 			}
 		],
-		creator: {
-			id: '',
-			name: '',
-			bio: ''
-		}
+		creator: 'k8g812',
+		price: 200.5
 	}
 ]
 
@@ -194,6 +188,7 @@ export default function Page() {
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
 	const [searchInput, setSearchInput] = useState('')
+
 	useEffect(() => {
 		console.log(searchInput)
 	}, [searchInput])
@@ -213,6 +208,7 @@ export default function Page() {
 		})
 		setFilteredResult(filtered)
 	}, [filterByCategory, searchInput])
+
 	return (
 		<article className="space-y-5">
 			<h1 className="font-semibold">

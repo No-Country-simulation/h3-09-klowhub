@@ -8,6 +8,6 @@ export const config = {
 		'/learn/:path*', // Protege learn y sus subrutas
 		'/projects/:path*', // Protege projects y sus subrutas
 		// Excluimos `/auth/login` y `/auth/register` para permitir acceso público a estas rutas
-		'/((?!auth/login|auth/register|components|_next/static|_public/img|_next/image|favicon.ico).*)',
-	],
+		'/((?!auth/login|auth/register|components|_next/static|_public/img|_next/image|favicon.ico).*)'
+	]
 }

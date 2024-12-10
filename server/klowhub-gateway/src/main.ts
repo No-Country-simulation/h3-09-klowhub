@@ -15,13 +15,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.useGlobalFilters(new ExceptionFilter());
+
+  // CORS
   app.enableCors({
-    origin: '*', // Permite todas las solicitudes (no recomendado en producción)
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
-    allowedHeaders: 'Content-Type, Authorization', // Cabeceras permitidas
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
   });
 
-  app.useGlobalFilters(new ExceptionFilter());
   await app.listen(envs.port);
 
   logger.log(`Client-Gateway running on port ${envs.port}`);

@@ -1,12 +1,14 @@
 'use client'
+import useStore from '@/lib/store'
+import { Course } from '@/models/course.model'
+import moneyFormat from '@/utils/moneyFormat'
 import { Card } from 'flowbite-react'
 import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
 import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
-import { Course } from '@/models/course.model'
-import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
 	course: Course
@@ -17,14 +19,16 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 		(acc, review) => acc + review.score,
 		0
 	)
-	const averageScore = Number((totalScore / course.reviews.length).toFixed(1))
-
+	const averageScore = course.reviews.length
+		? Number((totalScore / course.reviews.length).toFixed(1))
+		: 0
+	const { addCartItem } = useStore()
 	return (
 		<>
 			<Card
 				theme={{
 					root: {
-						children: 'p-2  gap-2 flex flex-col w-full',
+						children: 'p-2  gap-2 flex flex-col w-full relative',
 						horizontal: {
 							on: 'md:max-w-full max-sm:flex-col flex-row '
 						}
@@ -45,7 +49,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 						<Image
 							fill
 							sizes="200px"
-							src={course.image}
+							src={course.image as string}
 							alt="app image"
 							className="z-0 object-cover"
 						/>
@@ -68,20 +72,8 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 					))}
 				</div>
 				<RatingStars rating={averageScore} totalVotes={course.reviews.length} />
-				{/* <b>
-					{course.contentType === 'paid' ? (
-						<>
-							{Intl.NumberFormat('en-EN', {
-								style: 'currency',
-								currency: 'USD'
-							}).format(course.price)}
-						</>
-					) : (
-						'GRATIS'
-					)}
-				</b> */}
 				<div className="flex w-full flex-wrap">
-					<Button className="p-0" size="l">
+					<Button className="p-0" size="l" onClick={() => addCartItem(course)}>
 						Añadir al carrito
 					</Button>
 					<Button
@@ -92,6 +84,11 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 						Ver detalles
 					</Button>
 				</div>
+				<b className="right-5 text-xl lg:absolute">
+					{course.contentType === 'PAID' && course.price
+						? moneyFormat(course.price)
+						: 'GRATIS'}
+				</b>
 			</Card>
 		</>
 	)

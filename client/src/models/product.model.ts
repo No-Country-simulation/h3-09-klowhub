@@ -1,4 +1,4 @@
-export type Platform = 'appsheet' | 'powerapps'
+export type Platform = 'APPSHEET' | 'POWERAPPS'
 
 export interface Review {
 	reviewer: string
@@ -11,13 +11,13 @@ export interface DigitalProduct {
 	id: string
 	title: string
 	shortDescription: string
-	price?: number
+	price: number
 	platform: Platform
 	language: string
 	sector: string // Sector o industria (ej: "Ventas y CRM", "Finanzas y Contabilidad")
 	toolsAndPlatforms: string[] // Herramientas relacionadas (ej: "Zapier", "Excel")
 	functionalities: string[] // Funcionalidades (ej: "APIs", "Integraciones")
 	relatedTags: string[] // Palabras clave o etiquetas
-	image: string
+	image: string | File
 	reviews: Review[]
 }

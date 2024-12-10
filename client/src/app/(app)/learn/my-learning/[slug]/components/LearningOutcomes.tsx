@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
 
 interface LearningOutcomesProps {
-	learningOutcomes: string[]
+	learningOutcomes: string[] | string
 }
 export default function LearningOutcomes({
 	learningOutcomes
@@ -11,14 +11,15 @@ export default function LearningOutcomes({
 			<h6 className="text-sm font-semibold">
 				Después de completar este curso, serás capaz de
 			</h6>
-			{learningOutcomes.map((outcome, idx) => {
-				return (
-					<div key={idx} className="ml-4 flex gap-4">
-						<Check />
-						<p className="text-sm">{outcome}</p>
-					</div>
-				)
-			})}
+			{Array.isArray(learningOutcomes) &&
+				learningOutcomes.map((outcome, idx) => {
+					return (
+						<div key={idx} className="ml-4 flex gap-4">
+							<Check />
+							<p className="text-sm">{outcome}</p>
+						</div>
+					)
+				})}
 		</article>
 	)
 }

@@ -1,5 +1,5 @@
 import { Course } from '@/models/course.model'
-import MyCourseCard from './MyCourseCard'
+import MyCourseCard from '../../../components/CourseCard'
 
 export default function FinishedCourses() {
 	// TODO: Quitar data mockeada
@@ -9,7 +9,7 @@ export default function FinishedCourses() {
 		title: 'Construcción de Aplicaciones Empresariales con PowerApps',
 		shortDescription:
 			'Aprende a desarrollar aplicaciones empresariales desde cero con PowerApps.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['PowerApps', 'Microsoft Teams'],
@@ -28,8 +28,8 @@ export default function FinishedCourses() {
 				text: 'Cubrió todas mis expectativas, muy recomendable.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'COURSE',
 		level: 'intermediate',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -74,12 +74,8 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-002',
-			name: 'Ana Gómez',
-			bio: 'Experta en PowerApps y desarrollo de aplicaciones empresariales.',
-			profilePicture: '/img/profile_test.jpeg'
-		}
+		creator: '78612',
+		price: 0
 	}
 
 	// Curso tipo "curso" 2
@@ -88,7 +84,7 @@ export default function FinishedCourses() {
 		title: 'Optimización de Ventas con AppSheet',
 		shortDescription:
 			'Mejora tus procesos de ventas usando aplicaciones personalizadas en AppSheet.',
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Inglés',
 		sector: 'Ventas y CRM',
 		toolsAndPlatforms: ['AppSheet', 'Google Drive'],
@@ -107,8 +103,8 @@ export default function FinishedCourses() {
 				text: 'Me ayudó mucho, aunque algunas partes fueron rápidas.'
 			}
 		],
-		contentType: 'paid',
-		courseType: 'course',
+		contentType: 'PAID',
+		courseType: 'LESSON',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -147,12 +143,8 @@ export default function FinishedCourses() {
 				]
 			}
 		],
-		creator: {
-			id: 'creator-003',
-			name: 'Carlos Rodríguez',
-			bio: 'Experto en AppSheet y ventas.',
-			profilePicture: '/img/profile_test.jpeg'
-		}
+		creator: '897456',
+		price: 0
 	}
 
 	// Curso tipo "lección"
@@ -161,7 +153,7 @@ export default function FinishedCourses() {
 		title: 'Creación de Flujos con Power Automate',
 		shortDescription:
 			'Domina la creación de flujos básicos con Power Automate.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['Power Automate', 'Microsoft Excel'],
@@ -180,8 +172,8 @@ export default function FinishedCourses() {
 				text: 'Me hubiera gustado más detalle en las configuraciones.'
 			}
 		],
-		contentType: 'free',
-		courseType: 'lesson',
+		contentType: 'FREE',
+		courseType: 'LESSON',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -193,12 +185,8 @@ export default function FinishedCourses() {
 			'Esta lección te guiará paso a paso en la creación de tus primeros flujos.',
 		contentLink: 'https://example.com/flow-creation-lesson',
 		additionalResources: ['https://example.com/flows-cheatsheet.pdf'],
-		creator: {
-			id: 'creator-004',
-			name: 'Jorge Ramírez',
-			bio: 'Experto en automatización y Power Automate.',
-			profilePicture: '/img/profile_test.jpeg'
-		}
+		creator: '8971814',
+		price: 0
 	}
 
 	const finishedCourses: Course[] = [course1, course2, lessonCourse]
@@ -206,9 +194,18 @@ export default function FinishedCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Cursos terminados</h4>
-			<div className="flex gap-6 overflow-scroll">
+			<div className="no-scrollbar flex gap-6 overflow-scroll">
 				{finishedCourses.map((course) => {
-					return <MyCourseCard key={course.id} course={course} />
+					return (
+						<MyCourseCard
+							key={course.id}
+							course={course}
+							linkButtonProps={{
+								text: 'Ver detalles',
+								href: `/learn/my-learning/${course.id}`
+							}}
+						/>
+					)
 				})}
 			</div>
 		</section>

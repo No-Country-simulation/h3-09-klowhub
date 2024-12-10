@@ -1,4 +1,4 @@
 export enum Technologies {
-	appsheet = 'AppSheet',
-	powerapps = 'Power Apps'
+	APPSHEET = 'AppSheet',
+	POWERAPPS = 'Power Apps'
 }

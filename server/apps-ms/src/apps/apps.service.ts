@@ -4,13 +4,13 @@ import { UpdateAppDto } from './dto/update-app.dto';
 import { PrismaClient } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { storage } from 'src/config';
+import { envs, storage } from 'src/config';
 import { FiltersDto } from './dto/filters.dto';
 
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('AppsService');
-  private bucketName = 'appsheet-powerapps-files';
+  private bucketName = envs.googleBucketName;
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Connected to database');
@@ -21,41 +21,80 @@ export class AppsService extends PrismaClient implements OnModuleInit {
 
   async findAll(paginationDto: PaginationDto, filtersDto: FiltersDto) {
     const { page, limit } = paginationDto;
-    const { filter, lenguage } = filtersDto;
-  
+    const { orderPrice } = filtersDto;
+
     const where: any = { available: true };
-  
-    // Incluir el filtro por array de 'filter' si está presente
-    if (filter && filter.length > 0) {
-      where.OR = filter.map((value) => ({
-        technologies: {
-          has: value, // Cambia 'tags' por el campo real en tu modelo que corresponde a los filtros
-        },
-      }));
+
+    // Filtrar por funcionalidades
+    if (filtersDto.functionalities && filtersDto.functionalities.length > 0) {
+      where.functionalities = {
+        hasEvery: filtersDto.functionalities,
+      };
     }
-  
-    // Incluir el filtro por 'lenguage' si está presente
-    if (lenguage) {
-      where.lenguage = lenguage;
+
+    // Filtrar por idioma
+    if (filtersDto.language) {
+      where.language = filtersDto.language;
     }
-  
+
+    // Filtrar por sector
+    if (filtersDto.sector && filtersDto.sector.length > 0) {
+      where.sector = {
+        hasEvery: filtersDto.sector,
+      };
+    }
+
+    // Filtrar por herramientas y plataformas
+    if (
+      filtersDto.toolsAndPlatforms &&
+      filtersDto.toolsAndPlatforms.length > 0
+    ) {
+      where.toolsAndPlatforms = {
+        hasEvery: filtersDto.toolsAndPlatforms,
+      };
+    }
+
+    // Filtrar por tipo de contenido
+    if (filtersDto.contentType) {
+      where.contentType = filtersDto.contentType;
+    }
+
+    // Filtrar por plataforma
+    if (filtersDto.plataform) {
+      where.plataform = filtersDto.plataform;
+    }
+
+    // Filtrar por nivel
+    if (filtersDto.level) {
+      where.level = filtersDto.level;
+    }
+
     // Obtener el total de páginas con los filtros aplicados
     const totalPages = await this.app.count({ where });
     const lastPage = Math.ceil(totalPages / limit);
-  
+
     // Validar si la página solicitada excede la última página
     if (page > lastPage) {
       throw new RpcException(
         `Page ${page} exceeds the last page number (${lastPage}).`,
       );
     }
-  
-    // Retornar los datos paginados con los filtros aplicados
+
+    // Definir el orden del precio
+    const orderBy = [];
+    if (orderPrice) {
+      orderBy.push({
+        price: orderPrice.toLowerCase() === 'asc' ? 'asc' : 'desc',
+      });
+    }
+
+    // Retornar los datos paginados con los filtros y orden aplicados
     return {
       data: await this.app.findMany({
         skip: (page - 1) * limit,
         take: limit,
         where,
+        orderBy,
       }),
       meta: {
         total: totalPages,
@@ -64,7 +103,7 @@ export class AppsService extends PrismaClient implements OnModuleInit {
       },
     };
   }
-  
+
   async findOne(id: string) {
     const app = await this.app.findFirst({
       where: { id: id, available: true },
@@ -182,6 +221,31 @@ export class AppsService extends PrismaClient implements OnModuleInit {
       throw new RpcException({
         status: error.code || 500,
         message: 'File download failed: ' + error.message,
+      });
+    }
+  }
+  async deleteFile(fileName: string): Promise<string> {
+    const bucket = storage.bucket(this.bucketName);
+    const file = bucket.file(fileName);
+
+    try {
+      const [exists] = await file.exists();
+      if (!exists) {
+        throw new RpcException({
+          status: 404,
+          message: `El archivo ${fileName} no existe en el bucket ${this.bucketName}.`,
+        });
+      }
+
+      await file.delete();
+      return `Archivo ${fileName} eliminado exitosamente.`;
+    } catch (error) {
+      console.error(
+        `Error al eliminar el archivo ${fileName} del bucket ${this.bucketName}: ${error.message}`,
+      );
+      throw new RpcException({
+        status: 500,
+        message: `Error al eliminar el archivo ${fileName}: ${error.message}`,
       });
     }
   }

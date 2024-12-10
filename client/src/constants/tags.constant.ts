@@ -31,9 +31,9 @@ export const priorityTags = {
 }
 
 export const typeTags = {
-	course: 'Curso',
+	COURSE: 'Curso',
 	app: 'Aplicación',
 	mentoring: 'Mentoría',
 	project: 'Proyecto',
-	lesson: 'Lección'
+	LESSON: 'Lección'
 }

@@ -25,7 +25,7 @@ export default function LessonsPreviewList({
 							}}
 						>
 							<Image
-								src={lesson.image}
+								src={lesson.image as string}
 								alt={lesson.title}
 								width={500}
 								height={500}

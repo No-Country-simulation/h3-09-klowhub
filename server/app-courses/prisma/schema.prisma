@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CourseType {
+  COURSE
+  LESSON
+}
+
+enum Platform {
+  APPSHEET
+  POWERAPPS
+}
+
+enum ContentType {
+  FREE
+  PAID
+}
+
+enum ResourceType {
+  VIDEO
+  DOCUMENT
+  LINK
+  OTHER
+}
+
+model Course {
+  id                  String      @id @default(uuid())
+  title               String
+  photo               String
+  shortDescription    String
+  price               Float
+  functionalities     String[]
+  language            String
+  sector              String
+  toolsAndPlatforms   String[]
+  contentType         ContentType
+  courseType          CourseType
+  level               String
+  contentPillar       String
+  learningOutcomes    String[]
+  prerequisites       String[]
+  detailedDescription String
+  approved            Boolean     @default(false)
+  available           Boolean     @default(true)
+  creator             String // 
+  module              Module[] // One-to-many relationship with Module
+  platform            Platform[]
+  relatedTags         String[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  moduleId    String
+  module      Module     @relation(fields: [moduleId], references: [id])
+  order       Int
+  resource    Resource[] // One-to-many relationship with Resource
+  contentLink String
+  image       String
+
+  @@index([moduleId, order])
+  @@map("lessons")
+}
+
+model Resource {
+  id           String   @id @default(uuid())
+  lessonId     String
+  lesson       Lesson   @relation(fields: [lessonId], references: [id])
+  resourceLink String[]
+
+  @@map("resources")
+}
+
+model Module {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  lesson      Lesson[] // One-to-many relationship with lesson
+  order       Int
+  description String
+  course      Course   @relation(fields: [courseId], references: [id])
+
+  @@index([courseId, order])
+  @@map("modules")
+}

@@ -1,13 +1,13 @@
 'use client'
+import { Course } from '@/models/course.model'
 import { Modal } from 'flowbite-react'
-import React, { Dispatch, SetStateAction } from 'react'
-import Button from '../buttons/Button'
 import { Mail, Video } from 'lucide-react'
 import Image from 'next/image'
-import RatingStars from '../RatingStars'
-import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
-import { Course } from '@/models/course.model'
 import { useRouter } from 'next/navigation'
+import { Dispatch, SetStateAction } from 'react'
+import RatingStars from '../RatingStars'
+import Button from '../buttons/Button'
+import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 interface Props {
 	setCourseSelected: Dispatch<SetStateAction<Course | null>>
 	course: Course
@@ -22,14 +22,20 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 		(acc, review) => acc + review.score,
 		0
 	)
-	const averageScore = Number((totalScore / course.reviews.length).toFixed(1))
+	const averageScore = course.reviews.length
+		? Number((totalScore / course.reviews.length).toFixed(1))
+		: 0
 	return (
 		<Modal
 			show={course ? true : false}
 			onClose={() => setCourseSelected(null)}
 			theme={{
+				root: {
+					base: 'no-scrollbar z-50'
+				},
 				content: {
-					inner: 'bg-card rounded-lg sm:p-6'
+					inner:
+						'bg-card rounded-lg sm:p-6 max-h-[95vh] overflow-y-scroll scrollbar-hide'
 				},
 				header: {
 					base: 'border-b-0 flex'
@@ -63,7 +69,7 @@ export default function CourseModal({ setCourseSelected, course }: Props) {
 						<Image
 							fill
 							sizes="200px"
-							src={course.image}
+							src={course.image as string}
 							alt="app image"
 							className="rounded-lg"
 						/>

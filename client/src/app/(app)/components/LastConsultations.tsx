@@ -13,7 +13,7 @@ const consultations: Consultation[] = [
 			image: '/img/profile_test.jpeg'
 		},
 		date: new Date(),
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		state: 'solved'
 	},
 	{
@@ -26,7 +26,7 @@ const consultations: Consultation[] = [
 			image: '/img/profile_test.jpeg'
 		},
 		date: new Date(),
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		state: 'pending'
 	},
 	{
@@ -39,7 +39,7 @@ const consultations: Consultation[] = [
 			image: '/img/profile_test.jpeg'
 		},
 		date: new Date(),
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		state: 'solved'
 	}
 ]
