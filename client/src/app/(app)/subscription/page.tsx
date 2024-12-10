@@ -1,11 +1,11 @@
 'use client'
-import React, { useState } from 'react'
 import { Subscription } from '@/models/subscription.model'
+import { useState } from 'react'
+import BuySubscription from './components/BuySubscription'
 import FormNewCreator from './components/FormNewCreator'
 import SelectSubscription from './components/SelectSubscription'
-import BuySubscription from './components/BuySubscription'
 
-export default function page() {
+export default function Page() {
 	const [subscriptionSelected, setSubscriptionSelected] =
 		useState<Subscription | null>(null)
 	const [step, setStep] = useState(0)

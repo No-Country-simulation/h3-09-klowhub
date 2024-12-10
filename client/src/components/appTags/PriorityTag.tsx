@@ -14,11 +14,11 @@ export default function PriorityTag({ priority }: PriorityTagProps) {
 			className={clsx(
 				'flex h-8 w-fit items-center justify-center gap-2 rounded-xl border px-2',
 				{
-					'bg-app_tags-priority-high-bg text-app_tags-priority-high-text border-app_tags-priority-high-text':
+					'border-app_tags-priority-high-text bg-app_tags-priority-high-bg text-app_tags-priority-high-text':
 						priority === 'high',
-					'bg-app_tags-priority-medium-bg text-app_tags-priority-medium-text border-app_tags-priority-medium-text':
+					'border-app_tags-priority-medium-text bg-app_tags-priority-medium-bg text-app_tags-priority-medium-text':
 						priority === 'medium',
-					'bg-app_tags-priority-low-bg text-app_tags-priority-low-text border-app_tags-priority-low-text':
+					'border-app_tags-priority-low-text bg-app_tags-priority-low-bg text-app_tags-priority-low-text':
 						priority === 'low'
 				}
 			)}

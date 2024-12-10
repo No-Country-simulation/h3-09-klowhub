@@ -19,7 +19,7 @@ export default function StripeButton({
 	activeDiscount,
 	disabled
 }: Props) {
-	const handleClick = async (event: React.MouseEvent) => {
+	const handleClick = async () => {
 		const stripe = await stripePromise
 
 		if (!stripe) {

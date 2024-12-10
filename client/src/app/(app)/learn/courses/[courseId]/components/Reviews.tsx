@@ -3,7 +3,7 @@ import Button from '@/components/buttons/Button'
 import RatingStars from '@/components/RatingStars'
 import { Review } from '@/models/product.model'
 import { Star } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Reviews({ reviews }: { reviews: Review[] }) {
 	const [seeMore, setSeeMore] = useState(false)
@@ -11,6 +11,7 @@ export default function Reviews({ reviews }: { reviews: Review[] }) {
 	useEffect(() => {
 		if (!seeMore) setList(reviews.slice(0, 3))
 		if (seeMore) setList(reviews)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [seeMore])
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)

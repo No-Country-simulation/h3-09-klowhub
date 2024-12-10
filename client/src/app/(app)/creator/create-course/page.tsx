@@ -149,6 +149,7 @@ export default function CreateCoursePage() {
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const postCourse = async (finalData: any) => {
 		try {
 			const adaptedCourseToRequest = courseAdapter(finalData)
@@ -203,11 +204,11 @@ export default function CreateCoursePage() {
 			prevModules.map((module, index) =>
 				index === moduleIndex
 					? {
-							...module,
-							lessons: module.lessons.filter(
-								(_, index) => index !== lessonIndex
-							)
-						}
+						...module,
+						lessons: module.lessons.filter(
+							(_, index) => index !== lessonIndex
+						)
+					}
 					: module
 			)
 		)

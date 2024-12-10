@@ -26,16 +26,18 @@ export default function Page() {
 
 	const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
 		try {
-			const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/create`, {
-				name: formData.name,
-				email: formData.email,
-				password: formData.password
-			},
-			{
-				headers: {
-					'Content-Type': 'application/json'
+			const { data } = await axios.post(
+				`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/create`,
+				{
+					name: formData.name,
+					email: formData.email,
+					password: formData.password
 				},
-			}
+				{
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
 			)
 			if (data?.error || data?.statusCode >= 400) {
 				console.error('Error en registro: Verifica los datos ingresados.')
@@ -45,11 +47,13 @@ export default function Page() {
 			router.push('/auth/login')
 		} catch (error) {
 			if (error instanceof AxiosError) {
-				console.error('Error al registrar usuario:', error.response?.data?.message || error.message)
+				console.error(
+					'Error al registrar usuario:',
+					error.response?.data?.message || error.message
+				)
 			} else {
 				console.error('Error inesperado:', error)
 			}
-
 		}
 	}
 
@@ -130,7 +134,10 @@ export default function Page() {
 			<div className="mt-6 text-center">
 				<p>O continuar con</p>
 				<div className="mt-2 flex justify-center space-x-4">
-					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('github')}>
+					<span
+						className="aspect-square cursor-pointer rounded-full border p-2"
+						onClick={() => signIn('github')}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -143,7 +150,10 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('facebook')}>
+					<span
+						className="aspect-square cursor-pointer rounded-full border p-2"
+						onClick={() => signIn('facebook')}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
@@ -156,7 +166,10 @@ export default function Page() {
 							/>
 						</svg>
 					</span>
-					<span className="aspect-square cursor-pointer rounded-full border p-2" onClick={() => signIn('google')}>
+					<span
+						className="aspect-square cursor-pointer rounded-full border p-2"
+						onClick={() => signIn('google')}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height={25}
