@@ -4,7 +4,6 @@ import {
   IsEnum,
   IsArray,
   IsString,
-  IsNotEmpty,
 } from 'class-validator';
 import { ContentTypeEnum, PlataformEnum } from '../Enum/apps.enum';
 
@@ -43,7 +42,7 @@ export class FiltersDto {
   @IsOptional()
   @IsString()
   public level: string;
-  
+
   @IsOptional()
   @IsString()
   public orderPrice: string;

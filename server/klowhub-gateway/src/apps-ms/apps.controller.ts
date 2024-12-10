@@ -77,12 +77,11 @@ export class AppsController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body('appId', ParseUUIDPipe) appId: string,
     @Body() UploadFileDto: UploadFileDto, // Enum recibido
   ): Promise<{ url: string }> {
     try {
-      const extension = file.originalname.split('.').pop() || 'rar';
-      const newFileName = `${UploadFileDto.type_app}_${appId}.${extension}`; // Agregar tipo al nombre
+      const extension = 'rar';
+      const newFileName = `${UploadFileDto.type_app}_${UploadFileDto.app_id}.${extension}`; // Agregar tipo al nombre
 
       const fileData = {
         buffer: file.buffer,
