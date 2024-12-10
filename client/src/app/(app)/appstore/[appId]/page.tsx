@@ -23,7 +23,7 @@ const app: App = {
 	shortDescription:
 		'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 	price: 80000,
-	platform: 'appsheet',
+	platform: 'APPSHEET',
 	language: 'Español',
 	sector: 'Logistica',
 	toolsAndPlatforms: ['AppSheet'],

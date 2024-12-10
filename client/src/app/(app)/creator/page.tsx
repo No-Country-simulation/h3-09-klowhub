@@ -1,14 +1,12 @@
 'use client'
-import HomeBanner from './components/HomeBanner'
-import CreatorSectLinkBtns from './components/CreatorSectionsLinkBtns'
-import ProjectsTable from './components/ProjectsTable';
 import { Project } from '@/models/project'
-import GlobalStatsList from './components/GlobalStatsList';
-import SalesChart from './components/SalesChart';
-
+import CreatorSectLinkBtns from './components/CreatorSectionsLinkBtns'
+import GlobalStatsList from './components/GlobalStatsList'
+import HomeBanner from './components/HomeBanner'
+import ProjectsTable from './components/ProjectsTable'
+import SalesChart from './components/SalesChart'
 
 export default function CreatorHome() {
-
 	const mockProjects: Project[] = [
 		{
 			id: '1',
@@ -18,9 +16,9 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/men/32.jpg'
 			},
 			amount: 650,
-			type: 'course',
+			type: 'COURSE',
 			status: 'pending',
-			platform: 'powerapps'
+			platform: 'POWERAPPS'
 		},
 		{
 			id: '2',
@@ -30,9 +28,9 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/women/45.jpg'
 			},
 			amount: 850,
-			type: 'lesson',
+			type: 'LESSON',
 			status: 'pending',
-			platform: 'appsheet'
+			platform: 'APPSHEET'
 		},
 		{
 			id: '3',
@@ -44,7 +42,7 @@ export default function CreatorHome() {
 			amount: 1200,
 			type: 'app',
 			status: 'pending',
-			platform: 'appsheet'
+			platform: 'APPSHEET'
 		},
 		{
 			id: '4',
@@ -56,7 +54,7 @@ export default function CreatorHome() {
 			amount: 500,
 			type: 'project',
 			status: 'pending',
-			platform: 'powerapps'
+			platform: 'POWERAPPS'
 		},
 		{
 			id: '4',
@@ -66,30 +64,33 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/women/71.jpg'
 			},
 			amount: 700,
-			type: 'lesson',
+			type: 'LESSON',
 			status: 'pending',
-			platform: 'appsheet'
-		},
-	];
+			platform: 'APPSHEET'
+		}
+	]
 	const statsData = [
 		{ title: 'Ganancias totales del mes', value: '$2850' },
 		{ title: 'Cursos publicados', value: 5 },
 		{ title: 'Aplicaciones transferidas en el mes', value: 11 },
-		{ title: 'Horas de mentoría', value: 27 },
+		{ title: 'Horas de mentoría', value: 27 }
 	]
 
 	return (
-		<div className='flex flex-col gap-12'>
+		<div className="flex flex-col gap-12">
 			<HomeBanner />
 			<CreatorSectLinkBtns />
-			<div className='bg-card py-4 px-6 rounded-lg space-y-4'>
-				<p className='text-sm font-bold'>Mis proyectos</p>
-				<p className='text-sm font-normal'>Revisa los detalles, realiza entregas y mantén la comunicación con el creador para asegurar el éxito de tu trabajo.</p>
-				<div className='flex items-start gap-6'>
-					<div className='flex-grow'>
+			<div className="space-y-4 rounded-lg bg-card px-6 py-4">
+				<p className="text-sm font-bold">Mis proyectos</p>
+				<p className="text-sm font-normal">
+					Revisa los detalles, realiza entregas y mantén la comunicación con el
+					creador para asegurar el éxito de tu trabajo.
+				</p>
+				<div className="flex items-start gap-6">
+					<div className="flex-grow">
 						<ProjectsTable projects={mockProjects} />
 					</div>
-					<div className='w-[300px]'>
+					<div className="w-[300px]">
 						<GlobalStatsList stats={statsData} />
 					</div>
 				</div>

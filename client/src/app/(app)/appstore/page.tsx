@@ -13,7 +13,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 800,
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
@@ -61,7 +61,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 650,
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
@@ -109,7 +109,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 900,
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Ingles',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
@@ -161,7 +161,7 @@ const apps: App[] = [
 const categories = [
 	{ name: 'Logistica' },
 	{ name: 'Retail' },
-	{ name: 'Inventarios' },
+	{ name: 'Inventarios' }
 ]
 
 export default function AppStorePage() {
@@ -191,7 +191,9 @@ export default function AppStorePage() {
 
 	return (
 		<article className="space-y-5">
-			<h1 className="text-[16px] font-semibold">Encuentra la app que necesitas</h1>
+			<h1 className="text-[16px] font-semibold">
+				Encuentra la app que necesitas
+			</h1>
 
 			<section>
 				<div className="flex flex-col gap-3 sm:flex-row">
@@ -233,7 +235,7 @@ export default function AppStorePage() {
 					))}
 				</div>
 			</section>
-			<section className="flex flex-col md:flex-row gap-4">
+			<section className="flex flex-col gap-4 md:flex-row">
 				{filteredResult.map((app) => (
 					<ApplicationCard
 						key={app.id}
@@ -242,13 +244,9 @@ export default function AppStorePage() {
 					/>
 				))}
 				{appSelected && (
-					<AppModal
-						setAppSelected={setAppSelected}
-						app={appSelected}
-					/>
+					<AppModal setAppSelected={setAppSelected} app={appSelected} />
 				)}
 			</section>
 		</article>
-
 	)
 }

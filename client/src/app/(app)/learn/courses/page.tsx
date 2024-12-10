@@ -11,7 +11,7 @@ const courses: Course[] = [
 		title: 'Introducción a AppSheet',
 		shortDescription:
 			'Aprende los conceptos básicos para crear aplicaciones con AppSheet.',
-		platform: 'appsheet',
+		platform: 'APPSHEET',
 		language: 'Español',
 		sector: 'Tecnología',
 		toolsAndPlatforms: ['AppSheet'],
@@ -87,7 +87,7 @@ const courses: Course[] = [
 		title: 'Automatización avanzada con PowerApps',
 		shortDescription:
 			'Aprende a automatizar procesos complejos usando PowerApps.',
-		platform: 'powerapps',
+		platform: 'POWERAPPS',
 		language: 'Inglés',
 		sector: 'Negocios',
 		toolsAndPlatforms: ['PowerApps', 'AppSheet'],
