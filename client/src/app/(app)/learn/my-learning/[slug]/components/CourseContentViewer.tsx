@@ -65,7 +65,7 @@ export default function CourseContentViewer({
 					<source src={videoLink} type="video/mp4" />
 				</video>
 
-				{course.modules && (
+				{course.modules?.[activeModuleIndex]?.lessons && (
 					<LessonsPreviewList
 						lessons={course.modules[activeModuleIndex].lessons}
 						setActiveLessonIndex={setActiveLessonIndex}

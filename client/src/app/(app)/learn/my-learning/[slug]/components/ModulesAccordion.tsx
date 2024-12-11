@@ -18,7 +18,7 @@ export default function ModulesAccordion({
 }: ModulesAccordionProps) {
 	return (
 		<section className="max-w-max">
-			<Accordion.Root type="single" defaultValue={modules[0].title}>
+			<Accordion.Root type="single" defaultValue={modules[0]?.title}>
 				{modules.map((module, idx) => {
 					return (
 						<Accordion.Item key={module.title} value={module.title}>
