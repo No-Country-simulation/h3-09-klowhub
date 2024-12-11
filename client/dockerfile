@@ -13,7 +13,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 COPY next.config.ts ./
 
+ENV NEXT_PUBLIC_BACKEND_URL=http://34.95.152.245:443/api
+
 ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN npm install ts-node --save-dev
+
+RUN npm run build:config
 
 RUN npm run build
 
@@ -22,8 +28,6 @@ WORKDIR /app
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
-
-ENV NEXT_PUBLIC_BACKEND_URL=http://34.95.152.245:443/api
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
