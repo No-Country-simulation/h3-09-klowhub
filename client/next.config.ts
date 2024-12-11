@@ -30,8 +30,13 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'avatars.githubusercontent.com',
-				pathname: '/**',
+				pathname: '/**'
 			},
+			{
+				protocol: 'https',
+				hostname: 'h3-09-klowhub-331623778555.us-central1.run.app',
+				pathname: '/**'
+			}
 		]
 	}
 }
