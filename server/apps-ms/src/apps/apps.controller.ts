@@ -63,13 +63,13 @@ export class AppsController {
 
   @MessagePattern('downloadFile')
   async downloadFile(
-    @Payload('appId') appId: string,
-  ): Promise<{ fileBuffer: Buffer; appId: string }> {
+    @Payload('fileName') fileName: string,
+  ): Promise<{ fileBuffer: Buffer; fileName: string }> {
     //console.log('downloadFile',appId);
-    const fileBuffer = await this.appsService.downloadFile(appId);
+    const fileBuffer = await this.appsService.downloadFile(fileName);
     return {
       fileBuffer,
-      appId,
+      fileName,
     };
   }
   @MessagePattern('deleteFile')

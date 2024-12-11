@@ -10,7 +10,7 @@ import { FiltersDto } from './dto/filters.dto';
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('AppsService');
-  private bucketName = envs.googleBucketName;
+  private bucketName = "appsheet-powerapps-files";
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Connected to database');
@@ -180,6 +180,9 @@ export class AppsService extends PrismaClient implements OnModuleInit {
 
   async downloadFile(fileName: string): Promise<Buffer> {
     const bucket = storage.bucket(this.bucketName);
+    if (!fileName) {
+      throw new Error('fileName is undefined or null');
+  }
     //Agregar la extensión de archivo
     const extension = 'rar'; // Suponer 'rar' por ahora
     const completeFileName = fileName.includes('.')

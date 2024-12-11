@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CoursesModule } from './courses/courses.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -22,7 +20,6 @@ import { extname } from 'path';
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+
 })
 export class AppModule {}
