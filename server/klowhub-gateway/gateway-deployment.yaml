@@ -85,4 +85,36 @@ spec:
     - podSelector: {}
     - ipBlock:
         cidr: 0.0.0.0/0  # Permitir tráfico hacia cualquier IP (interno y externo)
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+  annotations:
+    kubernetes.io/spec.ingressClassName: "gce" 
+    # networking.gke.io/managed-certificates: "gateway-cert"
+spec:
+  tls:
+    - hosts:
+        - klowhubback.hopto.org
+      secretName: gateway-tls-secret
+  rules:
+    - host: klowhubback.hopto.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 443 
+---
 
+# apiVersion: networking.gke.io/v1
+# kind: ManagedCertificate
+# metadata:
+  # name: gateway-cert
+# spec:
+  # domains:
+    # - klowhubback.hopto.org
