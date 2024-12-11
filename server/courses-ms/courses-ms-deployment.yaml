@@ -39,6 +39,6 @@ kind: ConfigMap
 metadata:
   name: env-courses-ms-config
 data:
-  COURSE_PORT: "3004"
-  COURSE_HOST: "0.0.0.0"
+  COURSES_PORT: "3004"
+  COURSES_HOST: "0.0.0.0"
   DATABASE_URL_USER: postgresql://appsdb_owner:DkY8uORBLC7N@ep-blue-sea-a5lcg70b.us-east-2.aws.neon.tech/courses_db?sslmode=require
