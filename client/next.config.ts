@@ -3,6 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
 	/* config options here */
 	images: {
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: 'https',
@@ -35,7 +36,7 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'h3-09-klowhub-331623778555.us-central1.run.app',
-				pathname: '/**'
+				pathname: '/_next/image'
 			}
 		]
 	}
