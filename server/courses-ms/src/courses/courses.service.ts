@@ -34,11 +34,11 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
   //Course
 
-  async findCoursesByUserId(userId: string) {
+  async findCoursesByUserId(creator: string) {
     this.logger.log('find_courses_by_user_id');
 
     const courses = await this.course.findMany({
-      where: { creator: userId },
+      where: { creator: creator },
     });
 
     return courses;

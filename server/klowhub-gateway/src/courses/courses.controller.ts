@@ -38,9 +38,9 @@ export class CoursesController {
   ) {}
   // Courses
 
-  @Get('findCoursesByUserId/:userId')
-  findCoursesByUserId(@Param('userId') userId: string) {
-    return this.courseClient.send({ cmd: 'find_courses_by_user_id' }, userId);
+  @Get('findCoursesByUserId/:creator')
+  findCoursesByUserId(@Param('creator') creator: string) {
+    return this.courseClient.send({ cmd: 'find_courses_by_user_id' }, creator);
   }
 
   @Post('create')
