@@ -16,6 +16,7 @@ import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
 import { storage } from '../config/storage.config';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
@@ -75,10 +76,69 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  async getAllCourses() {
-    this.logger.log('find_all_courses');
-    const course = await this.course.findMany();
-    return course;
+  async getAllCourses(filter: FilterCoursesDto = {}) {
+    this.logger.log('find_all_courses_with_filter');
+
+    const filters: any = {};
+
+    // Construcción de filtros solo si los campos están definidos
+    if (filter.title) {
+      filters.title = { contains: filter.title };
+    }
+
+    if (filter.language) {
+      filters.language = filter.language;
+    }
+
+    if (filter.sector) {
+      filters.sector = filter.sector;
+    }
+
+    if (filter.contentType) {
+      filters.contentType = filter.contentType;
+    }
+
+    if (filter.courseType) {
+      filters.courseType = filter.courseType;
+    }
+
+    if (filter.level) {
+      filters.level = filter.level;
+    }
+
+    if (filter.approved !== undefined) {
+      filters.approved = filter.approved;
+    }
+
+    if (filter.available !== undefined) {
+      filters.available = filter.available;
+    }
+
+    if (filter.toolsAndPlatforms && filter.toolsAndPlatforms.length > 0) {
+      filters.toolsAndPlatforms = { hasSome: filter.toolsAndPlatforms };
+    }
+
+    if (filter.platform && filter.platform.length > 0) {
+      filters.platform = { hasSome: filter.platform };
+    }
+
+    if (filter.minPrice !== undefined || filter.maxPrice !== undefined) {
+      filters.price = {
+        ...(filter.minPrice !== undefined && { gte: filter.minPrice }),
+        ...(filter.maxPrice !== undefined && { lte: filter.maxPrice }),
+      };
+    }
+
+    if (filter.relatedTags && filter.relatedTags.length > 0) {
+      filters.relatedTags = { hasSome: filter.relatedTags };
+    }
+
+    // Si no hay filtros, simplemente retorna todos los cursos
+    const courses = await this.course.findMany({
+      where: Object.keys(filters).length > 0 ? filters : undefined,
+    });
+
+    return courses;
   }
 
   async createCourse(courseData: CourseDto) {

@@ -24,6 +24,7 @@ import { UpdateModuleDto } from './dto/update-module.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
@@ -40,8 +41,9 @@ export class CoursesController {
   }
 
   @MessagePattern({ cmd: 'find_all_courses' })
-  async getAllCourses() {
-    return this.coursesService.getAllCourses();
+  async findAll(@Payload() data: { filters: FilterCoursesDto }) {
+    const { filters } = data; // Extraer los filtros del objeto recibido
+    return this.coursesService.getAllCourses(filters); // Llamamos al servicio con los filtros
   }
 
   @MessagePattern({ cmd: 'find_one_course_by_id' })
