@@ -12,6 +12,6 @@ export class AuthController {
   @Post('login')
   login(@Body() { email, password }: LoginDto) {
     console.log('Logging in user with email:', email);
-    return this.authClient.send({ cmd: 'login' }, { email, password });
+    return this.authClient.send('login', { email, password });
   }
 }
