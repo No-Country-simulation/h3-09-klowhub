@@ -20,6 +20,31 @@ export default function CartItem({ item }: { item: Course | App }) {
 		return averageScore
 	}
 	const { removeCartItem } = useStore()
+
+	const fixedPrice = () => {
+		let result = <></>
+		if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
+			const course = item as Course
+			if (course.contentType === 'FREE' && course.price !== 0) {
+				result = (
+					<div className="right-0 flex items-center gap-2 lg:absolute">
+						<p className="text-xs line-through opacity-45">
+							{moneyFormat(course.price)}
+						</p>
+						<b className="text-xl">GRATIS</b>
+					</div>
+				)
+			} else {
+				result = (
+					<div className="right-0 flex items-center gap-2 lg:absolute">
+						<b className="text-xl">{moneyFormat(course.price)}</b>
+					</div>
+				)
+			}
+		}
+		return result
+	}
+
 	return (
 		<div className="relative my-6 rounded-lg bg-card p-3">
 			<div className="border-y p-3">
@@ -91,9 +116,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 							))}
 						</div>
 					</div>
-					<b className="right-0 text-xl lg:absolute">
-						{item.price ? moneyFormat(item.price) : 'GRATIS'}
-					</b>
+					{fixedPrice()}
 				</Card>
 			</div>
 			<Button

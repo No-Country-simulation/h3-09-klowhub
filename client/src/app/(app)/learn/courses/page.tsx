@@ -43,7 +43,7 @@ export default function Page() {
 		)
 		const filtered = filteredByTitle.filter((course) => {
 			if (filterByCategory) {
-				return course.functionalities.some(
+				return course.relatedTags.some(
 					(name) =>
 						name.toLocaleLowerCase() === filterByCategory.toLocaleLowerCase()
 				)
