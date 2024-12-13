@@ -1,3 +1,4 @@
+import { relatedTags as relatedTagsConstant } from '@/constants/filters.constant'
 import { ContentType, Course, CourseType, Level } from '@/models/course.model'
 import { Platform } from '@/models/product.model'
 import {
@@ -14,6 +15,15 @@ export function coursesAdapter(courses: ReadCourseItemResponse[]): Course[] {
 		return []
 	}
 
+	const relatedTagsAdapted = (relatedTags: string[]) => {
+		return relatedTags.map((tag) => {
+			if (tag in relatedTagsConstant) {
+				return relatedTagsConstant[tag as keyof typeof relatedTagsConstant]
+			}
+			return tag
+		})
+	}
+
 	const adaptedCourses: Omit<
 		Course,
 		'modules' | 'contentLink' | 'additionalResources'
@@ -27,7 +37,7 @@ export function coursesAdapter(courses: ReadCourseItemResponse[]): Course[] {
 		sector: course.sector,
 		toolsAndPlatforms: course.toolsAndPlatforms,
 		functionalities: course.functionalities,
-		relatedTags: course.relatedTags,
+		relatedTags: relatedTagsAdapted(course.relatedTags),
 		image: course.photo,
 		reviews: [],
 		contentType: course.contentType as ContentType,
