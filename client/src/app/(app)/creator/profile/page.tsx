@@ -7,11 +7,11 @@ export default function ProfileCreator() {
 	return (
 		<div className="space-y-12">
 			<p className="text-xl font-bold">Mi perfil</p>
-			<div className="grid grid-cols-1 gap-8 md:grid-cols-6">
-				<div className="col-span-4">
+			<div className="flex flex-col gap-8 xl:flex-row">
+				<div className="flex-2">
 					<CreatorProfileCard />
 				</div>
-				<div className="col-span-2">
+				<div className="flex-1">
 					<OptProfileCard />
 				</div>
 			</div>
@@ -20,7 +20,7 @@ export default function ProfileCreator() {
 					¿Tenés alguna pregunta? No dudes en escribirnos a klowhub@soporte.com
 					o visitar nuestro centro de ayuda. ¡Estamos aquí para asistirte!
 				</p>
-				<div className="flex">
+				<div className="flex gap-4">
 					<Button variant="tertiary">Centro de ayuda</Button>
 					<Button variant="tertiary">Soporte</Button>
 				</div>
