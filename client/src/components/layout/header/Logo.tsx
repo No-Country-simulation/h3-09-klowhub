@@ -1,18 +1,33 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import useStore from '@/lib/store'
+import { useRouter } from 'next/navigation'
+
+const explorerRoute = {
+	href: '/',
+}
+const creatorRoute = {
+	href: '/creator',
+}
 
 export default function Logo() {
+	const { role } = useStore()
+	const activeRoute = role === 'Explorer' ? explorerRoute : creatorRoute
+	const router = useRouter()
+
+	const handleRoute = () => {
+		router.push(`${activeRoute.href}`)
+	}
+
 	return (
-		<div className="">
-			<Link href={'/'}>
-				<Image
-					src="/img/logo_header.png"
-					alt="logo image"
-					width={52}
-					height={54}
-					priority
-				/>
-			</Link>
+		<div onClick={handleRoute} className="cursor-pointer">
+			<Image
+				src="/img/logo_header.png"
+				alt="logo image"
+				width={52}
+				height={54}
+				priority
+			/>
 		</div>
 	)
 }
+

@@ -10,10 +10,9 @@ export class AuthController {
   httpService: any;
   constructor(private readonly authService: AuthService) {}
 
-  @MessagePattern({ cmd: 'login' })
+  @MessagePattern('login')
   async login(@Payload() { email, password }: LoginDto) {
     console.log('Microservicio: Procesando login para:', email);
     return this.authService.login(email, password);
   }
-
 }
