@@ -22,21 +22,20 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly userClient: ClientProxy,
   ) {}
 
- 
   @Post('create')
   createUser(@Body() createUserDto: UserDto) {
-    return this.userClient.send({ cmd: 'create_user' }, createUserDto);
+    return this.userClient.send('create_user', createUserDto);
   }
   @Get('findAll')
   findAllUsers(@Query() paginationDto: PaginationDto) {
-    return this.userClient.send({ cmd: 'find_all_users' }, paginationDto);
+    return this.userClient.send('find_all_users', paginationDto);
   }
 
   @Get('user/:id')
   async findOneUser(@Param('id') id: string) {
     try {
       const user = await firstValueFrom(
-        this.userClient.send({ cmd: 'find_one_user' }, { id }),
+        this.userClient.send('find_one_user', { id }),
       );
       return user;
     } catch (error) {
@@ -51,7 +50,7 @@ export class UsersController {
   ) {
     try {
       const user = await firstValueFrom(
-        this.userClient.send({ cmd: 'update_user' }, { id, ...updateUserDto }),
+        this.userClient.send('update_user', { id, ...updateUserDto }),
       );
       return user;
     } catch (error) {
@@ -65,9 +64,9 @@ export class UsersController {
       throw new RpcException('id is required');
     }
 
-    console.log('Deleting user with ID:', id);
+    // console.log('Deleting user with ID:', id);
 
-    return this.userClient.send({ cmd: 'delete_user' }, { id }).pipe(
+    return this.userClient.send('delete_user', { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
