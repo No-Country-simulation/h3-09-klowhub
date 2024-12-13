@@ -30,6 +30,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
   constructor(
@@ -37,18 +38,25 @@ export class CoursesController {
   ) {}
   // Courses
 
-  @Get('findCoursesByUserId/:userId')
-  findCoursesByUserId(@Param('userId') userId: string) {
-    return this.courseClient.send({ cmd: 'find_courses_by_user_id' }, userId);
+  @Get('findCoursesByUserId/:creator')
+  findCoursesByUserId(@Param('creator') creator: string) {
+    return this.courseClient.send({ cmd: 'find_courses_by_user_id' }, creator);
   }
 
   @Post('create')
   createCourse(@Body() createCourseDto: CourseDto) {
     return this.courseClient.send({ cmd: 'create_course' }, createCourseDto);
   }
-  @Get('findAll')
-  findAllCourses(@Query() paginationDto: PaginationDto) {
-    return this.courseClient.send({ cmd: 'find_all_courses' }, paginationDto);
+  @Post('findAll')
+  findAllCourses(
+    @Body() body: { pagination: PaginationDto; filters: FilterCoursesDto },
+  ) {
+    const { pagination, filters } = body;
+    // Aquí pasamos tanto los filtros como la paginación al microservicio
+    return this.courseClient.send(
+      { cmd: 'find_all_courses' }, // Asegúrate de que el cmd coincide con el patrón en el microservicio
+      { pagination, filters }, // Enviamos los datos correctamente
+    );
   }
 
   @Get('course/:id')
