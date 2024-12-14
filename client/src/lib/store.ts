@@ -31,7 +31,22 @@ const useStore = create(
 				})),
 			getTotalCart: () => {
 				const state = get()
-				return state.cart.reduce((total, item) => total + item.price, 0)
+				const fixedItems = state.cart.map((item) => {
+					if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
+						const course = item as Course
+						if (course.contentType === 'FREE') {
+							return {
+								...course,
+								price: 0
+							}
+						} else {
+							return course
+						}
+					} else {
+						return item
+					}
+				})
+				return fixedItems.reduce((total, item) => total + item.price, 0)
 			},
 			emptyCart: () => set({ cart: [] }),
 			toggleRole: () =>
