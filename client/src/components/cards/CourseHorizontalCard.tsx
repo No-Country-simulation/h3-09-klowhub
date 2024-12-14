@@ -34,6 +34,12 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 					<b className="text-xl">GRATIS</b>
 				</div>
 			)
+		} else if (course.contentType === 'FREE' && course.price === 0) {
+			result = (
+				<div className="right-4 flex items-center gap-2 lg:absolute">
+					<b className="text-xl">GRATIS</b>
+				</div>
+			)
 		} else {
 			result = (
 				<div className="right-4 flex items-center gap-2 lg:absolute">
