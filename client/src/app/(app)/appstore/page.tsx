@@ -13,7 +13,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 800,
-		platform: 'APPSHEET',
+		platform: 'AppSheet',
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
@@ -61,7 +61,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 650,
-		platform: 'APPSHEET',
+		platform: 'AppSheet',
 		language: 'Español',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],
@@ -109,7 +109,7 @@ const apps: App[] = [
 		shortDescription:
 			'App diseñada para gestionar y monitorear el stock en tiendas físicas.',
 		price: 900,
-		platform: 'APPSHEET',
+		platform: 'AppSheet',
 		language: 'Ingles',
 		sector: 'Logistica',
 		toolsAndPlatforms: ['AppSheet'],

@@ -1,12 +1,11 @@
 'use client'
-import TypeTag from '@/components/appTags/TypeTag'
+import TypeTag, { Type } from '@/components/appTags/TypeTag'
 import Button from '@/components/buttons/Button'
 import HeartLikeButton from '@/components/buttons/HeartLikeButton'
 import CategoryTag from '@/components/buyerTags/CategoryTag'
 import TechnologyTag from '@/components/buyerTags/TechnologyTag'
 import RatingStars from '@/components/RatingStars'
 import { platforms } from '@/constants/filters.constant'
-import { typeTags } from '@/constants/tags.constant'
 import { Course } from '@/models/course.model'
 import { EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
@@ -48,7 +47,7 @@ export default function CourseCard({ course, linkButtonProps }: CourseCard) {
 					className="h-48 w-full rounded-t-lg object-cover"
 				/>
 				<div className="absolute left-2 top-2">
-					<TypeTag type={course.courseType as keyof typeof typeTags} />
+					<TypeTag type={course.courseType as Type} />
 				</div>
 				<div className="absolute right-3 top-2">
 					<HeartLikeButton isLiked={isLiked} setIsLiked={setIsLiked} />
