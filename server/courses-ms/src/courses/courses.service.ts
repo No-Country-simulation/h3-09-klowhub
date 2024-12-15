@@ -21,6 +21,7 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 import { envs } from 'src/config/envs';
 
 @Injectable()

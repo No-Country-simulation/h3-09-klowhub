@@ -1,8 +1,8 @@
-import { Technologies } from '@/constants/technologies.constant'
+import { platforms } from '@/constants/filters.constant'
 import clsx from 'clsx'
 import Image from 'next/image'
 
-export type Technology = keyof typeof Technologies
+export type Technology = (typeof platforms)[keyof typeof platforms]
 
 interface TechnologyTagProps {
 	technology: Technology
@@ -16,7 +16,7 @@ export default function TechnologyTag({
 	const tech = technology.toLowerCase()
 	const technologyData = {
 		icon: `/svg/${tech}.svg`,
-		name: Technologies[technology]
+		name: technology
 	}
 
 	return (

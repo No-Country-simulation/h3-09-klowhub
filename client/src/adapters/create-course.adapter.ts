@@ -1,3 +1,8 @@
+import {
+	contentTypes,
+	courseTypes,
+	platforms
+} from '@/constants/filters.constant'
 import { Course, Lesson, Module } from '@/models/course.model'
 import { CreateCourseRequest } from '@/models/create-course-request.model'
 import { CreateLessonRequest } from '@/models/create-lesson-request.model'
@@ -36,14 +41,14 @@ export function courseAdapter({
 		photo: image as string,
 		shortDescription: shortDescription,
 		price: parseFloat(price.toString()),
-		platform: [platform],
+		platform: [platform] as unknown as keyof (typeof platforms)[],
 		functionalities: functionalities,
 		relatedTags: relatedTags,
 		language: language,
 		sector: sector,
 		toolsAndPlatforms: toolsAndPlatforms,
-		contentType: contentType,
-		courseType: courseType,
+		contentType: contentType as unknown as keyof typeof contentTypes,
+		courseType: courseType as unknown as keyof typeof courseTypes,
 		level: level,
 		contentPillar: contentPillar,
 		learningOutcomes: learningOutcomesArray,

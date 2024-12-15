@@ -1,3 +1,4 @@
+import useStore from '@/lib/store'
 import { App } from '@/models/app.model'
 import { Card } from 'flowbite-react'
 import { Heart } from 'lucide-react'
@@ -7,7 +8,6 @@ import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
-import useStore from '@/lib/store'
 
 function getRandomInt(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -15,7 +15,7 @@ function getRandomInt(min: number, max: number): number {
 const mockApp = {
 	price: getRandomInt(500, 5000),
 	rating: getRandomInt(3, 5),
-	stack: ['appsheet']
+	stack: ['AppSheet']
 }
 const user = { favorites: [1, 2, 3] }
 interface Props {

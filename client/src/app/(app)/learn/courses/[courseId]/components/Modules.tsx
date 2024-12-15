@@ -43,13 +43,10 @@ export default function Modules({ modules }: { modules: Course['modules'] }) {
 								return <IconComponent aria-hidden />
 							}}
 						>
-							{/* <Sidebar.Item> */}
 							<b className="ml-16">{module.title}</b>
-							{/* </Sidebar.Item> */}
+
 							{module.lessons.map((lesson, i) => (
-								<Sidebar.Item key={'lesson-' + i} href="#">
-									{lesson.title}
-								</Sidebar.Item>
+								<Sidebar.Item key={'lesson-' + i}>{lesson.title}</Sidebar.Item>
 							))}
 						</Sidebar.Collapse>
 					))}

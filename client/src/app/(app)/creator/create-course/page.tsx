@@ -33,7 +33,7 @@ const initialCourseState: Course = {
 	language: '',
 	sector: '',
 	toolsAndPlatforms: [],
-	contentType: 'FREE',
+	contentType: 'Gratuito',
 	courseType: 'COURSE',
 	level: 'basic',
 	contentPillar: '',
@@ -204,11 +204,11 @@ export default function CreateCoursePage() {
 			prevModules.map((module, index) =>
 				index === moduleIndex
 					? {
-						...module,
-						lessons: module.lessons.filter(
-							(_, index) => index !== lessonIndex
-						)
-					}
+							...module,
+							lessons: module.lessons.filter(
+								(_, index) => index !== lessonIndex
+							)
+						}
 					: module
 			)
 		)

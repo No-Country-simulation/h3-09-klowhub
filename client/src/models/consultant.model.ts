@@ -1,11 +1,11 @@
-import { Technologies } from '@/constants/technologies.constant'
+import { platforms } from '@/constants/filters.constant'
 
 export interface Consultant {
 	id: string
 	name: string
 	countryCode: string
 	image?: string
-	technologies: (keyof typeof Technologies)[]
+	technologies: (typeof platforms)[keyof typeof platforms][]
 	sessions: number
 	reviews: number
 	languages: string[]

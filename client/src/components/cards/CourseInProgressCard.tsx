@@ -13,7 +13,7 @@ const course = {
 	rating: 3,
 	totalVotes: 26,
 	categories: ['CRM', 'Clientes', 'Ventas'],
-	stack: ['APPSHEET'],
+	stack: ['AppSheet'],
 	image: 'https://picsum.photos/200'
 }
 export function CourseInProgressCard() {
