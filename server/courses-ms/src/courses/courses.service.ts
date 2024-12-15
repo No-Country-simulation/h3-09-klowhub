@@ -104,7 +104,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
 
   async getAllCourses(filter: FilterCoursesDto = {}) {
-    this.logger.log('find_all_courses_with_filter');
+    this.logger.log('find_all_courses');
 
     const filters: any = {};
 
