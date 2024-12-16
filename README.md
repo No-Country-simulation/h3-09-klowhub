@@ -52,13 +52,6 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 
 
 
-  ### Características Principales 
-
-- **Gestión de Citas**: Permite agendar, modificar y cancelar citas de manera sencilla.
-- **Control de Pacientes**: Registra datos personales y médicos de cada paciente.
-- **Historial Médico**: Almacena un registro detallado de los antecedentes y tratamientos médicos.
-- **Reportes Médicos**: Genera informes de citas, historial médico y visitas.
-- **Módulo de Facturación**: Integra facturación para servicios médicos y cobros de consulta.
 <br>
 <h1 align="center"style="color: #007bff;">El impacto de KlowHub en la comunidad y el mercado No & Low Code  </h1>
 
