@@ -22,9 +22,11 @@ export class OrdersController {
     }
   }
 
-  @Get()
-  findAll() {
-    return this.orderClient.send('find-all-orders', {});
+  @Post('all')
+  findAll(
+    @Body('userId', ParseUUIDPipe) userId: string, 
+  ) {
+    return this.orderClient.send('find-all-orders', userId);
   }
 
   @Get(':id')

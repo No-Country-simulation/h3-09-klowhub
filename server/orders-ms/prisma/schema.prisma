@@ -20,6 +20,11 @@ enum OrderStatus {
   CANCELLED
 }
 
+enum ProductType {
+  COURSE
+  APP
+}
+
 model Order {
   id          String @id @default(uuid())
   totalAmount Float
@@ -46,6 +51,7 @@ model OrderItem {
   productId String
   quantity  Int
   price     Float
+  type ProductType
 
   Order   Order?  @relation(fields: [orderId], references: [id])
   orderId String?

@@ -29,7 +29,7 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   }
 
   async create(createOrderDto: CreateOrderDto) {
-    const { items } = createOrderDto;
+    const { items, buyerUserId } = createOrderDto;
 
     const productsTypeApp = items
       .filter(item => item.type === 'APP')
@@ -79,12 +79,14 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
       data: {
         totalAmount,
         totalItems,
+        buyerUserId,
         OrderItem: {
           createMany: {
             data: items.map(orderItem => ({
               price: products.find(product => product.id === orderItem.productId).price,
               quantity: orderItem.quantity,
-              productId: orderItem.productId
+              productId: orderItem.productId,
+              type: orderItem.type
             }))
           }
         },
@@ -94,7 +96,8 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
           select: {
             price: true,
             quantity: true,
-            productId: true
+            productId: true,
+            type: true
           }
         }
       }
@@ -109,8 +112,11 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  findAll() {
-    const orders = this.order.findMany();
+  findAll(userId: string) {
+    const orders = this.order.findMany({
+      where: { buyerUserId: userId }
+    });
+
     return orders;
   }
 
