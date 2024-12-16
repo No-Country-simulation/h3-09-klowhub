@@ -3,6 +3,7 @@ import { coursesAdapter } from '@/adapters/read-course.adapter'
 import Button from '@/components/buttons/Button'
 import { CourseHorizontalCard } from '@/components/cards/CourseHorizontalCard'
 import CourseModal from '@/components/modals/CourseModal'
+import FilterSearch from '@/components/modals/FilterSearch'
 import { relatedTags } from '@/constants/filters.constant'
 import { Course } from '@/models/course.model'
 import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
@@ -15,6 +16,8 @@ export default function Page() {
 	const [courseSelected, setCourseSelected] = useState<string | null>(null)
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [filterByModal, setFilterByModal] = useState()
 	const [searchInput, setSearchInput] = useState('')
 	useEffect(() => {
 		void (async () => {
@@ -112,6 +115,7 @@ export default function Page() {
 					/>
 				)}
 			</section>
+			{/* <FilterSearch /> */}
 		</article>
 	)
 }
