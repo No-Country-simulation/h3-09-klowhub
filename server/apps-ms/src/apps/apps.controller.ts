@@ -72,8 +72,14 @@ export class AppsController {
       fileName,
     };
   }
+
   @MessagePattern('deleteFile')
   async deleteFile(@Payload('fileName') fileName: string): Promise<string> {
     return this.appsService.deleteFile(fileName);
+  }
+
+  @MessagePattern('validateProducts')
+  async validateProducts(@Payload() ids: string[]) {
+    return this.appsService.validateProducts(ids)
   }
 }

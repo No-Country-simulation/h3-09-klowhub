@@ -15,6 +15,7 @@ datasource db {
 
 enum OrderStatus {
   PENDING
+  PAID
   DELIVERED
   CANCELLED
 }
@@ -27,6 +28,8 @@ model Order {
   status OrderStatus @default(PENDING)
   paid   Boolean     @default(false)
   paidAt DateTime?
+  stripeChargeId String?
+  receiptUrl String?
 
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
@@ -38,7 +41,7 @@ model Order {
 
 model OrderItem {
   id        String @id @default(uuid())
-  productId Int
+  productId String
   quantity  Int
   price     Float
 
@@ -46,4 +49,124 @@ model OrderItem {
   orderId String?
 
   @@map("order_item")
+}
+
+
+//! schemas temporarily used 
+enum ContentType {
+    FREE
+    PAID
+}
+
+enum Plataform {
+    APPSHEET
+    POWERAPPS
+}
+
+model App {
+    id                   String      @id @default(uuid())
+    creator_id           String
+    title                String
+    photo_url            String[]
+    description          String
+    price                Float
+    deploy_desktop_url   String?
+    download_desktop_url String?
+    deploy_movil_url     String?
+    download_movil_url   String?
+    language             String
+    plataform            Plataform
+    functionalities      String[]
+    sector               String[]
+    toolsAndPlatforms    String[]
+    level                String
+    contentType          ContentType
+    productType          String      @default("APPLICATION")
+    approved             Boolean     @default(false)
+    available            Boolean     @default(true)
+    createAt             DateTime    @default(now())
+    updateAt             DateTime    @updatedAt
+}
+
+//! temporary schema of courses
+
+enum CourseType {
+  COURSE
+  LESSON
+}
+
+enum Platform {
+  APPSHEET
+  POWERAPPS
+}
+
+enum ResourceType {
+  VIDEO
+  DOCUMENT
+  LINK
+  OTHER
+}
+
+model Course {
+  id                  String      @id @default(uuid())
+  title               String
+  photo               String
+  shortDescription    String
+  price               Float
+  functionalities     String[]
+  language            String
+  sector              String
+  toolsAndPlatforms   String[]
+  contentType         ContentType
+  courseType          CourseType
+  level               String
+  contentPillar       String
+  learningOutcomes    String[]
+  prerequisites       String[]
+  detailedDescription String
+  approved            Boolean     @default(false)
+  available           Boolean     @default(true)
+  creator             String // 
+  module              Module[] // One-to-many relationship with Module
+  platform            Platform[]
+  relatedTags         String[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  moduleId    String
+  module      Module     @relation(fields: [moduleId], references: [id])
+  order       Int
+  resource    Resource[] // One-to-many relationship with Resource
+  contentLink String
+  image       String
+
+  @@index([moduleId, order])
+  @@map("lessons")
+}
+
+model Resource {
+  id           String   @id @default(uuid())
+  lessonId     String
+  lesson       Lesson   @relation(fields: [lessonId], references: [id])
+  resourceLink String[]
+
+  @@map("resources")
+}
+
+model Module {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  lesson      Lesson[] // One-to-many relationship with lesson
+  order       Int
+  description String
+  course      Course   @relation(fields: [courseId], references: [id])
+
+  @@index([courseId, order])
+  @@map("modules")
 }

@@ -196,4 +196,9 @@ export class CoursesController {
     }
     return this.coursesService.deleteModule(id);
   }
+
+  @MessagePattern('validateProducts')
+  async validateProducts(@Payload() ids: string[]) {
+    return this.coursesService.validateProducts(ids)
+  }
 }

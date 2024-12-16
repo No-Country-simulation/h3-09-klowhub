@@ -1,14 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 import Stripe from 'stripe';
 
 import { envs } from '../config';
 import { PaymentSessionDto } from './dto/payments-session.dto';
 import { Request, Response } from 'express';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class PaymentsService {
   private readonly stripe = new Stripe(envs.stripeSecretKey);
+
+  constructor(
+    @Inject('ORDER_SERVICE')
+    private readonly orderClient: ClientProxy
+  ) { }
 
   async createPaymentSession(paymentSessionDto: PaymentSessionDto) {
     const { currency, items, orderId } = paymentSessionDto;
@@ -19,7 +26,7 @@ export class PaymentsService {
         product_data: {
           name: item.name,
         },
-        unit_amount: Math.round(item.price * 100),
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     }));
@@ -35,11 +42,14 @@ export class PaymentsService {
       cancel_url: envs.stripeCancelUrl,
     });
 
-    return session;
+    return {
+      cancelUrl: session.cancel_url,
+      successUrl: session.success_url,
+      url: session.url
+    }
   }
 
-  async stripeWebhook(req: Request, res: Response) {
-    const signature = req.headers['stripe-signature'];
+  async stripeWebhook({ signature, rawBody }: { signature: string, rawBody: string }) {
 
     let event: Stripe.Event;
 
@@ -47,27 +57,36 @@ export class PaymentsService {
 
     try {
       event = this.stripe.webhooks.constructEvent(
-        req['rawBody'],
+        rawBody,
         signature,
         endpointSecret,
       );
     } catch (error) {
-      res.status(400).send(`Webhook Error: ${error.message}`);
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: `Webhook Error: ${error.message}`
+      })
     }
 
     switch (event.type) {
       case 'charge.succeeded':
         const chargeSucceeded = event.data.object;
 
-        console.log('call microservice');
-        console.log({ orderId: chargeSucceeded.metadata.orderId });
+        const payload = {
+          stripeChargeId: chargeSucceeded.id,
+          orderId: chargeSucceeded.metadata.orderId,
+          receiptUrl: chargeSucceeded.receipt_url
+        }
 
-        break;
+        return await firstValueFrom(this.orderClient.send('paid-order', payload))
       default:
         console.log(`Event ${event.type} not handled`);
     }
 
-    return res.status(200).json({ signature });
+    return {
+      message: 'success',
+      signature
+    }
   }
 }
 

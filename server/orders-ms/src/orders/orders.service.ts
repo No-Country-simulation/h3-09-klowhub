@@ -1,33 +1,112 @@
-import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
+import { HttpStatus, Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
+
 import { PrismaClient } from '@prisma/client';
-import { RpcException } from '@nestjs/microservices';
-import { ChangeOrderStatusDto } from './dto';
+
+import { CreateOrderDto } from './dto/create-order.dto';
+import { ChangeOrderStatusDto, PaidOrderDto } from './dto';
+import { OrderWithProducts } from './intefaces/order-with-products.interface'
+
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class OrdersService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('orders-ms');
+
+  constructor(
+    @Inject('PAYMENT_SERVICE') private readonly paymentService: ClientProxy,
+    @Inject('APP_SERVICE')
+    private readonly appClient: ClientProxy,
+    @Inject('COURSE_SERVICE')
+    private readonly courseClient: ClientProxy
+  ) {
+    super()
+  }
 
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Database connected');
   }
 
-  create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto) {
     const { items } = createOrderDto;
 
-    // 1. verify products id with product ms
+    const productsTypeApp = items
+      .filter(item => item.type === 'APP')
+      .map(item => item.productId)
 
-    // 2. calculate total amount
+    const productsTypeCourse = items
+      .filter(item => item.type === 'COURSE')
+      .map(item => item.productId)
 
-    // const totalAmount = Array(10)
-    //   .fill(null)
-    //   .reduce((orderItem, item) => {
-    //     const item = product;
-    //     return value * 3 + acc;
-    //   }, 0);
+    let productsAppFound = []
+    let productsCourseFound = []
 
-    // 3. create order
+    try {
+      productsAppFound = await firstValueFrom(
+        this.appClient.send('validateProducts', productsTypeApp)
+      )
+
+      productsCourseFound = await firstValueFrom(
+        this.courseClient.send('validateProducts', productsTypeCourse)
+      )
+
+    } catch (error) {
+      throw new RpcException({
+        status: error.status,
+        message: error.message
+      });
+    }
+
+
+    const products = [...productsAppFound, ...productsCourseFound]
+
+    //* calculate total amount
+    const totalAmount = products
+      .reduce((acc, { id, price }) => {
+        const itemQuantity = items.find(item => item.productId === id).quantity
+        const totalPrice = price * itemQuantity
+        return acc + totalPrice
+      }, 0);
+
+    //* total quantity of items
+    const totalItems = items.reduce((acc, orderItem) => {
+      return acc + orderItem.quantity
+    }, 0)
+
+    //* create order
+    const order = await this.order.create({
+      data: {
+        totalAmount,
+        totalItems,
+        OrderItem: {
+          createMany: {
+            data: items.map(orderItem => ({
+              price: products.find(product => product.id === orderItem.productId).price,
+              quantity: orderItem.quantity,
+              productId: orderItem.productId
+            }))
+          }
+        },
+      },
+      include: {
+        OrderItem: {
+          select: {
+            price: true,
+            quantity: true,
+            productId: true
+          }
+        }
+      }
+    })
+
+    return {
+      ...order,
+      OrderItem: order.OrderItem.map(orderItem => ({
+        ...orderItem,
+        title: products.find(product => product.id === orderItem.productId).title
+      }))
+    }
   }
 
   findAll() {
@@ -38,6 +117,9 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   async findOne(id: string) {
     const order = await this.order.findUnique({
       where: { id },
+      include: {
+        OrderItem: true
+      }
     });
 
     if (!order)
@@ -62,5 +144,37 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
     });
 
     return order;
+  }
+
+  async createPaymentSession(order: OrderWithProducts) {
+    const paymentSession = await firstValueFrom(
+      this.paymentService.send('create-payment-session', {
+        orderId: order.id,
+        currency: 'usd',
+        items: order.OrderItem.map(item => ({
+          name: item.title,
+          price: item.price,
+          quantity: item.quantity
+        }))
+      })
+    )
+
+    return paymentSession
+  }
+
+  async paidOrder({ orderId, receiptUrl, stripeChargeId }: PaidOrderDto) {
+
+    await this.order.update({
+      where: { id: orderId },
+      data: {
+        status: 'PAID',
+        paid: true,
+        paidAt: new Date(),
+        stripeChargeId: stripeChargeId,
+        receiptUrl
+      }
+    })
+
+    return { msg: 'Paid Success' }
   }
 }

@@ -12,4 +12,4 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=qqqqqq
-      - POSTGRES_DB=ordersdb
+      - POSTGRES_DB=klowhub
