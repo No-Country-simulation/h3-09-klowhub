@@ -389,26 +389,7 @@ Este MVP de <strong>KlowHub</strong> se centra en establecer un sistema básico 
 
 <h2 align="center" style="color: #007bff;">Duración y Alcance del Proyecto</h2>
 
-### Duración del Proyecto
-El desarrollo de este MVP se realizó en el contexto de una simulación laboral de 4 semanas, en la que se organizó el trabajo en sprints semanales para cumplir con cada uno de los objetivos establecidos de manera iterativa y progresiva.
 
-### Alcance del MVP
-#### Objetivo Principal
-**Problema a Resolver:** La dificultad en la gestión de citas y turnos médicos, que a menudo implica problemas de disponibilidad, organización y recordatorio de citas.
-
-- **Funcionalidades esenciales**: Agendamiento y gestión de citas, recordatorios automáticos y un sistema básico de lista de espera.
-- **Características adicionales (futuras iteraciones)**: La gestión completa del historial clínico y el soporte directo al cliente durante el agendamiento.
-- **Enfoque actual**: Asegurar que la experiencia de agendar y gestionar citas sea funcional, intuitiva y permita cumplir con las necesidades prioritarias de los usuarios.
-
-#### Objetivo del MVP
-Proporcionar a los usuarios una herramienta simplificada que permita a los pacientes gestionar sus citas médicas de manera conveniente y recibir recordatorios automatizados, con el fin de mejorar la puntualidad y evitar citas perdidas. Este MVP busca optimizar el tiempo de los pacientes y los profesionales de salud, facilitando la comunicación y reduciendo las fricciones en la programación de citas.
-
----
-
-<h2 align="center" style="color: #007bff;">Beneficios Esperados para los Usuarios</h2>
-
-- **Para los pacientes**: Mayor facilidad para agendar citas y recibir recordatorios, optimización del tiempo al tener visibilidad de la disponibilidad de los profesionales de la salud, y opciones de lista de espera.
-- **Para los médicos**: Una organización más efectiva de sus agendas, reducción de tiempos muertos y cancelaciones con un sistema automatizado de reprogramación.
 
 <h1 align="center" style="color: #007bff;">User Stories</h1>
 
