@@ -2,6 +2,7 @@
 /dist
 /node_modules
 /build
+/src/config/service-account.json
 
 # Logs
 logs

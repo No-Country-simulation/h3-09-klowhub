@@ -13,6 +13,13 @@ export class UserController {
   async getAllUsers() {
     return this.userService.getAllUsers();
   }
+  @MessagePattern('check_creator_exists')
+  async checkCreatorExists(data: { creatorId: string }): Promise<boolean> {
+    const { creatorId } = data;
+
+    const creatorExists = await this.userService.findOneUser(creatorId);
+    return !!creatorExists;
+  }
   @MessagePattern('find_one_user_by_email')
   async getUserByEmail(@Payload('email') email: string) {
     return this.userService.findOneUserByEmail(email);
