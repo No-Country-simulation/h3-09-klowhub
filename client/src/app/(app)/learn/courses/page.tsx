@@ -90,7 +90,7 @@ export default function Page() {
 						icon={<ListFilter />}
 						onClick={() => setIsModalOpen(true)}
 					>
-						Filtros
+						Filtros ({filterByModal.length})
 					</Button>
 					<Button variant="secondary" size="l" icon={<ListOrdered />}>
 						Ordenar por
