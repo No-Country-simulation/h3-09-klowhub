@@ -54,15 +54,24 @@ PAYMENTS_MICROSERVICE_PORT=3006
 USER_PORT=3001
 USER_HOST=localhost    
 JWT_SECRET=key JWT
-DATABASE_URL_USER=postgresql://appsdb_owner:DkY8uORBLC7N@ep-blue-sea-a5lcg70b.us-east-2.aws.neon.tech/userdb?sslmode=require
+DATABASE_URL_USER= Link a una base de datos deployada
+```
+### **apps-ms**
+
+```plaintext
+APP_PORT=3002
+APP_HOST= localhost
+GCP_PROJECT_ID= id de google
+BUCKETNAME= nombre del bucket de google storage
+DATABASE_URL= Link a una base de datos deployada
 ```
 
 ### **courses-ms**
 
 ```plaintext
-DATABASE_URL_COURSES=Link a una base de datos deployada
 COURSES_HOST=localhost
 COURSES_PORT=3004
+DATABASE_URL_COURSES=Link a una base de datos deployada
 ```
 
 ### **orders-ms**
