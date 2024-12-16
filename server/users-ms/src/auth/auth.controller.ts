@@ -12,7 +12,12 @@ export class AuthController {
 
   @MessagePattern('login')
   async login(@Payload() { email, password }: LoginDto) {
-    console.log('Microservicio: Procesando login para:', email);
+    // console.log('Microservicio: Procesando login para:', email);
     return this.authService.login(email, password);
+  }
+  @MessagePattern('validate_token')
+  async validateToken(@Payload() token: string): Promise<User | null> {
+    // console.log('Microservicio: Validando token');
+    return this.authService.validateToken(token);
   }
 }
