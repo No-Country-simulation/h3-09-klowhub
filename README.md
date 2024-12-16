@@ -183,8 +183,6 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/bfc2bc36ec88be90baf35332d20dd484f60eccdf/PM/FRONTEND-PNG.png)
 
-El frontend de **Policonsultorio** está diseñado para ser **rápido**, **escalable** y **responsivo**, garantizando una experiencia de usuario fluida y agradable en todos los dispositivos. Gracias a un stack de tecnologías modernas, hemos logrado una interfaz intuitiva y de alto rendimiento que se adapta a las necesidades tanto de profesionales de la salud como del personal administrativo.
-
 ---
 
 ### **Principales Herramientas del Frontend**
