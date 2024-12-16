@@ -20,7 +20,7 @@ hackathon-readme-2024
     <br />
     <a href="https://policonsultorio.vercel.app/">Demo Video</a>
     ·
-    <a href="http://klowhubback.hopto.org:443">Deploy</a>
+    <a href="http://klowhub-app.zapto.org/">Deploy</a>
     ·
     <a href="https://docs.google.com/presentation/d/1JBc4hJX9XxDRVXj96_4uEcKB00PZFJQxYbE9TMXOzkI/edit#slide=id.g310bf0e0ad8_0_12">Demo Day</a>
   </p>
