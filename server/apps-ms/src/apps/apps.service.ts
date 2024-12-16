@@ -116,6 +116,18 @@ export class AppsService extends PrismaClient implements OnModuleInit {
     }
     return app;
   }
+  async findByCreatorId(creator_id: string) {
+    const app = await this.app.findFirst({
+      where: { creator_id: creator_id, available: true },
+    });
+    if (!app) {
+      throw new RpcException({
+        status: HttpStatus.NOT_FOUND,
+        message: `Aplications with creator_id #${creator_id} not found.`,
+      });
+    }
+    return app;
+  }
 
   async update(id: string, updateAppDto: UpdateAppDto) {
     await this.findOne(id);
