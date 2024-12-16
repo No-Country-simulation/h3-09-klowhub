@@ -205,9 +205,6 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
 
 ---
 
-### 🚀 **Resultados en la Experiencia del Usuario**
-
-Gracias a este stack de frontend, **Policonsultorio** ofrece una interfaz fácil de usar, rápida y adaptable a dispositivos móviles y de escritorio. La aplicación se mantiene rápida y responsiva, permitiendo que el personal médico y administrativo navegue de forma intuitiva y sin demoras. Esto se traduce en una experiencia de usuario optimizada, donde cada acción es rápida y el acceso a información es inmediato, mejorando así la eficiencia del día a día en el consultorio.
 
 ---
 
@@ -375,7 +372,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 <h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
 
 <p align="center">
-Este MVP de <strong>KlowHub</strong> se centra en establecer un sistema básico pero funcional para la gestión de citas médicas en una plataforma digital. En esta fase inicial, el objetivo es ofrecer las características necesarias que permitan a los usuarios agendar y gestionar citas médicas, además de optimizar el tiempo de los profesionales de la salud.
+Este MVP de <strong>KlowHub</strong>
 
 🏭 Pruebas de humo 
 ⦁	Identificación de las funciones críticas: Determinamos que las funciones más importantes del sistema funcionen correctamente para que el sistema se considere estable. 
@@ -391,69 +388,8 @@ Este MVP de <strong>KlowHub</strong> se centra en establecer un sistema básico 
 
 
 
-<h1 align="center" style="color: #007bff;">User Stories</h1>
-
-### Punto de vista del paciente
-- Como paciente, quiero poder gestionar mis citas médicas, incluyendo la posibilidad de cancelar la cita y ver la disponibilidad de agenda del médico, para poder reprogramar de manera conveniente.
-- Como paciente, quiero buscar y filtrar entre una serie de profesionales de la salud de diversas especialidades, para optar por el que se ajuste mejor a mis necesidades.
-- Como paciente, quiero buscar por nombre del médico en particular, para agendar cita.
-- Como paciente, quiero recibir recordatorios de mis chequeos médicos y citas a través de correo electrónico o WhatsApp para no olvidar realizarme los exámenes requeridos.
-- Como paciente, quiero inscribirme en una lista de espera si no encuentro una cita disponible, de forma que pueda recibir una notificación si alguien cancela su cita.
-- Como paciente, quiero recibir una notificación si alguien cancela una cita, para tener la oportunidad de tomar ese espacio antes que otros.
-- Como paciente, quisiera tener una lista dónde ver los turnos ya reservados, para organización y recordatorio.
-- Como paciente, quisiera tener algún tipo de atención al cliente durante el proceso de agendar una cita, para consultar mis dudas en caso de tenerlas.
-
-### Punto de vista del médico
-- Como médico, quiero que los pacientes puedan ver la disponibilidad de mi agenda y cancelen citas de forma clara, para tener una mejor organización de mis horarios.
-- Como médico, quiero poder subir y gestionar la información clínica de cada paciente, de manera que pueda tener un control claro sobre su historial y actualizarla fácilmente.
-- Como médico, quiero que las citas canceladas sean gestionadas automáticamente y ofrecidas a los pacientes en la lista de espera, para optimizar mi agenda sin perder tiempo de atención.
-
 ---
 
-<h2 align="center" style="color: #007bff;">Resumen de funcionalidades</h2>
-
-- Cargar datos médicos o historia clínica del paciente.
-- Seguimiento de chequeos médicos y recordatorios.
-- Gestión de citas médicas.
-- Control sobre la información clínica del paciente.
-- Lista de espera para citas canceladas o citas no disponibles.
-- Notificaciones por cancelaciones de citas.
-- Prevención de superposición de turnos y citas duplicadas.
-- Reglas de cancelación de citas con 24 horas de anticipación.
-
----
-
-<h2 align="center" style="color: #007bff;">Objetivos de Usabilidad y UX</h2>
-
-### Metas del Usuario
-- **Pacientes**:
-  - Agendar y gestionar citas de manera rápida, incluyendo cancelaciones y reprogramaciones.
-  - Filtrar y buscar médicos por especialidad o nombre.
-  - Recibir recordatorios automáticos de citas.
-  - Inscribirse en listas de espera para recibir notificaciones de disponibilidad.
-  - Visualizar turnos reservados para mejor organización.
-
-- **Médicos**:
-  - Tener un calendario de citas actualizado y organizado.
-  - Minimizar tiempos muertos mediante listas de espera.
-  - Gestionar eficientemente los turnos y notificaciones.
-
-### Metas del Negocio
-- Incrementar la accesibilidad a los servicios de salud.
-- Reducir las citas no asistidas mediante recordatorios.
-- Fidelizar a los usuarios con una experiencia fluida.
-- Crear una base sólida para futuras expansiones de la plataforma.
-
----
-
-<h2 align="center" style="color: #007bff;">KPI’s y Métricas de Éxito</h2>
-
-- **Tasa de conversión de citas**: Porcentaje de usuarios que agendan citas.
-- **Índice de citas asistidas**: Porcentaje de citas en las que los pacientes se presentan.
-- **Satisfacción del usuario (CSAT)**: Medición de satisfacción a través de encuestas.
-- **Tiempo promedio en la tarea**: Tiempo necesario para agendar una cita.
-- **Tasa de uso de la lista de espera**: Porcentaje de usuarios que obtienen citas a través de esta funcionalidad.
-- **Retención de usuarios**: Porcentaje de usuarios que regresan a la plataforma.
 
 <table>
 <thead>
