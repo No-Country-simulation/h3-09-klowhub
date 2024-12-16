@@ -4,6 +4,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import { LoginDto } from './dto/login-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
+import { User } from '@prisma/client';
 
 @Controller()
 export class AuthController {
