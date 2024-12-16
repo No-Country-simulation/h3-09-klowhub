@@ -31,7 +31,7 @@ hackathon-readme-2024
 
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/67a5029a2d0f33247f9fb98e9d75b47af3baf8a1/PM/logo001.png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/273b7c9a41605894af2c9efff61a14146b111efd/pm_imagen/IsoApsheetFrontGde%201%20(1).png"
 </p>
 
 
