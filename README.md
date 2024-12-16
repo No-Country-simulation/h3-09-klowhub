@@ -15,7 +15,7 @@ hackathon-readme-2024
 
 <h1 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
 <br />
-    <a href="https://github.com/No-Country-simulation/s18-22-t-java-react"><strong>Explore the docs »</strong></a>
+    <a href="https://drive.google.com/drive/folders/1O4HaJSpRwsY8ibMT1TC8oQwTSo0UgFVX"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://drive.google.com/drive/folders/1O4HaJSpRwsY8ibMT1TC8oQwTSo0UgFVX">Demo Video</a>
