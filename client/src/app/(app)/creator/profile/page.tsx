@@ -7,11 +7,11 @@ export default function ProfileCreator() {
 	return (
 		<div className="space-y-12">
 			<p className="text-xl font-bold">Mi perfil</p>
-			<div className="flex flex-col gap-8 xl:flex-row">
-				<div className="flex-2">
+			<div className="flex flex-col items-center gap-12 xl:flex-row xl:items-start ">
+				<div className="w-[100%] xl:w-[75%]">
 					<CreatorProfileCard />
 				</div>
-				<div className="flex-1">
+				<div className="w-[50%] xl:w-[30%]">
 					<OptProfileCard />
 				</div>
 			</div>

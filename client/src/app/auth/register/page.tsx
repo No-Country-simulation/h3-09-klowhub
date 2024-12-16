@@ -43,7 +43,6 @@ export default function Page() {
 				console.error('Error en registro: Verifica los datos ingresados.')
 				return
 			}
-
 			router.push('/auth/login')
 		} catch (error) {
 			if (error instanceof AxiosError) {
