@@ -322,4 +322,13 @@ export class CoursesController {
       }),
     );
   }
+
+  @Post('validateProducts')
+  async validateProducts(@Body('ids') ids: string[]) {
+    try {
+      return this.courseClient.send('validateProducts', ids)
+    } catch (error) {
+      throw new RpcException(error)
+    }
+  }
 }

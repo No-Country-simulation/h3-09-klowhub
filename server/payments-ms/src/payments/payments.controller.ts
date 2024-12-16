@@ -1,33 +1,40 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+// import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 
 import { Request, Response } from 'express';
 
 import { PaymentsService } from './payments.service';
 import { PaymentSessionDto } from './dto/payments-session.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
 
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) { }
 
-  @Post('create-payment-session')
-  createPaymentSession(@Body() paymentSessionDto: PaymentSessionDto) {
+  @MessagePattern('create-payment-session')
+  createPaymentSession(@Payload() paymentSessionDto: PaymentSessionDto) {
     return this.paymentsService.createPaymentSession(paymentSessionDto);
   }
 
-  @Get('success')
-  success() {
-    return 'success';
+  @MessagePattern('stripe-webhook')
+  stripeWebhook(@Payload() data: { signature: string, rawBody: string }) {
+    return this.paymentsService.stripeWebhook(data);
   }
 
-  @Get('cancel')
-  cancel() {
-    return 'cancel';
-  }
+  // @Get('success')
+  // success() {
+  //   return 'success';
+  // }
 
-  @Post('webhook')
-  async stripeWebhook(@Req() req: Request, @Res() res: Response) {
-    return this.paymentsService.stripeWebhook(req, res);
-  }
+  // @Get('cancel')
+  // cancel() {
+  //   return 'cancel';
+  // }
+
+  // @Post('webhook')
+  // async stripeWebhook(@Req() req: Request, @Res() res: Response) {
+  //   return this.paymentsService.stripeWebhook(req, res);
+  // }
 }
 
 // import { Controller, BadRequestException, Inject } from '@nestjs/common'

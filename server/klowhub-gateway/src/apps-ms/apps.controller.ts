@@ -146,4 +146,14 @@ export class AppsController {
       throw new RpcException(error);
     }
   }
+
+
+  @Post('validateProducts')
+  async validateProducts(@Body('ids') ids: string[]) {
+    try {
+      return this.appClient.send('validateProducts', ids)
+    } catch (error) {
+      throw new RpcException(error)
+    }
+  }
 }

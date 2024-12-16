@@ -41,6 +41,7 @@ model App {
     sector               String[]
     toolsAndPlatforms    String[]
     level                String
+    type String @default("APP")
     contentType          ContentType
     productType          String      @default("APPLICATION")
     approved             Boolean     @default(false)

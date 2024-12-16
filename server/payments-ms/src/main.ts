@@ -11,10 +11,10 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule,  {
     transport: Transport.TCP,
     options: {
-      port: envs.port,
-      host: envs.host,
+      port: envs.paymentPort,
+      host: envs.paymnetHost,
     },
-  },);
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -25,6 +25,6 @@ async function bootstrap() {
 
   await app.listen();
 
-  logger.log(`Microservice running on port ${envs.port}`);
+  logger.log(`Microservice running on port ${envs.paymnetHost}`);
 }
 bootstrap();

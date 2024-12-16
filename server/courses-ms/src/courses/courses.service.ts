@@ -4,6 +4,7 @@ import {
   OnModuleInit,
   UnauthorizedException,
   BadRequestException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
@@ -374,5 +375,26 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       this.logger.error(`Error deleting module with ID ${id}`, error);
       throw new Error('Could not delete module');
     }
+  }
+
+  async validateProducts(ids: string[]) {
+    ids = Array.from(new Set(ids))
+
+    const products = await this.course.findMany({
+      where: {
+        id: {
+          in: ids
+        }
+      }
+    })
+
+    if (products.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some products were not found',
+        status: HttpStatus.BAD_REQUEST
+      })
+    }
+
+    return products
   }
 }
