@@ -25,6 +25,8 @@ model Order {
   totalAmount Float
   totalItems  Int
 
+  buyerUserId     String
+
   status OrderStatus @default(PENDING)
   paid   Boolean     @default(false)
   paidAt DateTime?
@@ -75,6 +77,7 @@ model App {
     deploy_movil_url     String?
     download_movil_url   String?
     language             String
+    type String @default("APP")
     plataform            Plataform
     functionalities      String[]
     sector               String[]
@@ -114,6 +117,7 @@ model Course {
   shortDescription    String
   price               Float
   functionalities     String[]
+  type String @default("COURSE")
   language            String
   sector              String
   toolsAndPlatforms   String[]
