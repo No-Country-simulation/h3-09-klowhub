@@ -5,6 +5,7 @@
 
 # others
 api/
+/.vscode
 
 # Logs
 logs
