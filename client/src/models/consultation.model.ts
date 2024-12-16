@@ -1,5 +1,5 @@
+import { platforms } from '@/constants/filters.constant'
 import { cardStatusTags } from '@/constants/tags.constant'
-import { Technologies } from '@/constants/technologies.constant'
 
 interface User {
 	id: string
@@ -12,6 +12,6 @@ export interface Consultation {
 	description: string
 	autor: User
 	date: Date
-	platform: keyof typeof Technologies
+	platform: (typeof platforms)[keyof typeof platforms]
 	state: keyof typeof cardStatusTags
 }

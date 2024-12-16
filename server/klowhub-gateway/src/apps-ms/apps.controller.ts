@@ -25,11 +25,11 @@ import { FiltersDto } from 'src/common/dto';
 export class AppsController {
   constructor(@Inject('APP_SERVICE') private readonly appClient: ClientProxy) {}
 
-  @Post()
+  @Post('createApp')
   createProduct(@Body() createAppDto: CreateAppDto) {
     return this.appClient.send('createApp', createAppDto);
   }
-  @Get()
+  @Post('all')
   findAllProducts(
     @Query() paginationDto: PaginationDto,
     @Body() filtersDto: FiltersDto,
@@ -48,8 +48,19 @@ export class AppsController {
       throw new RpcException(error);
     }
   }
+  @Get('creator/:creator_id')
+  async findProductByCreatorId(@Param('creator_id', ParseUUIDPipe) creator_id: string) {
+    try {
+      const product = await firstValueFrom(
+        this.appClient.send('findAppByCreatorId', { creator_id }),
+      );
+      return product;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
 
-  @Patch(':id')
+  @Patch('updateApp/:id')
   async updateApp(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateAppDto: UpdateAppDto,
@@ -64,7 +75,7 @@ export class AppsController {
       throw new RpcException(error);
     }
   }
-  @Delete(':id')
+  @Delete('deteleApp/:id')
   removeApp(@Param('id', ParseUUIDPipe) id: string) {
     return this.appClient.send('removeApp', { id }).pipe(
       catchError((err) => {
@@ -100,14 +111,14 @@ export class AppsController {
     }
   }
 
-  @Delete('delete/:type/:appId')
+  @Delete('deleteFileApp/:typeApp/:appId')
   async deleteFile(
-    @Param() UploadFileDto: UploadFileDto,
+    @Param('typeApp') type_app: string,
     @Param('appId', ParseUUIDPipe) appId: string,
   ): Promise<{ message: string }> {
     try {
-     
-      const fileName = `${UploadFileDto.type_app}_${appId}`;
+      const extension = 'rar';
+      const fileName = `${type_app}_${appId}.${extension}`; // `;
       const result = await firstValueFrom(
         this.appClient.send('deleteFile', { fileName }),
       );
@@ -119,12 +130,14 @@ export class AppsController {
     }
   }
 
-  @Get('download/:name')
+  @Post('download')
   async downloadFile(
-    @Param('name') name: string,
+    @Body() UploadFileDto: UploadFileDto,
     @Res() res: Response,
   ): Promise<void> {
     try {
+      const name = `${UploadFileDto.type_app}_${UploadFileDto.app_id}`;
+      console.log('nombre', name);
       const result = await firstValueFrom(
         this.appClient.send('downloadFile', { name }),
       );
@@ -143,6 +156,15 @@ export class AppsController {
       res.send(Buffer.from(result.fileBuffer.data));
     } catch (error) {
       console.error('Error al descargar el archivo:', error.message);
+      throw new RpcException(error);
+    }
+  }
+
+  @Post('validateProducts')
+  async validateProducts(@Body('ids') ids: string[]) {
+    try {
+      return this.appClient.send('validateProducts', ids);
+    } catch (error) {
       throw new RpcException(error);
     }
   }

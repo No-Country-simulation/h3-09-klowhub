@@ -4,6 +4,7 @@ import {
   OnModuleInit,
   UnauthorizedException,
   BadRequestException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Prisma, PrismaClient, Course } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
@@ -16,16 +17,30 @@ import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
 import { storage } from '../config/storage.config';
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 import { FilterCoursesDto } from './dto/filter-course.dto';
+import { envs } from 'src/config/envs';
 
 @Injectable()
 export class CoursesService extends PrismaClient implements OnModuleInit {
   private logger = new Logger('Courses service');
   private bucketName = process.env.BUCKET_NAME;
   private bucketNameImage = process.env.BUCKET_NAME_IMAGE;
+  private usersClient: ClientProxy; // Cliente para comunicarse con users-ms
 
   constructor() {
     super();
+    this.usersClient = ClientProxyFactory.create({
+      transport: Transport.TCP,
+      options: {
+        host: envs.usersHost,
+        port: envs.usersPort,
+      },
+    });
   }
 
   async onModuleInit() {
@@ -48,6 +63,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     this.logger.log('find_one_course_by_id');
 
     try {
+      // Buscar el curso en la base de datos
       const course = await this.course.findUnique({
         where: { id },
         include: {
@@ -67,7 +83,19 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
         throw new BadRequestException(`Course with ID ${id} not found`);
       }
 
-      return course;
+      // Consultar al microservicio users-ms por el creador del curso
+      const creator = await this.usersClient
+        .send('find_one_user', { id: course.creator })
+        .toPromise();
+
+      // Excluir la contraseña u otros datos sensibles del creador
+      const { password, ...creatorData } = creator;
+
+      // Devolver el curso junto con los datos del creador
+      return {
+        ...course,
+        creator: creatorData,
+      };
     } catch (error) {
       this.logger.error(
         `Error fetching course with ID ${id}: ${error.message}`,
@@ -77,7 +105,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
 
   async getAllCourses(filter: FilterCoursesDto = {}) {
-    this.logger.log('find_all_courses_with_filter');
+    this.logger.log('find_all_courses');
 
     const filters: any = {};
 
@@ -374,5 +402,26 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
       this.logger.error(`Error deleting module with ID ${id}`, error);
       throw new Error('Could not delete module');
     }
+  }
+
+  async validateProducts(ids: string[]) {
+    ids = Array.from(new Set(ids))
+
+    const products = await this.course.findMany({
+      where: {
+        id: {
+          in: ids
+        }
+      }
+    })
+
+    if (products.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some products were not found',
+        status: HttpStatus.BAD_REQUEST
+      })
+    }
+
+    return products
   }
 }

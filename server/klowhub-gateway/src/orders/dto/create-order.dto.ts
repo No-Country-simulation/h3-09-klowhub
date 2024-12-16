@@ -1,9 +1,12 @@
-import { ArrayMinSize, IsArray, ValidateNested } from 'class-validator';
+import { ArrayMinSize, IsArray, IsString, IsUUID, ValidateNested } from 'class-validator';
 
 import { Type } from 'class-transformer';
 import { OrderItemDto } from './order-item.dto';
 
 export class CreateOrderDto {
+  @IsUUID()
+  buyerUserId: string
+  
   @IsArray()
   @ArrayMinSize(1)
   @ValidateNested({ each: true })

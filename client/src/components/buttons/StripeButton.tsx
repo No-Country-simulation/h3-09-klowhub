@@ -26,10 +26,25 @@ export default function StripeButton({
 			console.error('Failed to load Stripe')
 			return
 		}
+		const fixedItems = items.map((item) => {
+			if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
+				const course = item as Course
+				if (course.contentType === 'FREE') {
+					return {
+						...course,
+						price: 0
+					}
+				} else {
+					return course
+				}
+			} else {
+				return item
+			}
+		})
 
 		const result = await fetch('/api/checkout', {
 			method: 'POST',
-			body: JSON.stringify({ items, activeDiscount })
+			body: JSON.stringify({ items: fixedItems, activeDiscount })
 		})
 
 		if (!result.ok) {

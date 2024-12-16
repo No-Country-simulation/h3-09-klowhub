@@ -50,6 +50,7 @@ model Course {
   courseType          CourseType
   level               String
   contentPillar       String
+  type String @default("COURSE")
   learningOutcomes    String[]
   prerequisites       String[]
   detailedDescription String

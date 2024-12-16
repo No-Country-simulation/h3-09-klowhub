@@ -13,13 +13,20 @@ export class OrdersController {
   ) { }
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderClient.send('create-order', createOrderDto);
+  async create(@Body() createOrderDto: CreateOrderDto) {
+    try {
+      const order = await firstValueFrom(this.orderClient.send('create-order', createOrderDto))
+      return order
+    } catch (error) {
+      throw new RpcException(error)
+    }
   }
 
-  @Get()
-  findAll() {
-    return this.orderClient.send('find-all-orders', {});
+  @Post('all')
+  findAll(
+    @Body('userId', ParseUUIDPipe) userId: string, 
+  ) {
+    return this.orderClient.send('find-all-orders', userId);
   }
 
   @Get(':id')

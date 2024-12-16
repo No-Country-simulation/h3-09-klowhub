@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 		await req.json()
 
 	try {
-		const coupon = activeDiscount
+		const couponCreated = activeDiscount
 			? await stripe.coupons.create({
 				name: activeDiscount.name,
 				percent_off: activeDiscount.discount
@@ -41,9 +41,9 @@ export async function POST(req: NextRequest) {
 				quantity: 1
 			})),
 			mode: 'payment',
-			discounts: coupon ? [{ coupon: coupon.id }] : [],
+			discounts: couponCreated ? [{ coupon: couponCreated.id }] : [],
 			success_url: `${req.headers.get('origin')}/cart?status=success`,
-			cancel_url: `${req.headers.get('origin')}/cart?status=cancelled`
+			cancel_url: `${req.headers.get('origin')}/cart`
 		})
 
 		return NextResponse.json({ id: session.id }, { status: 200 })

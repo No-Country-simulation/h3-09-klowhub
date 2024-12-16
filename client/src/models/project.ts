@@ -11,7 +11,7 @@ export interface Project {
 	id: string
 	author: User
 	amount: number
-	type: keyof typeof typeTags
+	type: (typeof typeTags)[keyof typeof typeTags]
 	status: keyof typeof cardStatusTags
 	platform: keyof typeof Technologies
 }

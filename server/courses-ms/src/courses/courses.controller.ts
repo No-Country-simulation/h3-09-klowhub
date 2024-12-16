@@ -40,7 +40,7 @@ export class CoursesController {
     return this.coursesService.createCourse(courseData);
   }
 
-  @MessagePattern('find_all_courses')
+  @MessagePattern('find_all_courses') //
   async findAll(@Payload() data: { filters: FilterCoursesDto }) {
     const { filters } = data; // Extraer los filtros del objeto recibido
     return this.coursesService.getAllCourses(filters); // Llamamos al servicio con los filtros
@@ -195,5 +195,10 @@ export class CoursesController {
       throw new RpcException('id is required');
     }
     return this.coursesService.deleteModule(id);
+  }
+
+  @MessagePattern('validateProducts')
+  async validateProducts(@Payload() ids: string[]) {
+    return this.coursesService.validateProducts(ids)
   }
 }

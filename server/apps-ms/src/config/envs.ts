@@ -7,6 +7,8 @@ interface EnvVars {
   APP_HOST: string;
   GCP_PROJECT_ID: string;
   BUCKETNAME: string;
+  USER_MICROSERVICE_HOST: string;
+  USER_MICROSERVICE_PORT: number;
 }
 
 const envSchema = Joi.object({
@@ -14,6 +16,8 @@ const envSchema = Joi.object({
   APP_HOST: Joi.string().required(),
   GCP_PROJECT_ID: Joi.string().required(),
   BUCKETNAME: Joi.string().required(),
+  USER_MICROSERVICE_HOST: Joi.string().required(),
+USER_MICROSERVICE_PORT: Joi.number().required(),
 }).unknown(true);
 
 const { error, value } = envSchema.validate(process.env);
@@ -27,4 +31,6 @@ export const envs = {
   host: envVars.APP_HOST,
   gcpProjectId: envVars.GCP_PROJECT_ID,
   googleBucketName: envVars.BUCKETNAME,
+  userMicroserviceHost: envVars.USER_MICROSERVICE_HOST,
+  userMicroservicePort: envVars.USER_MICROSERVICE_PORT
 };

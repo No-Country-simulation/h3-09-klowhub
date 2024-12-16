@@ -7,29 +7,55 @@ import Image from 'next/image'
 import { Dispatch, SetStateAction } from 'react'
 import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
-import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
+import TechnologyTag from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
 
 interface Props {
 	course: Course
-	setProductSelected: Dispatch<SetStateAction<Course | null>>
+	setProductSelected: Dispatch<SetStateAction<string | null>>
 }
 export function CourseHorizontalCard({ course, setProductSelected }: Props) {
-	const totalScore = course.reviews.reduce(
-		(acc, review) => acc + review.score,
-		0
-	)
+	const totalScore = course.reviews
+		? course.reviews.reduce((acc, review) => acc + review.score, 0)
+		: 0
 	const averageScore = course.reviews.length
 		? Number((totalScore / course.reviews.length).toFixed(1))
 		: 0
 	const { addCartItem } = useStore()
+	const fixedPrice = () => {
+		let result = <></>
 
+		if (course.contentType === 'FREE' && course.price !== 0) {
+			result = (
+				<div className="right-4 flex items-center gap-2 lg:absolute">
+					<p className="text-xs line-through opacity-45">
+						{moneyFormat(course.price)}
+					</p>
+					<b className="text-xl">GRATIS</b>
+				</div>
+			)
+		} else if (course.contentType === 'FREE' && course.price === 0) {
+			result = (
+				<div className="right-4 flex items-center gap-2 lg:absolute">
+					<b className="text-xl">GRATIS</b>
+				</div>
+			)
+		} else {
+			result = (
+				<div className="right-4 flex items-center gap-2 lg:absolute">
+					<b className="text-xl">{moneyFormat(course.price)}</b>
+				</div>
+			)
+		}
+
+		return result
+	}
 	return (
 		<>
 			<Card
 				theme={{
 					root: {
-						children: 'p-2  gap-2 flex flex-col w-full relative',
+						children: 'p-4  gap-2 flex flex-col w-full relative',
 						horizontal: {
 							on: 'md:max-w-full max-sm:flex-col flex-row '
 						}
@@ -45,7 +71,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 				renderImage={() => (
 					<picture className="relative aspect-video sm:w-1/4">
 						<span className="absolute left-2 top-2 z-20">
-							<CategoryTag>Curso</CategoryTag>
+							<CategoryTag>{course.courseType.toLocaleLowerCase()}</CategoryTag>
 						</span>
 						<Image
 							fill
@@ -60,19 +86,17 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 				<h5 className="text-sm font-bold">{course.title}</h5>
 				<p className="text-sm">{course.shortDescription}</p>
 				<div className="flex flex-wrap gap-4">
-					{course.functionalities.map((category, i) => (
+					{course.relatedTags.map((category, i) => (
 						<CategoryTag key={i}>{category}</CategoryTag>
 					))}
 				</div>
 				<div className="flex gap-2">
-					{course.toolsAndPlatforms.map((technology, i) => (
-						<TechnologyTag
-							technology={technology as Technology}
-							key={'technology-' + i}
-						/>
-					))}
+					<TechnologyTag technology={course.platform} />
 				</div>
-				<RatingStars rating={averageScore} totalVotes={course.reviews.length} />
+				<RatingStars
+					rating={averageScore}
+					totalVotes={course.reviews?.length ?? 0}
+				/>
 				<div className="flex w-full flex-wrap">
 					<Button className="p-0" size="l" onClick={() => addCartItem(course)}>
 						Añadir al carrito
@@ -80,16 +104,12 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 					<Button
 						size="l"
 						variant="tertiary"
-						onClick={() => setProductSelected(course)}
+						onClick={() => setProductSelected(course.id)}
 					>
 						Ver detalles
 					</Button>
 				</div>
-				<b className="right-5 text-xl lg:absolute">
-					{course.contentType === 'PAID' && course.price
-						? moneyFormat(course.price)
-						: 'GRATIS'}
-				</b>
+				{fixedPrice()}
 			</Card>
 		</>
 	)

@@ -53,10 +53,7 @@ export class CoursesController {
   ) {
     const { pagination, filters } = body;
     // Aquí pasamos tanto los filtros como la paginación al microservicio
-    return this.courseClient.send(
-      { cmd: 'find_all_courses' }, // Asegúrate de que el cmd coincide con el patrón en el microservicio
-      { pagination, filters }, // Enviamos los datos correctamente
-    );
+    return this.courseClient.send('find_all_courses', { pagination, filters });
   }
 
   @Get('course/:id')
@@ -321,5 +318,14 @@ export class CoursesController {
         });
       }),
     );
+  }
+
+  @Post('validateProducts')
+  async validateProducts(@Body('ids') ids: string[]) {
+    try {
+      return this.courseClient.send('validateProducts', ids)
+    } catch (error) {
+      throw new RpcException(error)
+    }
   }
 }

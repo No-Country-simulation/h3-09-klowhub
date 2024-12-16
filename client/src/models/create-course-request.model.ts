@@ -1,8 +1,8 @@
-export type ContentType = 'FREE' | 'PAID'
-
-export type CourseType = 'COURSE' | 'LESSON'
-
-export type Platform = 'APPSHEET' | 'POWERAPPS'
+import {
+	contentTypes,
+	courseTypes,
+	platforms
+} from '@/constants/filters.constant'
 
 export interface CreateCourseRequest {
 	id?: string
@@ -10,14 +10,14 @@ export interface CreateCourseRequest {
 	photo: string
 	shortDescription: string
 	price: number
-	platform: Platform[]
+	platform: keyof (typeof platforms)[]
 	functionalities: string[]
 	relatedTags: string[]
 	language: string
 	sector: string
 	toolsAndPlatforms: string[]
-	contentType: ContentType
-	courseType: CourseType
+	contentType: keyof typeof contentTypes
+	courseType: keyof typeof courseTypes
 	level: string
 	contentPillar: string
 	learningOutcomes: string[]
