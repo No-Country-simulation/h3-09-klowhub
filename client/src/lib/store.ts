@@ -34,7 +34,7 @@ const useStore = create(
 				const fixedItems = state.cart.map((item) => {
 					if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
 						const course = item as Course
-						if (course.contentType === 'FREE') {
+						if (course.contentType === 'Gratuito') {
 							return {
 								...course,
 								price: 0

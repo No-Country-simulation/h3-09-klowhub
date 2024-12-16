@@ -25,7 +25,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 	const fixedPrice = () => {
 		let result = <></>
 
-		if (course.contentType === 'FREE' && course.price !== 0) {
+		if (course.contentType === 'Gratuito' && course.price !== 0) {
 			result = (
 				<div className="right-4 flex items-center gap-2 lg:absolute">
 					<p className="text-xs line-through opacity-45">
@@ -34,7 +34,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 					<b className="text-xl">GRATIS</b>
 				</div>
 			)
-		} else if (course.contentType === 'FREE' && course.price === 0) {
+		} else if (course.contentType === 'Gratuito' && course.price === 0) {
 			result = (
 				<div className="right-4 flex items-center gap-2 lg:absolute">
 					<b className="text-xl">GRATIS</b>

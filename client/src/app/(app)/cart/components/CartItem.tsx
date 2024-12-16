@@ -25,7 +25,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 		let result = <></>
 		if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
 			const course = item as Course
-			if (course.contentType === 'FREE' && course.price !== 0) {
+			if (course.contentType === 'Gratuito' && course.price !== 0) {
 				result = (
 					<div className="right-0 flex items-center gap-2 lg:absolute">
 						<p className="text-xs line-through opacity-45">
@@ -34,7 +34,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 						<b className="text-xl">GRATIS</b>
 					</div>
 				)
-			} else if (course.contentType === 'FREE' && course.price === 0) {
+			} else if (course.contentType === 'Gratuito' && course.price === 0) {
 				result = (
 					<div className="right-4 flex items-center gap-2 lg:absolute">
 						<b className="text-xl">GRATIS</b>
@@ -47,6 +47,12 @@ export default function CartItem({ item }: { item: Course | App }) {
 					</div>
 				)
 			}
+		} else {
+			result = (
+				<div className="right-0 flex items-center gap-2 lg:absolute">
+					<b className="text-xl">{moneyFormat(item.price)}</b>
+				</div>
+			)
 		}
 		return result
 	}
