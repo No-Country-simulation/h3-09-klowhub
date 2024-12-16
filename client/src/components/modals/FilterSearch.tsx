@@ -5,10 +5,15 @@ import Button from '../buttons/Button'
 
 interface Props {
 	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-	setFilters: React.Dispatch<React.SetStateAction<object>>
+	setFilters: React.Dispatch<React.SetStateAction<Array<string>>>
+	filterByModal: Array<string>
 }
-export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
-	function Component({ filterSection }) {
+export default function FilterSearch({
+	setIsModalOpen,
+	setFilters,
+	filterByModal
+}: Props) {
+	function Component({ filterSection }: { filterSection: object }) {
 		return Object.entries(filterSection).map(([key, category]) => (
 			<label
 				key={key}
@@ -16,20 +21,23 @@ export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
 			>
 				<input
 					type="checkbox"
-					value={category as string}
-					onChange={() =>
-						setFilters((prev) => ({
-							prev,
-							[key]: category as string
-						}))
-					}
-					className="rounded-md"
+					checked={filterByModal.includes(category as string)}
+					onChange={() => {
+						if (filterByModal.includes(category as string)) {
+							setFilters((prev) => [
+								...prev.filter((filter) => filter !== (category as string))
+							])
+						} else {
+							setFilters((prev) => [...prev, category as string])
+						}
+					}}
+					className="rounded-md checked:bg-primary-a-400"
 				/>
 				<p>{category as string}</p>
 			</label>
 		))
 	}
-	function Section({ title, section }) {
+	function Section({ title, section }: { title: string; section: object }) {
 		return (
 			<div className="flex flex-col gap-4 rounded-lg bg-white/10 px-4 py-2">
 				<h3>{title}</h3>
@@ -43,6 +51,11 @@ export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
 					size="l"
 					className="mt-auto w-fit min-w-0 p-0 text-xs"
 					icon={<X />}
+					onClick={() =>
+						setFilters((prev) =>
+							prev.filter((filter) => !Object.values(section).includes(filter))
+						)
+					}
 				>
 					Limpiar
 				</Button>
@@ -60,7 +73,7 @@ export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
 						onClick={() => setIsModalOpen(false)}
 					/>
 				</div>
-				<div className="no-scrollbar grid grid-cols-2 gap-3 overflow-y-scroll">
+				<div className="no-scrollbar grid gap-3 overflow-y-scroll md:grid-cols-2">
 					<Section section={constants.platforms} title={'Plataforma'} />
 					<Section section={constants.language} title={'Idioma'} />
 					<Section
@@ -73,6 +86,15 @@ export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
 						title={'Herramientas y plataformas'}
 					/>
 					<Section section={constants.sector} title={'Sector'} />
+					<Section
+						section={constants.functionalities}
+						title={'Funcionalidades'}
+					/>
+					<Section
+						section={constants.relatedTags}
+						title={'Tags relacionadas'}
+					/>
+					<Section section={constants.courseTypes} title={'Tipo'} />
 				</div>
 			</article>
 		</section>

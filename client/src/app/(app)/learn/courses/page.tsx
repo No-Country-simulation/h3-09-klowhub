@@ -10,7 +10,6 @@ import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
 import { getCourses } from '@/services/courses.service'
 import { ListFilter, ListOrdered, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import * as constants from '@/constants/filters.constant'
 
 export default function Page() {
 	const [courses, setCourses] = useState<Course[]>([])
@@ -18,8 +17,9 @@ export default function Page() {
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [filterByModal, setFilterByModal] = useState({})
+	const [filterByModal, setFilterByModal] = useState<Array<string>>([])
 	const [searchInput, setSearchInput] = useState('')
+
 	useEffect(() => {
 		void (async () => {
 			try {
@@ -51,12 +51,21 @@ export default function Page() {
 					(name) =>
 						name.toLocaleLowerCase() === filterByCategory.toLocaleLowerCase()
 				)
+			} else if (filterByModal.length > 0) {
+				return Object.values(course).some((valueCourse) => {
+					if (valueCourse instanceof Array) {
+						return valueCourse.some((value) => {
+							return filterByModal.includes(value as string)
+						})
+					}
+					return filterByModal.includes(valueCourse as string)
+				})
 			} else {
 				return courses
 			}
 		})
 		setFilteredResult(filtered)
-	}, [filterByCategory, searchInput])
+	}, [filterByCategory, searchInput, filterByModal])
 
 	return (
 		<article className="space-y-5">
@@ -125,6 +134,7 @@ export default function Page() {
 				<FilterSearch
 					setIsModalOpen={setIsModalOpen}
 					setFilters={setFilterByModal}
+					filterByModal={filterByModal}
 				/>
 			)}
 		</article>
