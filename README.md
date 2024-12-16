@@ -40,18 +40,7 @@ hackathon-readme-2024
  <h3 align="center">Descripción del Proyecto</h3>
 
   <p align="center">
-KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centralizar y facilitar el acceso a contenido segmentado y especifico para el desarrollo de aplicaciones NoCode & LowCode, permitiendo la compra, venta y publicación de productos y servicios digitales relacionados con el ecosistema No/Low Code. Su objetivo principal es conectar a desarrolladores, educadores, y empresas con usuarios que necesiten soluciones ágiles y personalizadas, permitiendo monetizar los conocimientos y habilidades en este entorno.    <br />
-    <a href="https://github.com/No-Country-simulation/s18-22-t-java-react"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://policonsultorio.vercel.app/">Demo Deploy</a>
-    ·
-    <a href="https://clinica-medica-production.up.railway.app/api/v1/swagger-ui/index.html#/">Demo Video</a>
-    ·
-    <a href="https://docs.google.com/presentation/d/1JBc4hJX9XxDRVXj96_4uEcKB00PZFJQxYbE9TMXOzkI/edit#slide=id.g310bf0e0ad8_0_12">Demo Day</a>
-  </p>
-</div>
-
+KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centralizar y facilitar el acceso a contenido segmentado y especifico para el desarrollo de aplicaciones NoCode & LowCode, permitiendo la compra, venta y publicación de productos y servicios digitales relacionados con el ecosistema No/Low Code. Su objetivo principal es conectar a desarrolladores, educadores, y empresas con usuarios que necesiten soluciones ágiles y personalizadas, permitiendo monetizar los conocimientos y habilidades en este entorno.    
 <div align="center">
 <p style="color: #007bff; font-weight: bold; font-size: 24px;">
 
