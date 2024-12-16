@@ -4,10 +4,10 @@ import React from 'react'
 import Button from '../buttons/Button'
 
 interface Props {
-	setModalFilters?: React.Dispatch<React.SetStateAction<boolean>>
-	setFilters?: React.Dispatch<React.SetStateAction<boolean>>
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+	setFilters: React.Dispatch<React.SetStateAction<object>>
 }
-export default function FilterSearch({ setModalFilters, setFilters }: Props) {
+export default function FilterSearch({ setIsModalOpen, setFilters }: Props) {
 	function Component({ filterSection }) {
 		return Object.entries(filterSection).map(([key, category]) => (
 			<label
@@ -17,6 +17,12 @@ export default function FilterSearch({ setModalFilters, setFilters }: Props) {
 				<input
 					type="checkbox"
 					value={category as string}
+					onChange={() =>
+						setFilters((prev) => ({
+							prev,
+							[key]: category as string
+						}))
+					}
 					className="rounded-md"
 				/>
 				<p>{category as string}</p>
@@ -51,7 +57,7 @@ export default function FilterSearch({ setModalFilters, setFilters }: Props) {
 					<X
 						size={30}
 						className="ml-auto cursor-pointer rounded-lg p-1 outline-1 hover:outline"
-						onClick={() => setModalFilters(true)}
+						onClick={() => setIsModalOpen(false)}
 					/>
 				</div>
 				<div className="no-scrollbar grid grid-cols-2 gap-3 overflow-y-scroll">

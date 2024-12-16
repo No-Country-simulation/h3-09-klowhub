@@ -10,6 +10,7 @@ import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
 import { getCourses } from '@/services/courses.service'
 import { ListFilter, ListOrdered, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import * as constants from '@/constants/filters.constant'
 
 export default function Page() {
 	const [courses, setCourses] = useState<Course[]>([])
@@ -17,7 +18,7 @@ export default function Page() {
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [filterByModal, setFilterByModal] = useState()
+	const [filterByModal, setFilterByModal] = useState({})
 	const [searchInput, setSearchInput] = useState('')
 	useEffect(() => {
 		void (async () => {
@@ -74,7 +75,12 @@ export default function Page() {
 							className="w-full rounded-lg border-0 border-none px-0 py-2 text-black outline-0 focus:ring-0"
 						/>
 					</div>
-					<Button variant="secondary" size="l" icon={<ListFilter />}>
+					<Button
+						variant="secondary"
+						size="l"
+						icon={<ListFilter />}
+						onClick={() => setIsModalOpen(true)}
+					>
 						Filtros
 					</Button>
 					<Button variant="secondary" size="l" icon={<ListOrdered />}>
@@ -115,7 +121,12 @@ export default function Page() {
 					/>
 				)}
 			</section>
-			{/* <FilterSearch /> */}
+			{isModalOpen && (
+				<FilterSearch
+					setIsModalOpen={setIsModalOpen}
+					setFilters={setFilterByModal}
+				/>
+			)}
 		</article>
 	)
 }
