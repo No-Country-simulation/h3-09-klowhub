@@ -359,7 +359,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 ## ⚙️  **UX-UI**
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png">
+  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
 </p>
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
@@ -425,7 +425,7 @@ Este MVP de <strong>KlowHub</strong>
   <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/PM.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
 <h2 align="center" style="color:#007bff">🚀 Project Manager - Tecnologias Utilizadas</h2>
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:
