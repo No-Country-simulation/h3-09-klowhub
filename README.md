@@ -101,7 +101,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 
 ## ⚙️  **Backend - Tecnologías Utilizadas**
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/b7f7deb380c191a1f822ebf22612db54800d1cdd/pm_imagen/Recurso%201%404x-8.png" alt="Logo" width="100" height="100">
 </p> 
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/d1be46f721a1b68d1dff90e48f3ba854c5617f2d/PM/BACK-END-SINFONDO.png)
