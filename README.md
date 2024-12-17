@@ -104,7 +104,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/324d028a6ab0b200ef12edec62a66224715b2f3c/pm_imagen/Recurso%201%401.5x-8.png" alt="Logo" width="100" height="100">
 </p> 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/324d028a6ab0b200ef12edec62a66224715b2f3c/pm_imagen/Recurso%201%401.5x-8.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png)
 🛠️ NestJS: Framework Backend Principal
 Seleccionamos NestJS como el framework principal para el backend por las siguientes razones:
 
