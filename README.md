@@ -176,7 +176,7 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
   <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/bfc2bc36ec88be90baf35332d20dd484f60eccdf/PM/FRONTEND-PNG.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/83e878494ff2ebe03533f7ff1352cd3e8de7257a/pm_imagen/FRONTEND%404x-8.png)
 
 ---
 
