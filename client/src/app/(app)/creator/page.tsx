@@ -86,11 +86,11 @@ export default function CreatorHome() {
 					Revisa los detalles, realiza entregas y mantén la comunicación con el
 					creador para asegurar el éxito de tu trabajo.
 				</p>
-				<div className="flex items-start gap-6">
-					<div className="flex-grow">
+				<div className="flex flex-col xl:flex-row items-start gap-6">
+					<div className="w-full xl:flex-grow">
 						<ProjectsTable projects={mockProjects} />
 					</div>
-					<div className="w-[300px]">
+					<div className="w-full xl:w-[300px]">
 						<GlobalStatsList stats={statsData} />
 					</div>
 				</div>

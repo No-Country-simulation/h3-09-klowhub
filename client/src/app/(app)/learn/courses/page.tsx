@@ -3,6 +3,7 @@ import { coursesAdapter } from '@/adapters/read-course.adapter'
 import Button from '@/components/buttons/Button'
 import { CourseHorizontalCard } from '@/components/cards/CourseHorizontalCard'
 import CourseModal from '@/components/modals/CourseModal'
+import FilterSearch from '@/components/modals/FilterSearch'
 import { relatedTags } from '@/constants/filters.constant'
 import { Course } from '@/models/course.model'
 import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
@@ -15,7 +16,10 @@ export default function Page() {
 	const [courseSelected, setCourseSelected] = useState<string | null>(null)
 	const [filteredResult, setFilteredResult] = useState<Course[]>([])
 	const [filterByCategory, setFilterByCategory] = useState<string | null>(null)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [filterByModal, setFilterByModal] = useState<Array<string>>([])
 	const [searchInput, setSearchInput] = useState('')
+
 	useEffect(() => {
 		void (async () => {
 			try {
@@ -47,12 +51,21 @@ export default function Page() {
 					(name) =>
 						name.toLocaleLowerCase() === filterByCategory.toLocaleLowerCase()
 				)
+			} else if (filterByModal.length > 0) {
+				return Object.values(course).some((valueCourse) => {
+					if (valueCourse instanceof Array) {
+						return valueCourse.some((value) => {
+							return filterByModal.includes(value as string)
+						})
+					}
+					return filterByModal.includes(valueCourse as string)
+				})
 			} else {
 				return courses
 			}
 		})
 		setFilteredResult(filtered)
-	}, [filterByCategory, searchInput])
+	}, [filterByCategory, searchInput, filterByModal])
 
 	return (
 		<article className="space-y-5">
@@ -71,8 +84,13 @@ export default function Page() {
 							className="w-full rounded-lg border-0 border-none px-0 py-2 text-black outline-0 focus:ring-0"
 						/>
 					</div>
-					<Button variant="secondary" size="l" icon={<ListFilter />}>
-						Filtros
+					<Button
+						variant="secondary"
+						size="l"
+						icon={<ListFilter />}
+						onClick={() => setIsModalOpen(true)}
+					>
+						Filtros ({filterByModal.length})
 					</Button>
 					<Button variant="secondary" size="l" icon={<ListOrdered />}>
 						Ordenar por
@@ -112,6 +130,13 @@ export default function Page() {
 					/>
 				)}
 			</section>
+			{isModalOpen && (
+				<FilterSearch
+					setIsModalOpen={setIsModalOpen}
+					setFilters={setFilterByModal}
+					filterByModal={filterByModal}
+				/>
+			)}
 		</article>
 	)
 }

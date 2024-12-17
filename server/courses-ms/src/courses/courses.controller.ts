@@ -40,7 +40,7 @@ export class CoursesController {
     return this.coursesService.createCourse(courseData);
   }
 
-  @MessagePattern('find_all_courses')
+  @MessagePattern('find_all_courses') //
   async findAll(@Payload() data: { filters: FilterCoursesDto }) {
     const { filters } = data; // Extraer los filtros del objeto recibido
     return this.coursesService.getAllCourses(filters); // Llamamos al servicio con los filtros

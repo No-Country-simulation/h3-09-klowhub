@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { CreateAppDto } from './dto/create-app.dto';
 import { UpdateAppDto } from './dto/update-app.dto';
 import { PrismaClient } from '@prisma/client';
@@ -6,16 +6,31 @@ import { RpcException } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
 import { envs, storage } from 'src/config';
 import { FiltersDto } from './dto/filters.dto';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AppsService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger('AppsService');
-  private bucketName = "appsheet-powerapps-files";
+  private bucketName = 'appsheet-powerapps-files';
+  constructor(private readonly userService: UserService) {
+    super();
+  }
+
   async onModuleInit() {
     await this.$connect();
     this.logger.log('Connected to database');
   }
-  create(createAppDto: CreateAppDto) {
+  async create(createAppDto: CreateAppDto) {
+    const creatorExists = await this.userService.checkCreatorExists(
+      createAppDto.creator_id,
+    );
+    if (!creatorExists) {
+      throw new RpcException({
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'Creator ID does not exist',
+      });
+    }
+
     return this.app.create({ data: createAppDto });
   }
 
@@ -194,7 +209,7 @@ export class AppsService extends PrismaClient implements OnModuleInit {
     const bucket = storage.bucket(this.bucketName);
     if (!fileName) {
       throw new Error('fileName is undefined or null');
-  }
+    }
     //Agregar la extensión de archivo
     const extension = 'rar'; // Suponer 'rar' por ahora
     const completeFileName = fileName.includes('.')
@@ -266,23 +281,23 @@ export class AppsService extends PrismaClient implements OnModuleInit {
   }
 
   async validateProducts(ids: string[]) {
-    ids = Array.from(new Set(ids))
+    ids = Array.from(new Set(ids));
 
     const products = await this.app.findMany({
       where: {
         id: {
-          in: ids
-        }
-      }
-    })
+          in: ids,
+        },
+      },
+    });
 
     if (products.length !== ids.length) {
       throw new RpcException({
         message: 'Some products were not found',
-        status: HttpStatus.BAD_REQUEST
-      })
+        status: HttpStatus.BAD_REQUEST,
+      });
     }
 
-    return products
+    return products;
   }
 }
