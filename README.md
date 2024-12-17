@@ -1,17 +1,12 @@
 
 
 =======
-
 hackathon-readme-2024
-# Readme-Hackathon-1
-hackathon-readme-2024
->>>>>>> 2fd8ae0d353c5f7a2476d2a565e2d862c8a473fb
 <!-- HEADER -->
 <div align="center" width="100">
-  <img src="https://github.com/Jhone-fori-freelancer/hackathon-readme/blob/a357b76ec8257571b2699053a1481f44fbac4e60/ICON/baner-00%20(1).png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/9b2abf52d8431bf0bc94490def8d3efc9a0241a9/pm_imagen/Frame%20811846.png"
   alt="header"/>
 </div>
-<<<<<<< HEAD
 
 <h1 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
 <br />
