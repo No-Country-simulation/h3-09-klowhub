@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
 						`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
 						{
 							email: credentials?.email,
-							password: credentials?.password
+							password: credentials?.password,
 						},
 						{
 							headers: {
