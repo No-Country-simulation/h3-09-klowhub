@@ -58,6 +58,18 @@ export class UsersController {
     }
   }
 
+  @Patch('role/:id')
+  async assignSellerRole(@Param('id', ParseUUIDPipe) id: string) {
+    try {
+      const user = await firstValueFrom(
+        this.userClient.send('assign_seller_role', { id }),
+      );
+      return user;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  }
+
   @Delete('delete/:id')
   removeUser(@Param('id', ParseUUIDPipe) id: string) {
     if (!id) {

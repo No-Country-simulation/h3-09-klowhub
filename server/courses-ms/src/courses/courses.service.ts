@@ -89,7 +89,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
         .toPromise();
 
       // Excluir la contraseña u otros datos sensibles del creador
-      const { password, ...creatorData } = creator;
+      const { password, ...creatorData } = creator || {};
 
       // Devolver el curso junto con los datos del creador
       return {

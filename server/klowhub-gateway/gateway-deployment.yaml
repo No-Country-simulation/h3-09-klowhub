@@ -20,6 +20,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: env-gateway-config
+          resources:  
+            requests:  
+              memory: "128Mi"  
+              cpu: "100m"      
+            limits:    
+              memory: "256Mi"  
+              cpu: "200m"     
 ---
 apiVersion: v1
 kind: Service
@@ -60,7 +67,7 @@ data:
   APPS_MICROSERVICE_PORT: '3002'
   COURSES_MICROSERVICE_HOST: courses-ms-service.default.svc.cluster.local
   COURSES_MICROSERVICE_PORT: '3004'
-  ORDERS_MICROSERVICE_HOST: ordes-ms-service.default.svc.cluster.local
+  ORDERS_MICROSERVICE_HOST: orders-ms-service.default.svc.cluster.local
   ORDERS_MICROSERVICE_PORT: '3005'
   PAYMENTS_MICROSERVICE_HOST: payments-ms-service.default.svc.cluster.local
   PAYMENTS_MICROSERVICE_PORT: '3006'
