@@ -310,7 +310,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 
    <br /> 
-    <a href="https://clinica-medica-production.up.railway.app/api/v1/swagger-ui/index.html#/Appointment/getAllAppointments"><strong>App de Testeo»</strong></a>
+    <a href="https://github.com/No-Country-simulation/h3-09-klowhub/blob/1c8efc583cd54cf338c95b87339c704c17b05502/pm_imagen/Q-A%404x-8.png"><strong>App de Testeo»</strong></a>
     <br />
     <br />
     <a href="https://app.clickup.com/9011373809/v/b/li/901105201521">Click Up</a>
@@ -324,7 +324,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 <div align="center">
 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/aea6ea5655fb5bba8f4bd7154f1309c5a1d87263/PM/QA-TESTING-SINFONDO.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/1c8efc583cd54cf338c95b87339c704c17b05502/pm_imagen/Q-A%404x-8.png)
 
 
 
