@@ -56,7 +56,7 @@ model Course {
   detailedDescription String
   approved            Boolean     @default(false)
   available           Boolean     @default(true)
-  creator             String // 
+  creator_id          String // 
   module              Module[] // One-to-many relationship with Module
   platform            Platform[]
   relatedTags         String[]

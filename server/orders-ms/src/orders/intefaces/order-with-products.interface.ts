@@ -4,6 +4,7 @@ export interface OrderWithProducts {
   OrderItem: {
     title: any;
     price: number;
+    sellerId: string;
     productId: string;
     quantity: number;
   }[];

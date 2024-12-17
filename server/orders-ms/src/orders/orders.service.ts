@@ -53,11 +53,10 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
 
     } catch (error) {
       throw new RpcException({
-        status: error.status,
-        message: error.message
+        status: 500,
+        message: 'Error: Check logs'
       });
     }
-
 
     const products = [...productsAppFound, ...productsCourseFound]
 
@@ -107,7 +106,8 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
       ...order,
       OrderItem: order.OrderItem.map(orderItem => ({
         ...orderItem,
-        title: products.find(product => product.id === orderItem.productId).title
+        title: products.find(product => product.id === orderItem.productId).title,
+        sellerId: products.find(product => product.id === orderItem.productId).creator_id
       }))
     }
   }
@@ -160,7 +160,8 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
         items: order.OrderItem.map(item => ({
           name: item.title,
           price: item.price,
-          quantity: item.quantity
+          quantity: item.quantity,
+          sellerId: item.sellerId
         }))
       })
     )

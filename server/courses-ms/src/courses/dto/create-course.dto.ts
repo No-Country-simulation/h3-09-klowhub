@@ -78,7 +78,7 @@ export class CourseDto {
 
   @IsNotEmpty()
   @IsString()
-  public creator: string;
+  public creator_id: string;
 
   @IsArray()
   @IsNotEmpty()

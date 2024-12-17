@@ -5,12 +5,12 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
 
 export class PaymentSessionDto {
-  //todo: replace by @IsUUID
-  @IsString()
+  @IsUUID()
   orderId: string;
 
   @IsString()
@@ -34,4 +34,7 @@ export class PaymentSessionItemDto {
   @IsNumber()
   @IsPositive()
   quantity: number;
+
+  @IsUUID()
+  sellerId: string;
 }
