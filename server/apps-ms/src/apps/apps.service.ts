@@ -26,7 +26,7 @@ export class AppsService extends PrismaClient implements OnModuleInit {
     );
     if (!creatorExists) {
       throw new RpcException({
-        statusCode: HttpStatus.NOT_FOUND,
+        status: HttpStatus.NOT_FOUND,
         message: 'Creator ID does not exist',
       });
     }

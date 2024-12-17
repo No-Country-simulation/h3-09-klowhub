@@ -1,17 +1,12 @@
 
 
 =======
-
 hackathon-readme-2024
-# Readme-Hackathon-1
-hackathon-readme-2024
->>>>>>> 2fd8ae0d353c5f7a2476d2a565e2d862c8a473fb
 <!-- HEADER -->
 <div align="center" width="100">
-  <img src="https://github.com/Jhone-fori-freelancer/hackathon-readme/blob/a357b76ec8257571b2699053a1481f44fbac4e60/ICON/baner-00%20(1).png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/9b2abf52d8431bf0bc94490def8d3efc9a0241a9/pm_imagen/Frame%20811846.png"
   alt="header"/>
 </div>
-<<<<<<< HEAD
 
 <h1 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
 <br />
@@ -47,7 +42,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
     🎥 Vista Previa del Proyecto
   </p>
   
-  ![Vista Previa del Video](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e643a2591b0f7e1ad3cedb17d7926a3f44124974/PM/reserva_turno-ezgif.com-effects.gif)
+  ![Vista Previa del Video](https://github.com/No-Country-simulation/h3-09-klowhub/blob/69353e68157afdb82db467f47ae80327990859d5/pm_imagen/Presentacion_h3-09-klowhub-demo-day.gif)
 </div>
 
 
@@ -106,10 +101,10 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 
 ## ⚙️  **Backend - Tecnologías Utilizadas**
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png">
 </p> 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/d1be46f721a1b68d1dff90e48f3ba854c5617f2d/PM/BACK-END-SINFONDO.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/Recurso%201%401.5x-8.png)
 🛠️ NestJS: Framework Backend Principal
 Seleccionamos NestJS como el framework principal para el backend por las siguientes razones:
 
@@ -178,10 +173,10 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
 ## 🎨 **Frontend - Tecnologías Utilizadas**
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/bfc2bc36ec88be90baf35332d20dd484f60eccdf/PM/FRONTEND-PNG.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/FRONTEND%404x-8.png)
 
 ---
 
@@ -315,7 +310,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 
    <br /> 
-    <a href="https://clinica-medica-production.up.railway.app/api/v1/swagger-ui/index.html#/Appointment/getAllAppointments"><strong>App de Testeo»</strong></a>
+    <a href="09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png"><strong>App de Testeo»</strong></a>
     <br />
     <br />
     <a href="https://app.clickup.com/9011373809/v/b/li/901105201521">Click Up</a>
@@ -329,7 +324,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 <div align="center">
 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/aea6ea5655fb5bba8f4bd7154f1309c5a1d87263/PM/QA-TESTING-SINFONDO.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/Q-A-TESTING%401.5x-8.png)
 
 
 
@@ -364,10 +359,10 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 ## ⚙️  **UX-UI**
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
+  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/aea6ea5655fb5bba8f4bd7154f1309c5a1d87263/PM/ux-ui%20sin%20fondo.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
 
 <h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
 
@@ -430,7 +425,7 @@ Este MVP de <strong>KlowHub</strong>
   <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e948aee114a173f38bea735ae1d5815170529b03/PM/PM.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
 <h2 align="center" style="color:#007bff">🚀 Project Manager - Tecnologias Utilizadas</h2>
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:

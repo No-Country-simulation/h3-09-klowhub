@@ -33,7 +33,7 @@ export default function MyCourses() {
 	return (
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Mis cursos</h4>
-			<div className="no-scrollbar flex gap-6 overflow-x-scroll pb-4 pl-4">
+			<div className="no-scrollbar flex flex-wrap gap-6 overflow-x-scroll pb-4 pl-4">
 				{myCourses.map((course) => {
 					return (
 						<CourseCard
@@ -41,7 +41,7 @@ export default function MyCourses() {
 							course={course}
 							linkButtonProps={{
 								text: 'Ver detalles',
-								href: `/learn/my-learning/${course.id}`
+								href: `/learn/my-learning/${course.id}`,
 							}}
 						/>
 					)

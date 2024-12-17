@@ -32,6 +32,11 @@ export class UserController {
   async signupUser(@Payload() userData: UserDto) {
     return this.userService.createUser(userData);
   }
+  @MessagePattern('assign_seller_role')
+  async assignSellerRole(@Payload() data: { id: string }) {
+    const { id } = data;
+    return await this.userService.assignSellerRole(id);
+  }
   @MessagePattern('update_user')
   async updateUser(@Payload() updateData: UpdateUserDto): Promise<UserModel> {
     return this.userService.updateUser(updateData.id, updateData);

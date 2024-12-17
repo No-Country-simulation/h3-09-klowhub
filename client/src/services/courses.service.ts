@@ -24,7 +24,13 @@ export async function createCourse(course: CreateCourseRequest) {
 
 export async function getCourses() {
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/findAll`
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/findAll`,
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}
 	)
 	if (!response.ok) {
 		throw new Error('Failed to fetch courses')
