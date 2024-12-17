@@ -310,7 +310,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 
    <br /> 
-    <a href="https://github.com/No-Country-simulation/h3-09-klowhub/blob/1c8efc583cd54cf338c95b87339c704c17b05502/pm_imagen/Q-A%404x-8.png"><strong>App de Testeo»</strong></a>
+    <a href="09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png"><strong>App de Testeo»</strong></a>
     <br />
     <br />
     <a href="https://app.clickup.com/9011373809/v/b/li/901105201521">Click Up</a>
