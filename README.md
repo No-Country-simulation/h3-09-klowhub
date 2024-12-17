@@ -47,7 +47,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
     🎥 Vista Previa del Proyecto
   </p>
   
-  ![Vista Previa del Video](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/e643a2591b0f7e1ad3cedb17d7926a3f44124974/PM/reserva_turno-ezgif.com-effects.gif)
+  ![Vista Previa del Video](https://github.com/No-Country-simulation/h3-09-klowhub/blob/69353e68157afdb82db467f47ae80327990859d5/pm_imagen/Presentacion_h3-09-klowhub-demo-day.gif)
 </div>
 
 
