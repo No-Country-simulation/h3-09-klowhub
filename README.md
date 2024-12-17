@@ -324,7 +324,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 <div align="center">
 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/1c8efc583cd54cf338c95b87339c704c17b05502/pm_imagen/Q-A%404x-8.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/Q-A-TESTING%401.5x-8.png)
 
 
 
@@ -359,10 +359,10 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 ## ⚙️  **UX-UI**
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/s18-22-t-java-react/blob/15c9c38451f59741b4560f1771136003e47ffd8b/PM/ISOTIPO.png" alt="Logo" width="100" height="100">
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/s18-22-t-java-react/blob/aea6ea5655fb5bba8f4bd7154f1309c5a1d87263/PM/ux-ui%20sin%20fondo.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
 
 <h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
 
