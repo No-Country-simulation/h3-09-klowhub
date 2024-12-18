@@ -49,4 +49,5 @@ export class UserController {
     console.log(id);
     return this.userService.deleteUser(id);
   }
+  
 }
