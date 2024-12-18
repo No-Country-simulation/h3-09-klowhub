@@ -1,7 +1,10 @@
 import { DigitalProduct } from '@/models/product.model'
 import axios from 'axios'
 
-export async function createOrder(items: Array<DigitalProduct>) {
+export async function createOrder(
+	items: Array<DigitalProduct>,
+	userId: string
+) {
 	const fixedItems = items.map((item) => {
 		const type = Object.prototype.hasOwnProperty.call(item, 'contentType')
 			? 'COURSE'
@@ -9,8 +12,7 @@ export async function createOrder(items: Array<DigitalProduct>) {
 		return {
 			productId: item.id,
 			quantity: 1,
-			price: item.price
-			// type
+			type
 		}
 	})
 	console.log(fixedItems)
@@ -18,7 +20,7 @@ export async function createOrder(items: Array<DigitalProduct>) {
 	const data = await axios.post(
 		`${process.env.NEXT_PUBLIC_BACKEND_URL}/orders`,
 		{
-			// buyerUserId: 'bc4317b3-07ec-4f8a-bc24-67e89a8c20c0',
+			buyerUserId: userId,
 			items: fixedItems
 		}
 	)

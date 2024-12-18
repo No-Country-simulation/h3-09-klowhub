@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
 import axios, { AxiosError } from 'axios'
-
+import * as jwt from 'jsonwebtoken'
 export const authOptions: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
 						`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
 						{
 							email: credentials?.email,
-							password: credentials?.password,
+							password: credentials?.password
 						},
 						{
 							headers: {
@@ -31,7 +31,15 @@ export const authOptions: NextAuthOptions = {
 					if (!data || data.error) {
 						throw new Error(data?.error || 'Credenciales invalidas')
 					}
-					return data
+					const decoded = jwt.verify(
+						data.token,
+						process.env.JWT_SECRET as string
+					) as { id: string }
+					const { data: userData } = await axios.get(
+						`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/user/${decoded.id}`
+					)
+
+					return userData
 				} catch (error) {
 					if (axios.isAxiosError(error)) {
 						const axiosError = error as AxiosError<{ error: string }>
@@ -66,7 +74,7 @@ export const authOptions: NextAuthOptions = {
 	},
 	callbacks: {
 		async redirect({ url, baseUrl }) {
-			baseUrl  = process.env.NEXTAUTH_URL as string
+			baseUrl = process.env.NEXTAUTH_URL as string
 			console.log('Redirect URL: ', url)
 			console.log('Base URL: ', baseUrl)
 			return baseUrl

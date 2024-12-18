@@ -22,34 +22,7 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 		? Number((totalScore / course.reviews.length).toFixed(1))
 		: 0
 	const { addCartItem } = useStore()
-	const fixedPrice = () => {
-		let result = <></>
 
-		if (course.contentType === 'Gratuito' && course.price !== 0) {
-			result = (
-				<div className="right-4 flex items-center gap-2 lg:absolute">
-					<p className="text-xs line-through opacity-45">
-						{moneyFormat(course.price)}
-					</p>
-					<b className="text-xl">GRATIS</b>
-				</div>
-			)
-		} else if (course.contentType === 'Gratuito' && course.price === 0) {
-			result = (
-				<div className="right-4 flex items-center gap-2 lg:absolute">
-					<b className="text-xl">GRATIS</b>
-				</div>
-			)
-		} else {
-			result = (
-				<div className="right-4 flex items-center gap-2 lg:absolute">
-					<b className="text-xl">{moneyFormat(course.price)}</b>
-				</div>
-			)
-		}
-
-		return result
-	}
 	return (
 		<>
 			<Card
@@ -109,7 +82,9 @@ export function CourseHorizontalCard({ course, setProductSelected }: Props) {
 						Ver detalles
 					</Button>
 				</div>
-				{fixedPrice()}
+				<div className="right-4 flex items-center gap-2 lg:absolute">
+					<b className="text-xl">{moneyFormat(course.price)}</b>
+				</div>
 			</Card>
 		</>
 	)

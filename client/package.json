@@ -28,6 +28,7 @@
 		"clsx": "^2.1.1",
 		"eslint-plugin-react": "^7.37.2",
 		"flowbite-react": "^0.10.2",
+		"jsonwebtoken": "^9.0.2",
 		"lucide-react": "^0.459.0",
 		"next": "15.0.3",
 		"next-auth": "^4.24.10",
@@ -41,6 +42,7 @@
 		"zustand": "^5.0.1"
 	},
 	"devDependencies": {
+		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",

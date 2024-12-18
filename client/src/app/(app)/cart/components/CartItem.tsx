@@ -21,42 +21,6 @@ export default function CartItem({ item }: { item: Course | App }) {
 	}
 	const { removeCartItem } = useStore()
 
-	const fixedPrice = () => {
-		let result = <></>
-		if (Object.prototype.hasOwnProperty.call(item, 'contentType')) {
-			const course = item as Course
-			if (course.contentType === 'Gratuito' && course.price !== 0) {
-				result = (
-					<div className="right-0 flex items-center gap-2 lg:absolute">
-						<p className="text-xs line-through opacity-45">
-							{moneyFormat(course.price)}
-						</p>
-						<b className="text-xl">GRATIS</b>
-					</div>
-				)
-			} else if (course.contentType === 'Gratuito' && course.price === 0) {
-				result = (
-					<div className="right-4 flex items-center gap-2 lg:absolute">
-						<b className="text-xl">GRATIS</b>
-					</div>
-				)
-			} else {
-				result = (
-					<div className="right-0 flex items-center gap-2 lg:absolute">
-						<b className="text-xl">{moneyFormat(course.price)}</b>
-					</div>
-				)
-			}
-		} else {
-			result = (
-				<div className="right-0 flex items-center gap-2 lg:absolute">
-					<b className="text-xl">{moneyFormat(item.price)}</b>
-				</div>
-			)
-		}
-		return result
-	}
-
 	return (
 		<div className="relative my-6 rounded-lg bg-card p-3">
 			<div className="border-y p-3">
@@ -128,7 +92,9 @@ export default function CartItem({ item }: { item: Course | App }) {
 							))}
 						</div>
 					</div>
-					{fixedPrice()}
+					<div className="right-0 flex items-center gap-2 lg:absolute">
+						<b className="text-xl">{moneyFormat(item.price)}</b>
+					</div>
 				</Card>
 			</div>
 			<Button
