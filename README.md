@@ -474,7 +474,7 @@ La participación activa del equipo de **UX/UI** no solo mejoró la organizació
 ![README](https://img.shields.io/badge/-README-000000?style=flat&logo=readthedocs&logoColor=white)&nbsp;
 
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/54833fe15a6d2df8787861dda6e7e229173ab414/pm_imagen/Recurso%2012%404x-8.png)
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:
 
