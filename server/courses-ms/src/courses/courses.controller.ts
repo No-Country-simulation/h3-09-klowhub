@@ -199,6 +199,6 @@ export class CoursesController {
 
   @MessagePattern('validateProducts')
   async validateProducts(@Payload() ids: string[]) {
-    return this.coursesService.validateProducts(ids)
+    return this.coursesService.validateProducts(ids);
   }
 }
