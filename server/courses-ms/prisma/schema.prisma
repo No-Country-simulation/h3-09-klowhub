@@ -54,9 +54,9 @@ model Course {
   learningOutcomes    String[]
   prerequisites       String[]
   detailedDescription String
-  approved            Boolean     @default(false)
-  available           Boolean     @default(true)
-  creator             String // 
+  approved            Boolean?     @default(false)
+  available           Boolean?     @default(true)
+  creator_id          String // 
   module              Module[] // One-to-many relationship with Module
   platform            Platform[]
   relatedTags         String[]

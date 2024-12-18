@@ -49,8 +49,8 @@ data:
   PAYMENT_PORT: "3006"
   PAYMENT_HOST: "0.0.0.0"
   STRIPE_SECRET_KEY: sk_test_51QLdJVH0hzqZC0DZ3KZ5v7C2NAMB6Sm9IZh8LBy7Iae0bWuJaWQUGmpUePS0dWsUr3WlHPWDmk4DuNmFYjwJFFDp00sipYImah
-  STRIPE_SUCCESS_URL: klowhub-app.zapto.org/cart?status=success
-  STRIPE_CANCEL_URL: klowhub-app.zapto.org/cart
+  STRIPE_SUCCESS_URL: http://klowhub-app.zapto.org/cart?status=success
+  STRIPE_CANCEL_URL: http://klowhub-app.zapto.org/cart
   STRIPE_ENPOINT_SECRET: whsec_1HqXKt4M7vP1E0KpT7GluIJvipxm2jGK
   ORDER_PORT: "3005"
-  ORDER_HOST: localhost
+  ORDER_HOST: orders-ms-service.default.svc.cluster.local
