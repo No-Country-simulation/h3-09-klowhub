@@ -3,11 +3,12 @@ import { App } from '@/models/app.model'
 import { Card } from 'flowbite-react'
 import { Heart } from 'lucide-react'
 import Image from 'next/image'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Button from '../buttons/Button'
 import CategoryTag from '../buyerTags/CategoryTag'
 import TechnologyTag, { Technology } from '../buyerTags/TechnologyTag'
 import RatingStars from '../RatingStars'
+import HeartLikeButton from '../buttons/HeartLikeButton'
 
 function getRandomInt(min: number, max: number): number {
 	return Math.floor(Math.random() * (max - min + 1)) + min
@@ -21,12 +22,15 @@ const user = { favorites: [1, 2, 3] }
 interface Props {
 	app: App
 	setProductSelected: Dispatch<SetStateAction<App | null>>
+	isCreator?: boolean
 }
 
-export default function ApplicationCard({ app, setProductSelected }: Props) {
+export default function ApplicationCard({ app, setProductSelected, isCreator }: Props) {
 	const totalScore = app.reviews.reduce((acc, review) => acc + review.score, 0)
 	const average = Number((totalScore / app.reviews.length).toFixed(1))
 	const { addCartItem } = useStore()
+	const [isLiked, setIsLiked] = useState(false)
+
 	return (
 		<Card
 			theme={{
@@ -43,10 +47,9 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 				</picture>
 			)}
 		>
-			<Heart
-				className="absolute right-2 top-2 z-10"
-				fill={`${user.favorites.includes(parseInt(app.id)) ? '#fff' : 'transparent'}`}
-			/>
+			<div className="absolute right-3 top-2">
+				<HeartLikeButton isLiked={isLiked} setIsLiked={setIsLiked} />
+			</div>
 			<h5 className="text-sm font-bold">{app.title}</h5>
 			<p className="text-sm">{app.shortDescription}</p>
 			<div className="flex flex-wrap gap-4">
@@ -75,23 +78,38 @@ export default function ApplicationCard({ app, setProductSelected }: Props) {
 					'GRATIS'
 				)}
 			</b>
-			<div className="flex w-full flex-wrap justify-between">
-				<Button
-					className="min-w-0 p-2 text-xs"
-					size="l"
-					onClick={() => addCartItem(app)}
-				>
-					Añadir al carrito
-				</Button>
-				<Button
-					className="min-w-0 p-2 text-xs"
-					size="l"
-					variant="tertiary"
-					onClick={() => setProductSelected(app)}
-				>
-					Ver detalles
-				</Button>
-			</div>
+			{!isCreator ? (
+				<div className="flex w-full flex-wrap justify-between">
+					<Button
+						className="min-w-0 p-2 text-xs"
+						size="l"
+						onClick={() => addCartItem(app)}
+					>
+						Añadir al carrito
+					</Button>
+					<Button
+						className="min-w-0 p-2 text-xs"
+						size="l"
+						variant="tertiary"
+						onClick={() => setProductSelected(app)}
+					>
+						Ver detalles
+					</Button>
+				</div>
+			)
+				:
+				(
+					<div className="flex w-full flex-wrap justify-center">
+						<Button
+							className="min-w-0 p-2 text-xs"
+							size="l"
+							variant="tertiary"
+							onClick={() => setProductSelected(app)}
+						>
+							Ver detalles
+						</Button>
+					</div>
+				)}
 		</Card>
 	)
 }
