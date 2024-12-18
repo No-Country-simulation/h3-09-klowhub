@@ -53,7 +53,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     this.logger.log('find_courses_by_user_id');
 
     const courses = await this.course.findMany({
-      where: { creator: creator },
+      where: { creator_id: creator },
     });
 
     return courses;
@@ -85,7 +85,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
       // Consultar al microservicio users-ms por el creador del curso
       const creator = await this.usersClient
-        .send('find_one_user', { id: course.creator })
+        .send('find_one_user', { id: course.creator_id })
         .toPromise();
 
       // Excluir la contraseña u otros datos sensibles del creador
@@ -415,5 +415,26 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
     }
 
     return products
+  }
+
+  async getAllByIds(ids: string[]) {
+    ids = Array.from(new Set(ids));
+
+    const courses = await this.course.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    if (courses.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some courses were not found',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+
+    return courses;
   }
 }

@@ -201,4 +201,9 @@ export class CoursesController {
   async validateProducts(@Payload() ids: string[]) {
     return this.coursesService.validateProducts(ids)
   }
+
+  @MessagePattern('getAllByIds')
+  async getAllById(ids: string[]) {
+    return this.coursesService.getAllByIds(ids)
+  }
 }
