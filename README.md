@@ -379,6 +379,12 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/f3b03c02663b22966793e3568c40c8fad3ab4b08/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
 
+![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=flat&logo=figma&logoColor=white)&nbsp;
+![Discord](https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=white)&nbsp;
+![Google Meet](https://img.shields.io/badge/-Google%20Meet-00897B?style=flat&logo=googlemeet&logoColor=white)&nbsp;
+
+
+
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
 
 <h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
