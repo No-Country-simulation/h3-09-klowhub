@@ -31,8 +31,6 @@ export default function RecommendedCourses() {
 
 	if (!allCourses) return <p>Loading...</p>
 
-	console.log(allCourses)
-
 	return (
 		<section className="flex flex-col gap-6">
 			<div className="flex flex-col gap-1">

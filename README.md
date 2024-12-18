@@ -1,14 +1,18 @@
 
 
-=======
-hackathon-readme-2024
+<div align="center" style="font-family: 'Fira Code', monospace; font-size: 2rem;">
+    <h4>======== Hackathon-Readme-2024 ========</h4>
+</div>
+<h1 align="center" style="color: #007bff; font-size: 3rem;"> 
+<a href="http://klowhub-app.zapto.org/">· KlowHub </a> ·</h1>
+<div align="center">  </div>
 <!-- HEADER -->
 <div align="center" width="100">
-  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/9b2abf52d8431bf0bc94490def8d3efc9a0241a9/pm_imagen/Frame%20811846.png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/9a8f580343ef50b00827bd101888bb483a4529e9/pm_imagen/portada.png"
   alt="header"/>
 </div>
 
-<h1 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
+<h2 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
 <br />
     <a href="https://drive.google.com/drive/folders/1O4HaJSpRwsY8ibMT1TC8oQwTSo0UgFVX"><strong>Explore the docs »</strong></a>
     <br />
@@ -26,7 +30,7 @@ hackathon-readme-2024
 
 
 <p align="center">
-  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/273b7c9a41605894af2c9efff61a14146b111efd/pm_imagen/IsoApsheetFrontGde%201%20(1).png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/fc233be6fee1c2da3727e3c66837cbe703fe5697/pm_imagen/IsoApsheetFront4%201%20(5).png"
 </p>
 
 
@@ -51,6 +55,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 <h1 align="center"style="color: #007bff;">El impacto de KlowHub en la comunidad y el mercado No & Low Code  </h1>
 
 <div align="center">
+
   <p>El impacto de *KlowHub* en la comunidad y el mercado *No & Low Code* será profundo y amplio, rediseñando cómo los usuarios acceden a la información, colaboran y monetizan sus habilidades:
 
 1. **Transformación en la Forma de Trabajar y Aprender**
@@ -60,10 +65,8 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 3. **Catalizador de Innovación y Crecimiento**
     - Al facilitar la monetización de habilidades y soluciones, *KlowHub* incentivará la creación de nuevas ideas y aplicaciones innovadoras, tanto en **AppSheet** como en **Power Apps** y otras plataformas. Esto beneficiará tanto a los desarrolladores individuales como a las empresas, contribuyendo al crecimiento del mercado *No Code* en su conjunto.
 4. **Expansión y Diversificación del Mercado**
-    - Al ofrecer soporte multilingüe y eliminar las barreras de acceso, *KlowHub* aumentará la adopción de tecnologías *No Code* en regiones emergentes, especialmente en países de habla hispana. Esto fortalecerá el ecosistema *No Code*, permitiendo a las empresas y usuarios de diversas industrias aprovechar las plataformas **AppSheet**, **Power Apps**, y otras.</p>
+    - Al ofrecer soporte multilingüe y eliminar las barreras de acceso, *KlowHub* aumentará la adopción de tecnologías *No Code* en regiones emergentes, especialmente en países de habla hispana. Esto fortalecerá el ecosistema *No Code*, permitiendo a las empresas y usuarios de diversas industrias aprovechar las plataformas **AppSheet**, **Power Apps**, y otras. </p>
 
-
-  
 </div>
 
 <br>
@@ -99,10 +102,17 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 
 ---
 
-## ⚙️  **Backend - Tecnologías Utilizadas**
+<h3 align="center">Tecnologías Utilizadas-Backend</h3>
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png">
 </p> 
+
+![NestJS](https://img.shields.io/badge/-NestJS-E0234E?style=flat&logo=nestjs&logoColor=white)&nbsp;
+![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)&nbsp;
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)&nbsp;
+![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)&nbsp;
+![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=flat&logo=graphql&logoColor=white)&nbsp;
+![WebSockets](https://img.shields.io/badge/-WebSockets-010101?style=flat&logo=socket.io&logoColor=white)&nbsp;
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/Recurso%201%401.5x-8.png)
 🛠️ NestJS: Framework Backend Principal
@@ -170,11 +180,18 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
 <tr>
 
 
-## 🎨 **Frontend - Tecnologías Utilizadas**
+<h3 align="center">Tecnologías Utilizadas-Frontend</h3>
 
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
+
+![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)&nbsp;
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)&nbsp;
+![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)&nbsp;
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)&nbsp;
+![npm](https://img.shields.io/badge/-npm-CB3837?style=flat&logo=npm&logoColor=white)&nbsp;
+
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/FRONTEND%404x-8.png)
 
@@ -290,14 +307,14 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 
 
-## ⚙️  **Qa - Testing**
+<h3 align="center">Tecnologías Utilizadas-Q-A-Testing</h3>
 
-<h1 align="center" style="color: #007bff;">Alcance de las Pruebas
-</h1>
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png">
+
 
 <div align="center">
   
- <h3 align="center">Descripción del Proyecto</h3>
+ <h3 align="center">Alcance de las Pruebas</h3>
 
   <p align="center">
     El equipo de QA se centrará en las siguientes áreas:
@@ -356,31 +373,47 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 ---
 
-## ⚙️  **UX-UI**
+<h3 align="center">Tecnologías Utilizadas-UX-UI</h3>
 
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/f3b03c02663b22966793e3568c40c8fad3ab4b08/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
 
+![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=flat&logo=figma&logoColor=white)&nbsp;
+![Discord](https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=white)&nbsp;
+![Google Meet](https://img.shields.io/badge/-Google%20Meet-00897B?style=flat&logo=googlemeet&logoColor=white)&nbsp;
+
+
+
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
 
-<h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
+<h1 align="center" style="color: #007bff;">Aporte Importante</h1>
 
 <p align="center">
-Este MVP de <strong>KlowHub</strong>
+El proyecto de KlowHub ha sido significativamente mejorado gracias a la excelente colaboración del equipo de **UX/UI**. Su desempeño ha sido fundamental en varios aspectos clave del proyecto, asegurando claridad y precisión en cada etapa del desarrollo.
 
-🏭 Pruebas de humo 
-⦁	Identificación de las funciones críticas: Determinamos que las funciones más importantes del sistema funcionen correctamente para que el sistema se considere estable. 
-⦁	Crear un conjunto de casos de prueba: Diseñamos un conjunto mínimo de casos de prueba para cubrir las funciones críticas. 
-⦁	Ejecutar los casos de prueba: Ejecutamos los casos de prueba de forma secuencial. 
-⦁	Evaluar los resultados: Si se encuentran errores críticos, se detiene la prueba y se notifica al equipo de desarrollo. Si todas las funciones críticas funcionan correctamente, se considera que la prueba de humo ha sido exitosa.
-
+<h3 style="text-align: center;">1. Clarificación y Orden de Flujos de Trabajo</h3>
+<p style="text-align: center;">
+El equipo de **UX/UI** desempeñó un papel crucial al ayudar a aclarar y ordenar los flujos de trabajo. Su habilidad para desglosar procesos complejos y estructurarlos de manera lógica permitió a todos los involucrados comprender mejor cada paso del proyecto.
 </p>
 
+<h3 style="text-align: center;">2. Resolución en la Claridad y Organización</h3>
+<p style="text-align: center;">
+La claridad y organización aportadas por el equipo de **UX/UI** fueron esenciales para la efectividad del proyecto. Gracias a su trabajo meticuloso, los flujos de trabajo se presentaron de manera clara y coherente, lo que facilitó la colaboración entre los distintos equipos.
+</p>
+
+<h3 style="text-align: center;">3. Atención Constante a los Flujos de Trabajo</h3>
+<p style="text-align: center;">
+El equipo se mantuvo al tanto de cada flujo de trabajo, brindando soporte continuo y realizando los retoques necesarios. Su vigilancia constante garantizó que cualquier necesidad adicional se abordara de manera oportuna, asegurando la fluidez del proceso de desarrollo.
+</p>
+
+<h3 style="text-align: center;">Impacto General</h3>
+<p style="text-align: center;">
+La participación activa del equipo de **UX/UI** no solo mejoró la organización interna del proyecto, , lo que resultó en un desarrollo más ágil, preciso y fácil de entender. La colaboración entre los equipos fue fluida gracias a su intervención, lo que hizo que el proyecto avanzara sin contratiempos.
+</p>
+
+
 ---
-
-<h2 align="center" style="color: #007bff;">Duración y Alcance del Proyecto</h2>
-
 
 
 ---
@@ -419,14 +452,27 @@ Este MVP de <strong>KlowHub</strong>
 ---
 
 
-<h1 align="center" style="color: #007bff;">Project Manager </h1>
+<h2 align="center" style="color:#007bff">🚀 Tecnologias Utilizadas-PM</h2>
 
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/f3b03c02663b22966793e3568c40c8fad3ab4b08/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
 
-![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
-<h2 align="center" style="color:#007bff">🚀 Project Manager - Tecnologias Utilizadas</h2>
+![Git](https://img.shields.io/badge/-Git-F05033?style=flat&logo=git&logoColor=white)&nbsp;
+![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white)&nbsp;
+![Backlog](https://img.shields.io/badge/-Backlog-009944?style=flat&logo=backlog&logoColor=white)&nbsp;
+![Project Management](https://img.shields.io/badge/-Project%20Management-007bff?style=flat&logo=trello&logoColor=white)&nbsp;
+![Discord](https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=white)&nbsp;
+![Slack](https://img.shields.io/badge/-Slack-4A154B?style=flat&logo=slack&logoColor=white)&nbsp;
+![Google Calendar](https://img.shields.io/badge/-Google%20Calendar-4285F4?style=flat&logo=googlecalendar&logoColor=white)&nbsp;
+![Google Meet](https://img.shields.io/badge/-Google%20Meet-00897B?style=flat&logo=googlemeet&logoColor=white)&nbsp;
+![Notion](https://img.shields.io/badge/-Notion-000000?style=flat&logo=notion&logoColor=white)&nbsp;
+![Photoshop](https://img.shields.io/badge/-Photoshop-31A8FF?style=flat&logo=adobephotoshop&logoColor=white)&nbsp;
+![Illustrator](https://img.shields.io/badge/-Illustrator-FF9A00?style=flat&logo=adobeillustrator&logoColor=white)&nbsp;
+![README](https://img.shields.io/badge/-README-000000?style=flat&logo=readthedocs&logoColor=white)&nbsp;
+
+
+![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/54833fe15a6d2df8787861dda6e7e229173ab414/pm_imagen/Recurso%2012%404x-8.png)
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:
 
@@ -472,12 +518,6 @@ Estas herramientas permiten al **Project Manager** gestionar el cronograma, cont
       </tr>
     </tbody>
   </table>
-
-
-
-
-
-
 
 
 <h2 align="center">💻 Instalación y Configuración</h2>

@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation'
 import MetricTag from './MetricTag'
 
 export default function CreatorProfileCard() {
-	const { data: session,status, } = useSession()
-	console.log(session,status)
+	const { data: session, status } = useSession()
 	const router = useRouter()
 
 	const metrics = [
