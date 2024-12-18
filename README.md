@@ -186,6 +186,12 @@ Compatible con múltiples tecnologías de bases de datos (PostgreSQL, MongoDB, e
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
+![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)&nbsp;  
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)&nbsp;  
+![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)&nbsp;  
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)&nbsp;  
+![npm](https://img.shields.io/badge/-npm-CB3837?style=flat&logo=npm&logoColor=white)&nbsp;
+
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/FRONTEND%404x-8.png)
 
