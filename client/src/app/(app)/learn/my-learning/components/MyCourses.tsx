@@ -11,14 +11,14 @@ export default function MyCourses() {
 	const [myCourses, setMyCourses] = useState<Course[]>()
 
 	const { data: session } = useSession()
-	console.log(session)
+	const user = session?.user
 
 	useEffect(() => {
 		void (async () => {
 			try {
-				if (!session?.user?.id) return []
+				if (!user) return []
 				const receivedCourses: ReadCourseItemResponse[] =
-					await getCoursesByUserId(session.user.id)
+					await getCoursesByUserId(user.id)
 				if (!receivedCourses || !Array.isArray(receivedCourses)) {
 					console.warn(
 						'Los datos proporcionados no son válidos:',
@@ -32,7 +32,7 @@ export default function MyCourses() {
 				console.log(error)
 			}
 		})()
-	}, [])
+	}, [user])
 
 	if (!myCourses) return <p>Loading...</p>
 
