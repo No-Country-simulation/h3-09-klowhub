@@ -437,14 +437,27 @@ Este MVP de <strong>KlowHub</strong>
 ---
 
 
-<h1 align="center" style="color: #007bff;">Project Manager </h1>
+<h2 align="center" style="color:#007bff">🚀 Tecnologias Utilizadas-PM</h2>
 
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/f3b03c02663b22966793e3568c40c8fad3ab4b08/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
 </p>
 
+![Git](https://img.shields.io/badge/-Git-F05033?style=flat&logo=git&logoColor=white)&nbsp;
+![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white)&nbsp;
+![Backlog](https://img.shields.io/badge/-Backlog-009944?style=flat&logo=backlog&logoColor=white)&nbsp;
+![Project Management](https://img.shields.io/badge/-Project%20Management-007bff?style=flat&logo=trello&logoColor=white)&nbsp;
+![Discord](https://img.shields.io/badge/-Discord-5865F2?style=flat&logo=discord&logoColor=white)&nbsp;
+![Slack](https://img.shields.io/badge/-Slack-4A154B?style=flat&logo=slack&logoColor=white)&nbsp;
+![Google Calendar](https://img.shields.io/badge/-Google%20Calendar-4285F4?style=flat&logo=googlecalendar&logoColor=white)&nbsp;
+![Google Meet](https://img.shields.io/badge/-Google%20Meet-00897B?style=flat&logo=googlemeet&logoColor=white)&nbsp;
+![Notion](https://img.shields.io/badge/-Notion-000000?style=flat&logo=notion&logoColor=white)&nbsp;
+![Photoshop](https://img.shields.io/badge/-Photoshop-31A8FF?style=flat&logo=adobephotoshop&logoColor=white)&nbsp;
+![Illustrator](https://img.shields.io/badge/-Illustrator-FF9A00?style=flat&logo=adobeillustrator&logoColor=white)&nbsp;
+![README](https://img.shields.io/badge/-README-000000?style=flat&logo=readthedocs&logoColor=white)&nbsp;
+
+
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
-<h2 align="center" style="color:#007bff">🚀 Tecnologias Utilizadas-PM</h2>
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:
 
