@@ -4,7 +4,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
 import axios, { AxiosError } from 'axios'
-import * as jwt from 'jsonwebtoken'
 export const authOptions: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
@@ -30,16 +29,12 @@ export const authOptions: NextAuthOptions = {
 
 					if (!data || data.error) {
 						throw new Error(data?.error || 'Credenciales invalidas')
+					} else {
+						const { data: userData } = await axios.get(
+							`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/validate_token/${data.token}`
+						)
+						return userData
 					}
-					const decoded = jwt.verify(
-						data.token,
-						process.env.JWT_SECRET as string
-					) as { id: string }
-					const { data: userData } = await axios.get(
-						`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/user/${decoded.id}`
-					)
-
-					return userData
 				} catch (error) {
 					if (axios.isAxiosError(error)) {
 						const axiosError = error as AxiosError<{ error: string }>
