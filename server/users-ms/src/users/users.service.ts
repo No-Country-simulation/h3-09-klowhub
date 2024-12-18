@@ -96,4 +96,6 @@ export class UserService extends PrismaClient implements OnModuleInit {
     });
     return updateUser;
   }
+
+  
 }
