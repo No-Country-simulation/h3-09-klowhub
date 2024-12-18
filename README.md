@@ -310,12 +310,12 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 <h3 align="center">Tecnologías Utilizadas-Q-A-Testing</h3>
 
-<h1 align="center" style="color: #007bff;">Alcance de las Pruebas
-</h1>
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png">
+
 
 <div align="center">
   
- <h3 align="center">Descripción del Proyecto</h3>
+ <h3 align="center">Alcance de las Pruebas</h3>
 
   <p align="center">
     El equipo de QA se centrará en las siguientes áreas:
