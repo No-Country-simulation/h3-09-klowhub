@@ -12,7 +12,7 @@
   alt="header"/>
 </div>
 
-<h1 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
+<h2 align="center" style="color: #007bff;">- Descubre, Aprende y Crea</h1><div align="center">
 <br />
     <a href="https://drive.google.com/drive/folders/1O4HaJSpRwsY8ibMT1TC8oQwTSo0UgFVX"><strong>Explore the docs »</strong></a>
     <br />
@@ -55,6 +55,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 <h1 align="center"style="color: #007bff;">El impacto de KlowHub en la comunidad y el mercado No & Low Code  </h1>
 
 <div align="center">
+
   <p>El impacto de *KlowHub* en la comunidad y el mercado *No & Low Code* será profundo y amplio, rediseñando cómo los usuarios acceden a la información, colaboran y monetizan sus habilidades:
 
 1. **Transformación en la Forma de Trabajar y Aprender**
@@ -64,10 +65,8 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 3. **Catalizador de Innovación y Crecimiento**
     - Al facilitar la monetización de habilidades y soluciones, *KlowHub* incentivará la creación de nuevas ideas y aplicaciones innovadoras, tanto en **AppSheet** como en **Power Apps** y otras plataformas. Esto beneficiará tanto a los desarrolladores individuales como a las empresas, contribuyendo al crecimiento del mercado *No Code* en su conjunto.
 4. **Expansión y Diversificación del Mercado**
-    - Al ofrecer soporte multilingüe y eliminar las barreras de acceso, *KlowHub* aumentará la adopción de tecnologías *No Code* en regiones emergentes, especialmente en países de habla hispana. Esto fortalecerá el ecosistema *No Code*, permitiendo a las empresas y usuarios de diversas industrias aprovechar las plataformas **AppSheet**, **Power Apps**, y otras.</p>
+    - Al ofrecer soporte multilingüe y eliminar las barreras de acceso, *KlowHub* aumentará la adopción de tecnologías *No Code* en regiones emergentes, especialmente en países de habla hispana. Esto fortalecerá el ecosistema *No Code*, permitiendo a las empresas y usuarios de diversas industrias aprovechar las plataformas **AppSheet**, **Power Apps**, y otras. </p>
 
-
-  
 </div>
 
 <br>
@@ -103,7 +102,7 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 
 ---
 
-## ⚙️  **Backend - Tecnologías Utilizadas**
+<h3 align="center">Tecnologías Utilizadas-Backend</h3>
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png">
 </p> 
