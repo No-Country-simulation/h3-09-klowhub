@@ -107,7 +107,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   async getAllCourses(filter: FilterCoursesDto = {}) {
     this.logger.log('find_all_courses');
 
-    const filters: any = {};
+    const filters: any = { available: true };
 
     // Construcción de filtros solo si los campos están definidos
     if (filter.title) {
@@ -132,14 +132,6 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
     if (filter.level) {
       filters.level = filter.level;
-    }
-
-    if (filter.approved !== undefined) {
-      filters.approved = filter.approved;
-    }
-
-    if (filter.available !== undefined) {
-      filters.available = filter.available;
     }
 
     if (filter.toolsAndPlatforms && filter.toolsAndPlatforms.length > 0) {

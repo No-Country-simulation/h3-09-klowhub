@@ -27,7 +27,6 @@ spec:
             limits:    
               memory: "256Mi"  
               cpu: "200m"     
-
 ---
 apiVersion: v1
 kind: Service
@@ -50,4 +49,7 @@ data:
   APP_PORT: "3002"
   APP_HOST: "0.0.0.0"
   GCP_PROJECT_ID: wired-climate-442121-i1
-  DATABASE_URL_USER: postgresql://appsdb_owner:DkY8uORBLC7N@ep-blue-sea-a5lcg70b.us-east-2.aws.neon.tech/appsdb?sslmode=require
+  DATABASE_URL_USER: postgresql://apps-db_owner:wJqi3QgtuC0I@ep-billowing-bar-a5xlegtr.us-east-2.aws.neon.tech/apps-db?sslmode=require
+  USER_MICROSERVICE_HOST: users-ms-service.default.svc.cluster.local
+  USER_MICROSERVICE_PORT: "3001"
+  BUCKETNAME: appsheet-powerapps-files
