@@ -308,7 +308,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 
 
-## ⚙️  **Qa - Testing**
+<h3 align="center">Tecnologías Utilizadas-Q-A-Testing</h3>
 
 <h1 align="center" style="color: #007bff;">Alcance de las Pruebas
 </h1>
@@ -374,7 +374,7 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 ---
 
-## ⚙️  **UX-UI**
+<h3 align="center">Tecnologías Utilizadas-UX-UI</h3>
 
 <p align="center">
   <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/f3b03c02663b22966793e3568c40c8fad3ab4b08/pm_imagen/iso3%20(3).png" alt="Logo" width="100" height="100">
@@ -444,7 +444,7 @@ Este MVP de <strong>KlowHub</strong>
 </p>
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/a3d0fe3cf48795dd6e2bbf5ad24dfec4887ef78b/pm_imagen/PROJECT%20MANAGER%404x-8.png)
-<h2 align="center" style="color:#007bff">🚀 Project Manager - Tecnologias Utilizadas</h2>
+<h2 align="center" style="color:#007bff">🚀 Tecnologias Utilizadas-PM</h2>
 
 Para el rol de **Project Manager**, se han utilizado diversas herramientas que facilitan la gestión del proyecto, la comunicación y la colaboración entre los miembros del equipo. A continuación, se presentan las herramientas clave:
 
@@ -490,12 +490,6 @@ Estas herramientas permiten al **Project Manager** gestionar el cronograma, cont
       </tr>
     </tbody>
   </table>
-
-
-
-
-
-
 
 
 <h2 align="center">💻 Instalación y Configuración</h2>
