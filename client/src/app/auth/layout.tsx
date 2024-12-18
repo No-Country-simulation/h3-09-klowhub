@@ -9,8 +9,6 @@ export default function AuthLayout({
 	children: React.ReactNode
 }>) {
 	const path = usePathname().split('/')[2]
-	console.log(path)
-
 	const bgImage = `url('/img/${path}-bg.png')`
 	return (
 		<>
