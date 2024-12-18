@@ -13,6 +13,7 @@ import {
 	createModule,
 	createResource
 } from '@/services/courses.service'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -48,6 +49,8 @@ export default function CreateCoursePage() {
 	const [tabValue, setTabValue] = useState(1)
 	const [formData, setFormData] = useState<Course>(initialCourseState)
 	const [addedModules, setAddedModules] = useState<Module[]>([])
+	const { data: session } = useSession()
+	const creator = session?.user.id
 
 	const { register, handleSubmit, control, setValue, watch } = useForm<Course>()
 
@@ -155,7 +158,10 @@ export default function CreateCoursePage() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const postCourse = async (finalData: any) => {
 		try {
-			const adaptedCourseToRequest = courseAdapter(finalData)
+			const adaptedCourseToRequest = courseAdapter({
+				course: finalData,
+				creator
+			})
 
 			const createdCourse = await createCourse(adaptedCourseToRequest)
 
