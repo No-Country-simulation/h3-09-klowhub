@@ -40,11 +40,13 @@ export function AppCourseCard({ variant = 'app', course }: Props) {
 			className={`relative min-w-[320px] ${variant === 'app' ? 'max-w-xs' : 'max-w-sm'} overflow-hidden border-none bg-card`}
 			renderImage={() => (
 				<picture className="relative aspect-video w-full">
-					<Image
-						fill
-						src={variant === 'course' ? (course?.image as string) : app.image}
-						alt="app image"
-					/>
+					{course?.image && (
+						<Image
+							fill
+							src={variant === 'course' ? (course?.image as string) : app.image}
+							alt="app image"
+						/>
+					)}
 				</picture>
 			)}
 		>

@@ -1,26 +1,25 @@
 'use client'
+import { courseAdapter } from '@/adapters/read-course.adapter'
 import Button from '@/components/buttons/Button'
 import ProTag from '@/components/buyerTags/ProTag'
 import TechnologyTag from '@/components/buyerTags/TechnologyTag'
 import RatingStars from '@/components/RatingStars'
 import useStore from '@/lib/store'
 import { Course } from '@/models/course.model'
+import { ReadOneCourseResponse } from '@/models/read-courses-response.model'
+import { getCourseById } from '@/services/courses.service'
 import { GraduationCap, MessageSquare, Star, Video } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import InfoFunctionalities from './components/InfoFunctionalities'
 import LearningOutcomes from './components/LearningOutcomes'
 import Modules from './components/Modules'
 import Prerequisites from './components/Prerequisites'
 import Reviews from './components/Reviews'
 import Share from './components/Share'
-import { useEffect, useState } from 'react'
-import { courseAdapter } from '@/adapters/read-course.adapter'
-import { ReadOneCourseResponse } from '@/models/read-courses-response.model'
-import { getCourseById } from '@/services/courses.service'
 export default function Page() {
 	const param = useParams()
-	console.log(param)
 	const [loading, setLoading] = useState(true)
 	const [course, setCourse] = useState<Course | null>(null)
 	useEffect(() => {

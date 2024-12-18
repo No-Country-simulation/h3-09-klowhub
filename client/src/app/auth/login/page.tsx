@@ -1,10 +1,10 @@
 'use client'
 import Button from '@/components/buttons/Button'
-import Link from 'next/link'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { signIn, useSession } from 'next-auth/react'
-import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface IFormInput {
 	email: string
@@ -13,7 +13,6 @@ interface IFormInput {
 export default function Page() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
-	console.log({ session, status })
 	const [loginError, setLoginError] = useState<string | null>(null)
 
 	const {
@@ -94,7 +93,7 @@ export default function Page() {
 					)}
 				</div>
 				{loginError && (
-					<span className='text-center text-red-500'>{loginError}</span>
+					<span className="text-center text-red-500">{loginError}</span>
 				)}
 				<Link className="text-center text-primary-a-200 underline" href={''}>
 					Olvidaste tu contraseña

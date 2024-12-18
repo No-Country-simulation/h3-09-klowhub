@@ -103,7 +103,6 @@ export default function Page() {
 	const [appSelected, SetAppSelected] = useState<App | null>(app)
 
 	const param = useParams()
-	console.log(param)
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
 	const averageScore = Number((totalScore / reviews.length).toFixed(1))
