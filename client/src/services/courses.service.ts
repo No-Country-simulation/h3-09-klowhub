@@ -38,6 +38,22 @@ export async function getCourses() {
 	return await response.json()
 }
 
+export async function getCoursesByUserId(userId: string) {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/findCoursesByUserId/${userId}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}
+	)
+	if (!response.ok) {
+		throw new Error('Failed to fetch courses')
+	}
+	return await response.json()
+}
+
 export async function getCourseById(id: string) {
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses/course/${id}`

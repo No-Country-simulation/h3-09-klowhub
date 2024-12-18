@@ -3,16 +3,22 @@ import { coursesAdapter } from '@/adapters/read-course.adapter'
 import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
 import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
-import { getCourses } from '@/services/courses.service'
+import { getCoursesByUserId } from '@/services/courses.service'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 export default function MyCourses() {
 	const [myCourses, setMyCourses] = useState<Course[]>()
 
+	const { data: session } = useSession()
+	console.log(session)
+
 	useEffect(() => {
 		void (async () => {
 			try {
-				const receivedCourses: ReadCourseItemResponse[] = await getCourses()
+				if (!session?.user?.id) return []
+				const receivedCourses: ReadCourseItemResponse[] =
+					await getCoursesByUserId(session.user.id)
 				if (!receivedCourses || !Array.isArray(receivedCourses)) {
 					console.warn(
 						'Los datos proporcionados no son válidos:',
@@ -41,7 +47,7 @@ export default function MyCourses() {
 							course={course}
 							linkButtonProps={{
 								text: 'Ver detalles',
-								href: `/learn/my-learning/${course.id}`,
+								href: `/learn/my-learning/${course.id}`
 							}}
 						/>
 					)
