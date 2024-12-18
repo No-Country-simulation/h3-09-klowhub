@@ -387,12 +387,10 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/011fc73fbe3d82a4c4e4ad4bbe118af924cdfea4/pm_imagen/UX-UI%401.5x-8.png)
 
-<h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
+<h1 align="center" style="color: #007bff;">Aporte Importante</h1>
 
 <p align="center">
-El proyecto de **KlowHub** ha sido significativamente mejorado gracias a la excelente colaboración del equipo de **UX/UI**. Su desempeño ha sido fundamental en varios aspectos clave del proyecto, asegurando claridad y precisión en cada etapa del desarrollo.
-
-<h3 style="text-align: center;">Aporte del Equipo UX/UI</h3>
+El proyecto de KlowHub ha sido significativamente mejorado gracias a la excelente colaboración del equipo de **UX/UI**. Su desempeño ha sido fundamental en varios aspectos clave del proyecto, asegurando claridad y precisión en cada etapa del desarrollo.
 
 <h3 style="text-align: center;">1. Clarificación y Orden de Flujos de Trabajo</h3>
 <p style="text-align: center;">
