@@ -8,7 +8,7 @@
 <div align="center">  </div>
 <!-- HEADER -->
 <div align="center" width="100">
-  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/9b2abf52d8431bf0bc94490def8d3efc9a0241a9/pm_imagen/Frame%20811846.png"
+  <img src="https://github.com/No-Country-simulation/h3-09-klowhub/blob/0fb35281a7508df048f09a167a71555cbc09dd1e/pm_imagen/img-original.png"
   alt="header"/>
 </div>
 
