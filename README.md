@@ -384,20 +384,32 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 <h1 align="center" style="color: #007bff;">Descripción del Proyecto</h1>
 
 <p align="center">
-Este MVP de <strong>KlowHub</strong>
+El proyecto de **KlowHub** ha sido significativamente mejorado gracias a la excelente colaboración del equipo de **UX/UI**. Su desempeño ha sido fundamental en varios aspectos clave del proyecto, asegurando claridad y precisión en cada etapa del desarrollo.
 
-🏭 Pruebas de humo 
-⦁	Identificación de las funciones críticas: Determinamos que las funciones más importantes del sistema funcionen correctamente para que el sistema se considere estable. 
-⦁	Crear un conjunto de casos de prueba: Diseñamos un conjunto mínimo de casos de prueba para cubrir las funciones críticas. 
-⦁	Ejecutar los casos de prueba: Ejecutamos los casos de prueba de forma secuencial. 
-⦁	Evaluar los resultados: Si se encuentran errores críticos, se detiene la prueba y se notifica al equipo de desarrollo. Si todas las funciones críticas funcionan correctamente, se considera que la prueba de humo ha sido exitosa.
+<h3 style="text-align: center;">Aporte del Equipo UX/UI</h3>
 
+<h3 style="text-align: center;">1. Clarificación y Orden de Flujos de Trabajo</h3>
+<p style="text-align: center;">
+El equipo de **UX/UI** desempeñó un papel crucial al ayudar a aclarar y ordenar los flujos de trabajo. Su habilidad para desglosar procesos complejos y estructurarlos de manera lógica permitió a todos los involucrados comprender mejor cada paso del proyecto.
 </p>
 
+<h3 style="text-align: center;">2. Resolución en la Claridad y Organización</h3>
+<p style="text-align: center;">
+La claridad y organización aportadas por el equipo de **UX/UI** fueron esenciales para la efectividad del proyecto. Gracias a su trabajo meticuloso, los flujos de trabajo se presentaron de manera clara y coherente, lo que facilitó la colaboración entre los distintos equipos.
+</p>
+
+<h3 style="text-align: center;">3. Atención Constante a los Flujos de Trabajo</h3>
+<p style="text-align: center;">
+El equipo se mantuvo al tanto de cada flujo de trabajo, brindando soporte continuo y realizando los retoques necesarios. Su vigilancia constante garantizó que cualquier necesidad adicional se abordara de manera oportuna, asegurando la fluidez del proceso de desarrollo.
+</p>
+
+<h3 style="text-align: center;">Impacto General</h3>
+<p style="text-align: center;">
+La participación activa del equipo de **UX/UI** no solo mejoró la organización interna del proyecto, , lo que resultó en un desarrollo más ágil, preciso y fácil de entender. La colaboración entre los equipos fue fluida gracias a su intervención, lo que hizo que el proyecto avanzara sin contratiempos.
+</p>
+
+
 ---
-
-<h2 align="center" style="color: #007bff;">Duración y Alcance del Proyecto</h2>
-
 
 
 ---
