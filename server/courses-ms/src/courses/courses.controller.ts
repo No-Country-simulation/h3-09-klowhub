@@ -32,6 +32,9 @@ export class CoursesController {
   // Course
   @MessagePattern('find_courses_by_user_id')
   async findCoursesByUserId(@Payload() creator: string) {
+    if (!creator) {
+      throw new RpcException('creator is required');
+    }
     console.log(creator);
     return this.coursesService.findCoursesByUserId(creator);
   }
