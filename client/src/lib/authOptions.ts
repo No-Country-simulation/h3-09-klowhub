@@ -4,7 +4,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import FacebookProvider from 'next-auth/providers/facebook'
 import axios, { AxiosError } from 'axios'
-
 export const authOptions: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
@@ -19,7 +18,7 @@ export const authOptions: NextAuthOptions = {
 						`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
 						{
 							email: credentials?.email,
-							password: credentials?.password,
+							password: credentials?.password
 						},
 						{
 							headers: {
@@ -30,8 +29,12 @@ export const authOptions: NextAuthOptions = {
 
 					if (!data || data.error) {
 						throw new Error(data?.error || 'Credenciales invalidas')
+					} else {
+						const { data: userData } = await axios.get(
+							`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/validate_token/${data.token}`
+						)
+						return userData
 					}
-					return data
 				} catch (error) {
 					if (axios.isAxiosError(error)) {
 						const axiosError = error as AxiosError<{ error: string }>
@@ -66,16 +69,10 @@ export const authOptions: NextAuthOptions = {
 	},
 	callbacks: {
 		async redirect({ url, baseUrl }) {
-			baseUrl  = process.env.NEXTAUTH_URL as string
+			baseUrl = process.env.NEXTAUTH_URL as string
 			console.log('Redirect URL: ', url)
 			console.log('Base URL: ', baseUrl)
 			return baseUrl
-			// if (url.startsWith('/')) {
-			// 	return `${baseUrl}${url}`
-			// }
-			// // Allows callback URLs on the same origin
-			// else if (new URL(url).origin === baseUrl) return url
-			// return baseUrl
 		},
 		async jwt({ token, user }) {
 			if (user) {
