@@ -31,7 +31,8 @@ export class CoursesController {
 
   // Course
   @MessagePattern('find_courses_by_user_id')
-  async findCoursesByUserId(@Payload('creator') creator: string) {
+  async findCoursesByUserId(@Payload() creator: string) {
+    console.log(creator);
     return this.coursesService.findCoursesByUserId(creator);
   }
 
