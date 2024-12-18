@@ -134,7 +134,49 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
         message: `Order with id ${id} not found`,
       });
 
-    return order;
+    const products = order.OrderItem?.filter(({ id, type }) => ({ id, type }))
+
+    const appsIds = products
+      .filter(app => app.type === 'APP')
+      .map((app) => app.productId)
+
+    const coursesIds = products
+      .filter(course => course.type === 'COURSE')
+      .map((course => course.productId))
+
+    let appsFound = []
+    let coursesFound = []
+
+    if (appsIds.length >= 1) {
+      appsFound = await firstValueFrom(this.appClient.send('getAllByIds', appsIds))
+    }
+
+    if (coursesIds.length >= 1) {
+      coursesFound = await firstValueFrom(this.courseClient.send('getAllByIds', coursesIds))
+    }
+
+    const productsFound: Array<{ id: string }> = [...appsFound, ...coursesFound]
+
+    const productsDetail = order.OrderItem
+      .map(item => {
+        const productFound = productsFound.find(product => product.id === item.productId)
+
+        if (productFound) {
+          return {
+            ...productFound,
+            quantity: item.quantity,
+            price: item.price,
+            type: item.type
+          }
+        }
+      })
+
+    delete order.OrderItem
+
+    return {
+      ...order,
+      items: productsDetail
+    }
   }
 
   async changeStatus(changeOrderStatusDto: ChangeOrderStatusDto) {

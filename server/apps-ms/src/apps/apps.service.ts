@@ -300,4 +300,25 @@ export class AppsService extends PrismaClient implements OnModuleInit {
 
     return products;
   }
+
+  async getAllByIds(ids: string[]) {
+    ids = Array.from(new Set(ids));
+
+    const apps = await this.app.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    if (apps.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some apps were not found',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+
+    return apps;
+  }
 }

@@ -416,4 +416,25 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
     return products;
   }
+
+  async getAllByIds(ids: string[]) {
+    ids = Array.from(new Set(ids));
+
+    const courses = await this.course.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    if (courses.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some courses were not found',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+
+    return courses;
+  }
 }

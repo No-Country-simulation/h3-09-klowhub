@@ -41,5 +41,4 @@ export class OrdersController {
   async paidOrder(@Payload() data: any) {
     return this.ordersService.paidOrder(data)
   }
-
 }
