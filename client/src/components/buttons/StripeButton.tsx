@@ -27,7 +27,11 @@ export default function StripeButton({
 	const handleClick = async () => {
 		setLoading(true)
 		try {
-			const res = await createOrder(items, session?.user.id as string)
+			const res = await createOrder(
+				items,
+				session?.user.id as string,
+				activeDiscount?.code as string
+			)
 			if (res.status === 201) {
 				router.push(res.data.paymentSession.url)
 			}

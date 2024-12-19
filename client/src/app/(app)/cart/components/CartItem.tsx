@@ -49,7 +49,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 					)}
 				>
 					<div className="flex flex-col gap-2 pl-3">
-						<h5 className="text-sm font-bold">{item.title}</h5>
+						<h5 className="text-sm font-bold sm:max-w-[80%]">{item.title}</h5>
 						<p className="flex items-center gap-2">
 							<Star className="text-primary-a-400" /> Top 3 apps más vendidas
 						</p>
