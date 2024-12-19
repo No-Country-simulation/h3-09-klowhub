@@ -335,18 +335,13 @@ Este proyecto está desarrollado con **Next.js 15**. A continuación, se detalla
 ⦁    Asegurar la correcta entrada y salida de datos.
 
 
+  <br />
+  <a href="https://api.postman.com/collections/27755314-ee150f3a-c393-44f5-8f79-d82769f3bfc8?access_key=PMAT-01JFGAKTZ6QN394TN0V3NEQ08J">
+    <strong>App de Testeo »</strong>
+  </a>
+  <br />
+  <br />
 
-
-   <br /> 
-    <a href="09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/iso3%20(3).png"><strong>App de Testeo»</strong></a>
-    <br />
-    <br />
-    <a href="https://app.clickup.com/9011373809/v/b/li/901105201521">Click Up</a>
-    ·
-    <a href="https://github.com/No-Country-simulation/s18-22-t-java-react/tree/develop/QA">Testing-VS-Code</a>
-    ·
-    <a href="https://docs.google.com/spreadsheets/d/1Eq8uTgo4Amv9eyuIZQXyG51S0XrzQXZKcvXs6qBukq0/edit?gid=871132425#gid=871132425">Casos de prueba</a>
-  </p>
 </div>
 
 <div align="center">
