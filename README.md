@@ -114,6 +114,10 @@ KlowHub es una plataforma SaaS (Software como Servicio) diseñada para centraliz
 ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=flat&logo=graphql&logoColor=white)&nbsp;
 ![WebSockets](https://img.shields.io/badge/-WebSockets-010101?style=flat&logo=socket.io&logoColor=white)&nbsp;
 
+<br />
+    <a href="https://github.com/No-Country-simulation/h3-09-klowhub/tree/dev/server#readme"><strong>Explore the docs »</strong></a>
+    <br />
+
 ![Tecnologías utilizadas](https://github.com/No-Country-simulation/h3-09-klowhub/blob/3d4ad58b447b054e11ecb5a372a48aad008e558e/pm_imagen/Recurso%201%401.5x-8.png)
 🛠️ NestJS: Framework Backend Principal
 Seleccionamos NestJS como el framework principal para el backend por las siguientes razones:
