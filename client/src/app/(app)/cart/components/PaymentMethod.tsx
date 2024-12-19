@@ -12,14 +12,18 @@ import { useEffect, useState } from 'react'
 const coupons: Coupon[] = [
 	{
 		name: 'VERANO2024',
+		code: 'W5IGVSyk',
 		discount: 20
 	},
 	{
 		name: 'BIENVENIDA10',
+		code: 'wnZeyWGK',
+
 		discount: 10
 	},
 	{
 		name: 'BLACKFRIDAY50',
+		code: 'AKR9sxLW',
 		discount: 50
 	}
 ]
@@ -27,6 +31,9 @@ const coupons: Coupon[] = [
 export default function PaymentMethod() {
 	const { getTotalCart, cart, emptyCart } = useStore()
 	const [discountInput, setDiscountInput] = useState('')
+	const [invalidCouponMessage, setInvalidCouponMessage] = useState<
+		string | null
+	>(null)
 	const [activeDiscount, setActiveDiscount] = useState<Coupon | null>(null)
 	const [totalResume, setTotalResume] = useState(getTotalCart())
 	const [showModalConfirmation, setShowModalConfirmation] = useState(false)
@@ -40,16 +47,24 @@ export default function PaymentMethod() {
 	}, [])
 
 	const loadDiscount = () => {
-		const coupon = coupons.filter((item) => item.name === discountInput)[0]
+		const coupon = coupons.filter((item) => item.code === discountInput)[0]
 		if (coupon) {
 			setActiveDiscount(coupon)
 			const amountDiscount = (getTotalCart() * coupon.discount) / 100
 			const totalWhitDiscount = getTotalCart() - amountDiscount
 			setTotalResume(totalWhitDiscount)
+			setInvalidCouponMessage(null)
+		} else {
+			setInvalidCouponMessage('Cupón no valido')
+			setActiveDiscount(null)
 		}
 	}
 	useEffect(() => {
-		loadDiscount()
+		if (discountInput.length > 0) {
+			loadDiscount()
+		} else {
+			setTotalResume(getTotalCart())
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getTotalCart()])
 	return (
@@ -93,6 +108,9 @@ export default function PaymentMethod() {
 						<p>cupón {activeDiscount.name}</p>
 						<p>- {activeDiscount.discount}%</p>
 					</div>
+				)}
+				{invalidCouponMessage && (
+					<p className="text-xs text-red-500">{invalidCouponMessage}</p>
 				)}
 				<div className="flex justify-between">
 					<b>Total</b>

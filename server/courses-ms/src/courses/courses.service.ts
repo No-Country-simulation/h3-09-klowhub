@@ -49,13 +49,13 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
   //Course
 
-  async findCoursesByUserId(creator: string) {
+  async findCoursesByUserId(creator_id: string) {
     this.logger.log('find_courses_by_user_id');
 
     const courses = await this.course.findMany({
-      where: { creator: creator },
+      where: { creator_id: creator_id, available: true },
     });
-
+    console.log(courses);
     return courses;
   }
 
@@ -85,7 +85,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
       // Consultar al microservicio users-ms por el creador del curso
       const creator = await this.usersClient
-        .send('find_one_user', { id: course.creator })
+        .send('find_one_user', { id: course.creator_id })
         .toPromise();
 
       // Excluir la contraseña u otros datos sensibles del creador
@@ -107,7 +107,7 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   async getAllCourses(filter: FilterCoursesDto = {}) {
     this.logger.log('find_all_courses');
 
-    const filters: any = {};
+    const filters: any = { available: true };
 
     // Construcción de filtros solo si los campos están definidos
     if (filter.title) {
@@ -132,14 +132,6 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
 
     if (filter.level) {
       filters.level = filter.level;
-    }
-
-    if (filter.approved !== undefined) {
-      filters.approved = filter.approved;
-    }
-
-    if (filter.available !== undefined) {
-      filters.available = filter.available;
     }
 
     if (filter.toolsAndPlatforms && filter.toolsAndPlatforms.length > 0) {
@@ -405,23 +397,44 @@ export class CoursesService extends PrismaClient implements OnModuleInit {
   }
 
   async validateProducts(ids: string[]) {
-    ids = Array.from(new Set(ids))
+    ids = Array.from(new Set(ids));
 
     const products = await this.course.findMany({
       where: {
         id: {
-          in: ids
-        }
-      }
-    })
+          in: ids,
+        },
+      },
+    });
 
     if (products.length !== ids.length) {
       throw new RpcException({
         message: 'Some products were not found',
-        status: HttpStatus.BAD_REQUEST
-      })
+        status: HttpStatus.BAD_REQUEST,
+      });
     }
 
-    return products
+    return products;
+  }
+
+  async getAllByIds(ids: string[]) {
+    ids = Array.from(new Set(ids));
+
+    const courses = await this.course.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    if (courses.length !== ids.length) {
+      throw new RpcException({
+        message: 'Some courses were not found',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+
+    return courses;
   }
 }

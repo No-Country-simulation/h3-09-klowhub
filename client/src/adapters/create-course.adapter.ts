@@ -9,26 +9,34 @@ import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
 import { CreateResourceRequest } from '@/models/create-resource-request.model'
 
+interface CourseAdapterProps {
+	course: Course
+	creator: string | undefined
+}
+
 export function courseAdapter({
-	title,
-	image,
-	shortDescription,
-	price,
-	platform,
-	functionalities,
-	relatedTags,
-	language,
-	sector,
-	toolsAndPlatforms,
-	contentType,
-	courseType,
-	level,
-	contentPillar,
-	learningOutcomes,
-	prerequisites,
-	detailedDescription,
+	course,
 	creator
-}: Course): CreateCourseRequest {
+}: CourseAdapterProps): CreateCourseRequest {
+	const {
+		title,
+		image,
+		shortDescription,
+		price,
+		platform,
+		functionalities,
+		relatedTags,
+		language,
+		sector,
+		toolsAndPlatforms,
+		contentType,
+		courseType,
+		level,
+		contentPillar,
+		learningOutcomes,
+		prerequisites,
+		detailedDescription
+	} = course
 	const learningOutcomesArray =
 		typeof learningOutcomes === 'string'
 			? learningOutcomes.split(',')
@@ -56,7 +64,7 @@ export function courseAdapter({
 		detailedDescription: detailedDescription,
 		approved: true,
 		available: true,
-		creator: creator
+		creator: creator ?? '1111'
 	}
 }
 

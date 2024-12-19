@@ -18,6 +18,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
-  logger.log(`Main-Apps running on port ${envs.port}`);
+  logger.log(`Main-Apps running on port ${envs.host}:${envs.port}`);
 }
 bootstrap();

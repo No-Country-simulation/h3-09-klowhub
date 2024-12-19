@@ -1,9 +1,5 @@
 import {
   Controller,
-  Param,
-  UploadedFile,
-  UseInterceptors,
-  BadRequestException,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import {
@@ -21,9 +17,6 @@ import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
@@ -31,8 +24,8 @@ export class CoursesController {
 
   // Course
   @MessagePattern('find_courses_by_user_id')
-  async findCoursesByUserId(@Payload('creator') creator: string) {
-    return this.coursesService.findCoursesByUserId(creator);
+  async findCoursesByUserId(@Payload('creator_id') creator_id: string) {
+    return this.coursesService.findCoursesByUserId(creator_id);
   }
 
   @MessagePattern('create_course')
@@ -199,6 +192,11 @@ export class CoursesController {
 
   @MessagePattern('validateProducts')
   async validateProducts(@Payload() ids: string[]) {
-    return this.coursesService.validateProducts(ids)
+    return this.coursesService.validateProducts(ids);
+  }
+
+  @MessagePattern('getAllByIds')
+  async getAllById(ids: string[]) {
+    return this.coursesService.getAllByIds(ids)
   }
 }

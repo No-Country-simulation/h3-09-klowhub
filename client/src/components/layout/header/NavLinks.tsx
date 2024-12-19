@@ -14,7 +14,7 @@ const linksCreator = [
 	{ label: 'Ganancias', href: '/creator' },
 	{ label: 'Mis productos', href: '/creator/my-courses' },
 	{ label: 'Buscar trabajo', href: '/creator' },
-	{ label: 'Sobre AppSheet', href: '/creator' }
+	{ label: 'Sobre KlowHub', href: '/about' }
 ]
 
 interface NavLinksProps {
