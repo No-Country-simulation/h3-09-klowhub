@@ -20,6 +20,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: env-gateway-config
+          resources:  
+            requests:  
+              memory: "128Mi"  
+              cpu: "100m"      
+            limits:    
+              memory: "256Mi"  
+              cpu: "200m"     
 ---
 apiVersion: v1
 kind: Service
@@ -60,7 +67,7 @@ data:
   APPS_MICROSERVICE_PORT: '3002'
   COURSES_MICROSERVICE_HOST: courses-ms-service.default.svc.cluster.local
   COURSES_MICROSERVICE_PORT: '3004'
-  ORDERS_MICROSERVICE_HOST: ordes-ms-service.default.svc.cluster.local
+  ORDERS_MICROSERVICE_HOST: orders-ms-service.default.svc.cluster.local
   ORDERS_MICROSERVICE_PORT: '3005'
   PAYMENTS_MICROSERVICE_HOST: payments-ms-service.default.svc.cluster.local
   PAYMENTS_MICROSERVICE_PORT: '3006'
@@ -85,4 +92,36 @@ spec:
     - podSelector: {}
     - ipBlock:
         cidr: 0.0.0.0/0  # Permitir tráfico hacia cualquier IP (interno y externo)
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+  annotations:
+    kubernetes.io/spec.ingressClassName: "gce" 
+    # networking.gke.io/managed-certificates: "gateway-cert"
+spec:
+  tls:
+    - hosts:
+        - klowhubback.hopto.org
+      secretName: gateway-tls-secret
+  rules:
+    - host: klowhubback.hopto.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway-service
+                port:
+                  number: 443 
+---
 
+# apiVersion: networking.gke.io/v1
+# kind: ManagedCertificate
+# metadata:
+  # name: gateway-cert
+# spec:
+  # domains:
+    # - klowhubback.hopto.org

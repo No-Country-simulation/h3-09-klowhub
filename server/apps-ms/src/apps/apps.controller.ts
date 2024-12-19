@@ -25,6 +25,10 @@ export class AppsController {
   findOne(@Payload('id') id: string) {
     return this.appsService.findOne(id);
   }
+  @MessagePattern('findAppByCreatorId')
+  findAppByCreatorId(@Payload('creator_id') creator_id: string) {
+    return this.appsService.findByCreatorId(creator_id);
+  }
 
   @MessagePattern('updateApp')
   update(@Payload() updateAppDto: UpdateAppDto) {
@@ -63,7 +67,7 @@ export class AppsController {
 
   @MessagePattern('downloadFile')
   async downloadFile(
-    @Payload('fileName') fileName: string,
+    @Payload('name') fileName: string,
   ): Promise<{ fileBuffer: Buffer; fileName: string }> {
     //console.log('downloadFile',appId);
     const fileBuffer = await this.appsService.downloadFile(fileName);
@@ -72,8 +76,19 @@ export class AppsController {
       fileName,
     };
   }
+
   @MessagePattern('deleteFile')
   async deleteFile(@Payload('fileName') fileName: string): Promise<string> {
     return this.appsService.deleteFile(fileName);
+  }
+
+  @MessagePattern('validateProducts')
+  async validateProducts(@Payload() ids: string[]) {
+    return this.appsService.validateProducts(ids)
+  }
+
+  @MessagePattern('getAllByIds')
+  async getAllById(ids: string[]) {
+    return this.appsService.getAllByIds(ids)
   }
 }

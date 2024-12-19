@@ -1,4 +1,4 @@
-export type Platform = 'APPSHEET' | 'POWERAPPS'
+import { platforms } from '@/constants/filters.constant'
 
 export interface Review {
 	reviewer: string
@@ -6,18 +6,17 @@ export interface Review {
 	text: string
 }
 
-// Modelo base para todos los productos digitales
 export interface DigitalProduct {
 	id: string
 	title: string
 	shortDescription: string
 	price: number
-	platform: Platform
+	platform: (typeof platforms)[keyof typeof platforms]
 	language: string
-	sector: string // Sector o industria (ej: "Ventas y CRM", "Finanzas y Contabilidad")
-	toolsAndPlatforms: string[] // Herramientas relacionadas (ej: "Zapier", "Excel")
-	functionalities: string[] // Funcionalidades (ej: "APIs", "Integraciones")
-	relatedTags: string[] // Palabras clave o etiquetas
+	sector: string
+	toolsAndPlatforms: string[]
+	functionalities: string[]
+	relatedTags: string[]
 	image: string | File
 	reviews: Review[]
 }

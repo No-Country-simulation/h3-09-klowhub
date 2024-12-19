@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsBoolean,
   IsInt,
+  IsUUID,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ContentType, CourseType } from '../../common/enums';
@@ -68,17 +69,9 @@ export class CourseDto {
   @IsString()
   public detailedDescription: string;
 
+  @IsUUID()
   @IsNotEmpty()
-  @IsBoolean()
-  public approved: boolean;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  public available: boolean;
-
-  @IsNotEmpty()
-  @IsString()
-  public creator: string;
+  public creator_id: string;
 
   @IsArray()
   @IsNotEmpty()

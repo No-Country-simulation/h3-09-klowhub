@@ -2,11 +2,12 @@
 import { App } from '@/models/app.model'
 import { Coupon } from '@/models/coupon.model'
 import { Course } from '@/models/course.model'
-import { loadStripe } from '@stripe/stripe-js'
+import { createOrder } from '@/services/checkout.service'
+import { Loader2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
-const stripePromise = loadStripe(
-	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
-)
 interface Props {
 	children: React.ReactNode
 	items: Array<Course | App>
@@ -19,31 +20,30 @@ export default function StripeButton({
 	activeDiscount,
 	disabled
 }: Props) {
+	const router = useRouter()
+	const [loading, setLoading] = useState(false)
+	const { data: session } = useSession()
+
 	const handleClick = async () => {
-		const stripe = await stripePromise
-
-		if (!stripe) {
-			console.error('Failed to load Stripe')
-			return
-		}
-
-		const result = await fetch('/api/checkout', {
-			method: 'POST',
-			body: JSON.stringify({ items, activeDiscount })
-		})
-
-		if (!result.ok) {
-			const errorMessage = await result.text()
-			console.error(errorMessage)
-		} else {
-			const session = await result.json()
-			stripe.redirectToCheckout({ sessionId: session.id })
+		setLoading(true)
+		try {
+			const res = await createOrder(
+				items,
+				session?.user.id as string,
+				activeDiscount?.code as string
+			)
+			if (res.status === 201) {
+				router.push(res.data.paymentSession.url)
+			}
+		} catch (error) {
+			console.log(error)
+		} finally {
+			setLoading(false)
 		}
 	}
-
 	return (
 		<button role="link" onClick={handleClick} disabled={disabled}>
-			{children}
+			{loading ? <Loader2 className="m-auto animate-spin" /> : children}
 		</button>
 	)
 }

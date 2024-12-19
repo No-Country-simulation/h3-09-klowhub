@@ -15,36 +15,49 @@ export default function Reviews({ reviews }: { reviews: Review[] }) {
 	}, [seeMore])
 
 	const totalScore = reviews.reduce((acc, review) => acc + review.score, 0)
-	const averageScore = Number((totalScore / reviews.length).toFixed(1))
+	const averageScore = reviews.length
+		? Number((totalScore / reviews.length).toFixed(1))
+		: 0
 
 	return (
 		<section className="space-y-3">
 			<b>{reviews.length} Reseñas</b>
 			<RatingStars totalVotes={reviews.length} rating={averageScore} />
-			<div className="my-3">
-				{list.map((review, i) => (
-					<div key={'review-' + i} className="space-y-2 border-y py-3">
-						<div className="flex gap-3">
-							<div className="flex">
-								{Array.from({ length: 5 }, (_, i) => (
-									<Star
-										key={i}
-										fill={i < Math.round(review.score) ? '#FBBC05' : '#D9D9D9'}
-										strokeWidth={0}
-										size={20}
-									/>
-								))}
+
+			{reviews.length > 0 && (
+				<>
+					<div className="my-3">
+						{list.map((review, i) => (
+							<div key={'review-' + i} className="space-y-2 border-y py-3">
+								<div className="flex gap-3">
+									<div className="flex">
+										{Array.from({ length: 5 }, (_, i) => (
+											<Star
+												key={i}
+												fill={
+													i < Math.round(review.score) ? '#FBBC05' : '#D9D9D9'
+												}
+												strokeWidth={0}
+												size={20}
+											/>
+										))}
+									</div>
+									<p>{review.reviewer}</p>
+								</div>
+								<p>{review.text}</p>
 							</div>
-							<p>{review.reviewer}</p>
-						</div>
-						<p>{review.text}</p>
+						))}
 					</div>
-				))}
-			</div>
-			{!seeMore && (
-				<Button variant="secondary" size="l" onClick={() => setSeeMore(true)}>
-					Ver mas
-				</Button>
+					{!seeMore && (
+						<Button
+							variant="secondary"
+							size="l"
+							onClick={() => setSeeMore(true)}
+						>
+							Ver mas
+						</Button>
+					)}
+				</>
 			)}
 		</section>
 	)

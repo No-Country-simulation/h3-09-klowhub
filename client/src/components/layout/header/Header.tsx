@@ -1,17 +1,27 @@
 'use client'
 import HomePlatformSwitch from '@/components/buttons/HomePlatformSwitch'
+import { Menu, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Logo from './Logo'
 import NavLinks from './NavLinks'
 import UserActions from './UserActions'
-import { Menu, X } from 'lucide-react'
 
 export default function Header() {
 	const [isEnabled, setIsEnabled] = useState(true)
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const router = useRouter()
 
 	const handleLinkClick = () => {
 		setIsMenuOpen(false)
+	}
+
+	const handleLogoClick = () => {
+		if (isEnabled) {
+			router.push('/')
+		} else {
+			router.push('/creator')
+		}
 	}
 
 	return (

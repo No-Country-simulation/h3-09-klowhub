@@ -20,6 +20,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 		return averageScore
 	}
 	const { removeCartItem } = useStore()
+
 	return (
 		<div className="relative my-6 rounded-lg bg-card p-3">
 			<div className="border-y p-3">
@@ -48,7 +49,7 @@ export default function CartItem({ item }: { item: Course | App }) {
 					)}
 				>
 					<div className="flex flex-col gap-2 pl-3">
-						<h5 className="text-sm font-bold">{item.title}</h5>
+						<h5 className="text-sm font-bold sm:max-w-[80%]">{item.title}</h5>
 						<p className="flex items-center gap-2">
 							<Star className="text-primary-a-400" /> Top 3 apps más vendidas
 						</p>
@@ -91,9 +92,9 @@ export default function CartItem({ item }: { item: Course | App }) {
 							))}
 						</div>
 					</div>
-					<b className="right-0 text-xl lg:absolute">
-						{item.price ? moneyFormat(item.price) : 'GRATIS'}
-					</b>
+					<div className="right-0 flex items-center gap-2 lg:absolute">
+						<b className="text-xl">{moneyFormat(item.price)}</b>
+					</div>
 				</Card>
 			</div>
 			<Button

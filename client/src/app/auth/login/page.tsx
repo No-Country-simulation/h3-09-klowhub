@@ -1,8 +1,10 @@
 'use client'
 import Button from '@/components/buttons/Button'
-import Link from 'next/link'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface IFormInput {
 	email: string
@@ -10,7 +12,8 @@ interface IFormInput {
 }
 export default function Page() {
 	const { data: session, status } = useSession()
-	console.log({ session, status })
+	const router = useRouter()
+	const [loginError, setLoginError] = useState<string | null>(null)
 
 	const {
 		register,
@@ -18,20 +21,24 @@ export default function Page() {
 		formState: { errors }
 	} = useForm<IFormInput>()
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+		setLoginError(null)
 		try {
-			const res = signIn('credentials', {
+			const result = await signIn('credentials', {
 				email: data.email,
 				password: data.password,
-				redirect: true
+				redirect: false
 			})
 
-			if (!res) {
-				throw new Error('Invalid email or password.')
+			if (result?.error) {
+				setLoginError('Correo o contraseña incorrectos.Intenta nuevamente.')
+			} else {
+				console.log('Login exitoso: ', result)
+				router.push('/')
 			}
-			console.log(res)
 		} catch (err) {
-			console.error('Login error: ', err)
+			console.error('Error inesperado en el login: ', err)
+			setLoginError('Ocurrio un problema, intenta mas tarde.')
 		}
 	}
 
@@ -74,7 +81,9 @@ export default function Page() {
 						placeholder="Contraseña"
 						id="password"
 						type="password"
-						{...register('password', { required: 'Contraseña es obligatoria' })}
+						{...register('password', {
+							required: 'Contraseña es obligatoria'
+						})}
 						className={`mt-1 block w-full border px-3 py-2 text-black ${errors.password ? 'border-red-500' : 'border-primary-a-200'} rounded-md border-primary-a-300 shadow-sm focus:border-primary-a-300 focus:outline-none focus:ring-primary-a-300`}
 					/>
 					{errors.password && (
@@ -83,6 +92,9 @@ export default function Page() {
 						</span>
 					)}
 				</div>
+				{loginError && (
+					<span className="text-center text-red-500">{loginError}</span>
+				)}
 				<Link className="text-center text-primary-a-200 underline" href={''}>
 					Olvidaste tu contraseña
 				</Link>

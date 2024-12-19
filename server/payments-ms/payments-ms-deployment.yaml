@@ -20,6 +20,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: env-payments-ms-config
+          resources:  
+            requests:  
+              memory: "128Mi"  
+              cpu: "100m"      
+            limits:    
+              memory: "256Mi"  
+              cpu: "200m"     
 ---
 apiVersion: v1
 kind: Service
@@ -41,7 +48,9 @@ metadata:
 data:
   PAYMENT_PORT: "3006"
   PAYMENT_HOST: "0.0.0.0"
-  STRIPE_SECRET_KEY: sk_test_51NUxNAE8eiHCQU5rcRB7steaLxr7oaffQXrHmqOlFNKsIKvqojWQCLOOtZZRN9q8itJosnAkXDetMXp7jLlv3jjA00kFcIcc3V
-  STRIPE_SUCCESS_URL: pedirla a gaspar
-  STRIPE_CANCEL_URL: pedirla a gaspar
-  STRIPE_ENPOINT_SECRET: pedirla a gaspar
+  STRIPE_SECRET_KEY: sk_test_51QLdJVH0hzqZC0DZ3KZ5v7C2NAMB6Sm9IZh8LBy7Iae0bWuJaWQUGmpUePS0dWsUr3WlHPWDmk4DuNmFYjwJFFDp00sipYImah
+  STRIPE_SUCCESS_URL: http://klowhub-app.zapto.org/cart?status=success
+  STRIPE_CANCEL_URL: http://klowhub-app.zapto.org/cart
+  STRIPE_ENPOINT_SECRET: whsec_1HqXKt4M7vP1E0KpT7GluIJvipxm2jGK
+  ORDER_PORT: "3005"
+  ORDER_HOST: orders-ms-service.default.svc.cluster.local

@@ -56,6 +56,7 @@ export default function GeneralInformationPanel({
 
 					<section>
 						<TextArea
+							maxLength={300}
 							label="Contá de qué trata, en no más de 3 líneas."
 							placeholder="Escribie una descripción básica del proyecto"
 							{...register('shortDescription', { required: true })}

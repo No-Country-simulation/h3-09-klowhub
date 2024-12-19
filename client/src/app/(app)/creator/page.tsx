@@ -16,7 +16,7 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/men/32.jpg'
 			},
 			amount: 650,
-			type: 'COURSE',
+			type: 'Curso',
 			status: 'pending',
 			platform: 'POWERAPPS'
 		},
@@ -28,7 +28,7 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/women/45.jpg'
 			},
 			amount: 850,
-			type: 'LESSON',
+			type: 'Lección',
 			status: 'pending',
 			platform: 'APPSHEET'
 		},
@@ -40,7 +40,7 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/men/77.jpg'
 			},
 			amount: 1200,
-			type: 'app',
+			type: 'Aplicación',
 			status: 'pending',
 			platform: 'APPSHEET'
 		},
@@ -52,7 +52,7 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/women/34.jpg'
 			},
 			amount: 500,
-			type: 'project',
+			type: 'Proyecto',
 			status: 'pending',
 			platform: 'POWERAPPS'
 		},
@@ -64,7 +64,7 @@ export default function CreatorHome() {
 				image: 'https://randomuser.me/api/portraits/women/71.jpg'
 			},
 			amount: 700,
-			type: 'LESSON',
+			type: 'Lección',
 			status: 'pending',
 			platform: 'APPSHEET'
 		}
@@ -86,11 +86,11 @@ export default function CreatorHome() {
 					Revisa los detalles, realiza entregas y mantén la comunicación con el
 					creador para asegurar el éxito de tu trabajo.
 				</p>
-				<div className="flex items-start gap-6">
-					<div className="flex-grow">
+				<div className="flex flex-col xl:flex-row items-start gap-6">
+					<div className="w-full xl:flex-grow">
 						<ProjectsTable projects={mockProjects} />
 					</div>
-					<div className="w-[300px]">
+					<div className="w-full xl:w-[300px]">
 						<GlobalStatsList stats={statsData} />
 					</div>
 				</div>

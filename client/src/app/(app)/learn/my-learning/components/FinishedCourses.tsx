@@ -9,7 +9,7 @@ export default function FinishedCourses() {
 		title: 'Construcción de Aplicaciones Empresariales con PowerApps',
 		shortDescription:
 			'Aprende a desarrollar aplicaciones empresariales desde cero con PowerApps.',
-		platform: 'POWERAPPS',
+		platform: 'PowerApps',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['PowerApps', 'Microsoft Teams'],
@@ -28,8 +28,8 @@ export default function FinishedCourses() {
 				text: 'Cubrió todas mis expectativas, muy recomendable.'
 			}
 		],
-		contentType: 'PAID',
-		courseType: 'COURSE',
+		contentType: 'Pago',
+		courseType: 'Curso',
 		level: 'intermediate',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -84,7 +84,7 @@ export default function FinishedCourses() {
 		title: 'Optimización de Ventas con AppSheet',
 		shortDescription:
 			'Mejora tus procesos de ventas usando aplicaciones personalizadas en AppSheet.',
-		platform: 'APPSHEET',
+		platform: 'AppSheet',
 		language: 'Inglés',
 		sector: 'Ventas y CRM',
 		toolsAndPlatforms: ['AppSheet', 'Google Drive'],
@@ -103,8 +103,8 @@ export default function FinishedCourses() {
 				text: 'Me ayudó mucho, aunque algunas partes fueron rápidas.'
 			}
 		],
-		contentType: 'PAID',
-		courseType: 'LESSON',
+		contentType: 'Pago',
+		courseType: 'Lección',
 		level: 'advanced',
 		contentPillar: 'Automatización',
 		learningOutcomes: [
@@ -153,7 +153,7 @@ export default function FinishedCourses() {
 		title: 'Creación de Flujos con Power Automate',
 		shortDescription:
 			'Domina la creación de flujos básicos con Power Automate.',
-		platform: 'POWERAPPS',
+		platform: 'PowerApps',
 		language: 'Español',
 		sector: 'Gestión Empresarial',
 		toolsAndPlatforms: ['Power Automate', 'Microsoft Excel'],
@@ -172,8 +172,8 @@ export default function FinishedCourses() {
 				text: 'Me hubiera gustado más detalle en las configuraciones.'
 			}
 		],
-		contentType: 'FREE',
-		courseType: 'LESSON',
+		contentType: 'Gratuito',
+		courseType: 'Lección',
 		level: 'basic',
 		contentPillar: 'Automatización',
 		learningOutcomes: [

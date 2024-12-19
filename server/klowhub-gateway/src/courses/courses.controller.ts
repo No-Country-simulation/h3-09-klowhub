@@ -5,15 +5,12 @@ import {
   Get,
   Inject,
   Param,
-  ParseIntPipe,
   ParseUUIDPipe,
   Patch,
   Post,
   Query,
   UseInterceptors,
   UploadedFile,
-  BadRequestException,
-  UploadedFiles,
 } from '@nestjs/common';
 
 import { ClientProxy, RpcException } from '@nestjs/microservices';
@@ -28,8 +25,7 @@ import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
   constructor(
@@ -37,25 +33,38 @@ export class CoursesController {
   ) {}
   // Courses
 
-  @Get('findCoursesByUserId/:userId')
-  findCoursesByUserId(@Param('userId') userId: string) {
-    return this.courseClient.send({ cmd: 'find_courses_by_user_id' }, userId);
+  @Get('findCoursesByUserId/:creator_id')
+  async findCoursesByUserId(
+    @Param('creator_id', ParseUUIDPipe) creator_id: string,
+  ) {
+    try {
+      const product = await firstValueFrom(
+        this.courseClient.send('find_courses_by_user_id', { creator_id }),
+      );
+      return product;
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @Post('create')
   createCourse(@Body() createCourseDto: CourseDto) {
-    return this.courseClient.send({ cmd: 'create_course' }, createCourseDto);
+    return this.courseClient.send('create_course', createCourseDto);
   }
-  @Get('findAll')
-  findAllCourses(@Query() paginationDto: PaginationDto) {
-    return this.courseClient.send({ cmd: 'find_all_courses' }, paginationDto);
+  @Post('findAll')
+  findAllCourses(
+    @Body() body: { pagination: PaginationDto; filters: FilterCoursesDto },
+  ) {
+    const { pagination, filters } = body;
+    // Aquí pasamos tanto los filtros como la paginación al microservicio
+    return this.courseClient.send('find_all_courses', { pagination, filters });
   }
 
   @Get('course/:id')
   async findOneCourse(@Param('id') id: string) {
     try {
       const course = await firstValueFrom(
-        this.courseClient.send({ cmd: 'find_one_course_by_id' }, { id }),
+        this.courseClient.send('find_one_course_by_id', { id }),
       );
       return course;
     } catch (error) {
@@ -70,10 +79,7 @@ export class CoursesController {
   ) {
     try {
       const course = await firstValueFrom(
-        this.courseClient.send(
-          { cmd: 'update_course' },
-          { id, ...updateCourseDto },
-        ),
+        this.courseClient.send('update_course', { id, ...updateCourseDto }),
       );
       return course;
     } catch (error) {
@@ -89,7 +95,7 @@ export class CoursesController {
 
     console.log('Deleting course with ID:', id);
 
-    return this.courseClient.send({ cmd: 'delete_course' }, { id }).pipe(
+    return this.courseClient.send('delete_course', { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
@@ -114,7 +120,7 @@ export class CoursesController {
       originalname: file.originalname,
       mimetype: file.mimetype,
     };
-    return this.courseClient.send({ cmd: 'upload_image' }, fileData);
+    return this.courseClient.send('upload_image', fileData);
   }
 
   @Post('uploadLessonVideo')
@@ -126,32 +132,24 @@ export class CoursesController {
       originalname: file.originalname,
       mimetype: file.mimetype,
     };
-    return this.courseClient.send({ cmd: 'upload_lesson_video' }, fileData);
+    return this.courseClient.send('upload_lesson_video', fileData);
   }
 
   @Post('createLesson')
   createLesson(@Body() createLessonDto: CreateLessonDto) {
-    return this.courseClient.send({ cmd: 'create_lesson' }, createLessonDto);
+    return this.courseClient.send('create_lesson', createLessonDto);
   }
 
   @Get('findAllLessons')
   findAllCourseLessons(@Query() paginationDto: PaginationDto) {
-    return this.courseClient.send(
-      { cmd: 'find_all_course_lessons' },
-      paginationDto,
-    );
+    return this.courseClient.send('find_all_course_lessons', paginationDto);
   }
 
   @Get('courseLesson/:id')
   async findOneCourseLesson(@Param('id') id: string) {
     try {
       const courseLesson = await firstValueFrom(
-        this.courseClient.send(
-          {
-            cmd: 'find_one_course_lesson_by_id',
-          },
-          { id },
-        ),
+        this.courseClient.send('find_one_course_lesson_by_id', { id }),
       );
       return courseLesson;
     } catch (error) {
@@ -166,10 +164,10 @@ export class CoursesController {
   ) {
     try {
       const courseLesson = await firstValueFrom(
-        this.courseClient.send(
-          { cmd: 'update_course_lesson' },
-          { id, ...updateLessonDto },
-        ),
+        this.courseClient.send('update_course_lesson', {
+          id,
+          ...updateLessonDto,
+        }),
       );
       return courseLesson;
     } catch (error) {
@@ -185,7 +183,7 @@ export class CoursesController {
 
     console.log('Deleting course lesson with ID:', id);
 
-    return this.courseClient.send({ cmd: 'delete_course_lesson' }, { id }).pipe(
+    return this.courseClient.send('delete_course_lesson', { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
@@ -211,14 +209,14 @@ export class CoursesController {
 
   @Get('findAllResources')
   findAllResources(@Query() paginationDto: PaginationDto) {
-    return this.courseClient.send({ cmd: 'find_all_resources' }, paginationDto);
+    return this.courseClient.send('find_all_resources', paginationDto);
   }
 
   @Get('resource/:id')
   async findOneResource(@Param('id') id: string) {
     try {
       const resource = await firstValueFrom(
-        this.courseClient.send({ cmd: 'find_one_resource_by_id' }, { id }),
+        this.courseClient.send('find_one_resource_by_id', { id }),
       );
       return resource;
     } catch (error) {
@@ -233,10 +231,7 @@ export class CoursesController {
   ) {
     try {
       const resource = await firstValueFrom(
-        this.courseClient.send(
-          { cmd: 'update_resource' },
-          { id, ...updateResourceDto },
-        ),
+        this.courseClient.send('update_resource', { id, ...updateResourceDto }),
       );
       return resource;
     } catch (error) {
@@ -252,7 +247,7 @@ export class CoursesController {
 
     console.log('Deleting resource with ID:', id);
 
-    return this.courseClient.send({ cmd: 'delete_resource' }, { id }).pipe(
+    return this.courseClient.send('delete_resource', { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
@@ -271,19 +266,19 @@ export class CoursesController {
 
   @Post('createModule')
   createModule(@Body() createModuleDto: ModuleDto) {
-    return this.courseClient.send({ cmd: 'create_module' }, createModuleDto);
+    return this.courseClient.send('create_module', createModuleDto);
   }
 
   @Get('findAllModules')
   findAllModules(@Query() paginationDto: PaginationDto) {
-    return this.courseClient.send({ cmd: 'find_all_modules' }, paginationDto);
+    return this.courseClient.send('find_all_modules', paginationDto);
   }
 
   @Get('findOneModule/:id')
   async findOneModule(@Param('id') id: string) {
     try {
       const module = await firstValueFrom(
-        this.courseClient.send({ cmd: 'find_one_module_by_id' }, { id }),
+        this.courseClient.send('find_one_module_by_id', { id }),
       );
       return module;
     } catch (error) {
@@ -298,10 +293,7 @@ export class CoursesController {
   ) {
     try {
       const module = await firstValueFrom(
-        this.courseClient.send(
-          { cmd: 'update_module' },
-          { id, ...updateModuleDto },
-        ),
+        this.courseClient.send('update_module', { id, ...updateModuleDto }),
       );
       return module;
     } catch (error) {
@@ -315,9 +307,9 @@ export class CoursesController {
       throw new RpcException('id is required');
     }
 
-    console.log('Deleting resource with ID:', id);
+    // console.log('Deleting resource with ID:', id);
 
-    return this.courseClient.send({ cmd: 'delete_module' }, { id }).pipe(
+    return this.courseClient.send('delete_module', { id }).pipe(
       catchError((err) => {
         console.error('Error from microservice:', err);
         const errorMessage =
@@ -330,5 +322,14 @@ export class CoursesController {
         });
       }),
     );
+  }
+
+  @Post('validateProducts')
+  async validateProducts(@Body('ids') ids: string[]) {
+    try {
+      return this.courseClient.send('validateProducts', ids);
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 }

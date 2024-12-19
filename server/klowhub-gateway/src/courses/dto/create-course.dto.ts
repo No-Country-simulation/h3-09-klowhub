@@ -7,6 +7,7 @@ import {
   IsEnum,
   IsBoolean,
   IsInt,
+  IsUUID,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ModuleDto } from './create-module.dto';
@@ -68,17 +69,9 @@ export class CourseDto {
   @IsString()
   public detailedDescription: string;
 
+  @IsUUID()
   @IsNotEmpty()
-  @IsBoolean()
-  public approved: boolean;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  public available: boolean;
-
-  @IsNotEmpty()
-  @IsString()
-  public creator: string;
+  public creator_id: string;
 
   @IsArray()
   @IsNotEmpty()

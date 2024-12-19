@@ -1,13 +1,15 @@
 import {
+  HttpStatus,
   Injectable,
   Logger,
   OnModuleInit,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient, Roles, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class UserService extends PrismaClient implements OnModuleInit {
@@ -54,6 +56,35 @@ export class UserService extends PrismaClient implements OnModuleInit {
     return updateUser;
   }
 
+  async assignSellerRole(userId: string): Promise<string> {
+    this.logger.log('Assigning SELLER role to user');
+
+    const user = await this.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new RpcException({
+        status: HttpStatus.NOT_FOUND,
+        message: `User with ID ${userId} not found`,
+      });
+    }
+
+    // Verificar si el usuario ya tiene el rol SELLER
+    if (Array.isArray(user.role) && user.role.includes(Roles.SELLER)) {
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: 'User already has the SELLER role',
+      });
+    }
+    const updatedRoles = [...user.role, Roles.SELLER];
+
+    // Actualizar los roles del usuario
+    await this.user.update({
+      where: { id: userId },
+      data: { role: updatedRoles },
+    });
+
+    return `SELLER role assigned to user with ID ${userId}`;
+  }
+
   async deleteUser(userId: string): Promise<User> {
     this.logger.log('delete_user');
 
@@ -65,4 +96,6 @@ export class UserService extends PrismaClient implements OnModuleInit {
     });
     return updateUser;
   }
+
+  
 }

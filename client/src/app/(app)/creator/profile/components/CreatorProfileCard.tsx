@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import MetricTag from './MetricTag'
 
 export default function CreatorProfileCard() {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 	const router = useRouter()
 
 	const metrics = [
@@ -30,7 +30,7 @@ export default function CreatorProfileCard() {
 			<div className="flex gap-12">
 				<div className="flex w-[25%] flex-col items-center gap-2">
 					<Image
-						src={session?.user?.image || '/client/public/img/user_avatar.png'}
+						src={session?.user?.image || '/img/user_avatar.png'}
 						alt="user avatar"
 						width={175}
 						height={175}

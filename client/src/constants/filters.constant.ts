@@ -97,3 +97,9 @@ export const platforms = {
 	APPSHEET: 'AppSheet',
 	POWERAPPS: 'PowerApps'
 }
+
+export const levels = {
+	basic: 'Básico',
+	intermediate: 'Intermedio',
+	advanced: 'Avanzado'
+}

@@ -36,4 +36,4 @@ export const typeTags = {
 	mentoring: 'Mentoría',
 	project: 'Proyecto',
 	LESSON: 'Lección'
-}
+} as const

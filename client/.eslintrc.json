@@ -33,6 +33,7 @@
 			"error",
 			"tab",
 			{
+				"indent": "off",
 				"SwitchCase": 1,
 				"MemberExpression": 1,
 				"flatTernaryExpressions": true,

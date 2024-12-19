@@ -2,9 +2,12 @@
 /dist
 /node_modules
 /build
-
+orders-ms-deployment.yaml
+# others
+/api
 postgres/
 prisma/migrations/
+pnpm-lock.yaml
 
 # Logs
 logs

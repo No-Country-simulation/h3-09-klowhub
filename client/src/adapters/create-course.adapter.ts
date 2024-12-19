@@ -1,29 +1,42 @@
+import {
+	contentTypes,
+	courseTypes,
+	platforms
+} from '@/constants/filters.constant'
 import { Course, Lesson, Module } from '@/models/course.model'
 import { CreateCourseRequest } from '@/models/create-course-request.model'
 import { CreateLessonRequest } from '@/models/create-lesson-request.model'
 import { CreateModuleRequest } from '@/models/create-module-request.model'
 import { CreateResourceRequest } from '@/models/create-resource-request.model'
 
+interface CourseAdapterProps {
+	course: Course
+	creator: string | undefined
+}
+
 export function courseAdapter({
-	title,
-	image,
-	shortDescription,
-	price,
-	platform,
-	functionalities,
-	relatedTags,
-	language,
-	sector,
-	toolsAndPlatforms,
-	contentType,
-	courseType,
-	level,
-	contentPillar,
-	learningOutcomes,
-	prerequisites,
-	detailedDescription,
+	course,
 	creator
-}: Course): CreateCourseRequest {
+}: CourseAdapterProps): CreateCourseRequest {
+	const {
+		title,
+		image,
+		shortDescription,
+		price,
+		platform,
+		functionalities,
+		relatedTags,
+		language,
+		sector,
+		toolsAndPlatforms,
+		contentType,
+		courseType,
+		level,
+		contentPillar,
+		learningOutcomes,
+		prerequisites,
+		detailedDescription
+	} = course
 	const learningOutcomesArray =
 		typeof learningOutcomes === 'string'
 			? learningOutcomes.split(',')
@@ -36,22 +49,20 @@ export function courseAdapter({
 		photo: image as string,
 		shortDescription: shortDescription,
 		price: parseFloat(price.toString()),
-		platform: [platform],
+		platform: [platform] as unknown as keyof (typeof platforms)[],
 		functionalities: functionalities,
 		relatedTags: relatedTags,
 		language: language,
 		sector: sector,
 		toolsAndPlatforms: toolsAndPlatforms,
-		contentType: contentType,
-		courseType: courseType,
+		contentType: contentType as unknown as keyof typeof contentTypes,
+		courseType: courseType as unknown as keyof typeof courseTypes,
 		level: level,
 		contentPillar: contentPillar,
 		learningOutcomes: learningOutcomesArray,
 		prerequisites: prerequisitesArray,
 		detailedDescription: detailedDescription,
-		approved: true,
-		available: true,
-		creator: creator
+		creator_id: creator ?? '1111'
 	}
 }
 

@@ -13,6 +13,7 @@ import {
 	createModule,
 	createResource
 } from '@/services/courses.service'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -33,7 +34,7 @@ const initialCourseState: Course = {
 	language: '',
 	sector: '',
 	toolsAndPlatforms: [],
-	contentType: 'FREE',
+	contentType: 'Gratuito',
 	courseType: 'COURSE',
 	level: 'basic',
 	contentPillar: '',
@@ -48,6 +49,8 @@ export default function CreateCoursePage() {
 	const [tabValue, setTabValue] = useState(1)
 	const [formData, setFormData] = useState<Course>(initialCourseState)
 	const [addedModules, setAddedModules] = useState<Module[]>([])
+	const { data: session } = useSession()
+	const creator = session?.user.id
 
 	const { register, handleSubmit, control, setValue, watch } = useForm<Course>()
 
@@ -60,7 +63,7 @@ export default function CreateCoursePage() {
 
 	//
 	const handleError = (error: unknown, context: string) => {
-		console.error(`Error en ${context}:`, error)
+		console.log(`Error en ${context}:`, error)
 	}
 
 	const postResources = async (
@@ -69,10 +72,11 @@ export default function CreateCoursePage() {
 		lessonId: string
 	) => {
 		const additionalResources = addedModules[moduleIndex].lessons[lessonIndex]
-			.additionalResources as string[]
+			.additionalResources as string[] | undefined
 		const adaptedResourcesToRequest = additionalResources?.map((resource) =>
 			resourceAdapter(resource, lessonId)
 		)
+		if (!adaptedResourcesToRequest) return
 		for (const [
 			resourceIndex,
 			adaptedResource
@@ -93,9 +97,10 @@ export default function CreateCoursePage() {
 	}
 
 	const postLessons = async (moduleIndex: number, moduleId: string) => {
-		const adaptedLessonsToRequest = addedModules[moduleIndex].lessons.map(
+		const adaptedLessonsToRequest = addedModules[moduleIndex].lessons?.map(
 			(lesson, index) => lessonAdapter(lesson, moduleId, index)
 		)
+		if (!adaptedLessonsToRequest) return
 		for (const [
 			lessonIndex,
 			adaptedLesson
@@ -128,6 +133,7 @@ export default function CreateCoursePage() {
 		const adaptedModulesToRequest = addedModules.map((module, index) =>
 			moduleAdapter(module, courseId, index)
 		)
+		if (!adaptedModulesToRequest) return
 
 		for (const [
 			moduleIndex,
@@ -152,8 +158,10 @@ export default function CreateCoursePage() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const postCourse = async (finalData: any) => {
 		try {
-			const adaptedCourseToRequest = courseAdapter(finalData)
-			console.log('adaptedCourseToRequest: ', adaptedCourseToRequest)
+			const adaptedCourseToRequest = courseAdapter({
+				course: finalData,
+				creator
+			})
 
 			const createdCourse = await createCourse(adaptedCourseToRequest)
 
@@ -173,7 +181,6 @@ export default function CreateCoursePage() {
 
 	const onSubmit = async (data: object) => {
 		const finalData = { ...formData, ...data, modules: addedModules }
-		console.log('Datos finales para enviar: ', finalData)
 		await postCourse(finalData)
 		router.push('/creator/my-courses')
 	}
@@ -204,11 +211,11 @@ export default function CreateCoursePage() {
 			prevModules.map((module, index) =>
 				index === moduleIndex
 					? {
-						...module,
-						lessons: module.lessons.filter(
-							(_, index) => index !== lessonIndex
-						)
-					}
+							...module,
+							lessons: module.lessons.filter(
+								(_, index) => index !== lessonIndex
+							)
+						}
 					: module
 			)
 		)

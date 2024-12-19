@@ -4,7 +4,7 @@ export const sections = {
 		text: 'Mis cursos'
 	},
 	appstore: {
-		href: '/creator/app-store',
+		href: '/creator/my-apps',
 		text: 'Mis aplicaciones'
 	},
 	projects: {

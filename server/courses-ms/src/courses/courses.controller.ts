@@ -1,9 +1,5 @@
 import {
   Controller,
-  Param,
-  UploadedFile,
-  UseInterceptors,
-  BadRequestException,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import {
@@ -21,42 +17,41 @@ import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   // Course
-  @MessagePattern({ cmd: 'find_courses_by_user_id' })
-  async findCoursesByUserId(@Payload('userId') userId: string) {
-    return this.coursesService.findCoursesByUserId(userId);
+  @MessagePattern('find_courses_by_user_id')
+  async findCoursesByUserId(@Payload('creator_id') creator_id: string) {
+    return this.coursesService.findCoursesByUserId(creator_id);
   }
 
-  @MessagePattern({ cmd: 'create_course' })
+  @MessagePattern('create_course')
   async signupCourse(@Payload() courseData: CourseDto) {
     return this.coursesService.createCourse(courseData);
   }
 
-  @MessagePattern({ cmd: 'find_all_courses' })
-  async getAllCourses() {
-    return this.coursesService.getAllCourses();
+  @MessagePattern('find_all_courses') //
+  async findAll(@Payload() data: { filters: FilterCoursesDto }) {
+    const { filters } = data; // Extraer los filtros del objeto recibido
+    return this.coursesService.getAllCourses(filters); // Llamamos al servicio con los filtros
   }
 
-  @MessagePattern({ cmd: 'find_one_course_by_id' })
+  @MessagePattern('find_one_course_by_id')
   async getCourseById(@Payload('id') id: string) {
     return this.coursesService.findOneCourseById(id);
   }
 
-  @MessagePattern({ cmd: 'update_course' })
+  @MessagePattern('update_course')
   async updateCourse(
     @Payload() updateData: UpdateCourseDto,
   ): Promise<CourseModel> {
     return this.coursesService.updateCourse(updateData.id, updateData);
   }
 
-  @MessagePattern({ cmd: 'delete_course' })
+  @MessagePattern('delete_course')
   async deleteCourse(@Payload('id') id: string): Promise<CourseModel> {
     if (!id) {
       throw new RpcException('id is required');
@@ -65,7 +60,7 @@ export class CoursesController {
     return this.coursesService.deleteCourse(id);
   }
   //  Image
-  @MessagePattern({ cmd: 'upload_image' })
+  @MessagePattern('upload_image')
   async uploadImage(
     @Payload()
     file: {
@@ -84,7 +79,7 @@ export class CoursesController {
 
   // Lesson
 
-  @MessagePattern({ cmd: 'upload_lesson_video' })
+  @MessagePattern('upload_lesson_video')
   async uploadLessonVideo(
     @Payload()
     file: {
@@ -101,29 +96,29 @@ export class CoursesController {
     });
   }
 
-  @MessagePattern({ cmd: 'create_lesson' })
+  @MessagePattern('create_lesson')
   async signupLesson(@Payload() lessonData: CreateLessonDto) {
     return this.coursesService.createLesson(lessonData);
   }
 
-  @MessagePattern({ cmd: 'find_all_course_lessons' })
+  @MessagePattern('find_all_course_lessons')
   async getAllCourseLessons() {
     return this.coursesService.getAllCourseLessons();
   }
 
-  @MessagePattern({ cmd: 'find_one_course_lesson_by_id' })
+  @MessagePattern('find_one_course_lesson_by_id')
   async getCourseLessonById(@Payload('id') id: string) {
     return this.coursesService.findOneCourseLessonById(id);
   }
 
-  @MessagePattern({ cmd: 'update_course_lesson' })
+  @MessagePattern('update_course_lesson')
   async updateCourseLesson(
     @Payload() updateData: UpdateLessonDto,
   ): Promise<CourseLessonModel> {
     return this.coursesService.updateCourseLesson(updateData.id, updateData);
   }
 
-  @MessagePattern({ cmd: 'delete_course_lesson' })
+  @MessagePattern('delete_course_lesson')
   async deleteCourseLesson(@Payload('id') id: string) {
     if (!id) {
       throw new RpcException('id is required');
@@ -133,29 +128,29 @@ export class CoursesController {
 
   //// Resource
 
-  @MessagePattern({ cmd: 'create_resource' })
+  @MessagePattern('create_resource')
   async createResource(@Payload() resourceData: CreateResourceDto) {
     return this.coursesService.createResource(resourceData);
   }
 
-  @MessagePattern({ cmd: 'find_all_resources' })
+  @MessagePattern('find_all_resources')
   async getAllResources() {
     return this.coursesService.getAllResources();
   }
 
-  @MessagePattern({ cmd: 'find_one_resource_by_id' })
+  @MessagePattern('find_one_resource_by_id')
   async getResourceById(@Payload('id') id: string) {
     return this.coursesService.findOneResourceById(id);
   }
 
-  @MessagePattern({ cmd: 'update_resource' })
+  @MessagePattern('update_resource')
   async updateResource(
     @Payload() updateData: UpdateResourceDto,
   ): Promise<ResourceModel> {
     return this.coursesService.updateResource(updateData.id, updateData);
   }
 
-  @MessagePattern({ cmd: 'delete_resource' })
+  @MessagePattern('delete_resource')
   async deleteResource(@Payload('id') id: string) {
     if (!id) {
       throw new RpcException('id is required');
@@ -165,33 +160,43 @@ export class CoursesController {
 
   // Module
 
-  @MessagePattern({ cmd: 'create_module' })
+  @MessagePattern('create_module')
   async signupModule(@Payload() moduleData: ModuleDto) {
     return this.coursesService.createModule(moduleData);
   }
 
-  @MessagePattern({ cmd: 'find_all_modules' })
+  @MessagePattern('find_all_modules')
   async getAllModules() {
     return this.coursesService.getAllModules();
   }
 
-  @MessagePattern({ cmd: 'find_one_module_by_id' })
+  @MessagePattern('find_one_module_by_id')
   async getModuleById(@Payload('id') id: string) {
     return this.coursesService.findOneModuleById(id);
   }
 
-  @MessagePattern({ cmd: 'update_module' })
+  @MessagePattern('update_module')
   async updateModule(
     @Payload() updateData: UpdateModuleDto,
   ): Promise<ModuleModel> {
     return this.coursesService.updateModule(updateData.id, updateData);
   }
 
-  @MessagePattern({ cmd: 'delete_module' })
+  @MessagePattern('delete_module')
   async deleteModule(@Payload('id') id: string) {
     if (!id) {
       throw new RpcException('id is required');
     }
     return this.coursesService.deleteModule(id);
+  }
+
+  @MessagePattern('validateProducts')
+  async validateProducts(@Payload() ids: string[]) {
+    return this.coursesService.validateProducts(ids);
+  }
+
+  @MessagePattern('getAllByIds')
+  async getAllById(ids: string[]) {
+    return this.coursesService.getAllByIds(ids)
   }
 }

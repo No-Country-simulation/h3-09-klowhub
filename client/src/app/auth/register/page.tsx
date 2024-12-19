@@ -1,10 +1,10 @@
 'use client'
 import Button from '@/components/buttons/Button'
+import axios, { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import axios, { AxiosError } from 'axios'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface IFormInput {
 	name: string
@@ -14,7 +14,6 @@ interface IFormInput {
 }
 export default function Page() {
 	const { data: session, status } = useSession()
-	console.log({ session, status })
 
 	const router = useRouter()
 
@@ -43,7 +42,6 @@ export default function Page() {
 				console.error('Error en registro: Verifica los datos ingresados.')
 				return
 			}
-
 			router.push('/auth/login')
 		} catch (error) {
 			if (error instanceof AxiosError) {

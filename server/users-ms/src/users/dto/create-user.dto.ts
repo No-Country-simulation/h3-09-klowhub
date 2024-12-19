@@ -9,8 +9,8 @@ import {
 
 export class UserDto {
   @IsString()
-  @IsNotEmpty()
-  public name: string;
+  @IsOptional()
+  public name?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -27,7 +27,7 @@ export class UserDto {
 
   @IsOptional()
   @IsString()
-  public photo?: string;
+  public image?: string;
 
   @IsOptional()
   public available?: boolean;
