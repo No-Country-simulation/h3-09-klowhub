@@ -1,8 +1,8 @@
 'use client'
 import Button from '@/components/buttons/Button'
 import Link from 'next/link'
-import MyCourses from '../../learn/my-learning/components/MyCourses'
 import LatestSales from './components/LatestSales'
+import MyCreatedCourses from './components/MyCreatedCourses'
 
 export default function MyCoursesPage() {
 	return (
@@ -18,7 +18,7 @@ export default function MyCoursesPage() {
 
 			<div className="flex w-full flex-col gap-12 rounded-lg bg-card p-6">
 				<LatestSales />
-				<MyCourses />
+				<MyCreatedCourses />
 			</div>
 		</>
 	)
