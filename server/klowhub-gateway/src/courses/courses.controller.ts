@@ -5,15 +5,12 @@ import {
   Get,
   Inject,
   Param,
-  ParseIntPipe,
   ParseUUIDPipe,
   Patch,
   Post,
   Query,
   UseInterceptors,
   UploadedFile,
-  BadRequestException,
-  UploadedFiles,
 } from '@nestjs/common';
 
 import { ClientProxy, RpcException } from '@nestjs/microservices';
@@ -28,8 +25,6 @@ import { ModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { FilterCoursesDto } from './dto/filter-course.dto';
 @Controller('courses')
 export class CoursesController {
@@ -38,9 +33,18 @@ export class CoursesController {
   ) {}
   // Courses
 
-  @Get('findCoursesByUserId/:creator')
-  findCoursesByUserId(@Param('creator') creator: string) {
-    return this.courseClient.send('find_courses_by_user_id', creator);
+  @Get('findCoursesByUserId/:creator_id')
+  async findCoursesByUserId(
+    @Param('creator_id', ParseUUIDPipe) creator_id: string,
+  ) {
+    try {
+      const product = await firstValueFrom(
+        this.courseClient.send('find_courses_by_user_id', { creator_id }),
+      );
+      return product;
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 
   @Post('create')
@@ -323,9 +327,9 @@ export class CoursesController {
   @Post('validateProducts')
   async validateProducts(@Body('ids') ids: string[]) {
     try {
-      return this.courseClient.send('validateProducts', ids)
+      return this.courseClient.send('validateProducts', ids);
     } catch (error) {
-      throw new RpcException(error)
+      throw new RpcException(error);
     }
   }
 }
