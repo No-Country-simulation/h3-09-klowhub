@@ -108,7 +108,8 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
       OrderItem: order.OrderItem.map(orderItem => ({
         ...orderItem,
         title: products.find(product => product.id === orderItem.productId).title
-      }))
+      })),
+      discounts: createOrderDto.discounts
     }
   }
 
@@ -195,19 +196,29 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   }
 
   async createPaymentSession(order: OrderWithProducts) {
-    const paymentSession = await firstValueFrom(
-      this.paymentService.send('create-payment-session', {
-        orderId: order.id,
-        currency: 'usd',
-        items: order.OrderItem.map(item => ({
-          name: item.title,
-          price: item.price,
-          quantity: item.quantity
-        }))
-      })
-    )
 
-    return paymentSession
+    try {
+      const paymentSession = await firstValueFrom(
+        this.paymentService.send('create-payment-session', {
+          orderId: order.id,
+          currency: 'usd',
+          items: order.OrderItem.map(item => ({
+            name: item.title,
+            price: item.price,
+            quantity: item.quantity
+          })),
+          discounts: order.discounts
+        })
+      )
+
+      return paymentSession
+
+    } catch (error) {
+      throw new RpcException({
+        status: error.status,
+        message: error.message
+      });
+    }
   }
 
   async paidOrder({ orderId, receiptUrl, stripeChargeId }: PaidOrderDto) {

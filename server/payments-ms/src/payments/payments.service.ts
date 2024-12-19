@@ -18,34 +18,43 @@ export class PaymentsService {
   ) { }
 
   async createPaymentSession(paymentSessionDto: PaymentSessionDto) {
-    const { currency, items, orderId } = paymentSessionDto;
+    const { currency, items, orderId, discounts } = paymentSessionDto;
 
-    const lineItems = items.map((item) => ({
-      price_data: {
-        currency,
-        product_data: {
-          name: item.name,
+    try {
+      const lineItems = items.map((item) => ({
+        price_data: {
+          currency,
+          product_data: {
+            name: item.name,
+            images: [item.imageUrl]
+          },
+          unit_amount: item.price * 100,
         },
-        unit_amount: item.price * 100,
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      }));
 
-    const session = await this.stripe.checkout.sessions.create({
-      payment_intent_data: {
-        metadata: { orderId },
-      },
+      const session = await this.stripe.checkout.sessions.create({
+        payment_intent_data: {
+          metadata: { orderId },
+        },
+        discounts,
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: envs.stripeSuccessUrl,
+        cancel_url: envs.stripeCancelUrl,
+      });
 
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: envs.stripeSuccessUrl,
-      cancel_url: envs.stripeCancelUrl,
-    });
+      return {
+        cancelUrl: session.cancel_url,
+        successUrl: session.success_url,
+        url: session.url
+      }
 
-    return {
-      cancelUrl: session.cancel_url,
-      successUrl: session.success_url,
-      url: session.url
+    } catch (error) {
+      throw new RpcException({
+        status: error.status,
+        message: error.message
+      });
     }
   }
 
