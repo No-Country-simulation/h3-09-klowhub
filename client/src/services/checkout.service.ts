@@ -28,3 +28,20 @@ export async function createOrder(
 	)
 	return data
 }
+
+export async function getOrdersByUserId(userId: string) {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/orders/all`,
+		{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ userId })
+		}
+	)
+	if (!response.ok) {
+		throw new Error('Failed to fetch orders')
+	}
+	return await response.json()
+}
