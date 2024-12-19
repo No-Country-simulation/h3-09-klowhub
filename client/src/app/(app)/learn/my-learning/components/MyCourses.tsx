@@ -3,7 +3,7 @@ import { coursesAdapter } from '@/adapters/read-course.adapter'
 import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
 import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
-import { getCoursesByUserId } from '@/services/courses.service'
+import { getOrdersByUserId } from '@/services/checkout.service'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -17,8 +17,10 @@ export default function MyCourses() {
 		void (async () => {
 			try {
 				if (!user) return []
+				const receivedOrders: [] = await getOrdersByUserId(user.id)
+				if (!receivedOrders) return []
 				const receivedCourses: ReadCourseItemResponse[] =
-					await getCoursesByUserId(user.id)
+					receivedOrders.flatMap((order: any) => order.items)
 				if (!receivedCourses || !Array.isArray(receivedCourses)) {
 					console.warn(
 						'Los datos proporcionados no son válidos:',
@@ -40,10 +42,10 @@ export default function MyCourses() {
 		<section className="flex flex-col gap-12">
 			<h4 className="text-base font-bold">Mis cursos</h4>
 			<div className="no-scrollbar flex flex-wrap gap-6 overflow-x-scroll pb-4 pl-4">
-				{myCourses.map((course) => {
+				{myCourses.map((course, _idx) => {
 					return (
 						<CourseCard
-							key={course.id}
+							key={_idx}
 							course={course}
 							linkButtonProps={{
 								text: 'Ver detalles',
