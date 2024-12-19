@@ -15,4 +15,5 @@ export interface OrderWithProducts {
   paidAt: Date | null;
   createdAt: Date;
   updateAt: Date;
+  discounts: any
 }

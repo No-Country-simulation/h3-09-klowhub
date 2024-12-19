@@ -3,14 +3,16 @@ import {
   ArrayMinSize,
   IsArray,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
 
 export class PaymentSessionDto {
-  //todo: replace by @IsUUID
-  @IsString()
+  @IsUUID()
   orderId: string;
 
   @IsString()
@@ -21,9 +23,25 @@ export class PaymentSessionDto {
   @ValidateNested({ each: true })
   @Type(() => PaymentSessionItemDto)
   items: PaymentSessionItemDto[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => Discount)
+  discounts?: Discount[];
+}
+
+export class Discount {
+  @IsString()
+  coupon: string
 }
 
 export class PaymentSessionItemDto {
+
+  @IsOptional()
+  @IsUrl()
+  imageUrl: string
+
   @IsString()
   name: string;
 

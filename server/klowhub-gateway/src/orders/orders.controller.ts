@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Inject, ParseUUIDPipe, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Inject, ParseUUIDPipe, Patch, HttpException } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 
 import { CreateOrderDto, StatusDto } from './dto';
@@ -18,7 +18,7 @@ export class OrdersController {
       const order = await firstValueFrom(this.orderClient.send('create-order', createOrderDto))
       return order
     } catch (error) {
-      throw new RpcException(error)
+      throw new HttpException(error.message, error.status)
     }
   }
 

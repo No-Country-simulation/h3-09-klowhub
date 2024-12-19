@@ -86,4 +86,9 @@ export class AppsController {
   async validateProducts(@Payload() ids: string[]) {
     return this.appsService.validateProducts(ids)
   }
+
+  @MessagePattern('getAllByIds')
+  async getAllById(ids: string[]) {
+    return this.appsService.getAllByIds(ids)
+  }
 }

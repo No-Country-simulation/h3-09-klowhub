@@ -108,7 +108,8 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
       OrderItem: order.OrderItem.map(orderItem => ({
         ...orderItem,
         title: products.find(product => product.id === orderItem.productId).title
-      }))
+      })),
+      discounts: createOrderDto.discounts
     }
   }
 
@@ -134,7 +135,49 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
         message: `Order with id ${id} not found`,
       });
 
-    return order;
+    const products = order.OrderItem?.filter(({ id, type }) => ({ id, type }))
+
+    const appsIds = products
+      .filter(app => app.type === 'APP')
+      .map((app) => app.productId)
+
+    const coursesIds = products
+      .filter(course => course.type === 'COURSE')
+      .map((course => course.productId))
+
+    let appsFound = []
+    let coursesFound = []
+
+    if (appsIds.length >= 1) {
+      appsFound = await firstValueFrom(this.appClient.send('getAllByIds', appsIds))
+    }
+
+    if (coursesIds.length >= 1) {
+      coursesFound = await firstValueFrom(this.courseClient.send('getAllByIds', coursesIds))
+    }
+
+    const productsFound: Array<{ id: string }> = [...appsFound, ...coursesFound]
+
+    const productsDetail = order.OrderItem
+      .map(item => {
+        const productFound = productsFound.find(product => product.id === item.productId)
+
+        if (productFound) {
+          return {
+            ...productFound,
+            quantity: item.quantity,
+            price: item.price,
+            type: item.type
+          }
+        }
+      })
+
+    delete order.OrderItem
+
+    return {
+      ...order,
+      items: productsDetail
+    }
   }
 
   async changeStatus(changeOrderStatusDto: ChangeOrderStatusDto) {
@@ -153,19 +196,29 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   }
 
   async createPaymentSession(order: OrderWithProducts) {
-    const paymentSession = await firstValueFrom(
-      this.paymentService.send('create-payment-session', {
-        orderId: order.id,
-        currency: 'usd',
-        items: order.OrderItem.map(item => ({
-          name: item.title,
-          price: item.price,
-          quantity: item.quantity
-        }))
-      })
-    )
 
-    return paymentSession
+    try {
+      const paymentSession = await firstValueFrom(
+        this.paymentService.send('create-payment-session', {
+          orderId: order.id,
+          currency: 'usd',
+          items: order.OrderItem.map(item => ({
+            name: item.title,
+            price: item.price,
+            quantity: item.quantity
+          })),
+          discounts: order.discounts
+        })
+      )
+
+      return paymentSession
+
+    } catch (error) {
+      throw new RpcException({
+        status: error.status,
+        message: error.message
+      });
+    }
   }
 
   async paidOrder({ orderId, receiptUrl, stripeChargeId }: PaidOrderDto) {

@@ -1,9 +1,9 @@
-import { Controller, Inject } from '@nestjs/common';
-import { ClientProxy, EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
+import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { ChangeOrderStatusDto, PaidOrderDto } from './dto';
+import { ChangeOrderStatusDto } from './dto';
 
 @Controller()
 export class OrdersController {
@@ -41,5 +41,4 @@ export class OrdersController {
   async paidOrder(@Payload() data: any) {
     return this.ordersService.paidOrder(data)
   }
-
 }
