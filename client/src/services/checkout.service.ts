@@ -17,11 +17,6 @@ export async function createOrder(
 			type
 		}
 	})
-	console.log({
-		buyerUserId: userId,
-		items: fixedItems,
-		discounts: activeDiscountCode ? [{ coupon: activeDiscountCode }] : []
-	})
 
 	const data = await axios.post(
 		`${process.env.NEXT_PUBLIC_BACKEND_URL}/orders`,
@@ -31,7 +26,5 @@ export async function createOrder(
 			discounts: activeDiscountCode ? [{ coupon: activeDiscountCode }] : []
 		}
 	)
-	console.log(data)
-
 	return data
 }
