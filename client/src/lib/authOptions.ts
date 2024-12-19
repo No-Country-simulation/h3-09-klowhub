@@ -65,8 +65,26 @@ export const authOptions: NextAuthOptions = {
 		maxAge: 24 * 60 * 60
 	},
 	callbacks: {
+		async signIn({ user, account, profile }) {
+			// Validar solo para proveedores sociales
+			if (account?.provider && account.provider !== 'credentials') {
+				try {
+					const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/create`, {
+						email: user.email,
+						name: user.name,
+						image: user.image,
+						provider: account.provider,
+						providerAccountId: account.providerAccountId,
+					})
+					console.log('Usuario registrado exitosamente', response.data)
+				} catch (error) {
+					console.error('Error al registrar el usuario en el backend:', error)
+				}
+			}
+			return true
+		},
 		async redirect({ url, baseUrl }) {
-			baseUrl  = process.env.NEXTAUTH_URL as string
+			baseUrl = process.env.NEXTAUTH_URL as string
 			console.log('Redirect URL: ', url)
 			console.log('Base URL: ', baseUrl)
 			return baseUrl
