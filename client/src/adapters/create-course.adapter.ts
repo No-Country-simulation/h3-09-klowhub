@@ -62,9 +62,7 @@ export function courseAdapter({
 		learningOutcomes: learningOutcomesArray,
 		prerequisites: prerequisitesArray,
 		detailedDescription: detailedDescription,
-		approved: true,
-		available: true,
-		creator: creator ?? '1111'
+		creator_id: creator ?? '1111'
 	}
 }
 

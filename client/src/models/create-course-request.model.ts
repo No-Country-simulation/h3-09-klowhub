@@ -23,7 +23,7 @@ export interface CreateCourseRequest {
 	learningOutcomes: string[]
 	prerequisites: string[]
 	detailedDescription: string
-	approved: boolean
-	available: boolean
-	creator: string
+	approved?: boolean
+	available?: boolean
+	creator_id: string
 }

@@ -3,11 +3,11 @@ import { coursesAdapter } from '@/adapters/read-course.adapter'
 import CourseCard from '@/app/(app)/components/CourseCard'
 import { Course } from '@/models/course.model'
 import { ReadCourseItemResponse } from '@/models/read-courses-response.model'
-import { getOrdersByUserId } from '@/services/checkout.service'
+import { getCoursesByUserId } from '@/services/courses.service'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
-export default function MyCourses() {
+export default function MyCreatedCourses() {
 	const [myCourses, setMyCourses] = useState<Course[]>()
 
 	const { data: session } = useSession()
@@ -17,10 +17,9 @@ export default function MyCourses() {
 		void (async () => {
 			try {
 				if (!user) return []
-				const receivedOrders: [] = await getOrdersByUserId(user.id)
-				if (!receivedOrders) return []
 				const receivedCourses: ReadCourseItemResponse[] =
-					receivedOrders.flatMap((order: any) => order.items)
+					await getCoursesByUserId(user.id)
+				if (!receivedCourses) return []
 				if (!receivedCourses || !Array.isArray(receivedCourses)) {
 					console.warn(
 						'Los datos proporcionados no son válidos:',
