@@ -21,7 +21,7 @@
     ·
     <a href="http://klowhub-app.zapto.org/">Deploy</a>
     ·
-    <a href="https://docs.google.com/presentation/d/1JBc4hJX9XxDRVXj96_4uEcKB00PZFJQxYbE9TMXOzkI/edit#slide=id.g310bf0e0ad8_0_12">Demo Day</a>
+    <a href="https://docs.google.com/presentation/d/19pGdcw3GJWvD7G5s34lIYt0pN9WTphs7j2gr_d17URs/edit?usp=sharing">Demo Day</a>
   </p>
 </div>
 
