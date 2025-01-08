@@ -113,14 +113,78 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  findAll(userId: string) {
-    const orders = this.order.findMany({
-      where: { buyerUserId: userId }
+  // findAll(userId: string) {
+  //   const orders = this.order.findMany({
+  //     where: { buyerUserId: userId }
+  //   });
+  //   return orders;
+  // }
+  async findAll(userId: string) {
+    const orders = await this.order.findMany({
+      where: { buyerUserId: userId },
+      include: {
+        OrderItem: true,
+      },
     });
-
-    return orders;
+  
+    if (!orders || orders.length === 0) {
+      throw new RpcException({
+        status: HttpStatus.NOT_FOUND,
+        message: `No orders found for user with id ${userId}`,
+      });
+    }
+  
+    // Procesar cada orden para enriquecer los detalles de los productos
+    const enrichedOrders = await Promise.all(
+      orders.map(async (order) => {
+        const products = order.OrderItem?.filter(({ id, type }) => ({ id, type }));
+  
+        // const appsIds = products
+        //   .filter((app) => app.type === 'APP')
+        //   .map((app) => app.productId);
+  
+        const coursesIds = products
+          .filter((course) => course.type === 'COURSE')
+          .map((course) => course.productId);
+  
+        let appsFound = [];
+        let coursesFound = [];
+  
+        // if (appsIds.length >= 1) {
+        //   appsFound = await firstValueFrom(this.appClient.send('getAllByIds', appsIds));
+        // }
+  
+        if (coursesIds.length >= 1) {
+          coursesFound = await firstValueFrom(this.courseClient.send('getAllByIds', coursesIds));
+        }
+  
+        const productsFound: Array<{ id: string }> = [...appsFound, ...coursesFound];
+  
+        const productsDetail = order.OrderItem.map((item) => {
+          const productFound = productsFound.find((product) => product.id === item.productId);
+  
+          if (productFound) {
+            return {
+              ...productFound,
+              quantity: item.quantity,
+              price: item.price,
+              type: item.type,
+            };
+          }
+        }).filter(Boolean); // Filtrar productos no encontrados
+  
+        delete order.OrderItem;
+  
+        return {
+          ...order,
+          items: productsDetail,
+        };
+      })
+    );
+  
+    return enrichedOrders;
   }
-
+  
   async findOne(id: string) {
     const order = await this.order.findUnique({
       where: { id },
