@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Patch,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 
@@ -30,7 +31,10 @@ export class OrdersController {
       );
       return order;
     } catch (error) {
-      throw new HttpException(error.message, error.status);
+      throw new RpcException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Error create order',
+      });
     }
   }
 

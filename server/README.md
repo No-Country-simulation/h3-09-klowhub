@@ -64,6 +64,8 @@ APP_HOST= localhost
 GCP_PROJECT_ID= id de google
 BUCKETNAME= nombre del bucket de google storage
 DATABASE_URL= Link a una base de datos deployada
+USER_MICROSERVICE_HOST=localhost
+USER_MICROSERVICE_PORT=3001
 ```
 
 ### **courses-ms**
@@ -72,6 +74,8 @@ DATABASE_URL= Link a una base de datos deployada
 COURSES_HOST=localhost
 COURSES_PORT=3004
 DATABASE_URL_COURSES=Link a una base de datos deployada
+USER_HOST=localhost
+USER_PORT=3001
 ```
 
 ### **orders-ms**
@@ -79,6 +83,12 @@ DATABASE_URL_COURSES=Link a una base de datos deployada
 ```plaintext
 ORDER_PORT=3005
 ORDER_HOST=localhost
+APP_PORT=3002
+APP_HOST=localhost
+COURSE_PORT=3004
+COURSE_HOST=localhost
+PAYMENT_PORT=3006
+PAYMENT_HOST=localhost
 DATABASE_URL_ORDERS=Link a una base de datos deployada
 ```
 
@@ -87,9 +97,11 @@ DATABASE_URL_ORDERS=Link a una base de datos deployada
 ```plaintext
 PAYMENTS_PORT=3006
 PAYMENTS_HOST=localhost
+ORDER_PORT=3005
+ORDER_HOST=localhost
 STRIPE_SECRET_KEY=secreto de stripe
-STRIPE_SUCCESS_URL=
-STRIPE_CANCEL_URL=
+STRIPE_SUCCESS_URL=http://localhost:3000/payments/success
+STRIPE_CANCEL_URL=http://localhost:3000/payments/cancel
 STRIPE_ENDPOINT_SECRET=
 ```
 
